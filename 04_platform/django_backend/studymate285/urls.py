@@ -1,3 +1,5 @@
+import os
+
 from django.contrib import admin
 from django.http import JsonResponse
 from django.urls import path, include, re_path
@@ -63,12 +65,12 @@ urlpatterns = [
     path('', frontend_view, name='frontend'),  # This serves your homepage
 ]
 
-# Serve static files for the local packaged app. A production reverse proxy/CDN
-# should serve these paths in a deployed environment.
-for static_dir in getattr(settings, 'STATICFILES_DIRS', []):
+# Local dev only — on Vercel, static files are served from the CDN after collectstatic.
+if not os.environ.get('VERCEL'):
+    for static_dir in getattr(settings, 'STATICFILES_DIRS', []):
+        urlpatterns.append(
+            re_path(r'^static/(?P<path>.*)$', serve, {'document_root': static_dir})
+        )
     urlpatterns.append(
-        re_path(r'^static/(?P<path>.*)$', serve, {'document_root': static_dir})
+        re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT})
     )
-urlpatterns.append(
-    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT})
-)

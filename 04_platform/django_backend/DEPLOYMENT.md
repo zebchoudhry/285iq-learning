@@ -33,7 +33,13 @@ If a build log shows **“Build Completed in ~100ms”** with no `pip install`, 
 
 Vercel Postgres also provides `POSTGRES_URL` — either works.
 
-**500 FUNCTION_INVOCATION_FAILED** almost always means missing `DATABASE_URL` or migrations not applied. Check `https://your-app.vercel.app/api/health/` after deploy (should return `"database": true`).
+**500 FUNCTION_INVOCATION_FAILED** — fix in order:
+
+1. **Storage → Postgres** on Vercel, then confirm `POSTGRES_URL_NON_POOLING` or `DATABASE_URL` exists in env vars.
+2. **Run migrations** locally with the same URL: `vercel env pull` then `python manage.py migrate`.
+3. Open `/api/health/` — should show `"database": true`.
+4. If still a generic Vercel 500, add env var **`VERCEL_DIAGNOSTIC=1`**, redeploy, reload the page — you should see a **Python traceback** (or paste it here).
+5. Root `requirements.txt` must list packages directly (not `-r` subpaths) so Vercel installs Django/Postgres drivers.
 
 Optional: `LLM_*`, `STRIPE_*`, `ANTHROPIC_API_KEY` as in `.env.example`.
 

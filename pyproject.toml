@@ -7,5 +7,5 @@ description = "285IQ GCSE learning platform"
 [tool.vercel]
 entrypoint = "wsgi:application"
 
-[tool.vercel.scripts]
-build = "python manage.py migrate --noinput"
+# Migrations: run locally or via `vercel env pull` + `python manage.py migrate`
+# (build-time migrate often fails if DATABASE_URL is not available to the build).

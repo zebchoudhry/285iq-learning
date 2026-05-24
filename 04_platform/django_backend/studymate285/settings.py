@@ -98,10 +98,12 @@ WSGI_APPLICATION = 'studymate285.wsgi.application'
 
 # Database: DATABASE_URL (Vercel/Neon) > DB_ENGINE PostgreSQL > SQLite.
 # USE_SQLITE=True forces SQLite locally even when .env sets PostgreSQL.
+# Prefer non-pooling URL for serverless (Vercel Postgres provides both).
 _database_url = (
-    _env('DATABASE_URL')
+    _env('POSTGRES_URL_NON_POOLING')
+    or _env('DATABASE_URL')
     or _env('POSTGRES_URL')
-    or _env('POSTGRES_URL_NON_POOLING')
+    or _env('POSTGRES_PRISMA_URL')
 )
 _db_engine = config('DB_ENGINE', default='')
 _use_sqlite = config('USE_SQLITE', default=False, cast=bool)
@@ -109,11 +111,15 @@ _use_sqlite = config('USE_SQLITE', default=False, cast=bool)
 if _database_url:
     import dj_database_url
 
+    _db_ssl = _IS_VERCEL or not DEBUG
+    if 'sslmode=disable' in _database_url.lower():
+        _db_ssl = False
+
     DATABASES = {
         'default': dj_database_url.config(
             default=_database_url,
             conn_max_age=0 if _IS_VERCEL else 600,
-            ssl_require=_IS_VERCEL or not DEBUG,
+            ssl_require=_db_ssl,
         )
     }
 elif _IS_VERCEL:
@@ -192,10 +198,17 @@ if _use_whitenoise:
 
 if _IS_VERCEL:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    # Avoid hitting Postgres for django_session before migrations are applied.
     SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+    MIDDLEWARE.insert(
+        len(MIDDLEWARE) - 1,
+        'learning.middleware.VercelDiagnosticMiddleware',
+    )
+
+    if _env('VERCEL_DIAGNOSTIC', '0') in ('1', 'true', 'True'):
+        DEBUG = True
+        ALLOWED_HOSTS = ['*']
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
