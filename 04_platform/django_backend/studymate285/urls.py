@@ -1,8 +1,26 @@
 from django.contrib import admin
+from django.http import JsonResponse
 from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
+from django.db import connection
+
+
+def health_check(request):
+    """Lightweight health check for Vercel / uptime monitors."""
+    db_ok = True
+    db_error = ''
+    try:
+        connection.ensure_connection()
+    except Exception as exc:
+        db_ok = False
+        db_error = str(exc)[:200]
+    status_code = 200 if db_ok else 503
+    return JsonResponse(
+        {'status': 'ok' if db_ok else 'degraded', 'database': db_ok, 'detail': db_error},
+        status=status_code,
+    )
 from learning.views import frontend_view, lessons_page, quiz_page, parent_dashboard_page, revision_planner_page, mock_tests_page, subjects_page, flashcards_page, mistakes_page, mistake_retry_page, exam_readiness_page, subject_detail_page
 from learning.billing_views import (
     create_checkout_session,
@@ -14,6 +32,7 @@ from learning.billing_views import (
 from users import views as user_views
 
 urlpatterns = [
+    path('api/health/', health_check, name='health_check'),
     path('admin/', admin.site.urls),
     path('api/users/', include('users.urls')),  # User authentication API endpoints
     path('api/billing/create-checkout-session/', create_checkout_session, name='billing-create-checkout'),

@@ -27,9 +27,13 @@ If a build log shows **“Build Completed in ~100ms”** with no `pip install`, 
 |----------|----------|---------|
 | `SECRET_KEY` | Yes | long random string |
 | `DEBUG` | Yes | `False` |
-| `DATABASE_URL` | Yes | `postgres://...` (from Vercel Postgres or Neon) |
+| `DATABASE_URL` | **Yes** | `postgres://...` (Vercel Postgres sets this automatically) |
 | `ALLOWED_HOSTS` | Yes | `your-app.vercel.app,285iq.com,www.285iq.com` |
 | `CSRF_TRUSTED_ORIGINS` | Yes | `https://your-app.vercel.app,https://285iq.com` |
+
+Vercel Postgres also provides `POSTGRES_URL` — either works.
+
+**500 FUNCTION_INVOCATION_FAILED** almost always means missing `DATABASE_URL` or migrations not applied. Check `https://your-app.vercel.app/api/health/` after deploy (should return `"database": true`).
 
 Optional: `LLM_*`, `STRIPE_*`, `ANTHROPIC_API_KEY` as in `.env.example`.
 

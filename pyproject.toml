@@ -6,3 +6,6 @@ description = "285IQ GCSE learning platform"
 
 [tool.vercel]
 entrypoint = "wsgi:application"
+
+[tool.vercel.scripts]
+build = "python manage.py migrate --noinput"

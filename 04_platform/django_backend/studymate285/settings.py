@@ -1,15 +1,23 @@
 import os
 from pathlib import Path
+
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+_IS_VERCEL = bool(os.environ.get('VERCEL'))
+
+
+def _env(name, default=''):
+    """Prefer real environment variables (Vercel) over .env files."""
+    return os.environ.get(name) or config(name, default=default)
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-me-in-production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False if _IS_VERCEL else True, cast=bool)
 
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
@@ -50,7 +58,8 @@ INSTALLED_APPS = [
     'decision_engine',
 ]
 
-_use_whitenoise = os.environ.get('VERCEL') or config('USE_WHITENOISE', default=False, cast=bool)
+# WhiteNoise is for local/Docker only; Vercel serves static files from the CDN.
+_use_whitenoise = (not _IS_VERCEL) and config('USE_WHITENOISE', default=False, cast=bool)
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -89,7 +98,11 @@ WSGI_APPLICATION = 'studymate285.wsgi.application'
 
 # Database: DATABASE_URL (Vercel/Neon) > DB_ENGINE PostgreSQL > SQLite.
 # USE_SQLITE=True forces SQLite locally even when .env sets PostgreSQL.
-_database_url = config('DATABASE_URL', default='') or os.environ.get('POSTGRES_URL', '')
+_database_url = (
+    _env('DATABASE_URL')
+    or _env('POSTGRES_URL')
+    or _env('POSTGRES_URL_NON_POOLING')
+)
 _db_engine = config('DB_ENGINE', default='')
 _use_sqlite = config('USE_SQLITE', default=False, cast=bool)
 
@@ -99,9 +112,17 @@ if _database_url:
     DATABASES = {
         'default': dj_database_url.config(
             default=_database_url,
-            conn_max_age=600,
-            ssl_require=not DEBUG,
+            conn_max_age=0 if _IS_VERCEL else 600,
+            ssl_require=_IS_VERCEL or not DEBUG,
         )
+    }
+elif _IS_VERCEL:
+    # Ephemeral fallback so the process can start; use DATABASE_URL in production.
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': '/tmp/285iq.sqlite3',
+        }
     }
 elif _use_sqlite:
     DATABASES = {
@@ -169,8 +190,12 @@ STATICFILES_DIRS = [
 if _use_whitenoise:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-if os.environ.get('VERCEL'):
+if _IS_VERCEL:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    # Avoid hitting Postgres for django_session before migrations are applied.
+    SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
