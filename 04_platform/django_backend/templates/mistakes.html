@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mistake Bank - 285IQ</title>
+    <link rel="stylesheet" href="/static/learning/app_theme.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #111827 0%, #312e81 100%);
+            min-height: 100vh;
+            padding: 24px;
+            color: #e5e7eb;
+        }
+        .container { max-width: 980px; margin: 0 auto; }
+        .back { margin-bottom: 18px; }
+        .back a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 700; }
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-end;
+            margin-bottom: 22px;
+        }
+        h1 { font-size: 30px; margin-bottom: 8px; color: #fff; }
+        .subtitle { color: #c7d2fe; max-width: 650px; line-height: 1.5; }
+        .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tab {
+            border: 1px solid rgba(199,210,254,0.35);
+            background: rgba(15,23,42,0.55);
+            color: #e0e7ff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .tab.active { background: #22d3ee; color: #0f172a; border-color: #22d3ee; }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+        .summary-card {
+            background: rgba(15,23,42,0.72);
+            border: 1px solid rgba(148,163,184,0.25);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .summary-card .label { font-size: 12px; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.04em; }
+        .summary-card .value { font-size: 28px; font-weight: 800; color: #fff; margin-top: 4px; }
+        .list { display: grid; gap: 14px; }
+        .item {
+            background: #f8fafc;
+            color: #1e293b;
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+            border-left: 6px solid #f59e0b;
+        }
+        .item.mastered { border-left-color: #10b981; opacity: 0.92; }
+        .item-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        .subject { font-size: 12px; color: #4f46e5; font-weight: 800; text-transform: uppercase; }
+        .status {
+            font-size: 12px;
+            font-weight: 800;
+            color: #475569;
+            background: #e2e8f0;
+            padding: 5px 9px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .question { font-size: 17px; font-weight: 800; line-height: 1.4; margin-bottom: 10px; }
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .chip {
+            font-size: 12px;
+            color: #475569;
+            background: #e2e8f0;
+            padding: 6px 9px;
+            border-radius: 999px;
+            font-weight: 700;
+        }
+        .tip {
+            background: #eef2ff;
+            border: 1px solid #c7d2fe;
+            color: #312e81;
+            border-radius: 10px;
+            padding: 11px 12px;
+            line-height: 1.45;
+            margin-bottom: 14px;
+        }
+        .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+        .btn {
+            border: 0;
+            border-radius: 9px;
+            padding: 10px 13px;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+        .btn-primary { background: #4f46e5; color: white; }
+        .btn-secondary { background: #e2e8f0; color: #334155; }
+        .btn-success { background: #10b981; color: white; }
+        .empty, .error {
+            background: rgba(15,23,42,0.72);
+            border: 1px solid rgba(148,163,184,0.25);
+            color: #cbd5e1;
+            border-radius: 14px;
+            padding: 36px 24px;
+            text-align: center;
+        }
+        .error { color: #fecaca; border-color: rgba(248,113,113,0.4); }
+        @media (max-width: 760px) {
+            body { padding: 16px; }
+            .hero { display: block; }
+            .tabs { margin-top: 16px; }
+            .summary-grid { grid-template-columns: repeat(2, 1fr); }
+            .item-top { display: block; }
+            .status { display: inline-block; margin-top: 8px; }
+        }
+    </style>
+</head>
+<body class="iq-app">
+    <div class="container">
+        <div class="back"><a href="/">&larr; Dashboard</a></div>
+        <div class="hero">
+            <div>
+                <h1>Mistake Bank</h1>
+                <p class="subtitle">The questions that exposed a weak skill, slow start, guess, or repeated error. Retry them until they move out of your active queue.</p>
+            </div>
+            <div class="tabs">
+                <button type="button" class="tab active" data-status="active">Active</button>
+                <button type="button" class="tab" data-status="retrying">Retrying</button>
+                <button type="button" class="tab" data-status="mastered">Mastered</button>
+                <button type="button" class="tab" data-status="all">All</button>
+            </div>
+        </div>
+
+        <div class="summary-grid">
+            <div class="summary-card"><div class="label">Active</div><div class="value" id="count-active">0</div></div>
+            <div class="summary-card"><div class="label">Retrying</div><div class="value" id="count-retrying">0</div></div>
+            <div class="summary-card"><div class="label">Mastered</div><div class="value" id="count-mastered">0</div></div>
+            <div class="summary-card"><div class="label">Loaded</div><div class="value" id="count-loaded">0</div></div>
+        </div>
+
+        <div id="mistake-list" class="list">
+            <div class="empty">Loading your mistake bank...</div>
+        </div>
+    </div>
+
+    <script>
+        let currentStatus = 'active';
+
+        function getCookie(name) {
+            const cookies = document.cookie ? document.cookie.split(';') : [];
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) return decodeURIComponent(cookie.slice(name.length + 1));
+            }
+            return null;
+        }
+
+        function escapeHtml(value) {
+            const d = document.createElement('div');
+            d.textContent = value == null ? '' : String(value);
+            return d.innerHTML;
+        }
+
+        function label(value) {
+            return String(value || '').replace(/_/g, ' ');
+        }
+
+        async function loadCounts() {
+            const statuses = ['active', 'retrying', 'mastered'];
+            await Promise.all(statuses.map(async function (status) {
+                try {
+                    const res = await fetch('/api/mistake-bank/?status=' + status + '&limit=100', { credentials: 'include' });
+                    const data = res.ok ? await res.json() : [];
+                    const el = document.getElementById('count-' + status);
+                    if (el) el.textContent = Array.isArray(data) ? data.length : 0;
+                } catch (e) {}
+            }));
+        }
+
+        async function loadMistakes() {
+            const list = document.getElementById('mistake-list');
+            list.innerHTML = '<div class="empty">Loading your mistake bank...</div>';
+            try {
+                const res = await fetch('/api/mistake-bank/?status=' + currentStatus + '&limit=50', { credentials: 'include' });
+                if (res.status === 401 || res.status === 403) {
+                    window.location.href = '/login/';
+                    return;
+                }
+                if (!res.ok) throw new Error('Failed to load mistake bank');
+                const items = await res.json();
+                document.getElementById('count-loaded').textContent = Array.isArray(items) ? items.length : 0;
+                if (!items.length) {
+                    list.innerHTML = '<div class="empty">Nothing here yet. Keep practising and this page will become your personal retry queue.</div>';
+                    return;
+                }
+                list.innerHTML = items.map(renderItem).join('');
+            } catch (e) {
+                list.innerHTML = '<div class="error">Could not load your mistake bank. Please try again.</div>';
+            }
+        }
+
+        function renderItem(item) {
+            const retryHref = '/mistakes/retry/' + item.id + '/';
+            const statusClass = item.status === 'mastered' ? ' mastered' : '';
+            return '<div class="item' + statusClass + '">' +
+                '<div class="item-top">' +
+                    '<div><div class="subject">' + escapeHtml(item.subject_name || 'Subject') + ' / ' + escapeHtml(item.topic_name || 'Topic') + '</div></div>' +
+                    '<span class="status">' + escapeHtml(label(item.status)) + '</span>' +
+                '</div>' +
+                '<div class="question">' + escapeHtml(item.question_text || 'Question') + '</div>' +
+                '<div class="meta">' +
+                    '<span class="chip">' + escapeHtml(label(item.reason)) + '</span>' +
+                    '<span class="chip">' + escapeHtml(label(item.wrong_category || 'needs review')) + '</span>' +
+                    (item.skill_code ? '<span class="chip">' + escapeHtml(item.skill_code) + '</span>' : '') +
+                    '<span class="chip">' + escapeHtml(String(item.attempts_count || 0)) + ' attempts</span>' +
+                    '<span class="chip">' + escapeHtml(String(item.correct_retries || 0)) + ' correct retries</span>' +
+                '</div>' +
+                (item.remediation_tip ? '<div class="tip">' + escapeHtml(item.remediation_tip) + '</div>' : '') +
+                '<div class="actions">' +
+                    '<a class="btn btn-primary" href="' + retryHref + '">Retry exact question</a>' +
+                    (item.topic ? '<a class="btn btn-secondary" href="/practice/topic/' + item.topic + '/">Practice this area</a>' : '') +
+                    '<button type="button" class="btn btn-success" data-id="' + item.id + '" data-status="mastered">Mark mastered</button>' +
+                    '<button type="button" class="btn btn-secondary" data-id="' + item.id + '" data-status="dismissed">Dismiss</button>' +
+                '</div>' +
+            '</div>';
+        }
+
+        async function updateStatus(itemId, status) {
+            try {
+                const res = await fetch('/api/mistake-bank/' + itemId + '/status/', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({ status: status })
+                });
+                if (!res.ok) throw new Error('status update failed');
+                await loadCounts();
+                await loadMistakes();
+            } catch (e) {
+                alert('Could not update this item. Please try again.');
+            }
+        }
+
+        document.querySelector('.tabs').addEventListener('click', function (event) {
+            const btn = event.target.closest('.tab');
+            if (!btn) return;
+            currentStatus = btn.dataset.status;
+            document.querySelectorAll('.tab').forEach(function (tab) { tab.classList.remove('active'); });
+            btn.classList.add('active');
+            loadMistakes();
+        });
+
+        document.getElementById('mistake-list').addEventListener('click', function (event) {
+            const btn = event.target.closest('button[data-id]');
+            if (!btn) return;
+            updateStatus(btn.dataset.id, btn.dataset.status);
+        });
+
+        loadCounts();
+        loadMistakes();
+    </script>
+</body>
+</html>

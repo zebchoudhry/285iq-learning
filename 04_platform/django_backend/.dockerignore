@@ -1,0 +1,11 @@
+.git
+.env
+*.sqlite3
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.coverage
+htmlcov
+*.md
+!README.md

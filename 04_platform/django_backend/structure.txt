@@ -1,0 +1,133 @@
+Folder PATH listing
+Volume serial number is 8496-0C79
+C:.
+³   .env.example
+³   db.sqlite3
+³   manage.py
+³   python
+³   questions.json
+³   README.md
+³   requirements.txt
+³   structure.txt
+³   
+ÃÄÄÄcontent
+³   ³   admin.py
+³   ³   apps.py
+³   ³   models.py
+³   ³   tests.py
+³   ³   urls.py
+³   ³   views.py
+³   ³   __init__.py
+³   ³   
+³   ÃÄÄÄmigrations
+³   ³   ³   __init__.py
+³   ³   ³   
+³   ³   ÀÄÄÄ__pycache__
+³   ³           __init__.cpython-313.pyc
+³   ³           
+³   ÀÄÄÄ__pycache__
+³           admin.cpython-313.pyc
+³           apps.cpython-313.pyc
+³           models.cpython-313.pyc
+³           urls.cpython-313.pyc
+³           views.cpython-313.pyc
+³           __init__.cpython-313.pyc
+³           
+ÃÄÄÄgamification
+³   ³   admin.py
+³   ³   apps.py
+³   ³   models.py
+³   ³   tests.py
+³   ³   urls.py
+³   ³   views.py
+³   ³   __init__.py
+³   ³   
+³   ÃÄÄÄmigrations
+³   ³   ³   __init__.py
+³   ³   ³   
+³   ³   ÀÄÄÄ__pycache__
+³   ³           __init__.cpython-313.pyc
+³   ³           
+³   ÀÄÄÄ__pycache__
+³           admin.cpython-313.pyc
+³           apps.cpython-313.pyc
+³           models.cpython-313.pyc
+³           urls.cpython-313.pyc
+³           views.cpython-313.pyc
+³           __init__.cpython-313.pyc
+³           
+ÃÄÄÄlearning
+³   ³   admin.py
+³   ³   ai_tutor.py
+³   ³   apps.py
+³   ³   models.py
+³   ³   serializers.py
+³   ³   tests.py
+³   ³   urls.py
+³   ³   views.py
+³   ³   __init__.py
+³   ³   
+³   ÃÄÄÄmigrations
+³   ³   ³   0001_initial.py
+³   ³   ³   __init__.py
+³   ³   ³   
+³   ³   ÀÄÄÄ__pycache__
+³   ³           0001_initial.cpython-313.pyc
+³   ³           __init__.cpython-313.pyc
+³   ³           
+³   ÀÄÄÄ__pycache__
+³           admin.cpython-313.pyc
+³           apps.cpython-313.pyc
+³           models.cpython-313.pyc
+³           serializers.cpython-313.pyc
+³           urls.cpython-313.pyc
+³           views.cpython-313.pyc
+³           __init__.cpython-313.pyc
+³           
+ÃÄÄÄstudymate285
+³   ³   asgi.py
+³   ³   settings.py
+³   ³   urls.py
+³   ³   wsgi.py
+³   ³   __init__.py
+³   ³   
+³   ÀÄÄÄ__pycache__
+³           settings.cpython-313.pyc
+³           urls.cpython-313.pyc
+³           wsgi.cpython-313.pyc
+³           __init__.cpython-313.pyc
+³           
+ÃÄÄÄtemplates
+³       index.html
+³       
+ÀÄÄÄusers
+    ³   admin.py
+    ³   apps.py
+    ³   models.py
+    ³   tests.py
+    ³   urls.py
+    ³   views.py
+    ³   __init__.py
+    ³   
+    ÃÄÄÄmigrations
+    ³   ³   0001_initial.py
+    ³   ³   0002_achievement_alter_student_groups_and_more.py
+    ³   ³   0003_studenttopicperformance_studentweakness.py
+    ³   ³   0004_remove_studenttopicperformance_average_difficulty.py
+    ³   ³   __init__.py
+    ³   ³   
+    ³   ÀÄÄÄ__pycache__
+    ³           0001_initial.cpython-313.pyc
+    ³           0002_achievement_alter_student_groups_and_more.cpython-313.pyc
+    ³           0003_studenttopicperformance_studentweakness.cpython-313.pyc
+    ³           0004_remove_studenttopicperformance_average_difficulty.cpython-313.pyc
+    ³           __init__.cpython-313.pyc
+    ³           
+    ÀÄÄÄ__pycache__
+            admin.cpython-313.pyc
+            apps.cpython-313.pyc
+            models.cpython-313.pyc
+            urls.cpython-313.pyc
+            views.cpython-313.pyc
+            __init__.cpython-313.pyc
+            

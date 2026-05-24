@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCSE Learning Platform</title>
+    <style>
+        /* Copy ALL the CSS from the artifact I created above */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        /* ... rest of CSS from artifact ... */
+        /* (Copy the entire <style> section from the artifact above) */
+    </style>
+</head>
+<body>
+    <!-- Copy the entire <body> content from the artifact -->
+    <!-- But update the JavaScript to use real API calls -->
+    
+    <script>
+        // Get subject ID from URL or default to Mathematics (id=1)
+        const urlParams = new URLSearchParams(window.location.search);
+        const subjectId = urlParams.get('subject') || 1;
+        
+        let currentSubjectId = subjectId;
+        let currentTopicId = null;
+        let currentLessonId = null;
+        let allLessons = [];
+        
+        // Fetch and display topics for the subject
+        async function loadSubjectTopics() {
+            try {
+                const response = await fetch(`/api/subject/${currentSubjectId}/topics/`);
+                const data = await response.json();
+                
+                // Update page title
+                document.getElementById('subjectTitle').textContent = `📐 GCSE ${data.subject_name}`;
+                
+                // Render topics
+                const topicsGrid = document.getElementById('topicsGrid');
+                topicsGrid.innerHTML = '';
+                
+                data.topics.forEach((topic, index) => {
+                    const topicCard = document.createElement('div');
+                    topicCard.className = 'topic-card';
+                    topicCard.onclick = () => openTopic(topic.id, topic.name);
+                    
+                    topicCard.innerHTML = `
+                        <span class="topic-number">Topic ${index + 1}</span>
+                        <h3 class="topic-title">${topic.name}</h3>
+                        <p class="topic-description">${topic.description}</p>
+                        <div class="topic-meta">
+                            <span class="topic-lessons">${topic.lesson_count} lessons</span>
+                            <div class="topic-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span class="progress-text">0%</span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    topicsGrid.appendChild(topicCard);
+                });
+            } catch (error) {
+                console.error('Error loading topics:', error);
+            }
+        }
+        
+        // Open topic and load lessons
+        async function openTopic(topicId, topicName) {
+            currentTopicId = topicId;
+            
+            try {
+                const response = await fetch(`/api/topic/${topicId}/lessons/`);
+                const data = await response.json();
+                
+                allLessons = data.lessons;
+                
+                // Update breadcrumb and title
+                document.getElementById('topicTitle').textContent = `📊 ${topicName}`;
+                document.getElementById('topicBreadcrumb').textContent = topicName;
+                
+                // Render lessons
+                const lessonsList = document.getElementById('lessonsList');
+                lessonsList.innerHTML = '';
+                
+                data.lessons.forEach((lesson, index) => {
+                    const lessonItem = document.createElement('div');
+                    lessonItem.className = 'lesson-item';
+                    lessonItem.onclick = () => openLesson(lesson.id);
+                    
+                    lessonItem.innerHTML = `
+                        <div class="lesson-number">${lesson.title.split(' - ')[0]}</div>
+                        <div class="lesson-content">
+                            <div class="lesson-title">${lesson.title.split(' - ')[1] || lesson.title}</div>
+                            <div class="lesson-meta">
+                                <span class="lesson-meta-item">⏱️ ${lesson.duration} min</span>
+                                <span class="lesson-meta-item">📚 ${lesson.lesson_type}</span>
+                            </div>
+                        </div>
+                        <div class="lesson-status">
+                            <div class="status-icon"></div>
+                        </div>
+                    `;
+                    
+                    lessonsList.appendChild(lessonItem);
+                });
+                
+                showView('topicView');
+            } catch (error) {
+                console.error('Error loading lessons:', error);
+            }
+        }
+        
+        // Open lesson and display content
+        async function openLesson(lessonId) {
+            currentLessonId = lessonId;
+            
+            try {
+                const response = await fetch(`/api/lesson/${lessonId}/`);
+                const data = await response.json();
+                
+                document.getElementById('lessonViewerTitle').textContent = data.title;
+                document.getElementById('lessonBody').innerHTML = data.content;
+                
+                showView('lessonView');
+            } catch (error) {
+                console.error('Error loading lesson:', error);
+            }
+        }
+        
+        function showView(viewId) {
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.remove('active');
+            });
+            document.getElementById(viewId).classList.add('active');
+        }
+        
+        function goToDashboard() {
+            window.location.href = '/';
+        }
+        
+        function backToSubject() {
+            showView('subjectView');
+        }
+        
+        function backToTopic() {
+            showView('topicView');
+        }
+        
+        function markComplete() {
+            // TODO: Add API call to mark lesson complete
+            alert('Lesson marked complete! (Backend integration coming next)');
+        }
+        
+        // Load topics on page load
+        loadSubjectTopics();
+    </script>
+</body>
+</html>

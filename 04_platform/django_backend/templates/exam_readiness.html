@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Readiness - 285IQ</title>
+    <link rel="stylesheet" href="/static/learning/app_theme.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            min-height: 100vh;
+            padding: 24px;
+            color: #e5e7eb;
+        }
+        .container { max-width: 1080px; margin: 0 auto; }
+        .back { margin-bottom: 18px; }
+        .back a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 700; }
+        .hero { margin-bottom: 24px; }
+        h1 { color: white; font-size: 32px; margin-bottom: 8px; }
+        .subtitle { color: #c7d2fe; max-width: 760px; line-height: 1.5; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+        .card {
+            background: #f8fafc;
+            color: #1e293b;
+            border-radius: 16px;
+            padding: 20px;
+            border-top: 6px solid #64748b;
+            box-shadow: 0 18px 45px rgba(0,0,0,0.22);
+        }
+        .card.exam_ready { border-top-color: #10b981; }
+        .card.almost_ready { border-top-color: #f59e0b; }
+        .card.building { border-top-color: #3b82f6; }
+        .card.not_ready { border-top-color: #ef4444; }
+        .top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
+        .subject { font-size: 19px; font-weight: 850; color: #0f172a; }
+        .status {
+            font-size: 12px;
+            font-weight: 850;
+            color: #0f172a;
+            background: #e2e8f0;
+            border-radius: 999px;
+            padding: 7px 10px;
+            white-space: nowrap;
+        }
+        .score-row { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+        .score {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: conic-gradient(#4f46e5 var(--pct), #e2e8f0 0);
+            position: relative;
+            flex: 0 0 auto;
+        }
+        .score::after {
+            content: '';
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: #f8fafc;
+        }
+        .score span { position: relative; z-index: 1; font-weight: 900; font-size: 20px; }
+        .grade-line { color: #475569; line-height: 1.5; font-size: 14px; }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .metric { background: #e2e8f0; border-radius: 10px; padding: 10px; }
+        .metric .label { font-size: 11px; color: #64748b; text-transform: uppercase; font-weight: 800; }
+        .metric .value { font-size: 18px; font-weight: 900; color: #0f172a; margin-top: 2px; }
+        .requirements { margin: 12px 0 16px; padding-left: 18px; color: #334155; line-height: 1.45; }
+        .requirements li { margin-bottom: 6px; }
+        .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            border: 0;
+            border-radius: 10px;
+            padding: 11px 14px;
+            font-weight: 850;
+            cursor: pointer;
+        }
+        .btn-primary { background: #4f46e5; color: white; }
+        .btn-success { background: #10b981; color: white; }
+        .empty, .error {
+            background: rgba(15,23,42,0.75);
+            border: 1px solid rgba(148,163,184,0.25);
+            border-radius: 16px;
+            padding: 36px 24px;
+            text-align: center;
+            color: #cbd5e1;
+        }
+        @media (max-width: 640px) {
+            body { padding: 16px; }
+            .top { display: block; }
+            .status { display: inline-block; margin-top: 8px; }
+            .metrics { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="iq-app">
+    <div class="container">
+        <div class="back"><a href="/">&larr; Dashboard</a></div>
+        <div class="hero">
+            <h1>Exam Readiness</h1>
+            <p class="subtitle">This monitors whether each subject is ready for timed exam simulation. Exam Arena unlocks when coverage, recent accuracy, mistake recovery, mock performance, and consistency are strong enough.</p>
+        </div>
+        <div id="readiness-grid" class="grid">
+            <div class="empty">Loading readiness...</div>
+        </div>
+    </div>
+
+    <script>
+        function escapeHtml(value) {
+            const d = document.createElement('div');
+            d.textContent = value == null ? '' : String(value);
+            return d.innerHTML;
+        }
+
+        function statusLabel(status) {
+            return {
+                exam_ready: 'Exam Ready',
+                almost_ready: 'Almost Ready',
+                building: 'Building',
+                not_ready: 'Not Ready'
+            }[status] || status;
+        }
+
+        function renderCard(item) {
+            const metrics = item.metrics || {};
+            const pct = Math.max(0, Math.min(100, item.score || 0));
+            const requirements = item.unlock_requirements || [];
+            const actionUrl = item.recommended_next_url || '/subjects/';
+            const actionText = item.exam_arena_unlocked ? 'Open Exam Arena' : 'Continue Readiness Work';
+            const btnClass = item.exam_arena_unlocked ? 'btn btn-success' : 'btn btn-primary';
+            return '<div class="card ' + escapeHtml(item.status) + '">' +
+                '<div class="top">' +
+                    '<div class="subject">' + escapeHtml(item.subject_name) + '</div>' +
+                    '<div class="status">' + escapeHtml(statusLabel(item.status)) + '</div>' +
+                '</div>' +
+                '<div class="score-row">' +
+                    '<div class="score" style="--pct:' + pct + '%"><span>' + pct + '%</span></div>' +
+                    '<div class="grade-line">Predicted: <strong>Grade ' + escapeHtml(item.predicted_grade) + '</strong><br>Target: <strong>Grade ' + escapeHtml(item.target_grade) + '</strong><br>' +
+                    (item.exam_arena_unlocked ? 'Timed past-paper exams are unlocked.' : 'Complete the requirements below to unlock Exam Arena.') + '</div>' +
+                '</div>' +
+                '<div class="metrics">' +
+                    metric('Coverage', (metrics.coverage_score || 0) + '%') +
+                    metric('Accuracy', (metrics.recent_accuracy || 0) + '%') +
+                    metric('Mistakes Active', metrics.active_mistakes || 0) +
+                    metric('Mock Score', (metrics.latest_mock_score || 0) + '%') +
+                '</div>' +
+                (requirements.length ? '<ul class="requirements">' + requirements.map(function (r) { return '<li>' + escapeHtml(r) + '</li>'; }).join('') + '</ul>' : '<p class="requirements" style="padding-left:0;">All readiness gates are currently clear.</p>') +
+                '<div class="actions"><a class="' + btnClass + '" href="' + actionUrl + '">' + actionText + '</a><a class="btn btn-primary" href="/mistakes/">Review Mistakes</a></div>' +
+            '</div>';
+        }
+
+        function metric(label, value) {
+            return '<div class="metric"><div class="label">' + escapeHtml(label) + '</div><div class="value">' + escapeHtml(value) + '</div></div>';
+        }
+
+        async function loadReadiness() {
+            const grid = document.getElementById('readiness-grid');
+            try {
+                const res = await fetch('/api/exam-readiness/', { credentials: 'include' });
+                if (res.status === 401 || res.status === 403) {
+                    window.location.href = '/login/';
+                    return;
+                }
+                if (!res.ok) throw new Error('Failed to load readiness');
+                const data = await res.json();
+                const subjects = data.subjects || [];
+                if (!subjects.length) {
+                    grid.innerHTML = '<div class="empty">No active subjects found yet.</div>';
+                    return;
+                }
+                grid.innerHTML = subjects.map(renderCard).join('');
+            } catch (e) {
+                grid.innerHTML = '<div class="error">Could not load exam readiness. Please try again.</div>';
+            }
+        }
+
+        loadReadiness();
+    </script>
+</body>
+</html>

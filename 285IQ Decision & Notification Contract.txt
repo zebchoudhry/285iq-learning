@@ -1,0 +1,356 @@
+285IQ
+Decision & Notification Contract — v1.0
+
+
+---
+title: 285IQ Decision & Notification Contract
+version: v1.0
+status: FROZEN
+effective_date: 2026-01-14
+supersedes: none
+change_policy: New version required for behavioural changes
+---
+
+> ⚠️ **This document defines parent-facing and notification behaviour.**  
+> Code must conform to this contract.  
+> Silent behavioural drift is not permitted.
+
+
+Status: Frozen
+Applies to: Parent Dashboard, Recommendation Engine, Notification System
+Effective from: v1.0
+Change policy: Any behavioural change requires a new contract version (v1.1, v2.0, etc.)
+
+1. System Purpose
+
+285IQ is an adaptive GCSE revision platform designed to:
+
+Improve student outcomes through active recall and weakness-first mastery
+
+Provide parents with calm, trustworthy decision support
+
+Enable early intervention without panic
+
+Align guidance with time remaining to exams
+
+The system prioritises confidence, explainability, and consistency over false precision.
+
+2. Non-Goals (Explicit)
+
+The system will never:
+
+Guarantee exam grades or outcomes
+
+Display raw or real-time surveillance metrics to parents
+
+Encourage daily parental monitoring
+
+Escalate anxiety close to exams
+
+Change headline judgements due to single-week volatility
+
+Store parent-facing judgements as permanent facts
+
+3. Core Design Principles (Locked)
+
+Conservative Bias
+It is better to surprise upward than disappoint.
+
+Time-Aware Interpretation
+The same performance gap means different things at different times.
+
+Trend-Weighted Judgement
+Sustained behaviour matters more than short-term spikes.
+
+Anti-Flicker Stability
+Judgements must be harder to downgrade than to upgrade.
+
+Activity-Aware, Not Punitive
+Inactivity flags concern but does not automatically trigger panic.
+
+Exam Convergence
+Close to exams, the system protects confidence while optimising effort.
+
+4. Inputs (Observed Facts)
+
+These inputs are treated as facts, not opinions.
+
+Quiz attempts (accuracy, difficulty-weighted)
+
+Session activity (timestamps, duration)
+
+Topic coverage (what has been attempted)
+
+Exam date (user-provided, approximate)
+
+Target grade (default Grade 5)
+
+Time (current date)
+
+5. Data Responsibility Boundaries
+5.1 Persisted Raw Facts (Immutable / Append-Only)
+
+Quiz attempts
+
+Session activity
+
+Exam date changes (append-only log)
+
+Target grade changes (append-only log)
+
+These are never rewritten.
+
+5.2 Cached Aggregates (Disposable)
+
+Weekly performance summaries
+
+Topic-level performance
+
+Coverage breadth (% syllabus touched)
+
+Activity frequency (sessions/week)
+
+These may be recalculated or expired at any time.
+
+5.3 Derived at Runtime (Never Stored)
+
+Weeks remaining to exam
+
+Time zone (based on weeks remaining)
+
+Current attainment band
+
+Performance trend (6-week window)
+
+Outlook tier
+
+Recommendations
+
+Parent-facing messages
+
+These are contextual judgements, not stored truths.
+
+5.4 Hybrid (Stored for Stability Only)
+
+Tier assignment log (weekly snapshots)
+
+Hysteresis state (anti-flicker memory)
+
+These support stability but are never authoritative.
+
+6. Time Zones & Strictness Policy
+Time Remaining	Strictness	Philosophy
+20+ weeks	Forgiving	Build habits, tolerate gaps, prioritise trend
+12–20 weeks	Standard	Balance attainment gap and trend
+5–12 weeks	Strict	Must be close to target or improving rapidly
+<5 weeks	Frozen (display only)	Maintain confidence, avoid destabilisation
+7. Attainment & Outlook Logic
+7.1 Attainment Band
+
+Calculated conservatively
+
+Represents the lowest grade band consistently supported
+
+Based on weekly summaries and coverage, not peak performance
+
+Displayed as:
+
+“Tracking at Grade X”
+
+7.2 Outlook Tiers (Parent-Facing)
+
+The system assigns one of the following:
+
+On track
+Current performance and consistency align with time remaining.
+
+Stretch but achievable
+Improvement is realistic within remaining time, with focus.
+
+At risk
+Current trajectory is misaligned with time remaining.
+
+8. Frozen-Tier Rule (<5 Weeks)
+
+When fewer than 5 weeks remain:
+
+Parent-facing tier is frozen
+
+No downgrades are displayed
+
+Internal logic remains fully active
+
+Tracking, flagging, recommendations continue
+
+Recommendations adapt to reality
+
+Focus shifts to optimisation and consolidation
+
+Notifications may still be sent
+
+Tier display is not changed, but events may trigger alerts
+
+Frozen ≠ inactive.
+Frozen = display stability only.
+
+9. Recommendation Engine Contract
+
+Recommendations:
+
+Are always controllable actions
+
+Adjust aggressiveness based on time zone
+
+Never contradict the displayed outlook tier
+
+Are not parent-facing by default
+
+May change frequently without notification
+
+Examples of recommendation focus:
+
+Topic prioritisation
+
+Consistency adjustments
+
+Confidence reinforcement
+
+Damage control near exams
+
+10. Notification Policy
+10.1 Event Types
+
+Inactivity spikes
+
+Sharp performance declines (sustained, multi-topic)
+
+Tier changes (outside frozen window)
+
+Time-zone transitions
+
+Positive milestones (rate-limited)
+
+10.2 Priority Levels
+
+Priority 1 — Urgent (inactivity, sharp decline)
+
+Priority 2 — Informational (tier change, milestone)
+
+10.3 Suppression Rules
+
+Notifications are suppressed when:
+
+Event is only a recommendation change
+
+Tier downgrade occurs <5 weeks (frozen display)
+
+Tier flickers within 14 days
+
+Positive events repeat within 6 weeks
+
+Weekly limits are exceeded (unless Priority 1)
+
+10.4 Fatigue Safeguards (Hard Limits)
+
+Max 1 notification per subject per week
+
+Max 2 notifications total per week
+
+Max 1 notification per day
+
+Priority 1 override:
+
+May bypass weekly limit once
+
+Second Priority 1 in same week must be batched
+
+10.5 Weekly Digest
+
+Default cadence: weekly
+
+Suppressed for a subject if a notification was sent in the last 72 hours
+
+Digest summarises status, does not escalate
+
+11. Notification Metadata (Logged)
+
+For audit and anti-fatigue:
+
+Notification ID
+
+Timestamp
+
+Subject
+
+Event type
+
+Priority
+
+Time zone at send time
+
+Parent action (if any)
+
+Used for:
+
+Suppression checks
+
+Fatigue enforcement
+
+Effectiveness analysis
+
+12. Parent Controls
+
+Parents may choose:
+
+Default: Weekly digest + critical events
+
+High frequency: All tier changes + events
+
+Low frequency: Weekly digest only
+
+Critical Priority 1 events cannot be fully disabled.
+
+13. Versioning Rule (Critical)
+
+This contract defines Decision Engine v1.0
+
+Any behavioural change requires:
+
+New contract version
+
+Explicit migration decision
+
+Code must reference the contract version it implements
+
+Silent drift is not permitted.
+
+14. Final Invariant
+
+If asked:
+
+“Why did the system say this to a parent?”
+
+There must be one clear answer traceable to this contract.
+
+If not, the system is out of compliance.
+
+END OF CONTRACT
+
+285IQ Decision & Notification Contract — v1.0
+
+"""
+⚠️ IMMUTABLE MODULE — DO NOT MODIFY
+
+Decision Engine v1.0
+Frozen on: 2026-01-14
+
+This implementation is governed by:
+- 285IQ Decision & Notification Contract v1.0
+- test_decision_engine_v1.py (behavioural lock)
+
+Any change to logic, thresholds, or behaviour
+REQUIRES a version bump (v1.1 or v2.0).
+
+If you think this needs changing:
+→ create a new version folder.
+"""

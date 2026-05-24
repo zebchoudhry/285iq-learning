@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Tests - 285IQ</title>
+    <link rel="stylesheet" href="/static/learning/app_theme.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #020817; min-height: 100vh; padding: 24px; }
+        .container { max-width: 720px; margin: 0 auto; }
+        .back { margin-bottom: 16px; }
+        .back a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 600; }
+        h1 { color: white; font-size: 28px; margin-bottom: 24px; }
+        .card { background: white; border-radius: 16px; padding: 24px; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .mock-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+        .mock-row.locked { align-items: flex-start; opacity: 0.92; }
+        .mock-row:last-child { border-bottom: none; }
+        .mock-title { font-weight: 800; color: #f1f5f9; }
+        .mock-meta { font-size: 13px; color: #94a3b8; }
+        .readiness-pill { display: inline-block; margin-top: 6px; padding: 5px 9px; border-radius: 999px; background: #e2e8f0; color: #334155; font-size: 12px; font-weight: 800; }
+        .readiness-pill.ready { background: #d1fae5; color: #065f46; }
+        .lock-box { margin-top: 10px; padding: 10px 12px; background: #fef3c7; color: #92400e; border-radius: 10px; font-size: 13px; line-height: 1.45; }
+        .lock-box ul { margin: 6px 0 0 18px; }
+        .btn { padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; font-size: 14px; }
+        .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .btn-primary:hover { opacity: 0.95; }
+        .btn-locked { background: #cbd5e1; color: #475569; cursor: not-allowed; }
+        #exam-screen { display: none; position: fixed; inset: 0; background: #1e293b; color: #f8fafc; z-index: 100; flex-direction: column; }
+        #exam-screen.active { display: flex; }
+        .exam-header { padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); }
+        .exam-timer { font-size: 24px; font-weight: 700; }
+        .exam-timer.low { color: #f59e0b; }
+        .exam-timer.critical { color: #ef4444; }
+        .exam-body { flex: 1; overflow-y: auto; padding: 24px; max-width: 720px; margin: 0 auto; width: 100%; }
+        .exam-tools { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+        .flag-btn { background: rgba(255,255,255,0.12); color: #f8fafc; border: 1px solid rgba(255,255,255,0.24); border-radius: 8px; padding: 9px 12px; font-weight: 700; cursor: pointer; }
+        .flag-btn.active { background: #f59e0b; color: #111827; border-color: #f59e0b; }
+        .flag-summary { color: #cbd5e1; font-size: 13px; }
+        .exam-question { font-size: 18px; line-height: 1.6; margin-bottom: 24px; }
+        .exam-options { display: flex; flex-direction: column; gap: 12px; }
+        .exam-option { padding: 14px 18px; background: rgba(255,255,255,0.08); border-radius: 12px; cursor: pointer; border: 2px solid transparent; }
+        .exam-option:hover { background: rgba(255,255,255,0.12); }
+        .exam-option.selected { border-color: #667eea; }
+        .exam-option input { margin-right: 10px; }
+        .exam-short-answer { width: 100%; padding: 14px; font-size: 16px; border-radius: 8px; border: 2px solid #475569; background: #0f172a; color: #f8fafc; }
+        .exam-footer { padding: 16px 24px; }
+        .exam-footer .btn { width: 100%; padding: 14px; }
+        .feedback { padding: 16px; border-radius: 12px; margin-top: 16px; }
+        .feedback.correct { background: #065f46; color: #d1fae5; }
+        .feedback.incorrect { background: #7f1d1d; color: #fecaca; }
+        .result-screen { text-align: center; padding: 48px 24px; }
+        .result-screen h2 { font-size: 28px; margin-bottom: 16px; }
+        .result-screen .score { font-size: 48px; font-weight: 700; color: #10b981; margin: 24px 0; }
+        .debrief { text-align: left; margin-top: 24px; }
+        .debrief h3 { color: #1e293b; margin: 18px 0 10px; }
+        .debrief-summary { background: #eef2ff; color: #312e81; padding: 14px; border-radius: 10px; line-height: 1.45; }
+        .topic-row { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid #e2e8f0; color: #334155; }
+        .topic-row:last-child { border-bottom: none; }
+        .repair-list { display: grid; gap: 10px; }
+        .repair-link { display: block; text-decoration: none; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; color: #1e293b; }
+        .repair-link strong { color: #4f46e5; }
+        .repair-link span { display: block; color: #64748b; font-size: 13px; margin-top: 4px; }
+        .flagged-review { background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:10px;padding:12px;margin-top:14px;text-align:left; }
+        .empty { color: #94a3b8; padding: 24px; text-align: center; }
+        .arena-note { color:#cbd5e1;font-size:14px;line-height:1.5;margin-bottom:16px;padding:12px 14px;background:#111827;border:1px solid #334155;border-radius:10px; }
+    </style>
+</head>
+<body class="iq-app">
+    <div class="container" id="list-view">
+        <div class="back"><a href="/">← Dashboard</a></div>
+        <h1>Mock Tests (Past Papers)</h1>
+        <div class="card">
+            <h3 style="margin-bottom:12px;color:#1e293b;">Official Past Paper Links</h3>
+            <div id="past-paper-list"><div class="empty">Loading...</div></div>
+        </div>
+        <div class="card">
+            <div class="arena-note">Exam Arena unlocks per subject at 85% readiness. Keep clearing mistakes and building recent accuracy to unlock timed past-paper simulations.</div>
+            <div id="mock-list"><div class="empty">Loading...</div></div>
+        </div>
+    </div>
+    <div id="exam-screen">
+        <div class="exam-header">
+            <span id="exam-progress">Question 1</span>
+            <span class="exam-timer" id="exam-timer">--:--</span>
+        </div>
+        <div class="exam-body">
+            <div class="exam-tools">
+                <button type="button" class="flag-btn" id="flag-question-btn">Flag for review</button>
+                <span class="flag-summary" id="flag-summary">No flagged questions</span>
+            </div>
+            <div id="question-container"></div>
+            <div id="feedback-container"></div>
+        </div>
+        <div class="exam-footer">
+            <button type="button" class="btn btn-primary" id="submit-answer-btn" style="display:none;">Save answer</button>
+            <button type="button" class="btn btn-primary" id="next-question-btn" style="display:none;">Next question</button>
+        </div>
+    </div>
+    <div id="result-screen" class="card result-screen" style="display:none;">
+        <h2>Mock exam complete</h2>
+        <div class="score" id="result-score">0%</div>
+        <p id="result-marks">0 / 0 marks</p>
+        <div id="flagged-review" class="flagged-review" style="display:none;"></div>
+        <div id="debrief-container" class="debrief"></div>
+        <button type="button" class="btn btn-primary" style="margin-top:24px;" id="start-another-btn">Start another mock</button>
+    </div>
+    <script>
+        const csrf = document.querySelector('[name=csrfmiddlewaretoken]')?.value || (() => { const c = document.cookie.match(/csrftoken=([^;]+)/); return c ? c[1] : ''; })();
+        function getCookie(n) { const c = document.cookie.match(new RegExp(n + '=([^;]+)')); return c ? c[1] : ''; }
+        const csrfToken = csrf || getCookie('csrftoken');
+
+        let state = { attemptId: null, questionIds: [], timeAllowed: 0, endTime: null, currentIndex: 0, timerInterval: null, flagged: new Set() };
+
+        function escapeHtml(value) {
+            const d = document.createElement('div');
+            d.textContent = value == null ? '' : String(value);
+            return d.innerHTML;
+        }
+
+        async function loadMocks() {
+            try {
+                const r = await fetch('/api/mock-exams/', { credentials: 'include' });
+                const list = await r.json();
+                const el = document.getElementById('mock-list');
+                if (!list || list.length === 0) {
+                    el.innerHTML = '<div class="empty">No mock exams available yet. Add past papers in the admin or ensure subjects have at least 5 questions in the question bank for practice mocks.</div>';
+                    return;
+                }
+                el.innerHTML = list.map(m => {
+                    const id = m.is_generated ? 'gen' : m.id;
+                    const data = m.is_generated ? `gen-${m.subject_id}` : m.id;
+                    const readiness = m.readiness || {};
+                    const unlocked = !!readiness.exam_arena_unlocked;
+                    const score = readiness.score != null ? readiness.score : 0;
+                    const reqs = readiness.unlock_requirements || [];
+                    const statusText = String(readiness.status || 'not_ready').replace(/_/g, ' ');
+                    const lockBox = unlocked ? '' : `<div class="lock-box"><strong>Locked: ${score}% readiness (${escapeHtml(statusText)})</strong>${
+                        reqs.length ? '<ul>' + reqs.slice(0, 3).map(r => `<li>${escapeHtml(r)}</li>`).join('') + '</ul>' : ''
+                    }<div style="margin-top:8px;"><a href="/exam-readiness/" style="color:#92400e;font-weight:800;">View readiness plan</a></div></div>`;
+                    return `<div class="mock-row ${unlocked ? '' : 'locked'}">
+                        <div>
+                            <div class="mock-title">${escapeHtml(m.title)}</div>
+                            <div class="mock-meta">${escapeHtml(m.subject_name)} · ${m.time_allowed_minutes} min · ${m.total_marks} marks</div>
+                            <span class="readiness-pill ${unlocked ? 'ready' : ''}">${unlocked ? 'Exam Arena unlocked' : score + '% readiness'}</span>
+                            ${lockBox}
+                        </div>
+                        <button type="button" class="btn ${unlocked ? 'btn-primary' : 'btn-locked'}" ${unlocked ? '' : 'disabled'} data-mock-id="${data}" data-is-generated="${!!m.is_generated}" data-subject-id="${m.subject_id || ''}">${unlocked ? 'Start timed mock' : 'Locked'}</button>
+                    </div>`;
+                }).join('');
+                el.querySelectorAll('[data-mock-id]').forEach(btn => {
+                    const id = btn.dataset.mockId;
+                    const isGen = btn.dataset.isGenerated === 'true';
+                    const subjId = btn.dataset.subjectId ? parseInt(btn.dataset.subjectId, 10) : null;
+                    btn.addEventListener('click', () => startMock(id, isGen, subjId));
+                });
+            } catch (e) {
+                document.getElementById('mock-list').innerHTML = '<div class="empty">Failed to load mocks.</div>';
+            }
+        }
+
+        async function loadPastPapers() {
+            try {
+                const r = await fetch('/api/past-papers/', { credentials: 'include' });
+                const papers = await r.json();
+                const el = document.getElementById('past-paper-list');
+                if (!papers || papers.length === 0) {
+                    el.innerHTML = '<div class="empty">No past paper links available yet.</div>';
+                    return;
+                }
+                el.innerHTML = papers.map(p => `
+                    <div class="mock-row">
+                        <div>
+                            <div class="mock-title">${p.title}</div>
+                            <div class="mock-meta">${p.subject_name} · ${p.exam_board_code} · ${p.year}</div>
+                        </div>
+                        <a class="btn btn-primary" href="${p.source_url}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">Open paper</a>
+                    </div>
+                `).join('');
+            } catch (e) {
+                document.getElementById('past-paper-list').innerHTML = '<div class="empty">Failed to load past papers.</div>';
+            }
+        }
+
+        async function startMock(mockId, isGenerated, subjectId) {
+            try {
+                const body = isGenerated && subjectId
+                    ? { subject_id: subjectId, is_generated: true }
+                    : { mock_exam_id: typeof mockId === 'string' && mockId.startsWith('gen-') ? mockId : parseInt(mockId, 10) };
+                const r = await fetch('/api/mock-exams/start/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
+                    credentials: 'include',
+                    body: JSON.stringify(body),
+                });
+                const data = await r.json();
+                if (!r.ok) {
+                    if (data.readiness) {
+                        const reqs = data.readiness.unlock_requirements || [];
+                        alert((data.error || 'Exam Arena is locked.') + '\n\n' + reqs.slice(0, 4).join('\n'));
+                    } else {
+                        alert(data.error || 'Failed to start');
+                    }
+                    return;
+                }
+                state.attemptId = data.attempt_id;
+                state.questionIds = data.question_ids || [];
+                state.timeAllowed = data.time_allowed_seconds || 0;
+                state.currentIndex = data.current_index ?? 0;
+                state.flagged = new Set();
+                state.endTime = Date.now() + state.timeAllowed * 1000;
+                document.getElementById('list-view').style.display = 'none';
+                document.getElementById('result-screen').style.display = 'none';
+                document.getElementById('exam-screen').classList.add('active');
+                startTimer();
+                renderQuestion(data.question);
+                document.getElementById('feedback-container').innerHTML = '';
+                document.getElementById('submit-answer-btn').style.display = 'block';
+                document.getElementById('next-question-btn').style.display = 'none';
+            } catch (e) { alert('Failed to start mock'); }
+        }
+
+        function startTimer() {
+            if (state.timerInterval) clearInterval(state.timerInterval);
+            function tick() {
+                const left = Math.max(0, Math.floor((state.endTime - Date.now()) / 1000));
+                const m = Math.floor(left / 60), s = left % 60;
+                const el = document.getElementById('exam-timer');
+                el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+                el.classList.toggle('low', left > 0 && left <= 300);
+                el.classList.toggle('critical', left > 0 && left <= 60);
+                if (left <= 0) clearInterval(state.timerInterval);
+            }
+            tick();
+            state.timerInterval = setInterval(tick, 1000);
+        }
+
+        function renderQuestion(q) {
+            if (!q) return;
+            const container = document.getElementById('question-container');
+            document.getElementById('exam-progress').textContent = 'Question ' + (state.currentIndex + 1) + ' of ' + state.questionIds.length;
+            updateFlagUi();
+            let optsHtml = '';
+            if (q.question_type === 'multiple_choice' && q.options && q.options.length) {
+                optsHtml = '<div class="exam-options">' + q.options.map((opt, i) => `
+                    <label class="exam-option" data-option-id="${opt.id}">
+                        <input type="radio" name="mock-answer" value="${opt.id}"> ${opt.option_text}
+                    </label>
+                `).join('') + '</div>';
+            } else {
+                optsHtml = '<input type="text" class="exam-short-answer" id="short-answer" placeholder="Your answer">';
+            }
+            container.innerHTML = '<div class="exam-question">' + q.question_text + '</div>' + optsHtml;
+            container.querySelectorAll('.exam-option').forEach(el => el.addEventListener('click', function() {
+                container.querySelectorAll('.exam-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                this.querySelector('input').checked = true;
+            }));
+        }
+
+        document.getElementById('submit-answer-btn').addEventListener('click', async () => {
+            const qId = state.questionIds[state.currentIndex];
+            let selected_option_id = null;
+            let answer = '';
+            const radio = document.querySelector('input[name="mock-answer"]:checked');
+            if (radio) selected_option_id = parseInt(radio.value, 10);
+            else answer = (document.getElementById('short-answer') || {}).value || '';
+            try {
+                const r = await fetch('/api/mock-exams/attempt/' + state.attemptId + '/submit/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
+                    credentials: 'include',
+                    body: JSON.stringify({ question_id: qId, selected_option_id, answer }),
+                });
+                const data = await r.json();
+                const fb = document.getElementById('feedback-container');
+                fb.innerHTML = '<div class="feedback correct">Answer saved. Feedback is hidden until the exam is complete.</div>';
+                document.getElementById('submit-answer-btn').style.display = 'none';
+                document.getElementById('next-question-btn').style.display = 'block';
+                window._lastSubmit = data;
+            } catch (e) { alert('Submit failed'); }
+        });
+
+        document.getElementById('next-question-btn').addEventListener('click', () => {
+            const data = window._lastSubmit;
+            if (data && data.finished) {
+                document.getElementById('exam-screen').classList.remove('active');
+                if (state.timerInterval) clearInterval(state.timerInterval);
+                document.getElementById('result-screen').style.display = 'block';
+                document.getElementById('result-score').textContent = (data.percentage_score != null ? data.percentage_score : 0) + '%';
+                document.getElementById('result-marks').textContent = (data.total_marks_achieved ?? 0) + ' / ' + (data.total_marks_available ?? 0) + ' marks';
+                renderFlaggedReview();
+                renderDebrief(data.debrief);
+                return;
+            }
+            if (data && data.next_question) {
+                state.currentIndex = data.next_index ?? state.currentIndex + 1;
+                document.getElementById('feedback-container').innerHTML = '';
+                renderQuestion(data.next_question);
+                document.getElementById('submit-answer-btn').style.display = 'block';
+                document.getElementById('next-question-btn').style.display = 'none';
+            }
+        });
+
+        function updateFlagUi() {
+            const btn = document.getElementById('flag-question-btn');
+            const summary = document.getElementById('flag-summary');
+            const qid = state.questionIds[state.currentIndex];
+            const active = state.flagged.has(qid);
+            btn.classList.toggle('active', active);
+            btn.textContent = active ? 'Flagged for review' : 'Flag for review';
+            const flaggedNumbers = state.questionIds
+                .map((id, index) => state.flagged.has(id) ? index + 1 : null)
+                .filter(Boolean);
+            summary.textContent = flaggedNumbers.length ? 'Flagged: Q' + flaggedNumbers.join(', Q') : 'No flagged questions';
+        }
+
+        document.getElementById('flag-question-btn').addEventListener('click', () => {
+            const qid = state.questionIds[state.currentIndex];
+            if (!qid) return;
+            if (state.flagged.has(qid)) state.flagged.delete(qid);
+            else state.flagged.add(qid);
+            updateFlagUi();
+        });
+
+        function renderDebrief(debrief) {
+            const el = document.getElementById('debrief-container');
+            if (!debrief) {
+                el.innerHTML = '';
+                return;
+            }
+            const topics = debrief.weakest_topics || [];
+            const repairs = debrief.repair_steps || [];
+            const targetGap = debrief.target_gap ? '<div style="margin-top:8px;">' + escapeHtml(debrief.target_gap) + '</div>' : '';
+            el.innerHTML =
+                '<div class="debrief-summary"><strong>Predicted Grade ' + escapeHtml(debrief.predicted_grade) + '</strong><br>' +
+                escapeHtml(debrief.summary || '') + targetGap + '</div>' +
+                '<h3>Where marks were lost</h3>' +
+                (topics.length ? topics.map(t => (
+                    '<div class="topic-row"><span>' + escapeHtml(t.topic_name) + '</span><strong>' +
+                    escapeHtml(t.marks) + '/' + escapeHtml(t.available) + ' marks</strong></div>'
+                )).join('') : '<p style="color:#64748b;">No weak topic pattern found.</p>') +
+                '<h3>Repair plan</h3>' +
+                '<div class="repair-list">' + repairs.map(r => (
+                    '<a class="repair-link" href="' + escapeHtml(r.url) + '"><strong>' + escapeHtml(r.label) + '</strong><span>' + escapeHtml(r.reason) + '</span></a>'
+                )).join('') + '</div>';
+        }
+
+        function renderFlaggedReview() {
+            const el = document.getElementById('flagged-review');
+            const flaggedNumbers = state.questionIds
+                .map((id, index) => state.flagged.has(id) ? index + 1 : null)
+                .filter(Boolean);
+            if (!flaggedNumbers.length) {
+                el.style.display = 'none';
+                el.innerHTML = '';
+                return;
+            }
+            el.style.display = 'block';
+            el.innerHTML = '<strong>Questions you flagged:</strong> Q' + flaggedNumbers.join(', Q') + '<br><span style="font-size:13px;">Use these to spot confidence gaps, even if some were correct.</span>';
+        }
+
+        document.getElementById('start-another-btn').addEventListener('click', () => {
+            document.getElementById('result-screen').style.display = 'none';
+            document.getElementById('list-view').style.display = 'block';
+            loadMocks();
+        });
+
+        loadPastPapers();
+        loadMocks();
+    </script>
+</body>
+</html>

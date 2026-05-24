@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Dashboard — 285IQ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --card-hover: #243447;
+            --border: #334155;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --accent: #3b82f6;
+            --green: #10b981;
+            --amber: #f59e0b;
+            --red: #ef4444;
+            --radius: 10px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; }
+        body {
+            font-family: 'Outfit', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            font-size: 15px;
+            line-height: 1.45;
+        }
+        .hidden { display: none !important; }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+            50% { opacity: 0.85; box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+        }
+        @keyframes sk-shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .sk {
+            background: linear-gradient(90deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+            background-size: 200% 100%;
+            animation: sk-shimmer 1.3s ease-in-out infinite;
+            border-radius: 8px;
+        }
+        .hdr-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: linear-gradient(180deg, #0c1222 0%, #0f172a 100%);
+            border-bottom: 1px solid var(--border);
+            min-height: 56px;
+        }
+        @media (max-width: 720px) {
+            .hdr-bar {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hdr-left, .hdr-right { justify-self: center; }
+            .hdr-center { order: -1; }
+        }
+        .hdr-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-self: start;
+        }
+        .logo-mark {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+        }
+        .hdr-dash-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .hdr-center {
+            justify-self: center;
+            text-align: center;
+        }
+        .hdr-student {
+            font-weight: 700;
+            font-size: clamp(1.1rem, 3vw, 1.45rem);
+            color: var(--text);
+            max-width: 90vw;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .hdr-right {
+            justify-self: end;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        .main-pad {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 16px 16px 32px;
+        }
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        @media (max-width: 900px) {
+            .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 480px) {
+            .kpi-grid { grid-template-columns: 1fr; }
+        }
+        .kpi-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px 14px 16px;
+            min-height: 120px;
+        }
+        .kpi-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+        .kpi-value {
+            font-weight: 800;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            line-height: 1.1;
+            font-variant-numeric: tabular-nums;
+            color: var(--text);
+        }
+        .kpi-sub {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+        .badge-xl {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        .badge-xl.on { background: rgba(16, 185, 129, 0.2); color: var(--green); }
+        .badge-xl.need { background: rgba(245, 158, 11, 0.2); color: var(--amber); }
+        .badge-xl.crit { background: rgba(239, 68, 68, 0.2); color: var(--red); }
+        .spark-wrap {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 28px;
+            margin-top: 8px;
+        }
+        .spark-bar {
+            flex: 1;
+            min-width: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+            opacity: 0.85;
+        }
+        .subj-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+        @media (max-width: 900px) {
+            .subj-grid { grid-template-columns: 1fr; }
+        }
+        .subject-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            opacity: 0;
+            animation: fade-in-up 0.45s ease forwards;
+        }
+        .subject-card:hover { border-color: #475569; background: var(--card-hover); }
+        .subject-card.is-expanded { border-color: var(--accent); }
+        .sc-top {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .sc-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .sc-emoji { font-size: 1.35rem; line-height: 1; }
+        .pill-tg {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent);
+        }
+        .badge-sm {
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .badge-sm.on { background: rgba(16, 185, 129, 0.25); color: var(--green); }
+        .badge-sm.need { background: rgba(245, 158, 11, 0.25); color: var(--amber); }
+        .badge-sm.crit { background: rgba(239, 68, 68, 0.25); color: var(--red); }
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .mcell {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+            padding: 8px 6px;
+            text-align: center;
+        }
+        .mcell .ml { font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+        .mcell .mv {
+            font-size: 1.25rem;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            margin-top: 2px;
+        }
+        .grade-hi { color: var(--green); }
+        .grade-mid { color: var(--amber); }
+        .grade-lo { color: var(--red); }
+        .grade-neu { color: #e2e8f0; }
+        .mini-pb {
+            height: 4px;
+            background: #334155;
+            border-radius: 99px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+        .mini-pb .f {
+            height: 100%;
+            border-radius: 99px;
+            width: 0;
+            transition: width 0.9s cubic-bezier(0.33, 1, 0.68, 1);
+        }
+        .trend-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+        }
+        .trend-arrow { font-size: 1.2rem; font-weight: 800; }
+        .donut-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+        .donut-svg {
+            width: 88px;
+            height: 88px;
+            flex-shrink: 0;
+        }
+        .donut-svg text {
+            fill: var(--text);
+            font-size: 0.45rem;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+        }
+        .focus-preview {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+        .focus-preview strong { color: #cbd5e1; }
+        .toggle-details {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            padding: 4px 0;
+        }
+        .toggle-details:hover { text-decoration: underline; }
+        .expanded-block {
+            display: none;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+        .subject-card.is-expanded .expanded-block { display: block; }
+        .rec-list { list-style: none; margin-bottom: 14px; }
+        .rec-list li {
+            position: relative;
+            padding-left: 14px;
+            margin-bottom: 6px;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+        }
+        .rec-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.45em;
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+        .timeline { border-left: 2px solid var(--border); margin-left: 6px; padding-left: 14px; margin-bottom: 14px; }
+        .tl-row { position: relative; padding: 8px 0; font-size: 0.78rem; }
+        .tl-dot {
+            position: absolute;
+            left: -21px;
+            top: 12px;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 2px solid var(--card);
+        }
+        .tl-d { color: var(--muted); font-size: 0.7rem; }
+        .settings-panel { margin-top: 8px; }
+        .settings-panel label { font-size: 0.7rem; color: var(--muted); display: block; margin-bottom: 4px; }
+        .settings-panel input {
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: #0f172a;
+            color: var(--text);
+            font-family: inherit;
+            margin-bottom: 8px;
+            width: 100%;
+            max-width: 220px;
+        }
+        .btn-save {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .btn-save:active { opacity: 0.9; }
+        .page-error {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+        .page-error h1 { font-size: 1.25rem; margin-bottom: 12px; color: #fecaca; }
+        .page-error p { color: var(--muted); font-size: 0.9rem; line-height: 1.55; }
+        .btn-retry {
+            margin-top: 20px;
+            padding: 10px 22px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .prompt-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            max-width: 480px;
+            margin: 24px auto;
+        }
+        .prompt-card p { color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; }
+        footer.dash-ft {
+            text-align: center;
+            padding: 24px 16px;
+            font-size: 0.75rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            margin-top: 24px;
+        }
+        .skeleton-header .sk { height: 20px; margin-bottom: 8px; }
+        .skeleton-kpi .kpi-card .sk { height: 48px; margin-bottom: 8px; }
+        .skeleton-kpi .sk-subline { height: 12px; width: 60%; }
+        .skeleton-subj .subject-card { min-height: 280px; }
+        .skeleton-subj .sk-line { height: 14px; margin-bottom: 8px; }
+        .skeleton-subj .sk-block { height: 80px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div id="view-loading">
+        <header class="hdr-bar">
+            <div class="hdr-left">
+                <span class="logo-mark">285IQ</span>
+                <span class="hdr-dash-title">Parent Dashboard</span>
+            </div>
+            <div class="hdr-center"><div class="sk sk" style="height:22px;width:180px;margin:0 auto;border-radius:6px;"></div></div>
+            <div class="hdr-right"><div class="sk" style="width:120px;height:14px;border-radius:4px;"></div></div>
+        </header>
+        <div class="main-pad">
+            <div class="kpi-grid skeleton-kpi">
+                <div class="kpi-card"><div class="sk sk" style="height:40px;"></div><div class="sk sk-subline sk"></div></div>
+                <div class="kpi-card"><div class="sk sk" style="height:40px;"></div><div class="sk sk-subline sk"></div></div>
+                <div class="kpi-card"><div class="sk sk" style="height:40px;"></div><div class="sk sk-subline sk"></div></div>
+                <div class="kpi-card"><div class="sk sk" style="height:40px;"></div><div class="sk sk-subline sk"></div></div>
+            </div>
+            <div class="subj-grid skeleton-subj">
+                <div class="subject-card"><div class="sk-line sk"></div><div class="sk-block sk"></div></div>
+                <div class="subject-card"><div class="sk-line sk"></div><div class="sk-block sk"></div></div>
+                <div class="subject-card"><div class="sk-line sk"></div><div class="sk-block sk"></div></div>
+                <div class="subject-card"><div class="sk-line sk"></div><div class="sk-block sk"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-error" class="hidden">
+        <header class="hdr-bar">
+            <div class="hdr-left">
+                <span class="logo-mark">285IQ</span>
+                <span class="hdr-dash-title">Parent Dashboard</span>
+            </div>
+            <div class="hdr-center"><span class="hdr-student">—</span></div>
+            <div class="hdr-right"></div>
+        </header>
+        <div class="page-error">
+            <h1 id="err-title">Unable to load</h1>
+            <p id="err-msg"></p>
+            <button type="button" class="btn-retry hidden" id="btn-retry">Try again</button>
+        </div>
+    </div>
+
+    <div id="view-app" class="hidden">
+        <header class="hdr-bar">
+            <div class="hdr-left">
+                <span class="logo-mark">285IQ</span>
+                <span class="hdr-dash-title">Parent Dashboard</span>
+            </div>
+            <div class="hdr-center">
+                <div class="hdr-student" id="hdr-student-name"></div>
+            </div>
+            <div class="hdr-right">
+                <span id="hdr-updated"></span>
+                <span class="live-dot" title="Dashboard refreshes periodically" aria-hidden="true"></span>
+            </div>
+        </header>
+        <div class="main-pad">
+            <div id="kpi-strip" class="kpi-grid"></div>
+            <div id="subject-grid" class="subj-grid"></div>
+        </div>
+        <footer class="dash-ft">
+            <p><strong>285IQ</strong> — Adaptive GCSE Revision</p>
+            <p>Dashboard updates as your child studies</p>
+        </footer>
+    </div>
+
+    <div id="view-prompt" class="hidden">
+        <header class="hdr-bar">
+            <div class="hdr-left">
+                <span class="logo-mark">285IQ</span>
+                <span class="hdr-dash-title">Parent Dashboard</span>
+            </div>
+            <div class="hdr-center"><span class="hdr-student" id="prompt-student"></span></div>
+            <div class="hdr-right"><span id="prompt-updated"></span></div>
+        </header>
+        <div class="prompt-card">
+            <p id="prompt-text">No exam dates or subjects have been set up yet. Ask your child to complete exam settings in their 285IQ account so this dashboard can show progress.</p>
+        </div>
+        <footer class="dash-ft">
+            <p><strong>285IQ</strong> — Adaptive GCSE Revision</p>
+            <p>Dashboard updates as your child studies</p>
+        </footer>
+    </div>
+
+    <script>
+(function () {
+    function getCookie(name) {
+        var c = document.cookie.split(';');
+        for (var i = 0; i < c.length; i++) {
+            var x = c[i].trim();
+            if (x.indexOf(name + '=') === 0) return decodeURIComponent(x.slice(name.length + 1));
+        }
+        return null;
+    }
+
+    var pathParts = window.location.pathname.split('/').filter(Boolean);
+    var token = pathParts[1];
+
+    function normalizeTier(tier) {
+        if (tier == null) return '';
+        var s = (typeof tier === 'object' && tier !== null && tier.value !== undefined) ? tier.value : String(tier);
+        s = s.toLowerCase().replace(/\s+/g, '_');
+        if (s.indexOf('on_track') >= 0) return 'on_track';
+        if (s.indexOf('stretch') >= 0) return 'stretch_but_achievable';
+        if (s.indexOf('at_risk') >= 0) return 'at_risk';
+        return s;
+    }
+
+    function tierRank(t) {
+        var n = normalizeTier(t);
+        if (n === 'at_risk') return 3;
+        if (n === 'stretch_but_achievable') return 2;
+        if (n === 'on_track') return 1;
+        return 2;
+    }
+
+    function statusFromTier(tierRaw) {
+        var t = normalizeTier(tierRaw);
+        if (t === 'on_track') return { label: 'ON TRACK', cls: 'on' };
+        if (t === 'stretch_but_achievable') return { label: 'NEEDS WORK', cls: 'need' };
+        if (t === 'at_risk') return { label: 'CRITICAL', cls: 'crit' };
+        return { label: 'NEEDS WORK', cls: 'need' };
+    }
+
+    function worstTierFromSubjects(subjects) {
+        var worst = null;
+        var worstR = 0;
+        for (var i = 0; i < subjects.length; i++) {
+            var s = subjects[i];
+            if (s.error || !s.outlook) continue;
+            var r = tierRank(s.outlook.tier);
+            if (r > worstR) { worstR = r; worst = s.outlook.tier; }
+        }
+        if (worst == null) return 'stretch_but_achievable';
+        return worst;
+    }
+
+    function subjectIcon(name) {
+        var n = (name || '').toLowerCase();
+        if (n.indexOf('math') >= 0) return '\uD83D\uDCD0';
+        if (n.indexOf('bio') >= 0) return '\uD83E\uDDEC';
+        if (n.indexOf('chem') >= 0) return '\u2697\uFE0F';
+        if (n.indexOf('phys') >= 0) return '\u26A1';
+        return '\uD83D\uDCDA';
+    }
+
+    function escapeHtml(str) {
+        var d = document.createElement('div');
+        d.textContent = str == null ? '' : String(str);
+        return d.innerHTML;
+    }
+
+    function coverageTone(pct) {
+        if (pct == null || isNaN(pct)) return 'a';
+        if (pct > 60) return 'g';
+        if (pct >= 30) return 'a';
+        return 'r';
+    }
+
+    function covColor(pct) {
+        var t = coverageTone(pct);
+        if (t === 'g') return '#10b981';
+        if (t === 'r') return '#ef4444';
+        return '#f59e0b';
+    }
+
+    function gradeClass(g) {
+        var n = parseInt(g, 10);
+        if (isNaN(n)) return 'grade-neu';
+        if (n >= 7) return 'grade-hi';
+        if (n >= 5) return 'grade-mid';
+        return 'grade-lo';
+    }
+
+    function trendMeta(trendRaw) {
+        var t = (trendRaw == null ? '' : String(trendRaw)).toLowerCase();
+        if (t.indexOf('improv') >= 0) return { arrow: '\u2191', label: 'Improving', color: '#10b981', long: 'Your child is improving in this subject' };
+        if (t.indexOf('declin') >= 0) return { arrow: '\u2193', label: 'Declining', color: '#ef4444', long: 'Performance has been declining recently' };
+        return { arrow: '\u2192', label: 'Stable', color: '#f59e0b', long: 'Performance is stable' };
+    }
+
+    function filterActivityForSubject(activities, subjectId, subjectName) {
+        if (!activities || !activities.length) return [];
+        var sid = Number(subjectId);
+        var nameLower = (subjectName || '').toLowerCase();
+        var out = [];
+        for (var i = 0; i < activities.length; i++) {
+            var a = activities[i];
+            if (a.subject_id != null && Number(a.subject_id) === sid) { out.push(a); continue; }
+            var subj = (a.subject || '').toLowerCase();
+            if (nameLower && subj === nameLower) { out.push(a); continue; }
+        }
+        return out.slice(0, 5);
+    }
+
+    function daysToExam(isoDate) {
+        if (!isoDate) return null;
+        var t = new Date(isoDate + 'T12:00:00');
+        var now = new Date();
+        now.setHours(0, 0, 0, 0);
+        t.setHours(0, 0, 0, 0);
+        return Math.round((t - now) / 86400000);
+    }
+
+    function nearestExamInfo(subjects) {
+        var best = null;
+        var bestDays = Infinity;
+        var subjName = '';
+        for (var i = 0; i < subjects.length; i++) {
+            var s = subjects[i];
+            if (s.error || !s.exam_date) continue;
+            var d = daysToExam(s.exam_date);
+            if (d != null && d < bestDays) {
+                bestDays = d;
+                best = s.exam_date;
+                subjName = s.subject_name || '';
+            }
+        }
+        if (best == null) return { days: null, date: '', name: '' };
+        return { days: bestDays, date: best, name: subjName };
+    }
+
+    function examCountdownClass(days) {
+        if (days == null || isNaN(days)) return 'grade-neu';
+        if (days > 60) return 'grade-hi';
+        if (days >= 30) return 'grade-mid';
+        return 'grade-lo';
+    }
+
+    function donutSvg(pct, colour) {
+        var p = Math.max(0, Math.min(100, Number(pct) || 0));
+        var dash = p + ' ' + (100 - p);
+        return (
+            '<svg class="donut-svg" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">' +
+            '<circle cx="18" cy="18" r="15.91549430918954" fill="none" stroke="#334155" stroke-width="3" pathLength="100" />' +
+            '<circle cx="18" cy="18" r="15.91549430918954" fill="none" stroke="' + colour + '" stroke-width="3" ' +
+            'stroke-dasharray="' + dash + '" stroke-linecap="round" transform="rotate(-90 18 18)" pathLength="100" />' +
+            '<text x="18" y="20.5" text-anchor="middle">' + Math.round(p) + '%</text>' +
+            '</svg>'
+        );
+    }
+
+    function countUp(el, target, suffix, duration) {
+        suffix = suffix || '';
+        duration = duration || 900;
+        var start = 0;
+        var startTime = null;
+        function step(ts) {
+            if (!startTime) startTime = ts;
+            var p = Math.min((ts - startTime) / duration, 1);
+            var ease = 1 - Math.pow(1 - p, 3);
+            var val = Math.round(start + (target - start) * ease);
+            el.textContent = val + suffix;
+            if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    function countUpFloat(el, target, decimals, suffix) {
+        suffix = suffix || '';
+        var dur = 900;
+        var startTime = null;
+        function step(ts) {
+            if (!startTime) startTime = ts;
+            var p = Math.min((ts - startTime) / dur, 1);
+            var ease = 1 - Math.pow(1 - p, 3);
+            var val = (target * ease).toFixed(decimals);
+            el.textContent = val + suffix;
+            if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    var refreshTimer = null;
+
+    function showView(name) {
+        document.getElementById('view-loading').classList.toggle('hidden', name !== 'loading');
+        document.getElementById('view-error').classList.toggle('hidden', name !== 'error');
+        document.getElementById('view-app').classList.toggle('hidden', name !== 'app');
+        document.getElementById('view-prompt').classList.toggle('hidden', name !== 'prompt');
+    }
+
+    function showErrorPage(msg, showRetry) {
+        document.getElementById('err-msg').textContent = msg;
+        document.getElementById('btn-retry').classList.toggle('hidden', !showRetry);
+        document.getElementById('err-title').textContent = 'Dashboard unavailable';
+        showView('error');
+    }
+
+    function loadData(silent) {
+        if (!silent) showView('loading');
+        if (!token) {
+            showErrorPage('This link is invalid or has expired. Contact your child to get a new link.', false);
+            return;
+        }
+
+        fetch('/api/parent/dashboard/' + token + '/', { credentials: 'include' })
+            .then(function (r) {
+                return r.json().then(function (data) {
+                    return { ok: r.ok, status: r.status, data: data };
+                });
+            })
+            .then(function (res) {
+                if (!res.ok) {
+                    if (silent) return;
+                    if (res.status === 404) {
+                        showErrorPage('This link is invalid or has expired. Contact your child to get a new link.', false);
+                        return;
+                    }
+                    showErrorPage('Unable to load — please try again.', true);
+                    return;
+                }
+
+                var data = res.data;
+                var subjects = data.subjects || [];
+
+                if (subjects.length === 0) {
+                    document.getElementById('prompt-student').textContent = data.student_name || 'Student';
+                    document.getElementById('prompt-updated').textContent = 'Last updated: ' + (data.generated_at || '');
+                    var pm = data.message;
+                    if (pm) document.getElementById('prompt-text').textContent = pm + ' Ask your child to add exam dates in 285IQ so this report can appear.';
+                    showView('prompt');
+                    return;
+                }
+
+                showView('app');
+                document.getElementById('hdr-student-name').textContent = data.student_name || 'Student';
+                document.getElementById('hdr-updated').textContent = 'Last updated: ' + (data.generated_at || '');
+
+                var okSubjects = subjects.filter(function (s) { return !s.error && s.outlook; });
+                var nSubj = okSubjects.length || subjects.length;
+
+                var totalSessions = 0;
+                var covSum = 0;
+                var covCount = 0;
+                var coverages = [];
+                var weeklyEvidence = data.weekly_evidence || {};
+                for (var i = 0; i < okSubjects.length; i++) {
+                    var sj = okSubjects[i];
+                    var spw = sj.activity && sj.activity.sessions_per_week;
+                    if (spw != null) totalSessions += Number(spw);
+                    var cb = sj.activity && sj.activity.coverage_breadth;
+                    if (cb != null) {
+                        var cbn = Number(cb);
+                        covSum += cbn;
+                        covCount++;
+                        coverages.push(cbn);
+                    }
+                }
+                var avgCov = covCount ? covSum / covCount : 0;
+
+                var worst = worstTierFromSubjects(subjects);
+                var overallSt = statusFromTier(worst);
+
+                var examInf = nearestExamInfo(okSubjects.length ? okSubjects : subjects);
+                var daysLeft = examInf.days;
+                var examSub = examInf.name;
+                var examDateStr = examInf.date || '';
+
+                var kpi = document.getElementById('kpi-strip');
+                kpi.innerHTML = '';
+
+                var k1 = document.createElement('div');
+                k1.className = 'kpi-card';
+                k1.style.animationDelay = '0.05s';
+                k1.innerHTML =
+                    '<div class="kpi-label">Overall status</div>' +
+                    '<div><span class="badge-xl ' + overallSt.cls + '">' + overallSt.label + '</span></div>' +
+                    '<div class="kpi-sub">Based on ' + nSubj + ' subject' + (nSubj === 1 ? '' : 's') + '</div>';
+                k1.style.opacity = '0';
+                k1.style.animation = 'fade-in-up 0.45s ease forwards';
+                k1.style.animationDelay = '0.05s';
+
+                var k2 = document.createElement('div');
+                k2.className = 'kpi-card';
+                k2.style.opacity = '0';
+                k2.style.animation = 'fade-in-up 0.45s ease forwards';
+                k2.style.animationDelay = '0.12s';
+                var sparkHtml = '';
+                for (var si = 0; si < coverages.length && si < 8; si++) {
+                    var h = 8 + (coverages[si] / 100) * 20;
+                    sparkHtml += '<div class="spark-bar" style="height:' + h + 'px"></div>';
+                }
+                if (!sparkHtml) sparkHtml = '<div class="spark-bar" style="height:12px;opacity:0.4"></div>';
+                k2.innerHTML =
+                    '<div class="kpi-label">Weekly activity</div>' +
+                    '<div class="kpi-value" id="kpi-sessions">0</div>' +
+                    '<div class="kpi-sub">study sessions this week</div>' +
+                    '<div class="kpi-sub" id="kpi-weekly-trend" style="margin-top:4px;font-size:0.7rem;">Trend vs last week: n/a</div>';
+
+                var k3 = document.createElement('div');
+                k3.className = 'kpi-card';
+                k3.style.opacity = '0';
+                k3.style.animation = 'fade-in-up 0.45s ease forwards';
+                k3.style.animationDelay = '0.19s';
+                k3.innerHTML =
+                    '<div class="kpi-label">Average coverage</div>' +
+                    '<div class="kpi-value" id="kpi-avgcov">0%</div>' +
+                    '<div class="kpi-sub">syllabus covered</div>' +
+                    '<div class="spark-wrap" id="kpi-spark">' + sparkHtml + '</div>';
+
+                var k4 = document.createElement('div');
+                k4.className = 'kpi-card';
+                k4.style.opacity = '0';
+                k4.style.animation = 'fade-in-up 0.45s ease forwards';
+                k4.style.animationDelay = '0.26s';
+                var daysShow = daysLeft != null ? Math.max(0, daysLeft) : null;
+                var dtxt = daysShow != null ? daysShow : '—';
+                var examCol = examCountdownClass(daysLeft != null ? daysLeft : null);
+                k4.innerHTML =
+                    '<div class="kpi-label">Exam countdown</div>' +
+                    '<div class="kpi-value ' + examCol + '" id="kpi-examdays">' + dtxt + '</div>' +
+                    '<div class="kpi-sub" id="kpi-examsub">' +
+                    (examSub ? escapeHtml(examSub) + (examDateStr ? ' · ' + examDateStr : '') : 'No exam date') +
+                    '</div>';
+
+                kpi.appendChild(k1);
+                kpi.appendChild(k2);
+                kpi.appendChild(k3);
+                kpi.appendChild(k4);
+
+                var elS = document.getElementById('kpi-sessions');
+                if (elS) countUp(elS, Math.round(totalSessions), '', 800);
+                var elA = document.getElementById('kpi-avgcov');
+                if (elA) countUpFloat(elA, avgCov, 1, '%');
+                var elE = document.getElementById('kpi-examdays');
+                if (elE && daysShow != null) countUp(elE, daysShow, '', 1000);
+                var elTrend = document.getElementById('kpi-weekly-trend');
+                if (elTrend) {
+                    var d = Number(weeklyEvidence.delta_activity || 0);
+                    var dir = weeklyEvidence.direction || 'flat';
+                    if (dir === 'up') {
+                        elTrend.textContent = 'Trend vs last week: +' + d + ' (improving)';
+                    } else if (dir === 'down') {
+                        elTrend.textContent = 'Trend vs last week: ' + d + ' (declining)';
+                    } else {
+                        elTrend.textContent = 'Trend vs last week: no change';
+                    }
+                }
+
+                var grid = document.getElementById('subject-grid');
+                grid.innerHTML = '';
+                var recentActivity = data.recent_activity || [];
+
+                subjects.forEach(function (s, idx) {
+                    if (s.error) {
+                        var err = document.createElement('div');
+                        err.className = 'subject-card';
+                        err.style.animationDelay = (0.1 * idx) + 's';
+                        err.style.opacity = '0';
+                        err.style.animation = 'fade-in-up 0.45s ease forwards';
+                        err.innerHTML = '<div class="sc-title"><span class="sc-emoji">⚠️</span> ' + escapeHtml(s.subject_name) + '</div><p style="color:#94a3b8;font-size:0.85rem;">' + escapeHtml(s.error) + '</p>';
+                        grid.appendChild(err);
+                        return;
+                    }
+
+                    var outlook = s.outlook || {};
+                    var activity = s.activity || {};
+                    var recs = s.recommendations || [];
+                    var narrative = s.parent_narrative || {};
+                    var covPct = activity.coverage_breadth != null ? Number(activity.coverage_breadth) : 0;
+                    var sessions = activity.sessions_per_week != null ? activity.sessions_per_week : '—';
+                    var attainment = outlook.attainment_band != null ? outlook.attainment_band : '—';
+                    var st = statusFromTier(outlook.tier);
+                    var tr = trendMeta(outlook.trend);
+                    var col = covColor(covPct);
+                    var topRec = recs.length ? (typeof recs[0] === 'string' ? recs[0] : (recs[0].text || recs[0].title || '')) : 'Keep up the current revision pace';
+
+                    var card = document.createElement('div');
+                    card.className = 'subject-card';
+                    card.style.animationDelay = (0.08 * idx + 0.3) + 's';
+                    card.style.opacity = '0';
+                    card.style.animation = 'fade-in-up 0.5s ease forwards';
+                    card.setAttribute('data-subject-id', s.subject_id);
+
+                    var recListHtml = recs.map(function (r) {
+                        var txt = typeof r === 'string' ? r : (r.text || r.title || JSON.stringify(r));
+                        return '<li>' + escapeHtml(txt) + '</li>';
+                    }).join('');
+                    var narActions = (narrative.actions || []).map(function (a) {
+                        return '<li>' + escapeHtml(a) + '</li>';
+                    }).join('');
+
+                    var acts = filterActivityForSubject(recentActivity, s.subject_id, s.subject_name);
+                    var actHtml = '';
+                    if (acts.length === 0) {
+                        actHtml = '<p style="color:#64748b;font-size:0.8rem;">No recent items for this subject.</p>';
+                    } else {
+                        actHtml = '<div class="timeline">';
+                        for (var ai = 0; ai < acts.length; ai++) {
+                            var a = acts[ai];
+                            actHtml +=
+                                '<div class="tl-row"><span class="tl-dot"></span>' +
+                                '<div class="tl-d">' + escapeHtml(a.date || '') + '</div>' +
+                                '<div>' + escapeHtml(a.details || a.title || '') + '</div></div>';
+                        }
+                        actHtml += '</div>';
+                    }
+
+                    var gcls = gradeClass(attainment);
+
+                    card.innerHTML =
+                        '<div class="sc-top">' +
+                        '<div class="sc-title"><span class="sc-emoji">' + subjectIcon(s.subject_name) + '</span> ' + escapeHtml(s.subject_name) + '</div>' +
+                        '<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">' +
+                        '<span class="badge-sm ' + st.cls + '">' + st.label + '</span>' +
+                        '<span class="pill-tg">Target Gr ' + escapeHtml(String(s.target_grade != null ? s.target_grade : '—')) + '</span></div></div>' +
+                        '<div class="metrics-row">' +
+                        '<div class="mcell"><div class="ml">Current grade</div><div class="mv ' + gcls + '">' + escapeHtml(String(attainment)) + '</div></div>' +
+                        '<div class="mcell"><div class="ml">Coverage</div><div class="mv">' + Math.round(covPct) + '%</div>' +
+                        '<div class="mini-pb"><div class="f" style="background:' + col + '"></div></div></div>' +
+                        '<div class="mcell"><div class="ml">Sessions/wk</div><div class="mv">' + escapeHtml(String(sessions)) + '</div></div></div>' +
+                        '<div class="trend-row">' +
+                        '<span class="trend-arrow" style="color:' + tr.color + '">' + tr.arrow + '</span>' +
+                        '<div><strong style="color:' + tr.color + '">' + escapeHtml(tr.label) + '</strong> — ' + escapeHtml(tr.long) + '</div></div>' +
+                        '<div class="donut-row">' + donutSvg(covPct, col) +
+                        '<div style="flex:1;font-size:0.78rem;color:#94a3b8;line-height:1.4;">Syllabus coverage for this subject. Aim for steady growth week on week.</div></div>' +
+                        '<div class="focus-preview"><strong>What to focus on:</strong> ' + escapeHtml(topRec) + '</div>' +
+                        '<div class="focus-preview" style="margin-top:8px;"><strong>Grade-risk narrative:</strong> ' + escapeHtml(narrative.summary || 'Waiting for enough performance data to generate a narrative.') + '</div>' +
+                        '<button type="button" class="toggle-details" aria-expanded="false">See details ▼</button>' +
+                        '<div class="expanded-block">' +
+                        '<div class="section-label" style="font-weight:700;font-size:0.8rem;margin-bottom:8px;color:#cbd5e1;">Parent actions this week</div>' +
+                        '<ul class="rec-list">' + (narActions || '<li>Encourage two focused sessions and review progress in 48 hours.</li>') + '</ul>' +
+                        '<div class="section-label" style="font-weight:700;font-size:0.8rem;margin-bottom:8px;color:#cbd5e1;">Recommendations</div>' +
+                        '<ul class="rec-list">' + (recListHtml || '<li>Keep up the current revision pace</li>') + '</ul>' +
+                        '<div style="font-weight:700;font-size:0.8rem;margin-bottom:8px;color:#cbd5e1;">Recent activity</div>' +
+                        actHtml +
+                        '<div class="settings-panel">' +
+                        '<button type="button" class="toggle-details btn-open-settings" style="margin-bottom:8px;">Update exam settings ▼</button>' +
+                        '<div class="settings-fields-inner hidden" id="set-inner-' + s.subject_id + '">' +
+                        '<label for="ex-' + s.subject_id + '">Exam date</label>' +
+                        '<input type="date" id="ex-' + s.subject_id + '" class="setting-exam" value="' + escapeHtml((s.exam_date || '').slice(0, 10)) + '">' +
+                        '<label for="tg-' + s.subject_id + '">Target grade</label>' +
+                        '<input type="number" id="tg-' + s.subject_id + '" class="setting-grade" min="1" max="9" value="' + (s.target_grade != null ? s.target_grade : 5) + '">' +
+                        '<button type="button" class="btn-save btn-save-set" data-sid="' + s.subject_id + '">Save</button></div></div></div>';
+
+                    grid.appendChild(card);
+
+                    var pb = card.querySelector('.mini-pb .f');
+                    if (pb) {
+                        requestAnimationFrame(function () {
+                            pb.style.width = Math.min(100, covPct) + '%';
+                        });
+                    }
+
+                    var btnDet = card.querySelector('.toggle-details:not(.btn-open-settings)');
+                    btnDet.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        card.classList.toggle('is-expanded');
+                        btnDet.setAttribute('aria-expanded', card.classList.contains('is-expanded'));
+                        btnDet.textContent = card.classList.contains('is-expanded') ? 'Hide details ▲' : 'See details ▼';
+                    });
+
+                    card.addEventListener('click', function (e) {
+                        if (e.target.closest('.toggle-details') || e.target.closest('.btn-save') || e.target.closest('input')) return;
+                        card.classList.toggle('is-expanded');
+                        var b = card.querySelector('.toggle-details:not(.btn-open-settings)');
+                        if (b) {
+                            b.setAttribute('aria-expanded', card.classList.contains('is-expanded'));
+                            b.textContent = card.classList.contains('is-expanded') ? 'Hide details ▲' : 'See details ▼';
+                        }
+                    });
+
+                    var btnSet = card.querySelector('.btn-open-settings');
+                    var innerSet = card.querySelector('.settings-fields-inner');
+                    btnSet.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        innerSet.classList.toggle('hidden');
+                    });
+
+                    card.querySelector('.btn-save-set').addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        var sid = this.getAttribute('data-sid');
+                        var examDate = card.querySelector('.setting-exam').value;
+                        var targetGrade = parseInt(card.querySelector('.setting-grade').value, 10);
+                        fetch('/api/parent/settings/' + token + '/' + sid + '/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+                            credentials: 'include',
+                            body: JSON.stringify({ exam_date: examDate, target_grade: targetGrade })
+                        })
+                            .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+                            .then(function (res) {
+                                if (res.ok) window.location.reload();
+                                else alert('Failed: ' + (res.data.error || JSON.stringify(res.data)));
+                            })
+                            .catch(function () { alert('Network error'); });
+                    });
+                });
+
+                if (refreshTimer) clearInterval(refreshTimer);
+                refreshTimer = setInterval(function () {
+                    loadData(true);
+                }, 300000);
+            })
+            .catch(function () {
+                if (!silent) showErrorPage('Unable to load — please try again.', true);
+            });
+    }
+
+    document.getElementById('btn-retry').addEventListener('click', function () {
+        loadData();
+    });
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadData);
+    } else {
+        loadData();
+    }
+})();
+    </script>
+</body>
+</html>

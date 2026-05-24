@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice - 285IQ</title>
+    <link rel="stylesheet" href="/static/learning/app_theme.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #020817;
+            min-height: 100vh;
+            padding: 24px;
+        }
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        .back { margin-bottom: 20px; }
+        .back a { color: #667eea; text-decoration: none; font-weight: 600; }
+        .practice-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .practice-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .practice-subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        .timer {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 16px;
+        }
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            padding: 14px 18px;
+            border: 2px solid #334155;
+            background: #111827;
+            color: #f1f5f9;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option:hover { border-color: #06b6d4; background: #172033; }
+        .option.selected { border-color: #06b6d4; background: rgba(6,182,212,0.12); }
+        .option.correct { border-color: #10b981; background: #d1fae5; }
+        .option.incorrect { border-color: #ef4444; background: #fee2e2; }
+        .short-answer-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #334155;
+            background: #111827;
+            color: #f1f5f9;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        .short-answer-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .feedback {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        .feedback.correct { background: #d1fae5; color: #065f46; }
+        .feedback.incorrect { background: #fee2e2; color: #991b1b; }
+        .feedback .explanation { margin-top: 8px; color: #475569; }
+        .feedback .breakdown-btn {
+            margin-top: 12px;
+            padding: 10px 18px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .feedback .breakdown-btn:hover { background: #5a67d8; }
+        .feedback .breakdown-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .stuck-panel {
+            margin-top: 14px;
+            padding: 14px;
+            border: 1px solid #c7d2fe;
+            background: #eef2ff;
+            color: #312e81;
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.45;
+        }
+        .stuck-panel strong { color: #1e1b4b; }
+        .video-fix {
+            margin-top: 12px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+        }
+        .video-embed {
+            margin-top: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #cbd5e1;
+            background: #020817;
+            aspect-ratio: 16 / 9;
+        }
+        .video-embed iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border: 0;
+        }
+        .video-fix a {
+            color: #4f46e5;
+            font-weight: 800;
+            text-decoration: none;
+        }
+        .video-fix .duration {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        .btn {
+            margin-top: 24px;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-secondary { background: #e2e8f0; color: #475569; }
+        .progress-bar-wrap {
+            margin-bottom: 20px;
+        }
+        .progress-text { 
+            font-size: 13px; 
+            color: #64748b; 
+            margin-bottom: 6px; 
+            display: flex; 
+            justify-content: space-between;
+        }
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+        .error-msg { 
+            background: #fee2e2; 
+            color: #991b1b; 
+            padding: 12px; 
+            border-radius: 8px; 
+            margin-bottom: 16px; 
+        }
+        .summary-screen {
+            text-align: center;
+            padding: 20px;
+        }
+        .summary-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 16px;
+        }
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .summary-stat {
+            background: #111827;
+            padding: 16px;
+            border-radius: 10px;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #64748b;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .top-bar-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .xp-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+        .skills-section {
+            margin: 20px 0;
+            text-align: left;
+        }
+        .skills-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+        .skill-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .skill-item {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .skill-item.improved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .skill-item.needs-work {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .skill-icon {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body class="iq-app">
+    <div class="container">
+        <div class="back"><a href="javascript:history.back()">← Back</a></div>
+
+        <div id="loading-screen" class="loading">
+            Loading practice session...
+        </div>
+
+        <div id="error-screen" style="display:none;">
+            <div class="error-msg" id="error-message"></div>
+            <a href="/subjects/" class="btn btn-secondary" style="display:inline-block;text-decoration:none;">Back to Subjects</a>
+        </div>
+
+        <div id="practice-screen" style="display: none;">
+            <div class="top-bar">
+                <span id="top-subject">Practice</span>
+                <span id="top-progress">Question 1 of 6</span>
+                <span class="xp-badge" id="top-xp">+0 XP</span>
+            </div>
+            <div id="mission-reason" style="margin:8px 0 12px 0;padding:10px 12px;border:1px solid #334155;border-radius:10px;background:#111827;color:#9ca3af;font-size:13px;"></div>
+            
+            <div class="progress-bar-wrap">
+                <div class="progress-text">
+                    <span id="progress-text">Question 1 of 6</span>
+                    <span id="score-text">Score: 0/0</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+            
+            <div class="timer" id="timer">Time: 0s</div>
+            <div class="question-text" id="question-text"></div>
+            <div id="answer-area"></div>
+            <div id="feedback-area"></div>
+            <div style="margin-top:8px;">
+                <label for="confidence-level" style="font-size:12px;color:#9ca3af;">Confidence</label>
+                <select id="confidence-level" style="margin-left:8px;padding:6px 8px;border-radius:6px;border:1px solid #334155;background:#0f172a;color:#e5e7eb;">
+                    <option value="unsure">Unsure</option>
+                    <option value="guessed">Guessed</option>
+                    <option value="confident">Confident</option>
+                </select>
+            </div>
+            <button type="button" class="btn" id="submit-btn" style="display: none;">Submit</button>
+            <button type="button" class="btn btn-secondary" id="stuck-btn" style="display: none;">I'm stuck</button>
+            <button type="button" class="btn btn-secondary" id="next-btn" style="display: none;">Next question</button>
+        </div>
+
+        <div id="summary-screen" style="display: none;">
+            <div class="summary-title">Practice Complete! 🎉</div>
+            
+            <div id="skills-improved-section" class="skills-section" style="display:none;">
+                <div class="skills-title">You improved:</div>
+                <div class="skill-list" id="skills-improved-list"></div>
+            </div>
+            
+            <div id="skills-needs-work-section" class="skills-section" style="display:none;">
+                <div class="skills-title">Needs work:</div>
+                <div class="skill-list" id="skills-needs-work-list"></div>
+            </div>
+            
+            <div class="summary-stats">
+                <div class="summary-stat">
+                    <div class="stat-label">Accuracy</div>
+                    <div class="stat-value" id="summary-accuracy">0%</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="stat-label">Correct</div>
+                    <div class="stat-value"><span id="summary-correct">0</span>/<span id="summary-total">6</span></div>
+                </div>
+                <div class="summary-stat">
+                    <div class="stat-label">XP Earned</div>
+                    <div class="stat-value" id="summary-xp">0</div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <div id="summary-next-action" style="width:100%;margin-bottom:10px;color:#9ca3af;font-size:13px;"></div>
+                <a href="javascript:location.reload()" class="btn" style="text-decoration:none;">Practice Again</a>
+                <a href="/mistakes/" class="btn btn-secondary" style="text-decoration:none;">Review Mistakes</a>
+                <a href="/subjects/" class="btn btn-secondary" style="text-decoration:none;">Back to Subjects</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlPath = window.location.pathname;
+        const pathParts = urlPath.split('/').filter(p => p);
+        
+        // Determine if this is subject or topic practice
+        const isSubjectPractice = pathParts[0] === 'practice' && pathParts[1] && !pathParts.includes('topic');
+        const isTopicPractice = pathParts.includes('topic');
+        
+        const subjectId = isSubjectPractice ? parseInt(pathParts[1], 10) : null;
+        const topicId = isTopicPractice ? parseInt(pathParts[pathParts.length - 1], 10) : null;
+
+        let state = {
+            questionIds: [],
+            currentIndex: 0,
+            currentQuestion: null,
+            startTime: null,
+            firstActionTime: null,
+            timerInterval: null,
+            correctCount: 0,
+            totalAnswered: 0,
+            sessionXp: 0,
+            skillsImproved: new Set(),
+            skillsNeedsWork: new Set(),
+            subjectName: null,
+            topicName: null,
+            mission: null,
+            lastNextAction: '/subjects/',
+            lastNextActionReason: '',
+        };
+
+        function getCookie(name) {
+            const c = document.cookie.split(';');
+            for (let i = 0; i < c.length; i++) {
+                const x = c[i].trim();
+                if (x.startsWith(name + '=')) return decodeURIComponent(x.slice(name.length + 1));
+            }
+            return null;
+        }
+
+        function showScreen(screenId) {
+            ['loading-screen', 'error-screen', 'practice-screen', 'summary-screen'].forEach(id => {
+                document.getElementById(id).style.display = id === screenId ? 'block' : 'none';
+            });
+        }
+
+        function showError(message) {
+            document.getElementById('error-message').textContent = message;
+            showScreen('error-screen');
+        }
+
+        function updateProgress() {
+            const current = state.currentIndex + 1;
+            const total = state.questionIds.length;
+            document.getElementById('progress-text').textContent = `Question ${current} of ${total}`;
+            document.getElementById('top-progress').textContent = `Question ${current} of ${total}`;
+            document.getElementById('score-text').textContent = `Score: ${state.correctCount}/${state.totalAnswered}`;
+            document.getElementById('top-xp').textContent = `+${state.sessionXp} XP`;
+            const percentage = (state.currentIndex / total) * 100;
+            document.getElementById('progress-fill').style.width = percentage + '%';
+        }
+
+        function updateTimer() {
+            if (!state.startTime) return;
+            const elapsed = Math.floor((Date.now() - state.startTime) / 1000);
+            document.getElementById('timer').textContent = 'Time: ' + elapsed + 's';
+        }
+
+        function renderQuestion(q) {
+            document.getElementById('question-text').textContent = q.question_text;
+            const area = document.getElementById('answer-area');
+            document.getElementById('feedback-area').innerHTML = '';
+            document.getElementById('submit-btn').style.display = 'inline-block';
+            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('stuck-btn').style.display = 'inline-block';
+            document.getElementById('stuck-btn').disabled = false;
+            document.getElementById('stuck-btn').textContent = "I'm stuck";
+            document.getElementById('next-btn').style.display = 'none';
+
+            if (q.question_type === 'multiple_choice' && q.options && q.options.length) {
+                area.innerHTML = '<div class="options">' + q.options.map(opt =>
+                    `<div class="option" data-option-id="${opt.id}">${opt.option_text}</div>`
+                ).join('') + '</div>';
+                area.querySelectorAll('.option').forEach(el => {
+                    el.addEventListener('click', () => {
+                        area.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                        el.classList.add('selected');
+                        if (!state.firstActionTime) state.firstActionTime = Date.now();
+                    });
+                });
+            } else {
+                area.innerHTML = '<input type="text" class="short-answer-input" id="short-answer" placeholder="Your answer">';
+                const input = document.getElementById('short-answer');
+                input.focus();
+                input.addEventListener('input', () => { if (!state.firstActionTime) state.firstActionTime = Date.now(); });
+            }
+            state.startTime = Date.now();
+            updateProgress();
+        }
+
+        async function startPractice() {
+            try {
+                const body = {};
+                if (subjectId) body.subject_id = subjectId;
+                if (topicId) body.topic_id = topicId;
+                
+                if (!body.subject_id && !body.topic_id) {
+                    showError('Invalid practice URL. Please select a subject or topic.');
+                    return;
+                }
+
+                const r = await fetch('/api/practice/start/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+                    credentials: 'include',
+                    body: JSON.stringify(body)
+                });
+                
+                if (!r.ok) {
+                    const data = await r.json();
+                    showError(data.error || 'Failed to start practice session');
+                    return;
+                }
+                
+                const data = await r.json();
+                state.questionIds = data.question_ids || [];
+                state.currentIndex = 0;
+                
+                // Store subject/topic name for top bar
+                state.subjectName = data.subject_name;
+                state.topicName = data.topic_name;
+                state.mission = data.mission || null;
+                
+                // Update top bar subject name
+                const displayName = state.topicName ? state.topicName : (state.subjectName || 'Practice');
+                document.getElementById('top-subject').textContent = displayName;
+            const missionReason = document.getElementById('mission-reason');
+                if (missionReason) {
+                    const sessionLabel = data.mode === 'diagnostic' ? 'diagnostic' : 'session';
+                    missionReason.textContent = state.mission && state.mission.reason
+                        ? ('Why this ' + sessionLabel + ': ' + state.mission.reason)
+                        : 'Why this session: adaptive practice based on your latest performance.';
+                }
+                
+                if (state.questionIds.length === 0) {
+                    showError('No questions available for practice. Please try another topic or complete some lessons first.');
+                    return;
+                }
+                
+                showScreen('practice-screen');
+                
+                if (data.question) {
+                    state.currentQuestion = data.question;
+                    renderQuestion(data.question);
+                } else if (state.questionIds.length) {
+                    await loadQuestion(state.questionIds[0]);
+                }
+                
+                state.timerInterval = setInterval(updateTimer, 1000);
+            } catch (err) {
+                console.error('Start practice error:', err);
+                showError('Network error. Please check your connection and try again.');
+            }
+        }
+
+        async function loadQuestion(id) {
+            try {
+                const r = await fetch('/api/quiz/question/' + id + '/', { credentials: 'include' });
+                if (!r.ok) throw new Error('Failed to load question');
+                const q = await r.json();
+                state.currentQuestion = q;
+                renderQuestion(q);
+            } catch (err) {
+                console.error('Load question error:', err);
+                showError('Failed to load question. Please try again.');
+            }
+        }
+
+        function getSelectedAnswer() {
+            const selected = document.querySelector('.option.selected');
+            if (selected) return { selected_option_id: parseInt(selected.dataset.optionId, 10) };
+            const input = document.getElementById('short-answer');
+            if (input) return { answer: input.value.trim() };
+            return {};
+        }
+
+        function getStudentAnswerText() {
+            const selected = document.querySelector('.option.selected');
+            if (selected) {
+                const optId = parseInt(selected.dataset.optionId, 10);
+                const q = state.currentQuestion;
+                if (q && q.options) {
+                    const opt = q.options.find(o => o.id === optId);
+                    if (opt) return opt.option_text || '';
+                }
+                return selected.textContent || '';
+            }
+            const input = document.getElementById('short-answer');
+            return input ? input.value.trim() : '';
+        }
+
+        async function submitAnswer() {
+            const q = state.currentQuestion;
+            if (!q) return;
+            
+            const timeSpent = Math.round((Date.now() - state.startTime));
+            const timeToFirst = state.firstActionTime ? Math.round(state.firstActionTime - state.startTime) : null;
+            const payload = {
+                question_id: q.id,
+                time_spent_ms: timeSpent,
+                time_to_first_action_ms: timeToFirst,
+                confidence_level: (document.getElementById('confidence-level') || {}).value || 'unsure',
+                ...getSelectedAnswer()
+            };
+
+            document.getElementById('submit-btn').disabled = true;
+            try {
+                const r = await fetch('/api/attempts/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+                    credentials: 'include',
+                    body: JSON.stringify(payload)
+                });
+                const data = await r.json();
+                const correct = r.ok && data.is_correct;
+                
+                state.totalAnswered++;
+                if (correct) state.correctCount++;
+                
+                // Track XP and skills
+                if (data.xp_earned) {
+                    state.sessionXp += data.xp_earned;
+                }
+                if (data.skill_codes && data.skill_codes.length > 0) {
+                    data.skill_codes.forEach(code => {
+                        if (correct) {
+                            state.skillsImproved.add(code);
+                        } else {
+                            state.skillsNeedsWork.add(code);
+                        }
+                    });
+                }
+                if (data.next_action) state.lastNextAction = data.next_action;
+                if (data.next_action_reason) state.lastNextActionReason = data.next_action_reason;
+                
+                const feedback = document.getElementById('feedback-area');
+                feedback.className = 'feedback ' + (correct ? 'correct' : 'incorrect');
+                let feedbackHtml = (correct ? '✓ Correct!' : '✗ Incorrect.');
+                if (typeof data.marks_awarded !== 'undefined' && typeof data.marks_available !== 'undefined') {
+                    feedbackHtml += `<div class="explanation" style="margin-top:8px;">Marks: ${data.marks_awarded}/${data.marks_available}</div>`;
+                }
+                if (!correct && data.wrong_category && data.wrong_category !== 'none') {
+                    feedbackHtml += `<div class="explanation">Likely issue: ${String(data.wrong_category).replace(/_/g, ' ')}</div>`;
+                }
+                if (!correct && data.failed_skill && data.failed_skill.skill_code) {
+                    feedbackHtml += `<div class="explanation">Step-level blocker: ${data.failed_skill.skill_code} (step ${data.failed_skill.step_order || 1})</div>`;
+                    if (data.failed_skill.hint_level_1) {
+                        feedbackHtml += `<div class="explanation">Hint: ${data.failed_skill.hint_level_1}</div>`;
+                    }
+                }
+                if (!correct && data.remediation_tip) {
+                    feedbackHtml += `<div class="explanation">Next fix: ${data.remediation_tip}</div>`;
+                }
+                if (data.explanation) {
+                    feedbackHtml += '<div class="explanation" id="explanation-content">' + data.explanation + '</div>';
+                }
+                if (!correct && data.question_id) {
+                    state.lastWrongAttempt = {
+                        question_id: data.question_id,
+                        student_answer: getStudentAnswerText(),
+                        correct_answer: data.correct_answer || '',
+                        skill_code: (data.skill_codes && data.skill_codes[0]) ? data.skill_codes[0] : '',
+                        static_explanation: data.explanation || ''
+                    };
+                    feedbackHtml += '<button type="button" class="breakdown-btn" id="breakdown-btn">Show step-by-step breakdown</button>';
+                } else {
+                    state.lastWrongAttempt = null;
+                }
+                feedback.innerHTML = feedbackHtml;
+                feedback.style.display = 'block';
+                
+                document.getElementById('submit-btn').style.display = 'none';
+                document.getElementById('stuck-btn').style.display = 'none';
+                document.getElementById('next-btn').style.display = 'inline-block';
+                
+                updateProgress();
+            } catch (err) {
+                console.error('Submit error:', err);
+                document.getElementById('submit-btn').disabled = false;
+            }
+        }
+
+        function nextQuestion() {
+            state.currentIndex++;
+            state.firstActionTime = null;
+            
+            if (state.currentIndex < state.questionIds.length) {
+                loadQuestion(state.questionIds[state.currentIndex]);
+            } else {
+                showSummary();
+            }
+        }
+
+        function formatSkillCode(code) {
+            // Format skill code for display: ALG_SOLVE_LINEAR -> Alg Solve Linear
+            return code.replace(/_/g, ' ').toLowerCase()
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+        }
+        
+        function showSummary() {
+            if (state.timerInterval) clearInterval(state.timerInterval);
+            
+            const accuracy = state.totalAnswered > 0 
+                ? Math.round((state.correctCount / state.totalAnswered) * 100) 
+                : 0;
+            
+            document.getElementById('summary-accuracy').textContent = accuracy + '%';
+            document.getElementById('summary-correct').textContent = state.correctCount;
+            document.getElementById('summary-total').textContent = state.totalAnswered;
+            document.getElementById('summary-xp').textContent = state.sessionXp;
+            const nextActionEl = document.getElementById('summary-next-action');
+            if (nextActionEl) {
+                const reason = state.lastNextActionReason || 'Continue with your next best task to improve grade trajectory.';
+                nextActionEl.innerHTML =
+                    'Next best action: <a href="' + state.lastNextAction + '" style="color:#22d3ee;text-decoration:none;font-weight:700;">Continue mission</a>' +
+                    '<div style="margin-top:4px;">' + reason + '</div>';
+            }
+            
+            // Display skills improved
+            const improvedSection = document.getElementById('skills-improved-section');
+            const improvedList = document.getElementById('skills-improved-list');
+            if (state.skillsImproved.size > 0) {
+                improvedList.innerHTML = Array.from(state.skillsImproved).map(code => 
+                    `<div class="skill-item improved"><span class="skill-icon">✔</span><span>${formatSkillCode(code)}</span></div>`
+                ).join('');
+                improvedSection.style.display = 'block';
+            } else {
+                improvedSection.style.display = 'none';
+            }
+            
+            // Display skills needing work
+            const needsWorkSection = document.getElementById('skills-needs-work-section');
+            const needsWorkList = document.getElementById('skills-needs-work-list');
+            if (state.skillsNeedsWork.size > 0) {
+                needsWorkList.innerHTML = Array.from(state.skillsNeedsWork).map(code => 
+                    `<div class="skill-item needs-work"><span class="skill-icon">⚠</span><span>${formatSkillCode(code)} needs work</span></div>`
+                ).join('');
+                needsWorkSection.style.display = 'block';
+            } else {
+                needsWorkSection.style.display = 'none';
+            }
+            
+            showScreen('summary-screen');
+        }
+
+        async function fetchStepByStepBreakdown() {
+            const w = state.lastWrongAttempt;
+            if (!w) return;
+            const btn = document.getElementById('breakdown-btn');
+            const explEl = document.getElementById('explanation-content');
+            if (!btn || !explEl) return;
+            btn.disabled = true;
+            btn.textContent = 'Loading...';
+            try {
+                const r = await fetch('/api/tutor/explain-wrong/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        question_id: w.question_id,
+                        student_answer: w.student_answer,
+                        correct_answer: w.correct_answer,
+                        skill_code: w.skill_code
+                    })
+                });
+                const data = r.ok ? await r.json() : null;
+                const aiExplanation = (data && data.explanation) ? data.explanation : null;
+                const text = aiExplanation || w.static_explanation;
+                explEl.innerHTML = text ? text.replace(/\n/g, '<br>') : '';
+            } catch (err) {
+                explEl.innerHTML = w.static_explanation;
+            }
+            btn.style.display = 'none';
+        }
+
+        async function reportStuck() {
+            const q = state.currentQuestion;
+            if (!q) return;
+            const btn = document.getElementById('stuck-btn');
+            const feedback = document.getElementById('feedback-area');
+            const timeSpent = state.startTime ? Math.round(Date.now() - state.startTime) : null;
+            const timeToFirst = state.firstActionTime ? Math.round(state.firstActionTime - state.startTime) : null;
+            btn.disabled = true;
+            btn.textContent = 'Checking...';
+            try {
+                const r = await fetch('/api/struggle/report-stuck/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        question_id: q.id,
+                        student_answer: getStudentAnswerText(),
+                        confidence_level: (document.getElementById('confidence-level') || {}).value || 'unsure',
+                        time_spent_ms: timeSpent,
+                        time_to_first_action_ms: timeToFirst
+                    })
+                });
+                const data = r.ok ? await r.json() : null;
+                const hint = data && (data.hint || data.recommendation) ? (data.hint || data.recommendation) : 'Try writing the first step only, then submit when you are ready.';
+                const reason = data && data.diagnostic && data.diagnostic.reason ? data.diagnostic.reason : '';
+                const video = data && data.video ? data.video : null;
+                const videoEmbed = video ? getVideoEmbedHtml(video.video_url) : '';
+                const videoHtml = video ? (
+                    '<div class="video-fix">' +
+                    '<strong>90-second fix:</strong><br>' +
+                    '<a href="' + escapeHtml(video.video_url) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(video.title || 'Watch targeted video') + '</a>' +
+                    '<div class="duration">' + escapeHtml(String(Math.round((video.duration_seconds || 90) / 60))) + ' min intervention' +
+                    (video.intervention_goal ? ' - ' + escapeHtml(video.intervention_goal) : '') + '</div>' +
+                    (videoEmbed ? '<div class="video-embed">' + videoEmbed + '</div>' : '') +
+                    '</div>'
+                ) : '';
+                feedback.className = 'stuck-panel';
+                feedback.innerHTML =
+                    '<strong>Smallest useful hint:</strong><br>' + escapeHtml(hint).replace(/\n/g, '<br>') +
+                    (reason ? '<div style="margin-top:8px;"><strong>Likely stuck point:</strong><br>' + escapeHtml(reason).replace(/\n/g, '<br>') + '</div>' : '') +
+                    videoHtml;
+                feedback.style.display = 'block';
+                btn.textContent = 'Hint shown';
+            } catch (err) {
+                feedback.className = 'stuck-panel';
+                feedback.innerHTML = '<strong>Smallest useful hint:</strong><br>Write down the first step only. Identify what you know, what you need, and one operation that moves you closer.';
+                feedback.style.display = 'block';
+                btn.textContent = 'Hint shown';
+            }
+        }
+
+        function escapeHtml(s) {
+            const d = document.createElement('div');
+            d.textContent = s || '';
+            return d.innerHTML;
+        }
+
+        function getVideoEmbedHtml(rawUrl) {
+            if (!rawUrl) return '';
+            try {
+                const url = new URL(rawUrl, window.location.origin);
+                let videoId = '';
+                if (url.hostname.includes('youtube.com')) {
+                    if (url.pathname.startsWith('/embed/')) {
+                        videoId = url.pathname.split('/embed/')[1].split(/[/?#]/)[0];
+                    } else if (url.pathname.startsWith('/shorts/')) {
+                        videoId = url.pathname.split('/shorts/')[1].split(/[/?#]/)[0];
+                    } else {
+                        videoId = url.searchParams.get('v') || '';
+                    }
+                }
+                if (url.hostname.includes('youtu.be')) {
+                    videoId = url.pathname.replace('/', '').split(/[/?#]/)[0];
+                }
+                if (!videoId) return '';
+                return '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(videoId) + '" title="Targeted revision video" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+            } catch (err) {
+                return '';
+            }
+        }
+
+        document.getElementById('submit-btn').addEventListener('click', submitAnswer);
+        document.getElementById('stuck-btn').addEventListener('click', reportStuck);
+        document.getElementById('next-btn').addEventListener('click', nextQuestion);
+        document.getElementById('feedback-area').addEventListener('click', (e) => {
+            if (e.target && e.target.classList.contains('breakdown-btn')) {
+                fetchStepByStepBreakdown();
+            }
+        });
+
+        // Auto-start practice on page load
+        startPractice();
+    </script>
+</body>
+</html>

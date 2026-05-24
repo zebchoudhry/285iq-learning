@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject - 285IQ</title>
+    <link rel="stylesheet" href="/static/learning/app_theme.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #07111f;
+            color: #e5e7eb;
+            min-height: 100vh;
+        }
+        .shell { max-width: 1320px; margin: 0 auto; padding: 22px; }
+        .topline { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 18px; }
+        .back { color: #93c5fd; text-decoration: none; font-weight: 800; }
+        .search {
+            width: min(420px, 100%);
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #e5e7eb;
+            border-radius: 10px;
+            padding: 11px 13px;
+        }
+        .hero { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: end; margin-bottom: 20px; }
+        .eyebrow { color: #22d3ee; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 900; margin-bottom: 6px; }
+        h1 { font-size: 30px; color: white; margin-bottom: 8px; }
+        .subtitle { color: #94a3b8; line-height: 1.5; max-width: 780px; }
+        .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+        .btn {
+            display: inline-block;
+            border: 0;
+            border-radius: 10px;
+            padding: 11px 14px;
+            font-weight: 850;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .btn-primary { background: #4f46e5; color: white; }
+        .btn-secondary { background: #1e293b; color: #dbeafe; border: 1px solid #334155; }
+        .btn-ghost { background: transparent; color: #93c5fd; border: 1px solid #334155; }
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+        .stat {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 14px;
+        }
+        .stat-label { color: #64748b; text-transform: uppercase; font-size: 11px; font-weight: 900; letter-spacing: 0.04em; }
+        .stat-value { color: white; font-weight: 900; font-size: 24px; margin-top: 4px; }
+        .layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 18px; align-items: start; }
+        .panel {
+            background: #0f172a;
+            border: 1px solid #233047;
+            border-radius: 14px;
+            padding: 16px;
+        }
+        .panel-title { color: white; font-weight: 900; margin-bottom: 12px; display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+        .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+        .filter {
+            background: #111827;
+            color: #cbd5e1;
+            border: 1px solid #334155;
+            border-radius: 999px;
+            padding: 8px 11px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .filter.active { background: #22d3ee; color: #082f49; border-color: #22d3ee; }
+        .topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr)); gap: 12px; }
+        .topic-card {
+            background: #111827;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 14px;
+            cursor: pointer;
+            min-height: 178px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .topic-card:hover, .topic-card.selected { border-color: #22d3ee; box-shadow: 0 0 0 1px rgba(34,211,238,0.22); }
+        .topic-head { display: flex; justify-content: space-between; gap: 10px; }
+        .topic-order { color: #22d3ee; font-weight: 900; font-size: 12px; white-space: nowrap; }
+        .topic-name { color: white; font-weight: 900; line-height: 1.25; }
+        .badge { display: inline-block; border-radius: 999px; padding: 5px 8px; font-size: 11px; font-weight: 900; white-space: nowrap; }
+        .badge.green { background: #dcfce7; color: #166534; }
+        .badge.amber { background: #fef3c7; color: #92400e; }
+        .badge.red { background: #fee2e2; color: #991b1b; }
+        .badge.blue { background: #dbeafe; color: #1d4ed8; }
+        .topic-meta { color: #94a3b8; font-size: 13px; }
+        .bar { height: 7px; border-radius: 999px; background: #1e293b; overflow: hidden; }
+        .bar span { display: block; height: 100%; background: linear-gradient(90deg, #22d3ee, #4f46e5); width: 0; }
+        .topic-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: auto; }
+        .kpi { background: #0f172a; border-radius: 9px; padding: 8px; }
+        .kpi small { display: block; color: #64748b; font-size: 10px; text-transform: uppercase; font-weight: 900; }
+        .kpi strong { display: block; color: white; margin-top: 2px; }
+        .lessons { margin-top: 14px; display: none; }
+        .lessons.active { display: block; }
+        .lesson-row {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 12px;
+            align-items: center;
+            background: #111827;
+            border: 1px solid #243044;
+            border-radius: 10px;
+            padding: 11px 12px;
+            margin-bottom: 8px;
+            color: inherit;
+            text-decoration: none;
+        }
+        .lesson-check { width: 22px; height: 22px; border-radius: 50%; background: #1e293b; color: #94a3b8; display: grid; place-items: center; font-size: 12px; font-weight: 900; }
+        .lesson-check.done { background: #10b981; color: white; }
+        .lesson-title { color: white; font-weight: 750; line-height: 1.35; }
+        .lesson-meta { color: #64748b; font-size: 12px; margin-top: 2px; }
+        .side { position: sticky; top: 18px; display: grid; gap: 14px; }
+        .mission-box { background: linear-gradient(135deg, #1e1b4b, #0f172a); border-color: #3730a3; }
+        .side-copy { color: #cbd5e1; line-height: 1.5; font-size: 14px; }
+        .readiness-score { font-size: 42px; color: white; font-weight: 950; margin: 4px 0; }
+        .requirements { margin: 10px 0 0 18px; color: #cbd5e1; line-height: 1.45; font-size: 14px; }
+        .selected-topic-title { color: white; font-weight: 900; margin-bottom: 8px; }
+        .empty { color: #94a3b8; padding: 22px; text-align: center; }
+        @media (max-width: 980px) {
+            .layout, .hero { grid-template-columns: 1fr; }
+            .hero-actions { justify-content: flex-start; }
+            .side { position: static; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 560px) {
+            .shell { padding: 14px; }
+            .topline { display: block; }
+            .search { margin-top: 12px; }
+            .topic-grid { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="iq-app">
+    <main class="shell">
+        <div class="topline">
+            <a href="/subjects/" class="back">&larr; All subjects</a>
+            <input id="search" class="search" type="search" placeholder="Search topics or lessons">
+        </div>
+
+        <div id="loading" class="empty">Loading subject...</div>
+        <div id="error" class="empty" style="display:none;">Could not load this subject.</div>
+
+        <section id="content" style="display:none;">
+            <div class="hero">
+                <div>
+                    <div class="eyebrow" id="boardLabel">GCSE</div>
+                    <h1 id="subjectName">Subject</h1>
+                    <p class="subtitle">Pick the topic that needs work. Lessons stay tucked away until you need them, so this page works as a revision control panel rather than a syllabus dump.</p>
+                </div>
+                <div class="hero-actions">
+                    <a id="practiceBtn" class="btn btn-primary" href="#">Start today's practice</a>
+                    <a class="btn btn-secondary" href="/mistakes/">Mistake Bank</a>
+                    <a class="btn btn-ghost" href="/exam-readiness/">Exam Readiness</a>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat"><div class="stat-label">Completion</div><div class="stat-value" id="completionStat">0%</div></div>
+                <div class="stat"><div class="stat-label">Mastery</div><div class="stat-value" id="masteryStat">0%</div></div>
+                <div class="stat"><div class="stat-label">Streak</div><div class="stat-value" id="streakStat">0d</div></div>
+                <div class="stat"><div class="stat-label">Readiness</div><div class="stat-value" id="readinessStat">--</div></div>
+            </div>
+
+            <div class="layout">
+                <div class="panel">
+                    <div class="panel-title">
+                        <span>Topics</span>
+                        <span id="topicCount" style="color:#64748b;font-size:13px;"></span>
+                    </div>
+                    <div class="filters">
+                        <button class="filter active" data-filter="all">All</button>
+                        <button class="filter" data-filter="needs_work">Needs work</button>
+                        <button class="filter" data-filter="not_started">Not started</button>
+                        <button class="filter" data-filter="in_progress">In progress</button>
+                        <button class="filter" data-filter="mastered">Mastered</button>
+                    </div>
+                    <div id="topicGrid" class="topic-grid"></div>
+                    <div id="lessonPanel" class="lessons"></div>
+                </div>
+
+                <aside class="side">
+                    <div class="panel mission-box">
+                        <div class="panel-title">Today’s Mission</div>
+                        <p class="side-copy" id="missionReason">Loading mission...</p>
+                        <a id="missionBtn" class="btn btn-primary" href="#" style="margin-top:12px;">Start mission</a>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-title">Exam Readiness</div>
+                        <div class="readiness-score" id="readinessScore">--</div>
+                        <p class="side-copy" id="readinessText">Readiness data is loading.</p>
+                        <ul class="requirements" id="requirements"></ul>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-title">Selected Topic</div>
+                        <div id="selectedTopicInfo" class="side-copy">Select a topic to see its lessons and actions.</div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const subjectId = {{ subject_id }};
+        let detail = null;
+        let nested = null;
+        let readiness = null;
+        let mission = null;
+        let activeFilter = 'all';
+        let selectedTopicId = null;
+
+        function escapeHtml(value) {
+            const d = document.createElement('div');
+            d.textContent = value == null ? '' : String(value);
+            return d.innerHTML;
+        }
+
+        function cleanSubjectName(name) {
+            return String(name || 'Subject').replace(/^(?:GCSE\s+|GSCE\s+)+/i, 'GCSE ');
+        }
+
+        function statusClass(topic) {
+            if ((topic.total_attempts || 0) === 0) return 'blue';
+            return topic.status_color || 'green';
+        }
+
+        function computedStatus(topic) {
+            if ((topic.total_attempts || 0) === 0) return 'Not started';
+            return topic.status || 'Strong';
+        }
+
+        function topicMatchesFilter(topic) {
+            const attempts = topic.total_attempts || 0;
+            const completion = topic.completion_pct || 0;
+            const accuracy = topic.accuracy_pct || 0;
+            if (activeFilter === 'all') return true;
+            if (activeFilter === 'needs_work') return attempts > 0 && accuracy < 70;
+            if (activeFilter === 'not_started') return attempts === 0 && completion === 0;
+            if (activeFilter === 'in_progress') return completion > 0 && completion < 100;
+            if (activeFilter === 'mastered') return completion >= 100 || (attempts >= 5 && accuracy >= 85);
+            return true;
+        }
+
+        function lessonsForTopic(topicId) {
+            const topic = (nested?.topics || []).find(t => t.id === topicId);
+            return topic ? topic.lessons || [] : [];
+        }
+
+        function renderTopics() {
+            const search = document.getElementById('search').value.trim().toLowerCase();
+            const grid = document.getElementById('topicGrid');
+            const topics = (detail.topics || []).filter(topic => {
+                const lessons = lessonsForTopic(topic.id);
+                const lessonHit = lessons.some(l => String(l.title || '').toLowerCase().includes(search));
+                const topicHit = String(topic.name || '').toLowerCase().includes(search);
+                return topicMatchesFilter(topic) && (!search || topicHit || lessonHit);
+            });
+            document.getElementById('topicCount').textContent = topics.length + ' shown';
+            if (!topics.length) {
+                grid.innerHTML = '<div class="empty">No topics match this view.</div>';
+                document.getElementById('lessonPanel').classList.remove('active');
+                return;
+            }
+            grid.innerHTML = topics.map(topic => {
+                const completion = topic.completion_pct || 0;
+                const accuracy = topic.accuracy_pct || 0;
+                const selected = topic.id === selectedTopicId ? ' selected' : '';
+                return '<article class="topic-card' + selected + '" data-topic-id="' + topic.id + '">' +
+                    '<div class="topic-head"><div><div class="topic-order">Topic ' + escapeHtml(topic.id) + '</div><div class="topic-name">' + escapeHtml(topic.name) + '</div></div>' +
+                    '<span class="badge ' + statusClass(topic) + '">' + escapeHtml(computedStatus(topic)) + '</span></div>' +
+                    '<div class="topic-meta">' + escapeHtml(topic.lessons_count || 0) + ' lessons · ' + escapeHtml(topic.total_attempts || 0) + ' attempts</div>' +
+                    '<div class="bar"><span style="width:' + Math.max(0, Math.min(100, completion)) + '%"></span></div>' +
+                    '<div class="topic-kpis">' +
+                        '<div class="kpi"><small>Done</small><strong>' + Math.round(completion) + '%</strong></div>' +
+                        '<div class="kpi"><small>Accuracy</small><strong>' + Math.round(accuracy) + '%</strong></div>' +
+                        '<div class="kpi"><small>Lessons</small><strong>' + escapeHtml(topic.lessons_count || 0) + '</strong></div>' +
+                    '</div>' +
+                '</article>';
+            }).join('');
+        }
+
+        function selectTopic(topicId) {
+            selectedTopicId = topicId;
+            renderTopics();
+            const topic = (detail.topics || []).find(t => t.id === topicId);
+            const lessons = lessonsForTopic(topicId);
+            const lessonPanel = document.getElementById('lessonPanel');
+            if (!topic) return;
+            document.getElementById('selectedTopicInfo').innerHTML =
+                '<div class="selected-topic-title">' + escapeHtml(topic.name) + '</div>' +
+                '<p>' + escapeHtml(computedStatus(topic)) + ' · ' + Math.round(topic.accuracy_pct || 0) + '% accuracy · ' + Math.round(topic.completion_pct || 0) + '% complete</p>' +
+                '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">' +
+                '<a class="btn btn-primary" href="/practice/topic/' + topic.id + '/">Practice topic</a>' +
+                '<a class="btn btn-secondary" href="/lessons/?subject=' + subjectId + '&topic=' + topic.id + '">Open lessons</a></div>';
+            lessonPanel.classList.add('active');
+            lessonPanel.innerHTML = '<div class="panel-title" style="margin-top:4px;">' + escapeHtml(topic.name) + ' Lessons</div>' +
+                (lessons.length ? lessons.map(lesson => (
+                    '<a class="lesson-row" href="/lessons/?subject=' + subjectId + '&topic=' + topic.id + '">' +
+                    '<span class="lesson-check ' + (lesson.is_completed ? 'done' : '') + '">' + (lesson.is_completed ? '✓' : '') + '</span>' +
+                    '<span><span class="lesson-title">' + escapeHtml(lesson.title) + '</span><span class="lesson-meta">' + escapeHtml(lesson.lesson_type || 'Lesson') + ' · ' + escapeHtml(lesson.duration || 0) + ' min</span></span>' +
+                    '<span class="badge ' + (lesson.is_completed ? 'green' : 'blue') + '">' + (lesson.is_completed ? 'Done' : 'Open') + '</span></a>'
+                )).join('') : '<div class="empty">No active lessons in this topic yet.</div>');
+            lessonPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function renderHeader() {
+            document.getElementById('subjectName').textContent = cleanSubjectName(detail.subject_name);
+            document.getElementById('boardLabel').textContent = (detail.exam_board || 'AQA').toUpperCase() + ' · ' + cleanSubjectName(detail.subject_name);
+            document.getElementById('completionStat').textContent = Math.round(detail.completion_pct || 0) + '%';
+            document.getElementById('masteryStat').textContent = Math.round(detail.mastery_pct || 0) + '%';
+            document.getElementById('streakStat').textContent = (detail.streak || 0) + 'd';
+            document.getElementById('practiceBtn').href = '/practice/' + subjectId + '/';
+        }
+
+        function renderMission() {
+            const reason = mission?.reason || 'Start a focused session for this subject.';
+            document.getElementById('missionReason').textContent = reason;
+            document.getElementById('missionBtn').href = mission?.cta_url || ('/practice/' + subjectId + '/');
+        }
+
+        function renderReadiness() {
+            const score = readiness?.score;
+            document.getElementById('readinessStat').textContent = score == null ? '--' : score + '%';
+            document.getElementById('readinessScore').textContent = score == null ? '--' : score + '%';
+            const status = readiness?.status ? readiness.status.replace(/_/g, ' ') : 'building';
+            document.getElementById('readinessText').textContent = readiness?.exam_arena_unlocked
+                ? 'Exam Arena is unlocked for this subject.'
+                : 'Current status: ' + status + '. Complete the requirements below to unlock timed exam simulation.';
+            const reqs = readiness?.unlock_requirements || [];
+            document.getElementById('requirements').innerHTML = reqs.length
+                ? reqs.slice(0, 4).map(r => '<li>' + escapeHtml(r) + '</li>').join('')
+                : '<li>All readiness gates are currently clear.</li>';
+        }
+
+        async function loadPage() {
+            try {
+                const [detailRes, nestedRes, readinessRes, missionRes] = await Promise.all([
+                    fetch('/api/subject/' + subjectId + '/detail/', { credentials: 'include' }),
+                    fetch('/api/subject/' + subjectId + '/topics/', { credentials: 'include' }),
+                    fetch('/api/exam-readiness/', { credentials: 'include' }),
+                    fetch('/api/mission/?subject_id=' + subjectId, { credentials: 'include' })
+                ]);
+                if (detailRes.status === 401 || detailRes.status === 403) {
+                    window.location.href = '/login/';
+                    return;
+                }
+                if (!detailRes.ok) throw new Error('detail failed');
+                detail = await detailRes.json();
+                nested = nestedRes.ok ? await nestedRes.json() : { topics: [] };
+                const readinessData = readinessRes.ok ? await readinessRes.json() : { subjects: [] };
+                readiness = (readinessData.subjects || []).find(s => s.subject_id === subjectId) || null;
+                mission = missionRes.ok ? await missionRes.json() : null;
+                renderHeader();
+                renderMission();
+                renderReadiness();
+                renderTopics();
+                const firstNeedsWork = (detail.topics || []).find(t => (t.total_attempts || 0) > 0 && (t.accuracy_pct || 0) < 70);
+                const firstTopic = firstNeedsWork || (detail.topics || [])[0];
+                if (firstTopic) selectTopic(firstTopic.id);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            } catch (e) {
+                console.error(e);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+
+        document.getElementById('topicGrid').addEventListener('click', event => {
+            const card = event.target.closest('.topic-card');
+            if (card) selectTopic(parseInt(card.dataset.topicId, 10));
+        });
+        document.querySelector('.filters').addEventListener('click', event => {
+            const button = event.target.closest('.filter');
+            if (!button) return;
+            activeFilter = button.dataset.filter;
+            document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+            button.classList.add('active');
+            renderTopics();
+        });
+        document.getElementById('search').addEventListener('input', renderTopics);
+        loadPage();
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+:root {
+    --iq-bg: #020817;
+    --iq-surface: #0f172a;
+    --iq-surface-2: #111827;
+    --iq-card: #151c2e;
+    --iq-border: #334155;
+    --iq-text: #f1f5f9;
+    --iq-muted: #94a3b8;
+    --iq-dim: #64748b;
+    --iq-cyan: #06b6d4;
+    --iq-blue: #3b82f6;
+    --iq-purple: #6d5dfc;
+    --iq-green: #10b981;
+    --iq-amber: #f59e0b;
+    --iq-red: #ef4444;
+    --iq-radius: 12px;
+}
+
+body.iq-app {
+    background: var(--iq-bg) !important;
+    color: var(--iq-text) !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+    min-height: 100vh;
+    position: relative;
+}
+
+body.iq-app::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(6,182,212,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6,182,212,0.035) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.iq-shell, body.iq-app .container {
+    position: relative;
+    z-index: 1;
+}
+
+.iq-link, body.iq-app .back a, body.iq-app .back-link {
+    color: #93c5fd !important;
+    text-decoration: none !important;
+    font-weight: 800 !important;
+}
+
+.iq-link:hover, body.iq-app .back a:hover, body.iq-app .back-link:hover {
+    color: var(--iq-cyan) !important;
+}
+
+body.iq-app h1, body.iq-app h2, body.iq-app h3 {
+    color: var(--iq-text) !important;
+}
+
+body.iq-app .card,
+body.iq-app .panel,
+body.iq-app .container-card,
+body.iq-app .subject-card,
+body.iq-app .summary-stat,
+body.iq-app .deck-card {
+    background: var(--iq-surface) !important;
+    color: var(--iq-text) !important;
+    border: 1px solid var(--iq-border) !important;
+    border-radius: var(--iq-radius) !important;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.28) !important;
+}
+
+body.iq-app .btn,
+body.iq-app .btn-primary,
+body.iq-app .topic-btn,
+body.iq-app .upgrade-btn {
+    background: linear-gradient(135deg, var(--iq-blue), var(--iq-purple)) !important;
+    color: white !important;
+    border: 0 !important;
+    border-radius: 10px !important;
+    font-weight: 850 !important;
+}
+
+body.iq-app .btn-secondary {
+    background: var(--iq-surface-2) !important;
+    color: #dbeafe !important;
+    border: 1px solid var(--iq-border) !important;
+    border-radius: 10px !important;
+}
+
+body.iq-app .empty,
+body.iq-app .empty-state,
+body.iq-app .loading {
+    color: var(--iq-muted) !important;
+}
+
+.iq-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.iq-badge.green { background: rgba(16,185,129,0.16); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.28); }
+.iq-badge.amber { background: rgba(245,158,11,0.16); color: #fcd34d; border: 1px solid rgba(245,158,11,0.3); }
+.iq-badge.red { background: rgba(239,68,68,0.16); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+.iq-badge.blue { background: rgba(59,130,246,0.16); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+
+.iq-grid {
+    display: grid;
+    gap: 16px;
+}
+
+.iq-two-col {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 18px;
+}
+
+@media (max-width: 900px) {
+    .iq-two-col { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retry Mistake - 285IQ</title>
+    <link rel="stylesheet" href="/static/learning/app_theme.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #020817; min-height: 100vh; padding: 24px; color: #f1f5f9; }
+        .container { max-width: 720px; margin: 0 auto; background: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 28px; box-shadow: 0 20px 55px rgba(0,0,0,0.25); }
+        .back { margin-bottom: 18px; }
+        .back a { color: #4f46e5; text-decoration: none; font-weight: 800; }
+        .eyebrow { font-size: 12px; font-weight: 900; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+        h1 { font-size: 24px; margin-bottom: 8px; color:#f1f5f9; }
+        .meta { color: #64748b; margin-bottom: 20px; line-height: 1.45; }
+        .question { font-size: 18px; font-weight: 800; line-height: 1.5; margin-bottom: 20px; color:#f1f5f9; }
+        .options { display: grid; gap: 10px; }
+        .option { border: 2px solid #334155; background:#111827; border-radius: 10px; padding: 13px 15px; cursor: pointer; }
+        .option.selected { border-color: #06b6d4; background: rgba(6,182,212,0.12); }
+        input.answer { width: 100%; padding: 14px; border: 2px solid #334155; background:#111827; color:#f1f5f9; border-radius: 10px; font-size: 16px; }
+        .btn { margin-top: 20px; border: 0; border-radius: 10px; padding: 12px 16px; font-weight: 850; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-primary { background: #4f46e5; color: white; }
+        .btn-secondary { background: #e2e8f0; color: #334155; }
+        .feedback { margin-top: 18px; padding: 14px; border-radius: 10px; line-height: 1.45; }
+        .feedback.correct { background: #d1fae5; color: #065f46; }
+        .feedback.incorrect { background: #fee2e2; color: #991b1b; }
+        .loading, .error { text-align: center; color: #64748b; padding: 28px; }
+        .error { color: #991b1b; }
+    </style>
+</head>
+<body class="iq-app">
+    <div class="container">
+        <div class="back"><a href="/mistakes/">&larr; Mistake Bank</a></div>
+        <div id="loading" class="loading">Loading retry...</div>
+        <div id="retry" style="display:none;">
+            <div class="eyebrow" id="subject-label">Mistake retry</div>
+            <h1>Retry exact question</h1>
+            <div class="meta" id="meta"></div>
+            <div class="question" id="question"></div>
+            <div id="answer-area"></div>
+            <button type="button" id="submit" class="btn btn-primary">Submit retry</button>
+            <div id="feedback"></div>
+        </div>
+        <div id="error" class="error" style="display:none;"></div>
+    </div>
+
+    <script>
+        const itemId = {{ item_id }};
+        let currentQuestion = null;
+
+        function getCookie(name) {
+            const m = document.cookie.match(new RegExp(name + '=([^;]+)'));
+            return m ? decodeURIComponent(m[1]) : '';
+        }
+
+        function escapeHtml(value) {
+            const d = document.createElement('div');
+            d.textContent = value == null ? '' : String(value);
+            return d.innerHTML;
+        }
+
+        function showError(message) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('retry').style.display = 'none';
+            const el = document.getElementById('error');
+            el.textContent = message;
+            el.style.display = 'block';
+        }
+
+        async function loadRetry() {
+            try {
+                const res = await fetch('/api/mistake-bank/' + itemId + '/retry/', { credentials: 'include' });
+                if (!res.ok) {
+                    showError('Could not load this retry.');
+                    return;
+                }
+                const data = await res.json();
+                currentQuestion = data.question;
+                const mistake = data.mistake || {};
+                document.getElementById('subject-label').textContent = (mistake.subject_name || 'Subject') + ' / ' + (mistake.topic_name || 'Topic');
+                document.getElementById('meta').textContent = (mistake.remediation_tip || 'Try the question again without looking at the answer first.');
+                document.getElementById('question').textContent = currentQuestion.question_text;
+                renderAnswer(currentQuestion);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('retry').style.display = 'block';
+            } catch (e) {
+                showError('Network error loading retry.');
+            }
+        }
+
+        function renderAnswer(q) {
+            const area = document.getElementById('answer-area');
+            if (q.question_type === 'multiple_choice' && q.options && q.options.length) {
+                area.innerHTML = '<div class="options">' + q.options.map(o => '<div class="option" data-id="' + o.id + '">' + escapeHtml(o.option_text) + '</div>').join('') + '</div>';
+                area.querySelectorAll('.option').forEach(el => el.addEventListener('click', function () {
+                    area.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                }));
+            } else {
+                area.innerHTML = '<input class="answer" id="answer" type="text" placeholder="Your answer">';
+            }
+        }
+
+        async function submitRetry() {
+            const selected = document.querySelector('.option.selected');
+            const answer = document.getElementById('answer');
+            const payload = selected ? { selected_option_id: parseInt(selected.dataset.id, 10) } : { answer: answer ? answer.value.trim() : '' };
+            const btn = document.getElementById('submit');
+            btn.disabled = true;
+            try {
+                const res = await fetch('/api/mistake-bank/' + itemId + '/retry/submit/', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                const fb = document.getElementById('feedback');
+                fb.className = 'feedback ' + (data.is_correct ? 'correct' : 'incorrect');
+                fb.innerHTML = data.is_correct
+                    ? 'Correct. ' + (data.status === 'mastered' ? 'This item is now mastered.' : 'One more correct retry will mark it mastered.')
+                    : 'Not yet. ' + (data.correct_answer ? 'Correct answer: ' + escapeHtml(data.correct_answer) + '<br>' : '') + escapeHtml(data.explanation || 'Review the fix and try again.');
+                fb.innerHTML += '<div style="margin-top:12px;"><a class="btn btn-secondary" href="/mistakes/">Back to Mistake Bank</a></div>';
+            } catch (e) {
+                showError('Could not submit retry.');
+            }
+            btn.disabled = false;
+        }
+
+        document.getElementById('submit').addEventListener('click', submitRetry);
+        loadRetry();
+    </script>
+</body>
+</html>

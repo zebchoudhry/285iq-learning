@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>285IQ — Mission Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;1,400&family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #020817;
+            --surface: #0f172a;
+            --surface2: #1e293b;
+            --border: #334155;
+            --primary: #3b82f6;
+            --cyan: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gold: #fbbf24;
+            --text: #f1f5f9;
+            --text-muted: #64748b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .hidden { display: none !important; }
+        html, body { min-height: 100vh; }
+        body {
+            font-family: 'Exo 2', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(6,182,212,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(6,182,212,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .app-root { position: relative; z-index: 1; display: flex; min-height: 100vh; }
+        .sidebar {
+            width: 260px;
+            flex-shrink: 0;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            box-shadow: 2px 0 20px rgba(6,182,212,0.05);
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .brand-block { padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .brand-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--cyan);
+            letter-spacing: 0.04em;
+        }
+        .brand-underline { height: 2px; background: linear-gradient(90deg, var(--cyan), transparent); margin-top: 8px; max-width: 140px; }
+        .system-online {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            color: var(--success);
+            text-transform: uppercase;
+        }
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            animation: pulse-online 2s ease-in-out infinite;
+        }
+        @keyframes pulse-online {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.85); }
+        }
+        .profile-block { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+        .profile-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            border: 2px solid var(--cyan);
+            box-shadow: 0 0 16px rgba(6,182,212,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--text);
+        }
+        .profile-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            min-height: 22px;
+        }
+        .profile-level {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            background: var(--gold);
+            color: #0f172a;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            min-height: 18px;
+        }
+        .neural-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            color: var(--cyan);
+            margin-bottom: 6px;
+        }
+        .xp-bar-wrap {
+            height: 8px;
+            background: #0f172a;
+            border: 1px solid var(--cyan);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .xp-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--cyan), var(--primary));
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+        .stat-xp-gold {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-top: 6px;
+        }
+        .streak-line {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .streak-line.hot { color: var(--warning); }
+        .streak-line.cold { color: var(--text-muted); }
+        .mini-stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .mini-stat {
+            background: var(--surface2);
+            border: 1px solid var(--cyan);
+            border-radius: 8px;
+            padding: 10px 8px;
+            text-align: center;
+        }
+        .mini-stat .num {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--cyan);
+        }
+        .mini-stat .lbl {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 9px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-top: 4px;
+        }
+        .nav-block { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+        .nav-item {
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 2px solid transparent;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            cursor: pointer;
+        }
+        .nav-item:hover {
+            background: var(--surface2);
+            color: var(--cyan);
+            border-left-color: var(--cyan);
+        }
+        .nav-item.active {
+            background: var(--surface2);
+            color: var(--cyan);
+            border-left-color: var(--cyan);
+        }
+        #upgrade-banner {
+            display: none;
+            background: var(--surface2);
+            border: 1px solid var(--cyan);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+        }
+        #upgrade-banner p { margin-bottom: 10px; font-size: 13px; line-height: 1.5; color: var(--text); }
+        #upgrade-banner .upgrade-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        #upgrade-banner input[type="email"] {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            min-width: 180px;
+            font-size: 13px;
+        }
+        #upgrade-banner .upgrade-btn {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: 'Orbitron', sans-serif;
+            background: var(--cyan);
+            color: #0f172a;
+        }
+        #upgrade-banner .upgrade-btn:hover { opacity: 0.92; }
+        #upgrade-banner .upgrade-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .main-content {
+            flex: 1;
+            padding: 28px;
+            overflow-y: auto;
+            background: var(--bg);
+            min-width: 0;
+        }
+        .main-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .mission-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--cyan);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .welcome-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+            min-height: 36px;
+        }
+        .welcome-tag {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+        #live-clock {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            color: var(--cyan);
+            letter-spacing: 0.06em;
+        }
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .panel:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 0 20px rgba(6,182,212,0.1);
+        }
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .panel:hover::before { opacity: 1; }
+        .panel-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: var(--cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .panel-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .panel.anim-in { opacity: 0; animation: fadeInUp 0.5s ease forwards; }
+        .grid-top {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .grid-mid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .subjects-full { grid-column: 1 / -1; }
+        .focus-panel { min-width: 0; }
+        .telemetry-panel { min-width: 0; }
+        .bottom-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        #subjectsPanel .subj-grid-inner {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .subject-card-mc {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .subject-card-mc:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 24px rgba(59,130,246,0.2);
+        }
+        .subject-card-mc.math:hover { border-color: #3b82f6; box-shadow: 0 0 24px rgba(59,130,246,0.33); }
+        .subject-card-mc.bio:hover { border-color: #10b981; box-shadow: 0 0 24px rgba(16,185,129,0.33); }
+        .subject-card-mc.chem:hover { border-color: #f59e0b; box-shadow: 0 0 24px rgba(245,158,11,0.33); }
+        .subject-card-mc.phy:hover { border-color: #06b6d4; box-shadow: 0 0 24px rgba(6,182,212,0.33); }
+        .sc-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .sc-icon { font-size: 36px; line-height: 1; }
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .status-dot.ok { background: var(--success); }
+        .status-dot.mid { background: var(--warning); }
+        .status-dot.bad { background: var(--danger); animation: pulse-dot 2s ease-in-out infinite; }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+        .sc-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            margin: 8px 0 12px;
+        }
+        .ring-wrap { display: flex; justify-content: center; margin-bottom: 12px; }
+        .ring-wrap svg { width: 60px; height: 60px; }
+        .sc-stats { font-family: 'Exo 2', sans-serif; font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 4px; }
+        .sc-pct { font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 600; text-align: center; margin-bottom: 10px; }
+        .sc-enter { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 0.12em; text-align: center; }
+        .skeleton-card {
+            background: var(--surface2);
+            border-radius: 10px;
+            min-height: 220px;
+            animation: sk-pulse 1.2s ease-in-out infinite;
+        }
+        @keyframes sk-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.9; }
+        }
+        .threat-item {
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+        .threat-item:hover { background: var(--surface2); }
+        .threat-subj { font-family: 'Orbitron', sans-serif; font-size: 11px; color: var(--cyan); margin-bottom: 4px; }
+        .threat-topic { font-family: 'Exo 2', sans-serif; font-size: 14px; color: var(--text); margin-bottom: 8px; }
+        .threat-bar-wrap { display: flex; align-items: center; gap: 10px; }
+        .threat-bar { flex: 1; height: 6px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
+        .threat-bar-fill { height: 100%; background: var(--danger); border-radius: 99px; width: 0; transition: width 0.6s ease; }
+        .threat-pct { font-family: 'Orbitron', sans-serif; font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+        .empty-focus-ok {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            color: var(--success);
+            padding: 24px 12px;
+        }
+        .tel-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .tel-row:last-child { border-bottom: none; }
+        .tel-left { font-family: 'Exo 2', sans-serif; font-size: 12px; color: var(--text-muted); }
+        .tel-val {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .tel-val.gold { color: var(--gold); }
+        .tel-val.amber { color: var(--warning); }
+        .tel-val.cyan { color: var(--cyan); }
+        #due-cards-box {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        #due-cards-box.glow { border-color: var(--cyan); box-shadow: 0 0 20px rgba(6,182,212,0.2); }
+        #due-cards-count { font-family: 'Orbitron', sans-serif; font-size: 48px; font-weight: 800; color: var(--cyan); line-height: 1.1; }
+        .due-sub { font-family: 'Exo 2', sans-serif; font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+        .due-synced { font-family: 'Orbitron', sans-serif; font-size: 14px; color: var(--success); margin-top: 8px; }
+        .loading-skeleton { height: 18px; background: var(--surface2); border-radius: 4px; animation: sk-pulse 1.2s ease-in-out infinite; }
+        .error-message {
+            background: rgba(239,68,68,0.15);
+            border: 1px solid var(--danger);
+            color: #fecaca;
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        .toast { position: fixed; bottom: 24px; right: 24px; padding: 14px 20px; border-radius: 10px; z-index: 9999; font-weight: 600; font-family: 'Exo 2', sans-serif; animation: slideIn 0.3s ease; border: 1px solid var(--border); }
+        .toast-streak { background: var(--surface); color: var(--warning); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+        .toast-level { background: var(--surface); color: var(--cyan); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(2,8,23,0.85); display: flex; align-items: center; justify-content: center; z-index: 10000; animation: fadeIn 0.2s; }
+        .modal-level {
+            background: var(--surface);
+            border: 1px solid var(--cyan);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 360px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(6,182,212,0.2);
+        }
+        .modal-level h2 { font-family: 'Orbitron', sans-serif; color: var(--text); margin-bottom: 8px; }
+        .modal-level p { color: var(--text-muted); margin-bottom: 20px; font-size: 14px; }
+        .modal-level button {
+            padding: 12px 28px;
+            background: var(--cyan);
+            color: #0f172a;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        #banner-48h { display: none; border: 1px solid var(--warning); background: rgba(245,158,11,0.12); color: var(--text); padding: 14px 18px; border-radius: 10px; margin-bottom: 16px; font-size: 13px; }
+        #banner-48h a { color: var(--gold); font-weight: 700; }
+        .quick-link-row { margin-bottom: 16px; }
+        .quick-link-row a {
+            display: inline-block;
+            padding: 10px 18px;
+            background: var(--surface2);
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+        }
+        .quick-link-row a:hover { background: rgba(6,182,212,0.1); }
+        #exam-readiness-summary { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); }
+        #exam-readiness-summary a { color: var(--cyan); font-weight: 600; }
+        #badges-row { display: flex; flex-wrap: wrap; gap: 8px; min-height: 28px; justify-content: center; }
+        @media (max-width: 1100px) {
+            .grid-top { grid-template-columns: 1fr; }
+            .grid-mid { grid-template-columns: 1fr; }
+            #subjectsPanel .subj-grid-inner { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 767px) {
+            .app-root { flex-direction: column; }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                padding: 12px;
+                box-shadow: 0 4px 20px rgba(6,182,212,0.05);
+            }
+            .brand-block { flex: 1; min-width: 120px; border: none; padding: 0; margin: 0; }
+            .profile-block { flex-direction: row; flex-wrap: wrap; gap: 12px; }
+            .nav-block {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 4px;
+                width: 100%;
+                justify-content: flex-end;
+            }
+            .nav-item span:last-child { display: none; }
+            .nav-item { padding: 10px 12px; font-size: 18px; }
+            .mini-stats-row, .neural-block, .streak-line, .system-online { display: none; }
+            .main-content { padding: 16px; font-size: 90%; }
+            .welcome-title { font-size: 22px; }
+            #subjectsPanel .subj-grid-inner { grid-template-columns: repeat(2, 1fr); }
+            .bottom-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-root">
+        <aside class="sidebar">
+            <div class="brand-block">
+                <div class="brand-title">285IQ</div>
+                <div class="brand-underline"></div>
+                <div class="system-online"><span class="pulse-dot"></span><span>ANALYTICS ACTIVE</span></div>
+            </div>
+            <div class="profile-block">
+                <div class="profile-avatar" id="profile-avatar">--</div>
+                <div>
+                    <div class="profile-name" id="profile-name"><div class="loading-skeleton" style="width:120px;margin:0 auto;"></div></div>
+                    <div class="profile-level" id="profile-level"><div class="loading-skeleton" style="width:100px;height:14px;margin:8px auto 0;"></div></div>
+                </div>
+            </div>
+            <div class="neural-block">
+                <div class="neural-label">PERFORMANCE INDEX</div>
+                <div class="xp-bar-wrap"><div class="xp-bar-fill" id="xp-bar-fill"></div></div>
+                <div class="stat-xp-gold"><span id="stat-xp">0</span> XP</div>
+            </div>
+            <div class="streak-line cold" id="streak-line-wrap"><span>🔥</span> <span id="stat-streak">0</span> DAY STUDY STREAK</div>
+            <div class="mini-stats-row">
+                <div class="mini-stat">
+                    <div class="num" id="stat-achievements">0</div>
+                    <div class="lbl">ACHIEVEMENTS</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="num" id="stat-exam-ready">0</div>
+                    <div class="lbl">EXAM READINESS</div>
+                </div>
+            </div>
+            <nav class="nav-block">
+                <div class="nav-item active"><span>🏠</span><span>Dashboard</span></div>
+                <a href="/subjects/" class="nav-item"><span>📚</span><span>My Subjects</span></a>
+                <a href="/revision/" class="nav-item"><span>📅</span><span>Revision Planner</span></a>
+                <a href="/exam-readiness/" class="nav-item"><span>✅</span><span>Exam Readiness</span></a>
+                <a href="/mock-tests/" class="nav-item"><span>📝</span><span>Mock Tests</span></a>
+                <a href="/mistakes/" class="nav-item"><span>🎯</span><span>Mistake Bank</span></a>
+                <a href="/flashcards/" class="nav-item"><span>🃏</span><span>Flashcards</span></a>
+                <div class="nav-item"><span>🤖</span><span>AI Tutor</span></div>
+                <a href="/settings/" class="nav-item"><span>⚙️</span><span>Settings</span></a>
+            </nav>
+            <div id="badges-row"></div>
+        </aside>
+
+        <main class="main-content">
+            <div class="main-header-row">
+                <div>
+                    <div class="mission-label">REVISION ANALYTICS</div>
+                    <h1 class="welcome-title">Welcome back, <span id="welcome-name">…</span></h1>
+                    <p class="welcome-tag">Ready to continue your GCSE revision?</p>
+                </div>
+                <div id="live-clock" aria-live="polite"></div>
+            </div>
+
+            <div id="upgrade-banner">
+                <p>UPGRADE TO PRO — Unlock unlimited mission sessions, richer AI feedback, and weekly parent evidence reports.</p>
+                <div class="upgrade-actions">
+                    <label for="parent-email-billing" style="font-size:11px;color:var(--text-muted);">Parent email (for payment)</label>
+                    <input type="email" id="parent-email-billing" placeholder="parent@example.com" autocomplete="email">
+                    <button type="button" class="upgrade-btn" data-plan="monthly">£9.99/month</button>
+                    <button type="button" class="upgrade-btn" data-plan="annual">£79.99/year</button>
+                </div>
+            </div>
+
+            <div id="banner-48h"></div>
+
+            <div class="quick-link-row">
+                <a href="/quiz/?mode=quick_fire">⚡ QUICK QUIZ (5Q)</a>
+            </div>
+
+            <div class="panel anim-in" id="mission-card" style="animation-delay:0.04s;margin-bottom:14px;">
+                <div class="panel-label">◎ TODAY'S MISSION</div>
+                <div id="mission-content" style="font-size:13px;color:var(--text-muted);line-height:1.55;">
+                    Calculating your next best task...
+                </div>
+            </div>
+
+            <div class="grid-top">
+                <div class="panel subjects-full anim-in" id="subjectsPanel" style="animation-delay:0.05s;">
+                    <div class="panel-label">◈ YOUR SUBJECTS</div>
+                    <div class="subj-grid-inner" id="subjectsContainer">
+                        <div class="skeleton-card"></div>
+                        <div class="skeleton-card"></div>
+                        <div class="skeleton-card"></div>
+                        <div class="skeleton-card"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-mid">
+                <div class="panel focus-panel anim-in" id="focusAreasPanel" style="animation-delay:0.15s;">
+                    <div class="panel-label">⚠ WEAK SIGNAL TOPICS</div>
+                    <div id="focusAreasContainer">
+                        <div class="empty-state" style="text-align:center;padding:20px;color:var(--text-muted);font-family:'Exo 2',sans-serif;font-size:13px;">Scanning...</div>
+                    </div>
+                </div>
+                <div class="panel telemetry-panel anim-in" style="animation-delay:0.2s;">
+                    <div class="panel-label">◉ PERFORMANCE DATA</div>
+                    <div id="quick-stats">
+                        <div class="tel-row">
+                            <span class="tel-left">⚡ PERFORMANCE INDEX</span>
+                            <span class="tel-val gold" id="telemetry-xp">0</span>
+                        </div>
+                        <div class="tel-row">
+                            <span class="tel-left">🔥 STUDY STREAK</span>
+                            <span class="tel-val amber" id="telemetry-streak">0</span>
+                        </div>
+                        <div class="tel-row">
+                            <span class="tel-left">🏆 ACHIEVEMENTS</span>
+                            <span class="tel-val gold" id="telemetry-achievements">0</span>
+                        </div>
+                        <div class="tel-row">
+                            <span class="tel-left">🎯 EXAM READINESS</span>
+                            <span class="tel-val cyan" id="telemetry-ready"><a href="/revision/" id="telemetry-ready-link" style="color:inherit;text-decoration:none;">0/4</a></span>
+                        </div>
+                    </div>
+                    <div id="exam-readiness-summary"></div>
+                </div>
+            </div>
+
+            <div class="bottom-row">
+                <a href="/flashcards/" class="panel" id="due-cards-box" style="animation-delay:0.3s;">
+                    <div class="panel-label">🃏 SPACED REVIEW DUE</div>
+                    <div id="due-cards-count">—</div>
+                    <div class="due-sub" id="due-cards-sub">flashcards due for review</div>
+                    <div class="due-synced hidden" id="due-cards-synced">REVIEW COMPLETE ✓</div>
+                </a>
+                <div class="panel anim-in" style="animation-delay:0.35s;">
+                    <div class="panel-label">◇ PRO ACCESS</div>
+                    <p style="font-size:12px;color:var(--text-muted);line-height:1.6;">Upgrade to Pro from the banner above when available for unlimited practice and AI tutor access.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="toast-container"></div>
+    <div id="level-up-modal" style="display:none;" class="modal-overlay">
+        <div class="modal-level">
+            <div style="font-size:48px;margin-bottom:12px;">🎉</div>
+            <h2>Level Up!</h2>
+            <p id="level-up-text">You've reached a new level!</p>
+            <button type="button" onclick="document.getElementById('level-up-modal').style.display='none';">Awesome!</button>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+            const d = now.getDate().toString().padStart(2, '0');
+            const m = months[now.getMonth()];
+            const h = now.getHours().toString().padStart(2, '0');
+            const min = now.getMinutes().toString().padStart(2, '0');
+            const s = now.getSeconds().toString().padStart(2, '0');
+            const el = document.getElementById('live-clock');
+            if (el) el.textContent = m + ' ' + d + ' · ' + h + ':' + min + ':' + s;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        function countUp(el, target, duration) {
+            duration = duration || 1500;
+            if (!el) return;
+            let start = 0;
+            const step = target / (duration / 16);
+            const timer = setInterval(function () {
+                start += step;
+                if (start >= target) {
+                    el.textContent = Math.round(target);
+                    clearInterval(timer);
+                } else {
+                    el.textContent = Math.round(start);
+                }
+            }, 16);
+        }
+
+        async function loadUserData() {
+            try {
+                const response = await fetch('/api/users/auth/current-user/', { credentials: 'include' });
+                if (response.ok) {
+                    const userData = await response.json();
+                    updateDashboard(userData);
+                    return userData;
+                } else {
+                    window.location.href = '/login/';
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                showError('Failed to load user data');
+            }
+        }
+
+        async function loadProfile() {
+            const ud = await loadUserData();
+            if (!ud) return ud;
+            var p = ud.profile || {};
+            var data = {
+                total_xp: p.total_xp != null ? p.total_xp : (ud.total_xp || 0),
+                daily_streak: p.daily_streak != null ? p.daily_streak : (ud.daily_streak || 0),
+                achievements_count: p.achievement_count != null ? p.achievement_count : (ud.achievements_count || 0),
+                first_name: ud.first_name,
+                username: ud.username,
+                subscription_status: ud.subscription_status,
+                is_pro: ud.is_pro
+            };
+            var displayName = data.first_name || data.username || 'Student';
+            document.getElementById('profile-name').textContent = displayName;
+            var welcomeEl = document.getElementById('welcome-name');
+            if (welcomeEl) welcomeEl.textContent = displayName;
+
+            var xpEl = document.getElementById('stat-xp');
+            var streakEl = document.getElementById('stat-streak');
+            var achievementsEl = document.getElementById('stat-achievements');
+            if (xpEl) countUp(xpEl, data.total_xp || 0);
+            if (streakEl) countUp(streakEl, data.daily_streak || 0);
+            if (achievementsEl) countUp(achievementsEl, data.achievements_count || 0);
+
+            var tx = document.getElementById('telemetry-xp');
+            var ts = document.getElementById('telemetry-streak');
+            var ta = document.getElementById('telemetry-achievements');
+            if (tx) countUp(tx, data.total_xp || 0);
+            if (ts) countUp(ts, data.daily_streak || 0);
+            if (ta) countUp(ta, data.achievements_count || 0);
+
+            var xpBar = document.getElementById('xp-bar-fill');
+            if (xpBar) {
+                var pct = Math.min(100, ((data.total_xp || 0) % 1000) / 10);
+                xpBar.style.width = pct + '%';
+            }
+
+            var banner = document.getElementById('upgrade-banner');
+            if (banner) {
+                if (data.is_pro || data.subscription_status === 'pro_monthly' || data.subscription_status === 'pro_annual') {
+                    banner.style.display = 'none';
+                } else {
+                    banner.style.display = 'block';
+                }
+            }
+
+            return ud;
+        }
+
+        async function loadSubjects() {
+            try {
+                const [subjRes, progressRes] = await Promise.all([
+                    fetch('/api/subjects/', { credentials: 'include' }),
+                    fetch('/api/subject-progress/', { credentials: 'include' })
+                ]);
+                const progressList = progressRes.ok ? await progressRes.json() : [];
+                const progressBySubject = {};
+                progressList.forEach(function (p) { progressBySubject[p.subject_id] = p; });
+
+                if (subjRes.ok) {
+                    const data = await subjRes.json();
+                    const subjects = data.results || data;
+                    renderSubjects(Array.isArray(subjects) ? subjects : [], progressBySubject, window.__prioritySubjectIds);
+                } else {
+                    showSubjectsError('Failed to load subjects');
+                }
+            } catch (error) {
+                console.error('Error loading subjects:', error);
+                showSubjectsError('Failed to load subjects');
+            }
+        }
+
+        async function loadMission() {
+            try {
+                const r = await fetch('/api/mission/', { credentials: 'include' });
+                if (!r.ok) return;
+                const mission = await r.json();
+                const el = document.getElementById('mission-content');
+                if (!el) return;
+                const risk = (mission.risk_level || 'watch').replace('_', ' ').toUpperCase();
+                const gap = mission.target_grade_gap != null ? mission.target_grade_gap : 0;
+                const link = mission.cta_url || '/subjects/';
+                const skills = (mission.skill_codes || []).slice(0, 3).join(', ');
+                el.innerHTML =
+                    '<div style="color:var(--text);font-weight:700;margin-bottom:4px;">' + escapeHtml((mission.task_type || 'practice').replace(/_/g, ' ')) + '</div>' +
+                    '<div style="margin-bottom:6px;">' + escapeHtml(mission.reason || 'Continue focused practice to improve your target-grade trajectory.') + '</div>' +
+                    '<div style="font-size:12px;margin-bottom:8px;">Risk: <strong>' + escapeHtml(risk) + '</strong> · Grade gap: <strong>' + escapeHtml(String(gap)) + '</strong>' +
+                    (skills ? ' · Skills: <strong>' + escapeHtml(skills) + '</strong>' : '') + '</div>' +
+                    '<a href="' + link + '" style="display:inline-block;padding:8px 12px;border:1px solid var(--cyan);border-radius:8px;color:var(--cyan);text-decoration:none;font-weight:700;">Start mission →</a>';
+                const banner = document.getElementById('upgrade-banner');
+                if (banner) {
+                    const p = banner.querySelector('p');
+                    if (p && risk === 'AT RISK') {
+                        p.textContent = 'UPGRADE TO PRO — You are currently at risk of missing target grade. Unlock unlimited mission sessions and deeper remediation now.';
+                    }
+                }
+            } catch (e) {}
+        }
+
+        async function loadLoopMetrics() {
+            try {
+                const r = await fetch('/api/loop-metrics/', { credentials: 'include' });
+                if (!r.ok) return;
+                const data = await r.json();
+                const summary = document.getElementById('exam-readiness-summary');
+                if (!summary) return;
+                summary.innerHTML =
+                    '<span style="font-size:12px;color:var(--text-muted);">Mission completion: ' +
+                    escapeHtml(String(data.mission_completion_rate || 0)) + '% · Diagnostic completion: ' +
+                    escapeHtml(String(data.diagnostic_completion_rate || 0)) + '%</span>';
+            } catch (e) {}
+        }
+
+        async function loadRevisionSummary() {
+            try {
+                const r = await fetch('/api/revision-summary/', { credentials: 'include' });
+                if (!r.ok) return;
+                const data = await r.json();
+                const within48h = data.exams_within_48h || [];
+                const readiness = data.subject_readiness || [];
+                if (within48h.length > 0) {
+                    const banner = document.getElementById('banner-48h');
+                    banner.style.display = 'block';
+                    const items = within48h.map(function (e) {
+                        const days = e.days_remaining != null ? e.days_remaining : (e.exam_date ? Math.ceil((new Date(e.exam_date) - new Date()) / 86400000) : 0);
+                        const dayText = days === 0 ? 'today' : days === 1 ? 'tomorrow' : days + ' days';
+                        return '<a href="/lessons/?subject=' + e.subject_id + '" style="color:var(--gold);font-weight:700;">' + (e.subject_name || 'Subject') + '</a> (' + dayText + ')';
+                    });
+                    banner.innerHTML = '<strong>Your next exam(s):</strong> ' + items.join(', ') + ' – focus on revision. <a href="/revision/" style="color:var(--gold);font-weight:700;margin-left:8px;">View revision planner →</a>';
+                    window.__prioritySubjectIds = within48h.map(function (e) { return e.subject_id; });
+                } else {
+                    window.__prioritySubjectIds = null;
+                }
+                const readyEl = document.getElementById('exam-readiness-summary');
+                const statExam = document.getElementById('stat-exam-ready');
+                const telReady = document.getElementById('telemetry-ready');
+                var readyCount = 0;
+                if (readiness.length > 0) {
+                    readyCount = readiness.filter(function (s) { return s.exam_ready; }).length;
+                }
+                if (statExam) {
+                    statExam.textContent = readyCount + '/4';
+                }
+                if (readiness.length > 0) {
+                    const total = readiness.length;
+                    if (telReady) {
+                        telReady.innerHTML = '<a href="/revision/" style="color:inherit;text-decoration:none;">' + readyCount + '/' + total + '</a>';
+                    }
+                    if (readyEl) {
+                        readyEl.innerHTML = '<a href="/revision/" style="color:var(--cyan);font-weight:600;">Exam ready: ' + readyCount + '/' + total + ' subjects</a>';
+                    }
+                } else {
+                    if (telReady) {
+                        telReady.innerHTML = '<a href="/revision/" style="color:inherit;text-decoration:none;">0/4</a>';
+                    }
+                }
+            } catch (e) { window.__prioritySubjectIds = null; }
+        }
+
+        async function loadDueCardCount() {
+            try {
+                const r = await fetch('/api/flashcards/due-count/', { credentials: 'include' });
+                if (!r.ok) return;
+                const data = await r.json();
+                const el = document.getElementById('due-cards-count');
+                const box = document.getElementById('due-cards-box');
+                const sub = document.getElementById('due-cards-sub');
+                const synced = document.getElementById('due-cards-synced');
+                const cnt = data.due_count || 0;
+                if (el) el.textContent = cnt;
+                if (box) {
+                    box.classList.toggle('glow', cnt > 0);
+                    box.style.background = '';
+                }
+                if (sub) sub.classList.toggle('hidden', cnt === 0);
+                if (synced) synced.classList.toggle('hidden', cnt !== 0);
+                if (cnt > 0 && box) {
+                    box.style.borderColor = 'var(--cyan)';
+                }
+            } catch (e) {}
+        }
+
+        function updateDashboard(userData) {
+            const username = userData.username || 'Student';
+            const initials = username.substring(0, 2).toUpperCase();
+            document.getElementById('profile-avatar').textContent = initials;
+
+            const profile = userData.profile || {};
+            const dailyStreak = profile.daily_streak || 0;
+
+            const streakWrap = document.getElementById('streak-line-wrap');
+            if (streakWrap) {
+                streakWrap.className = 'streak-line ' + (dailyStreak > 0 ? 'hot' : 'cold');
+            }
+
+            const achievements = userData.profile && userData.profile.achievements ? userData.profile.achievements : [];
+            const badgesRow = document.getElementById('badges-row');
+            if (badgesRow) {
+                badgesRow.innerHTML = achievements.length ? achievements.map(function (a) {
+                    return '<span title="' + String(a.name || '').replace(/"/g, '&quot;') + '" style="font-size:22px;cursor:help;">' + (a.icon || '🏅') + '</span>';
+                }).join('') : '<span style="font-size:11px;color:var(--text-muted);">Earn achievements by learning!</span>';
+            }
+
+            const level = profile.current_level || 1;
+            document.getElementById('profile-level').textContent = 'LEVEL ' + level + ' SCHOLAR';
+
+            const key = 'gm_' + (userData.id || username);
+            const prev = JSON.parse(sessionStorage.getItem(key) || '{}');
+            if (prev.streak != null && dailyStreak > prev.streak && prev.streak >= 0) {
+                showToast('🔥 ' + dailyStreak + ' day streak! Keep it up!', 'streak');
+            }
+            if (prev.level != null && level > prev.level) {
+                document.getElementById('level-up-text').textContent = "You've reached Level " + level + '!';
+                document.getElementById('level-up-modal').style.display = 'flex';
+            }
+            sessionStorage.setItem(key, JSON.stringify({ streak: dailyStreak, level: level }));
+        }
+
+        function subjectAccentKey(name) {
+            const n = (name || '').toLowerCase();
+            if (n.indexOf('math') >= 0) return { cls: 'math', col: '#3b82f6' };
+            if (n.indexOf('bio') >= 0) return { cls: 'bio', col: '#10b981' };
+            if (n.indexOf('chem') >= 0) return { cls: 'chem', col: '#f59e0b' };
+            if (n.indexOf('phys') >= 0) return { cls: 'phy', col: '#06b6d4' };
+            return { cls: 'math', col: '#3b82f6' };
+        }
+
+        function statusDotClass(pct) {
+            if (pct >= 70) return 'ok';
+            if (pct >= 40) return 'mid';
+            return 'bad';
+        }
+
+        function ringSvg(pct, colour) {
+            const p = Math.max(0, Math.min(100, pct));
+            const dash = p + ' ' + (100 - p);
+            return '<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">' +
+                '<circle cx="18" cy="18" r="15.91549430918954" fill="none" stroke="#334155" stroke-width="3" pathLength="100"/>' +
+                '<circle cx="18" cy="18" r="15.91549430918954" fill="none" stroke="' + colour + '" stroke-width="3" ' +
+                'stroke-dasharray="' + dash + '" stroke-linecap="round" transform="rotate(-90 18 18)" pathLength="100"/>' +
+                '<text x="18" y="21" text-anchor="middle" fill="#f1f5f9" font-family="Orbitron,sans-serif" font-size="8" font-weight="700">' + Math.round(p) + '%</text></svg>';
+        }
+
+        function renderSubjects(subjects, progressBySubject, prioritySubjectIds) {
+            progressBySubject = progressBySubject || {};
+            const subjectsGrid = document.getElementById('subjectsContainer');
+            if (!subjects || subjects.length === 0) {
+                subjectsGrid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;text-align:center;padding:32px;color:var(--text-muted);font-family:Exo 2,sans-serif;">No subjects available yet</div>';
+                return;
+            }
+
+            const map = new Map();
+            for (const s of subjects) {
+                if (!s || !s.name) continue;
+                if (!map.has(s.name)) map.set(s.name, s);
+            }
+            const desired = ['mathematics', 'biology', 'chemistry', 'physics'];
+            const icons = { mathematics: '📐', biology: '🧬', chemistry: '⚗️', physics: '⚡' };
+
+            let mainSubjects = [];
+            for (const key of desired) {
+                if (map.has(key)) mainSubjects.push(map.get(key));
+            }
+            if (prioritySubjectIds && prioritySubjectIds.length > 0) {
+                const prioritySet = new Set(prioritySubjectIds);
+                mainSubjects.sort(function (a, b) {
+                    const aP = prioritySet.has(a.id) ? 1 : 0;
+                    const bP = prioritySet.has(b.id) ? 1 : 0;
+                    if (aP !== bP) return bP - aP;
+                    return 0;
+                });
+            }
+
+            subjectsGrid.innerHTML = '';
+            if (mainSubjects.length === 0) {
+                subjectsGrid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;text-align:center;">No subjects available yet</div>';
+                return;
+            }
+
+            for (const subject of mainSubjects) {
+                const icon = icons[subject.name] || '📚';
+                const progress = progressBySubject[subject.id] || {};
+                const total = progress.total_lessons || 0;
+                const completed = progress.completed_lessons || 0;
+                const pct = progress.progress_percent != null ? progress.progress_percent : 0;
+                const acc = subjectAccentKey(subject.name);
+                const dotClass = statusDotClass(pct);
+
+                const subjectCard = document.createElement('a');
+                subjectCard.href = '/subject/' + subject.id + '/';
+                subjectCard.className = 'subject-card-mc ' + acc.cls;
+
+                const displayName = (subject.display_name || '').replace(/^(?:GCSE\s+|GSCE\s+)+/gi, '').trim() || subject.name;
+
+                subjectCard.innerHTML =
+                    '<div class="sc-top-row"><span class="sc-icon">' + icon + '</span><span class="status-dot ' + dotClass + '"></span></div>' +
+                    '<div class="sc-name">GCSE ' + escapeHtml(displayName) + '</div>' +
+                    '<div class="ring-wrap">' + ringSvg(pct, acc.col) + '</div>' +
+                    '<div class="sc-stats">' + completed + ' / ' + total + ' LESSONS</div>' +
+                    '<div class="sc-pct" style="color:' + acc.col + '">' + Math.round(pct) + '% COMPLETE</div>' +
+                    '<div class="sc-enter" style="color:' + acc.col + '">OPEN SUBJECT →</div>';
+
+                subjectsGrid.appendChild(subjectCard);
+            }
+        }
+
+        function escapeHtml(s) {
+            const d = document.createElement('div');
+            d.textContent = s;
+            return d.innerHTML;
+        }
+
+        function showToast(message, type) {
+            const container = document.getElementById('toast-container');
+            const el = document.createElement('div');
+            el.className = 'toast toast-' + (type || 'streak');
+            el.textContent = message;
+            container.appendChild(el);
+            setTimeout(function () { el.remove(); }, 4000);
+        }
+
+        function showError(message) {
+            const mainContent = document.querySelector('.main-content');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            mainContent.insertBefore(errorDiv, mainContent.firstChild);
+        }
+
+        function showSubjectsError(message) {
+            const subjectsGrid = document.getElementById('subjectsContainer');
+            if (subjectsGrid) {
+                subjectsGrid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;text-align:center;padding:24px;color:var(--danger);">' + escapeHtml(message) + '</div>';
+            }
+        }
+
+        async function logout() {
+            try {
+                await fetch('/api/users/auth/logout/', { method: 'POST', credentials: 'include', headers: { 'X-CSRFToken': getCookie('csrftoken') } });
+                window.location.href = '/login/';
+            } catch (error) { console.error('Logout error:', error); }
+        }
+
+        async function loadBillingBanner(userData) {
+            if (!userData || !userData.id) return;
+            try {
+                const r = await fetch('/api/billing/status/', { credentials: 'include' });
+                if (!r.ok) return;
+                const data = await r.json();
+                if (data.is_pro) {
+                    const b = document.getElementById('upgrade-banner');
+                    if (b) b.style.display = 'none';
+                    return;
+                }
+                const banner = document.getElementById('upgrade-banner');
+                if (!banner) return;
+                banner.style.display = 'block';
+                const emailInput = document.getElementById('parent-email-billing');
+                if (emailInput && userData && userData.email) {
+                    emailInput.value = userData.email;
+                }
+                banner.querySelectorAll('.upgrade-btn').forEach(function (btn) {
+                    btn.addEventListener('click', async function () {
+                        const plan = btn.getAttribute('data-plan');
+                        const parent_email = (emailInput && emailInput.value.trim()) || '';
+                        if (!parent_email) {
+                            alert('Please enter the parent email used for billing.');
+                            return;
+                        }
+                        btn.disabled = true;
+                        try {
+                            const res = await fetch('/api/billing/create-checkout-session/', {
+                                method: 'POST',
+                                credentials: 'include',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRFToken': getCookie('csrftoken'),
+                                },
+                                body: JSON.stringify({
+                                    plan: plan,
+                                    parent_email: parent_email,
+                                    student_id: userData.id,
+                                }),
+                            });
+                            const out = await res.json();
+                            if (res.ok && out.checkout_url) {
+                                window.location.href = out.checkout_url;
+                            } else {
+                                alert(out.error || out.detail || 'Could not start checkout.');
+                            }
+                        } catch (e) {
+                            alert('Checkout failed. Please try again.');
+                        }
+                        btn.disabled = false;
+                    });
+                });
+            } catch (e) {}
+        }
+
+        async function loadFocusAreas() {
+            try {
+                const response = await fetch('/api/weak-areas/', { credentials: 'include' });
+                const listEl = document.getElementById('focusAreasContainer');
+                if (!response.ok) return;
+                const data = await response.json();
+                if (!data || !data.length) {
+                    listEl.innerHTML = '<div class="empty-focus-ok">NO CRITICAL AREAS DETECTED</div>';
+                    return;
+                }
+                listEl.innerHTML = data.slice(0, 5).map(function (item) {
+                    const accPct = Math.round((item.success_rate != null ? item.success_rate : 0) * 10) / 10;
+                    const threatPct = Math.max(0, Math.min(100, 100 - accPct));
+                    const subjName = item.subject_name || item.subject || 'SUBJECT';
+                    return '<div class="threat-item">' +
+                        '<div class="threat-subj">' + escapeHtml(String(subjName).toUpperCase()) + '</div>' +
+                        '<div class="threat-topic"><a href="/quiz/?topic_id=' + item.topic_id + '" style="color:var(--text);text-decoration:none;">' + escapeHtml(item.topic_name) + '</a></div>' +
+                        '<div class="threat-bar-wrap">' +
+                        '<div class="threat-bar"><div class="threat-bar-fill" style="width:' + threatPct + '%"></div></div>' +
+                        '<span class="threat-pct">' + accPct + '% accuracy</span></div></div>';
+                }).join('');
+            } catch (err) {
+                console.error('Error loading focus areas:', err);
+            }
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            loadProfile().then(function (ud) { if (ud) loadBillingBanner(ud); });
+            loadMission();
+            loadRevisionSummary();
+            loadSubjects();
+            loadFocusAreas();
+            loadDueCardCount();
+            loadLoopMetrics();
+        });
+    </script>
+</body>
+</html>
