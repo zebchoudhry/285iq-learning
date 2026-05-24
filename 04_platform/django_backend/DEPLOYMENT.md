@@ -10,12 +10,14 @@ In the Vercel dashboard → your project → **Settings → General**:
 
 | Setting | Value |
 |---------|--------|
-| **Root Directory** | `04_platform/django_backend` |
-| **Framework Preset** | **Django** (or leave as Auto) |
-| **Build Command** | *(leave empty — Vercel runs `collectstatic` automatically)* |
-| **Install Command** | *(leave empty — uses `requirements.txt`)* |
+| **Root Directory** | *(empty / repository root)* **or** `04_platform/django_backend` |
+| **Framework Preset** | **Django** (or Auto) |
+| **Build Command** | *(leave empty)* |
+| **Install Command** | *(leave empty)* |
 
-If Root Directory is the repo root, Vercel will not find `manage.py` and you will get a **404: NOT_FOUND** page.
+The repo includes a **root `manage.py` and `wsgi.py`** so Vercel detects Django even when Root Directory is the whole repository (fixes ~100ms empty builds).
+
+If a build log shows **“Build Completed in ~100ms”** with no `pip install`, Root Directory was wrong and Django was not detected — redeploy after pulling the latest `main`.
 
 **Private GitHub repo:** In GitHub → Settings → Applications → Vercel → configure access to private repositories. In Vercel → Project → Settings → Git, confirm the repo is connected and redeploy.
 
