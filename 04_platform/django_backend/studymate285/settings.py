@@ -17,6 +17,25 @@ ALLOWED_HOSTS = config(
     cast=lambda v: [s.strip() for s in v.split(',') if s.strip()]
 )
 
+# Vercel deployment (VERCEL=1 and VERCEL_URL set automatically on Vercel)
+_vercel_url = os.environ.get('VERCEL_URL', '').strip()
+if os.environ.get('VERCEL'):
+    for _host in ('.vercel.app',):
+        if _host not in ALLOWED_HOSTS:
+            ALLOWED_HOSTS.append(_host)
+if _vercel_url and _vercel_url not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(_vercel_url)
+
+CSRF_TRUSTED_ORIGINS = config(
+    'CSRF_TRUSTED_ORIGINS',
+    default='',
+    cast=lambda v: [s.strip() for s in v.split(',') if s.strip()],
+)
+if _vercel_url:
+    _origin = f'https://{_vercel_url}'
+    if _origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(_origin)
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -35,9 +54,15 @@ INSTALLED_APPS = [
     'decision_engine',
 ]
 
+_use_whitenoise = os.environ.get('VERCEL') or config('USE_WHITENOISE', default=False, cast=bool)
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+]
+if _use_whitenoise:
+    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
+MIDDLEWARE += [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -66,11 +91,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'studymate285.wsgi.application'
 
-# Database: use PostgreSQL if DB_ENGINE is set, else SQLite.
-# USE_SQLITE=True forces SQLite (e.g. local run without psycopg2) even when .env sets PostgreSQL.
+# Database: DATABASE_URL (Vercel/Neon) > DB_ENGINE PostgreSQL > SQLite.
+# USE_SQLITE=True forces SQLite locally even when .env sets PostgreSQL.
+_database_url = config('DATABASE_URL', default='') or os.environ.get('POSTGRES_URL', '')
 _db_engine = config('DB_ENGINE', default='')
 _use_sqlite = config('USE_SQLITE', default=False, cast=bool)
-if _use_sqlite:
+
+if _database_url:
+    import dj_database_url
+
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=_database_url,
+            conn_max_age=600,
+            ssl_require=not DEBUG,
+        )
+    }
+elif _use_sqlite:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -133,6 +170,12 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ] if (BASE_DIR / "static").exists() else []
 
+if _use_whitenoise:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+if os.environ.get('VERCEL'):
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -151,6 +194,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
     "http://localhost:8000",
 ]
+if _vercel_url:
+    _vercel_origin = f"https://{_vercel_url}"
+    if _vercel_origin not in CORS_ALLOWED_ORIGINS:
+        CORS_ALLOWED_ORIGINS.append(_vercel_origin)
 
 # Email (for password reset). In development, use console backend.
 EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')

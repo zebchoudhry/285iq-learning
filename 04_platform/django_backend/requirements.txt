@@ -5,6 +5,8 @@ pytest-django==4.7.0
 django-cors-headers==4.3.1
 python-decouple==3.8
 django-extensions==3.2.3
+whitenoise>=6.6.0
+dj-database-url>=2.1.0
 # PostgreSQL driver (skip on Windows + Python 3.14+ if wheel build fails; use USE_SQLITE=true locally)
 psycopg2-binary==2.9.9
 gunicorn==21.2.0
