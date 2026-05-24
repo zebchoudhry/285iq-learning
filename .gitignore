@@ -36,3 +36,9 @@ htmlcov/
 # OS
 .DS_Store
 Thumbs.db
+
+# Large local assets / backups (keep out of GitHub)
+*.pdf
+*.mp4
+*.bak
+**/db.sqlite3.bak
