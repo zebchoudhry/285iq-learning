@@ -11,11 +11,13 @@ In the Vercel dashboard → your project → **Settings → General**:
 | Setting | Value |
 |---------|--------|
 | **Root Directory** | `04_platform/django_backend` |
-| **Framework Preset** | Other (or Django if offered) |
-| **Build Command** | `python manage.py collectstatic --noinput` (or leave empty to use `pyproject.toml`) |
-| **Install Command** | `pip install -r requirements.txt` |
+| **Framework Preset** | **Django** (or leave as Auto) |
+| **Build Command** | *(leave empty — Vercel runs `collectstatic` automatically)* |
+| **Install Command** | *(leave empty — uses `requirements.txt`)* |
 
-If Root Directory is the repo root, Vercel will not find `manage.py` and the deploy will fail.
+If Root Directory is the repo root, Vercel will not find `manage.py` and you will get a **404: NOT_FOUND** page.
+
+**Private GitHub repo:** In GitHub → Settings → Applications → Vercel → configure access to private repositories. In Vercel → Project → Settings → Git, confirm the repo is connected and redeploy.
 
 ### 2. Environment variables (Vercel → Settings → Environment Variables)
 
@@ -44,12 +46,21 @@ python manage.py createsuperuser
 
 Push to GitHub; Vercel rebuilds automatically. Check **Deployments → Build Logs** if it fails.
 
-### Why deploys often fail
+### Why you see `404: NOT_FOUND` (Vercel white error page)
 
-- **Wrong root directory** — most common; must be `04_platform/django_backend`
-- **No `DATABASE_URL`** — app falls back to SQLite, which is read-only/ephemeral on Vercel
-- **Missing `ALLOWED_HOSTS` / `CSRF_TRUSTED_ORIGINS`** for your `*.vercel.app` URL
-- **Build timeout** — large repo; `.vercelignore` excludes venv and heavy assets
+That is Vercel’s edge saying **no deployment is serving this URL** — not Django. Check:
+
+1. **Deployments** tab — latest build must be **Ready** (green), not Error or Canceled
+2. **Root Directory** = `04_platform/django_backend`
+3. **Do not** set Framework to “Other” with a blank app — use **Django** or Auto
+4. **Remove** custom `vercel.json` with `"framework": null` (disabled in this repo)
+5. **Private repo** — Vercel must have GitHub access (see above)
+
+### Other common failures
+
+- **No `DATABASE_URL`** — use Vercel Postgres or Neon; set `DATABASE_URL` in env vars
+- **Missing `CSRF_TRUSTED_ORIGINS`** — include `https://your-project.vercel.app`
+- **Build timeout** — `.vercelignore` excludes venv and large assets
 
 For a traditional always-on server, use **Docker** (below) or **Railway / Render** instead of Vercel.
 

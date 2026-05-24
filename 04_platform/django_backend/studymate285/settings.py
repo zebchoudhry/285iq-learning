@@ -13,16 +13,12 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
-    default='localhost,127.0.0.1,285iq.com,www.285iq.com',
-    cast=lambda v: [s.strip() for s in v.split(',') if s.strip()]
+    default='localhost,127.0.0.1,.vercel.app,285iq.com,www.285iq.com',
+    cast=lambda v: [s.strip() for s in v.split(',') if s.strip()],
 )
 
-# Vercel deployment (VERCEL=1 and VERCEL_URL set automatically on Vercel)
+# Vercel sets VERCEL_URL to the deployment hostname (e.g. my-app-xxx.vercel.app)
 _vercel_url = os.environ.get('VERCEL_URL', '').strip()
-if os.environ.get('VERCEL'):
-    for _host in ('.vercel.app',):
-        if _host not in ALLOWED_HOSTS:
-            ALLOWED_HOSTS.append(_host)
 if _vercel_url and _vercel_url not in ALLOWED_HOSTS:
     ALLOWED_HOSTS.append(_vercel_url)
 
