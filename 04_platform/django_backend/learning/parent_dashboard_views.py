@@ -9,8 +9,12 @@ from django.shortcuts import get_object_or_404
 
 from learning.models import StudentExamSettings, Subject
 from users.models import Student
-from decision_engine.v1_0.decision_engine_v1 import evaluate_student_subject
-from decision_engine.v1_0.core import generate_recommendations, PerformanceTrend, OutlookTier
+from decision_engine.dispatcher import (
+    evaluate_student_subject,
+    generate_recommendations,
+    PerformanceTrend,
+    OutlookTier,
+)
 from learning.services.activity_feed import get_recent_activity
 from learning.services.learning_mission import build_learning_mission
 from learning.services.parent_narrative import build_parent_narrative

@@ -237,6 +237,9 @@ if _vercel_url:
 EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@285iq.com')
 
+# Switch decision engine version: '1.0' (frozen) or '1.1' (skill-rating)
+DECISION_ENGINE_VERSION = config('DECISION_ENGINE_VERSION', default='1.0')
+
 # LLM configuration (Phase 4)
 # LLM_BACKEND: disabled | mock | openai_compatible | huggingface
 LLM_BACKEND = config('LLM_BACKEND', default='disabled')
