@@ -8,9 +8,9 @@ from django.core.mail import send_mail
 from django.utils import timezone
 
 from dashboard.models import NotificationLog
-from decision_engine.v1_0.core import (
-    NotificationRateLimitState,
+from decision_engine.dispatcher import (
     NotificationPriority,
+    NotificationRateLimitState,
     apply_notification_rate_limits,
 )
 

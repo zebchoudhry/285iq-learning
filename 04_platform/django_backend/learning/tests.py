@@ -4,7 +4,7 @@ pytestmark = pytest.mark.django_db
 
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
-from learning.models import Subject, Topic, Lesson, Question, StudentProgress
+from learning.models import Subject, Topic, Lesson, Question, StudentProgress, QuizAttempt, StudentTopicSkill
 from learning.services.gym_controller import decide_gym_mode
 
 User = get_user_model()
@@ -69,3 +69,26 @@ class GymControllerTestCase(TestCase):
         self.assertIn('mode', result)
         self.assertIn('content', result)
         self.assertIn(result['mode'], ('instruction', 'guided_practice', 'drill', 'mixed_practice', 'exam_sim', 'mastery_maintenance'))
+
+
+class EloSignalIntegrationTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='elouser', password='testpass123')
+        self.subject = Subject.objects.create(name='mathematics', display_name='Mathematics', is_active=True)
+        self.topic = Topic.objects.create(subject=self.subject, name='Algebra', is_active=True, order=0)
+        self.lesson = Lesson.objects.create(
+            topic=self.topic, title='Intro', content='C', estimated_duration=10, is_active=True, order=0,
+        )
+        self.question = Question.objects.create(
+            lesson=self.lesson, question_text='What is 2+2?', correct_answer='4', is_active=True,
+        )
+
+    def test_signal_updates_ratings_on_attempt_creation(self):
+        QuizAttempt.objects.create(
+            student=self.user,
+            question=self.question,
+            is_correct=True,
+        )
+        skill = StudentTopicSkill.objects.get(student=self.user, topic=self.topic)
+        self.assertEqual(skill.attempt_count, 1)
+        self.assertGreater(skill.skill_rating, 1500.0)
