@@ -42,3 +42,10 @@ Thumbs.db
 *.mp4
 *.bak
 **/db.sqlite3.bak
+
+# Pre-edit working backups — use git, not folders
+backup_before_*/
+
+# Stray binaries at the repo root (chapter scans etc.)
+/chatper*.png
+/chapter*.png
