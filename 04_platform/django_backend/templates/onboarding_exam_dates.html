@@ -132,6 +132,15 @@
                             ${[1,2,3,4,5,6,7,8,9].map(g => `<option value="${g}" ${g===5?'selected':''}>Grade ${g}</option>`).join('')}
                         </select>
                     </div>
+                    <div class="form-group" style="max-width:130px;">
+                        <label>Exam board</label>
+                        <select class="exam-board">
+                            <option value="aqa" selected>AQA</option>
+                            <option value="edexcel">Edexcel</option>
+                            <option value="ocr">OCR</option>
+                            <option value="wjec">WJEC</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="exam-dates-container">
                     <div class="exam-date-row">
@@ -160,7 +169,7 @@
                     if (inp.value) exam_dates.push({ exam_date: inp.value, paper_label: inp.dataset.paper || 'Paper 1' });
                 });
                 if (exam_dates.length === 0) continue;
-                payload.subjects.push({ subject_id: parseInt(sid, 10), target_grade: targetGrade, exam_dates });
+                const examBoard = block.querySelector('.exam-board').value || 'aqa'; payload.subjects.push({ subject_id: parseInt(sid, 10), target_grade: targetGrade, exam_board: examBoard, exam_dates });
             }
             if (payload.subjects.length === 0) {
                 document.getElementById('errorMessage').textContent = 'Add at least one subject with at least one exam date.';
