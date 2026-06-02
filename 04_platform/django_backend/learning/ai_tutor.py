@@ -1,9 +1,13 @@
+import logging
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 from .models import Topic, Subject, Question
 from users.models import StudentTopicPerformance
-import re
+
+logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
@@ -232,16 +236,8 @@ def generate_tutor_response(student_id, message, topic_id=None, question_id=None
 def generate_wrong_answer_explanation(question_id, student_answer, correct_answer, skill_code):
     """
     Generate a structured explanation for a wrong answer using the LLM.
-    On LLM failure, falls back to Question.explanation.
-
-    Args:
-        question_id: int
-        student_answer: str
-        correct_answer: str
-        skill_code: str (optional, can be empty)
-
-    Returns:
-        str: The explanation text.
+    Result is cached on the Question row so the same question never hits the LLM twice.
+    Falls back to Question.explanation on LLM failure.
     """
     question = None
     fallback = ""
@@ -250,6 +246,11 @@ def generate_wrong_answer_explanation(question_id, student_answer, correct_answe
         fallback = question.explanation or ""
     except Question.DoesNotExist:
         pass
+
+    # Return cached explanation if present
+    if question and question.llm_explanation_cache:
+        logger.debug("LLM explanation cache hit for question %s", question_id)
+        return question.llm_explanation_cache
 
     prompt = _build_wrong_answer_prompt(
         question=question,
@@ -262,9 +263,15 @@ def generate_wrong_answer_explanation(question_id, student_answer, correct_answe
     if use_llm:
         try:
             from learning.services.llm_service import generate as llm_generate
-            return llm_generate(prompt=prompt, max_tokens=600, temperature=0.3)
+            explanation = llm_generate(prompt=prompt, max_tokens=600, temperature=0.3)
+            if question and explanation:
+                question.llm_explanation_cache = explanation
+                question.llm_explanation_cached_at = timezone.now()
+                question.save(update_fields=["llm_explanation_cache", "llm_explanation_cached_at"])
+                logger.info("Cached LLM explanation for question %s", question_id)
+            return explanation
         except Exception:
-            pass
+            logger.warning("LLM explanation generation failed for question %s", question_id, exc_info=True)
 
     return fallback
 

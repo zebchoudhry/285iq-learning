@@ -197,12 +197,16 @@ class Question(models.Model):
     source = models.CharField(max_length=100, blank=True)
     # "AQA June 2024 Paper 1 Q7", "Edexcel Nov 2023 Paper 3 Q12"
     
+    # Cached LLM explanation — populated on first wrong-answer request, reused thereafter
+    llm_explanation_cache = models.TextField(blank=True, default='')
+    llm_explanation_cached_at = models.DateTimeField(null=True, blank=True)
+
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
         ordering = ['lesson', 'difficulty_level']
-    
+
     def __str__(self):
         return f"{self.lesson.title} - Q{self.id} ({self.marks_available}m)"
     
@@ -740,3 +744,20 @@ class SkillVideo(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ParentDashboardSnapshot(models.Model):
+    """Cached parent dashboard evaluation payload (keyed by student)."""
+    student = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='parent_dashboard_snapshot',
+    )
+    payload = models.TextField()
+    generated_at = models.DateTimeField()
+
+    class Meta:
+        verbose_name = 'Parent dashboard snapshot'
+
+    def __str__(self):
+        return f"Snapshot for student {self.student_id} at {self.generated_at}"

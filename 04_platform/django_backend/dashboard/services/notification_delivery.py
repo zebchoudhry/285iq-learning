@@ -2,7 +2,9 @@
 Parent notification delivery: rate limiting + email + audit log.
 Contract: 285IQ Decision & Notification Contract v1.0
 """
+import logging
 from datetime import date, timedelta
+
 from django.conf import settings
 from django.core.mail import send_mail
 from django.utils import timezone
@@ -13,6 +15,8 @@ from decision_engine.v1_0.core import (
     NotificationPriority,
     apply_notification_rate_limits,
 )
+
+logger = logging.getLogger(__name__)
 
 
 def _week_start(d: date) -> date:
@@ -60,6 +64,7 @@ def send_parent_notification(
     message: str,
     subject_display_name: str = '',
     student_name: str = '',
+    parent_email: str = '',
 ) -> bool:
     """
     Send a parent notification email if rate limits allow.
@@ -83,12 +88,21 @@ def send_parent_notification(
     if student_name:
         body = f"Student: {student_name}\n\n{body}"
 
-    # Get parent email from settings or student (if we had parent email on student profile)
-    # For now we use a placeholder; in production you'd have ParentProfile or similar.
-    recipient_list = getattr(settings, 'PARENT_NOTIFICATION_EMAILS', None)
+    # Build recipient list: parent_email arg > student.parent_email > settings fallback
+    recipient_list = []
+    if parent_email:
+        recipient_list = [parent_email]
+    else:
+        try:
+            from users.models import Student
+            student_obj = Student.objects.get(id=student_id)
+            if student_obj.parent_email:
+                recipient_list = [student_obj.parent_email]
+        except Exception:
+            pass
     if not recipient_list:
-        # Development: don't fail, just log. Console backend will print.
-        recipient_list = [getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@285iq.com')]
+        fallback = getattr(settings, 'PARENT_NOTIFICATION_EMAILS', None)
+        recipient_list = fallback or [settings.DEFAULT_FROM_EMAIL]
 
     try:
         send_mail(
@@ -98,8 +112,9 @@ def send_parent_notification(
             recipient_list=recipient_list,
             fail_silently=True,
         )
+        logger.info("Parent notification sent for student %s event '%s' to %s", student_id, event_type, recipient_list)
     except Exception:
-        pass
+        logger.warning("Failed to send parent notification for student %s", student_id, exc_info=True)
 
     NotificationLog.objects.create(
         student_id=student_id,

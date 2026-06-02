@@ -1,9 +1,14 @@
+import logging
 from datetime import date
+
 from rest_framework.decorators import api_view, permission_classes, throttle_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
-from rest_framework.throttling import AnonRateThrottle
+
+from learning.throttles import ParentRateThrottle
+
+logger = logging.getLogger(__name__)
 
 from django.shortcuts import get_object_or_404
 
@@ -14,10 +19,10 @@ from decision_engine.v1_0.core import generate_recommendations, PerformanceTrend
 from learning.services.activity_feed import get_recent_activity
 from learning.services.learning_mission import build_learning_mission
 from learning.services.parent_narrative import build_parent_narrative
+from learning.services.dashboard_cache import get_snapshot, set_snapshot
 
 
-class ParentDashboardThrottle(AnonRateThrottle):
-    rate = '30/hour'
+ParentDashboardThrottle = ParentRateThrottle
 
 
 def _weekly_evidence(recent_activity):
@@ -68,8 +73,15 @@ def parent_dashboard(request, parent_access_token: str):
         )
     
     student_id = student.id
+
+    # Serve cached snapshot if fresh
+    cached = get_snapshot(student_id)
+    if cached:
+        logger.debug("Serving cached parent dashboard for student %s", student_id)
+        return Response(cached)
+
     exam_settings = StudentExamSettings.objects.filter(student=student).select_related('subject')
-    
+
     if not exam_settings.exists():
         return Response({
             "student_id": student_id,
@@ -114,6 +126,7 @@ def parent_dashboard(request, parent_access_token: str):
                             message=msg,
                             subject_display_name=setting.subject.display_name,
                             student_name=student.display_name,
+                            parent_email=student.parent_email or '',
                         )
                     except Exception:
                         pass
@@ -172,14 +185,16 @@ def parent_dashboard(request, parent_access_token: str):
 
     weekly_evidence = _weekly_evidence(recent_activity)
 
-    return Response({
+    response_data = {
         "student_id": student_id,
         "student_name": student.username,
         "generated_at": date.today().isoformat(),
         "subjects": subject_outlooks,
         "recent_activity": recent_activity,
         "weekly_evidence": weekly_evidence,
-    })
+    }
+    set_snapshot(student_id, response_data)
+    return Response(response_data)
 
 
 @api_view(['GET'])

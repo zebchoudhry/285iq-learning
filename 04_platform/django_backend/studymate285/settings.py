@@ -1,4 +1,5 @@
 import os
+import logging
 from pathlib import Path
 
 from decouple import config
@@ -219,8 +220,19 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',  # Require authentication by default
+        'rest_framework.permissions.IsAuthenticated',
     ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '60/hour',
+        'user': '300/hour',
+        'practice': '120/hour',
+        'tutor': '60/hour',
+        'parent': '30/hour',
+    },
 }
 
 # CORS settings
@@ -266,3 +278,80 @@ STRIPE_MONTHLY_PRICE_ID = config('STRIPE_MONTHLY_PRICE_ID', default='')
 STRIPE_ANNUAL_PRICE_ID = config('STRIPE_ANNUAL_PRICE_ID', default='')
 
 ANTHROPIC_API_KEY = config('ANTHROPIC_API_KEY', default='')
+
+# Parent notifications — comma-separated parent email list (production)
+PARENT_NOTIFICATION_EMAILS_RAW = config('PARENT_NOTIFICATION_EMAILS', default='')
+PARENT_NOTIFICATION_EMAILS = [
+    e.strip() for e in PARENT_NOTIFICATION_EMAILS_RAW.split(',') if e.strip()
+] or None
+
+# Sentry error tracking (optional — set SENTRY_DSN in env to enable)
+SENTRY_DSN = config('SENTRY_DSN', default='')
+if SENTRY_DSN:
+    try:
+        import sentry_sdk
+        from sentry_sdk.integrations.django import DjangoIntegration
+        sentry_sdk.init(
+            dsn=SENTRY_DSN,
+            integrations=[DjangoIntegration()],
+            traces_sample_rate=0.2,
+            send_default_pii=False,
+        )
+    except ImportError:
+        pass
+
+# Structured logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {asctime} {name} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': config('DJANGO_LOG_LEVEL', default='WARNING'),
+            'propagate': False,
+        },
+        'learning': {
+            'handlers': ['console'],
+            'level': config('APP_LOG_LEVEL', default='INFO'),
+            'propagate': False,
+        },
+        'users': {
+            'handlers': ['console'],
+            'level': config('APP_LOG_LEVEL', default='INFO'),
+            'propagate': False,
+        },
+        'dashboard': {
+            'handlers': ['console'],
+            'level': config('APP_LOG_LEVEL', default='INFO'),
+            'propagate': False,
+        },
+        'decision_engine': {
+            'handlers': ['console'],
+            'level': config('APP_LOG_LEVEL', default='INFO'),
+            'propagate': False,
+        },
+    },
+}
+
+# Dashboard snapshot cache TTL in seconds (1 hour default)
+PARENT_DASHBOARD_CACHE_TTL = int(config('PARENT_DASHBOARD_CACHE_TTL', default=3600))

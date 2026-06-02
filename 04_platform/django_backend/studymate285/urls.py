@@ -36,7 +36,14 @@ from users import views as user_views
 urlpatterns = [
     path('api/health/', health_check, name='health_check'),
     path('admin/', admin.site.urls),
-    path('api/users/', include('users.urls')),  # User authentication API endpoints
+    # Versioned API (v1)
+    path('api/v1/users/', include('users.urls')),
+    path('api/v1/billing/create-checkout-session/', create_checkout_session, name='billing-create-checkout-v1'),
+    path('api/v1/billing/webhook/', stripe_webhook, name='billing-webhook-v1'),
+    path('api/v1/billing/status/', billing_status, name='billing-status-v1'),
+    path('api/v1/', include('learning.urls')),
+    # Legacy unversioned routes — kept for backwards compatibility
+    path('api/users/', include('users.urls')),
     path('api/billing/create-checkout-session/', create_checkout_session, name='billing-create-checkout'),
     path('api/billing/webhook/', stripe_webhook, name='billing-webhook'),
     path('api/billing/status/', billing_status, name='billing-status'),

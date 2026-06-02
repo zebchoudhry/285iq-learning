@@ -2,6 +2,8 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from . import views
 from . import parent_dashboard_views
+from . import parent_export_views
+from . import admin_content_views
 
 # Create router for ViewSets
 router = DefaultRouter()
@@ -63,9 +65,17 @@ urlpatterns = [
          parent_dashboard_views.subject_outlook, 
          name='subject-outlook'),
     
-    path('parent/settings/<uuid:parent_access_token>/<int:subject_id>/', 
-         parent_dashboard_views.update_exam_settings, 
+    path('parent/settings/<uuid:parent_access_token>/<int:subject_id>/',
+         parent_dashboard_views.update_exam_settings,
          name='update-exam-settings'),
+
+    path('parent/export/<uuid:parent_access_token>/pdf/',
+         parent_export_views.parent_export_pdf,
+         name='parent-export-pdf'),
+
+    # Staff-only content management
+    path('admin/generate-questions/', admin_content_views.admin_generate_questions, name='admin-generate-questions'),
+    path('admin/question-stats/', admin_content_views.admin_question_stats, name='admin-question-stats'),
 
     # Mock exams (past papers)
     path('mock-exams/', views.mock_exams_list, name='mock-exams-list'),
