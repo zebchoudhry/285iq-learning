@@ -42,3 +42,6 @@ Thumbs.db
 *.mp4
 *.bak
 **/db.sqlite3.bak
+
+# Claude Code worktrees
+.claude/worktrees/
