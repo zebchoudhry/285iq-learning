@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'dashboard',
     'decision_engine',
     'teachers',
+    'django_celery_results',
 ]
 
 # WhiteNoise is for local/Docker only; Vercel serves static files from the CDN.
@@ -366,3 +367,20 @@ PARENT_DASHBOARD_CACHE_TTL = int(config('PARENT_DASHBOARD_CACHE_TTL', default=36
 VAPID_PUBLIC_KEY = config('VAPID_PUBLIC_KEY', default='')
 VAPID_PRIVATE_KEY = config('VAPID_PRIVATE_KEY', default='')
 VAPID_CLAIMS_EMAIL = config('VAPID_CLAIMS_EMAIL', default='admin@285iq.com')
+
+# ---------------------------------------------------------------------------
+# Celery — async task queue
+# ---------------------------------------------------------------------------
+CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='redis://localhost:6379/0')
+CELERY_RESULT_BACKEND = 'django-db'          # stored via django_celery_results
+CELERY_CACHE_BACKEND = 'default'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+CELERY_TASK_TRACK_STARTED = True
+# LLM tasks can take up to 60 s; kill if over 90 s to prevent worker lockup
+CELERY_TASK_SOFT_TIME_LIMIT = 60
+CELERY_TASK_TIME_LIMIT = 90
+# When broker is unavailable, fall back to synchronous execution
+CELERY_TASK_ALWAYS_EAGER = config('CELERY_TASK_ALWAYS_EAGER', default=not bool(config('CELERY_BROKER_URL', default='')), cast=bool)

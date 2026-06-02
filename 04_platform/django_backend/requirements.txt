@@ -12,6 +12,9 @@ psycopg2-binary==2.9.9
 gunicorn==21.2.0
 stripe>=10,<12
 anthropic>=0.25.0
+# Async task queue
+celery[redis]==5.4.0
+django-celery-results==2.5.1
 huggingface_hub>=0.26.0
 # Optional: semantic question dedupe (HF_EMBEDDINGS_ENABLED=true)
 # sentence-transformers>=3.0.0

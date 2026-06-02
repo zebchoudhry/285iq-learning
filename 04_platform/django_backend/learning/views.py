@@ -1964,6 +1964,18 @@ def submit_attempt(request):
         }
         if not attempt.is_correct:
             payload['correct_answer'] = attempt.question.correct_answer or ""
+
+        # Refresh weakness digest in background after wrong answers
+        if not attempt.is_correct:
+            try:
+                from learning.tasks import task_build_weakness_digest
+                task_build_weakness_digest.delay(
+                    request.user.pk,
+                    attempt.question.lesson.topic.subject_id,
+                )
+            except Exception:
+                pass
+
         return Response(payload)
     return Response(serializer.errors, status=400)
 
@@ -2053,7 +2065,12 @@ def revision_timetable_view(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def weakness_digest_view(request):
-    """GET /api/learning/weakness-digest/?subject_id=<int> — weakness digest."""
+    """GET /api/learning/weakness-digest/?subject_id=<int> — weakness digest.
+
+    Returns cached result if available (refreshed async after each session),
+    otherwise computes synchronously and queues a background refresh.
+    """
+    from django.core.cache import cache
     from .services.weakness_digest import build_weakness_digest
 
     subject_id = request.query_params.get('subject_id')
@@ -2063,7 +2080,13 @@ def weakness_digest_view(request):
         except (TypeError, ValueError):
             subject_id = None
 
+    cache_key = f"weakness_digest:{request.user.pk}:{subject_id or 'all'}"
+    cached = cache.get(cache_key)
+    if cached:
+        return Response(cached)
+
     data = build_weakness_digest(request.user, subject_id=subject_id)
+    cache.set(cache_key, data, timeout=3600)
     return Response(data)
 
 
