@@ -1,10 +1,6 @@
 """
 Views for users app - Authentication and User Management
 """
-import logging
-
-logger = logging.getLogger(__name__)
-
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
@@ -16,6 +12,8 @@ from django.conf import settings
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
+import logging
+logger = logging.getLogger(__name__)
 
 from .serializers import (
     UserRegistrationSerializer,
@@ -37,13 +35,11 @@ def register(request):
     serializer = UserRegistrationSerializer(data=request.data)
     if serializer.is_valid():
         student = serializer.save()
-        # Save parent_email if provided
-        data = request.data
-        if data.get('parent_email'):
-            student.parent_email = data['parent_email']
+        # Save optional parent email and send welcome
+        parent_email = (request.data.get('parent_email') or '').strip()
+        if parent_email:
+            student.parent_email = parent_email
             student.save(update_fields=['parent_email'])
-        # Send welcome email to parent if parent_email is present
-        if student.parent_email:
             try:
                 dashboard_url = f"https://285iq.com/parent/{student.parent_access_token}/"
                 send_mail(
@@ -51,18 +47,17 @@ def register(request):
                     message=(
                         f"Hi,\n\n"
                         f"{student.display_name} has started using 285IQ for GCSE revision.\n\n"
-                        f"You can track their progress, see their predicted grades, and get weekly updates here:\n"
+                        f"Track their progress, predicted grades, and weekly updates here:\n"
                         f"{dashboard_url}\n\n"
                         f"No account needed — just bookmark the link above.\n\n"
                         f"The 285IQ Team"
                     ),
                     from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[student.parent_email],
+                    recipient_list=[parent_email],
                     fail_silently=True,
                 )
-            except Exception as e:
-                logger.warning("Failed to send parent welcome email for user %s: %s", student.username, e)
-        # Auto-login after registration
+            except Exception:
+                logger.warning("Failed to send parent welcome email for student %s", student.id)
         login(request, student)
         user_serializer = UserSerializer(student)
         return Response({
@@ -349,3 +344,12 @@ def ai_tutor_chat(request):
         'recommended_lesson': None,
         'weak_areas': []
     })
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def push_subscribe(request):
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.info("Push subscription registered for user %s: %s", request.user.id, request.data)
+    return Response({'status': 'ok'})

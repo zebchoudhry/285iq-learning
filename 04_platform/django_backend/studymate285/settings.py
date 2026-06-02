@@ -362,3 +362,7 @@ LOGGING = {
 
 # Dashboard snapshot cache TTL in seconds (1 hour default)
 PARENT_DASHBOARD_CACHE_TTL = int(config('PARENT_DASHBOARD_CACHE_TTL', default=3600))
+# Web push (VAPID) — optional, for browser push notifications
+VAPID_PUBLIC_KEY = config('VAPID_PUBLIC_KEY', default='')
+VAPID_PRIVATE_KEY = config('VAPID_PRIVATE_KEY', default='')
+VAPID_CLAIMS_EMAIL = config('VAPID_CLAIMS_EMAIL', default='admin@285iq.com')

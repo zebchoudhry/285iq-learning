@@ -3,7 +3,6 @@ URLs for users app - Authentication endpoints
 """
 from django.urls import path
 from . import views
-from . import friend_views
 
 app_name = 'users'
 
@@ -22,9 +21,6 @@ urlpatterns = [
     # AI Tutor endpoint
     path('ai-tutor/', views.ai_tutor_chat, name='ai_tutor'),
 
-    # Social friends layer
-    path('friends/request/', friend_views.send_friend_request, name='friend-request'),
-    path('friends/accept/', friend_views.accept_friend_request, name='friend-accept'),
-    path('friends/', friend_views.friends_list, name='friends-list'),
-    path('friends/leaderboard/', friend_views.friends_leaderboard, name='friends-leaderboard'),
+    # Web push subscription
+    path('push-subscribe/', views.push_subscribe, name='push-subscribe'),
 ]

@@ -37,7 +37,7 @@ from .serializers import (
     SkillVideoSerializer,
 )
 from .services.gym_controller import decide_gym_mode
-from .services.subscription_limits import check_free_tier_limits
+from .services.subscription_limits import check_free_tier_limits, require_pro
 from .services.learning_mission import build_learning_mission
 from .ai_tutor import generate_tutor_response, generate_wrong_answer_explanation
 
@@ -632,6 +632,7 @@ def exam_readiness(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
+@require_pro
 def tutor_chat(request):
     """LLM-backed tutor chat with fallback to rule-based tutor."""
     message = (request.data.get('message') or '').strip()
@@ -652,6 +653,7 @@ def tutor_chat(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
+@require_pro
 def tutor_explain_wrong(request):
     """
     Generate a structured explanation for a wrong answer (user-initiated only).

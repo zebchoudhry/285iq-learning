@@ -208,3 +208,31 @@ self.addEventListener('message', (event) => {
     replayQueue();
   }
 });
+
+// Web push: display notification when server sends a push
+self.addEventListener('push', function(event) {
+  const data = event.data ? event.data.json() : {};
+  const title = data.title || '285IQ Update';
+  const options = {
+    body: data.body || 'You have a new update.',
+    icon: '/static/icons/icon-192.png',
+    badge: '/static/icons/icon-192.png',
+    tag: data.tag || 'default',
+    data: { url: data.url || '/' },
+    actions: data.actions || [],
+  };
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  const url = (event.notification.data && event.notification.data.url) || '/';
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function(clientList) {
+      for (const client of clientList) {
+        if (client.url === url && 'focus' in client) return client.focus();
+      }
+      if (clients.openWindow) return clients.openWindow(url);
+    })
+  );
+});
