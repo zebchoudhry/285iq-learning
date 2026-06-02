@@ -324,12 +324,18 @@ class AttemptSerializer(serializers.Serializer):
         raw_answer = validated_data.get("answer") or ""
         is_correct = False
 
+        llm_mark_result = None
         if selected_option_id:
             try:
                 opt = MultipleChoiceOption.objects.get(id=selected_option_id, question=question)
                 is_correct = opt.is_correct
             except MultipleChoiceOption.DoesNotExist:
                 is_correct = False
+        elif question.question_type in ("calculation", "extended"):
+            from learning.services.answer_grading import llm_mark_calculation
+            marks_avail = int(getattr(question, "marks_available", 1) or 1)
+            llm_mark_result = llm_mark_calculation(question, raw_answer, marks_avail)
+            is_correct = llm_mark_result["is_correct"]
         else:
             is_correct, _ = answers_equivalent(raw_answer, question.correct_answer or "")
 
@@ -427,9 +433,14 @@ class AttemptSerializer(serializers.Serializer):
             selected_option_id=selected_option_id,
             error_type=validated_data.get("error_type", "none"),
         )
-        partial_marks = _estimate_partial_marks(question, is_correct, raw_answer)
+        if llm_mark_result is not None:
+            partial_marks = llm_mark_result["marks_awarded"]
+            llm_mark_feedback = llm_mark_result.get("feedback", "")
+        else:
+            partial_marks = _estimate_partial_marks(question, is_correct, raw_answer)
+            llm_mark_feedback = ""
         failed_skill = None if is_correct else _first_failed_skill(question)
-        remediation_tip = _remediation_tip(wrong_category, failed_skill)
+        remediation_tip = llm_mark_feedback or _remediation_tip(wrong_category, failed_skill)
 
         try:
             from learning.services.mistake_bank import record_attempt_learning_signals

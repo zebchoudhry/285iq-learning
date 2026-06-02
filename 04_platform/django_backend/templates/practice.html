@@ -503,6 +503,20 @@
                         if (!state.firstActionTime) state.firstActionTime = Date.now();
                     });
                 });
+            } else if (q.question_type === 'calculation') {
+                area.innerHTML = `
+                  <div style="margin-bottom:0.5rem;font-size:0.8rem;color:#9ca3af;">Show your working — method marks are awarded even if the final answer is wrong.</div>
+                  <textarea id="short-answer" class="short-answer-input" rows="5" placeholder="Write your working and final answer here..." style="resize:vertical;"></textarea>`;
+                const ta = document.getElementById('short-answer');
+                ta.focus();
+                ta.addEventListener('input', () => { if (!state.firstActionTime) state.firstActionTime = Date.now(); });
+            } else if (q.question_type === 'extended') {
+                area.innerHTML = `
+                  <div style="margin-bottom:0.5rem;font-size:0.8rem;color:#9ca3af;">Write your full answer below. Use scientific terms where appropriate.</div>
+                  <textarea id="short-answer" class="short-answer-input" rows="6" placeholder="Your answer..." style="resize:vertical;"></textarea>`;
+                const ta = document.getElementById('short-answer');
+                ta.focus();
+                ta.addEventListener('input', () => { if (!state.firstActionTime) state.firstActionTime = Date.now(); });
             } else {
                 area.innerHTML = '<input type="text" class="short-answer-input" id="short-answer" placeholder="Your answer">';
                 const input = document.getElementById('short-answer');

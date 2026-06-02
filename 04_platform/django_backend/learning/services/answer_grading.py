@@ -1,5 +1,6 @@
 """
 Short-answer comparison with tolerant normalisation (STEM-friendly).
+LLM-based partial marking for calculation/extended question types.
 """
 from __future__ import annotations
 
@@ -82,3 +83,78 @@ def answers_equivalent(student_answer: str, correct_answer: str) -> Tuple[bool, 
             return True, "token_set"
 
     return False, "none"
+
+
+import json
+import re as _re
+
+
+def llm_mark_calculation(question, student_working: str, marks_available: int) -> dict:
+    """
+    Use LLM to award partial marks for a calculation/extended answer.
+
+    Returns:
+        {"marks_awarded": int, "is_correct": bool, "feedback": str, "llm_used": bool}
+    """
+    from django.conf import settings
+
+    backend = (getattr(settings, "LLM_BACKEND", "disabled") or "disabled").lower()
+    if backend in ("disabled", "none"):
+        return _fallback_partial(student_working, question.correct_answer, marks_available)
+
+    topic = getattr(getattr(getattr(question, "lesson", None), "topic", None), "name", "STEM")
+    subject = getattr(getattr(getattr(getattr(question, "lesson", None), "topic", None), "subject", None), "display_name", "Science")
+
+    prompt = f"""You are a GCSE {subject} examiner marking a student's answer.
+
+Question ({marks_available} marks): {question.question_text[:600]}
+
+Mark scheme / correct answer: {question.correct_answer[:400]}
+
+Student's working and answer:
+{(student_working or "").strip()[:800]}
+
+Award marks 0 to {marks_available}. Be fair: award method marks for correct working even if the final answer is wrong.
+Return ONLY valid JSON: {{"marks_awarded": <int 0-{marks_available}>, "feedback": "<one sentence>", "is_correct": <true/false>}}
+Example: {{"marks_awarded": 2, "feedback": "Correct method but arithmetic error in final step.", "is_correct": false}}"""
+
+    try:
+        from learning.services.llm_service import generate as llm_generate
+        raw = llm_generate(prompt=prompt, max_tokens=150, temperature=0.1)
+        raw = raw.strip()
+        raw = _re.sub(r"^```(?:json)?\s*", "", raw)
+        raw = _re.sub(r"\s*```$", "", raw)
+        start, end = raw.find("{"), raw.rfind("}")
+        if start != -1 and end > start:
+            data = json.loads(raw[start:end + 1])
+            marks = max(0, min(int(data.get("marks_awarded", 0)), marks_available))
+            return {
+                "marks_awarded": marks,
+                "is_correct": bool(data.get("is_correct", marks == marks_available)),
+                "feedback": str(data.get("feedback", ""))[:300],
+                "llm_used": True,
+            }
+    except Exception:
+        pass
+
+    return _fallback_partial(student_working, question.correct_answer, marks_available)
+
+
+def _fallback_partial(student_working: str, correct_answer: str, marks_available: int) -> dict:
+    """Token-overlap fallback when LLM unavailable."""
+    answer = (student_working or "").strip().lower()
+    correct = (correct_answer or "").strip().lower()
+    if not answer or not correct:
+        return {"marks_awarded": 0, "is_correct": False, "feedback": "", "llm_used": False}
+    is_eq, _ = answers_equivalent(answer, correct)
+    if is_eq:
+        return {"marks_awarded": marks_available, "is_correct": True, "feedback": "", "llm_used": False}
+    atoks = set(answer.replace(",", " ").split())
+    ctoks = set(correct.replace(",", " ").split())
+    ratio = len(atoks & ctoks) / max(1, len(ctoks))
+    marks = 0
+    if ratio >= 0.6:
+        marks = min(marks_available - 1, max(1, int(round(marks_available * 0.5))))
+    elif ratio >= 0.35 and marks_available > 1:
+        marks = 1
+    return {"marks_awarded": marks, "is_correct": False, "feedback": "", "llm_used": False}
