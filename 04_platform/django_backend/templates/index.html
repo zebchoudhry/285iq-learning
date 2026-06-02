@@ -550,6 +550,22 @@
             .bottom-row { grid-template-columns: 1fr; }
         }
     </style>
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#6c63ff">
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/static/js/sw.js');
+          navigator.serviceWorker.ready.then(function() {
+            window.addEventListener('online', function() {
+              if (navigator.serviceWorker.controller) {
+                navigator.serviceWorker.controller.postMessage('REPLAY_QUEUE');
+              }
+            });
+          });
+        });
+      }
+    </script>
 </head>
 <body>
     <div class="app-root">
