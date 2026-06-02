@@ -165,7 +165,9 @@ def placeholder_view(request):
 
 # Template views for login/register pages
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import ensure_csrf_cookie
 
+@ensure_csrf_cookie
 def login_page(request):
     """Render login page"""
     if request.user.is_authenticated:
@@ -173,20 +175,21 @@ def login_page(request):
     return render(request, 'login.html')
 
 
+@ensure_csrf_cookie
 def register_page(request):
     """Render register page"""
     if request.user.is_authenticated:
         return redirect('/')
     return render(request, 'register.html')
 
-
+@ensure_csrf_cookie
 def reset_password_page(request):
     """Render reset password page (from email link with uid and token)"""
     if request.user.is_authenticated:
         return redirect('/')
     return render(request, 'reset_password.html')
 
-
+@ensure_csrf_cookie
 def forgot_password_page(request):
     """Render forgot password page (request reset email)"""
     if request.user.is_authenticated:
