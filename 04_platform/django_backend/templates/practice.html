@@ -291,8 +291,46 @@
             font-size: 16px;
         }
     </style>
+    <style>
+        #upgrade-modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.55); z-index: 9999;
+            align-items: center; justify-content: center;
+        }
+        #upgrade-modal-overlay.active { display: flex; }
+        #upgrade-modal {
+            background: #fff; border-radius: 16px; padding: 2rem;
+            max-width: 420px; width: 92%; text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        #upgrade-modal .um-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        #upgrade-modal h2 { margin: 0 0 0.5rem; font-size: 1.3rem; color: #1f2937; }
+        #upgrade-modal p { color: #6b7280; font-size: 0.9rem; margin-bottom: 1.25rem; line-height: 1.6; }
+        #upgrade-modal .um-perks { text-align: left; background: #f9fafb; border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 1.25rem; }
+        #upgrade-modal .um-perks li { font-size: 0.85rem; color: #374151; margin-bottom: 0.35rem; list-style: none; }
+        #upgrade-modal .um-perks li::before { content: "✓ "; color: #10b981; font-weight: 700; }
+        #upgrade-modal .um-btn { display: block; width: 100%; padding: 0.75rem; border-radius: 10px; border: none; font-size: 1rem; font-weight: 700; cursor: pointer; margin-bottom: 0.5rem; }
+        #upgrade-modal .um-btn-primary { background: #6c63ff; color: #fff; }
+        #upgrade-modal .um-btn-secondary { background: #f3f4f6; color: #374151; font-size: 0.85rem; padding: 0.5rem; }
+    </style>
 </head>
 <body class="iq-app">
+<div id="upgrade-modal-overlay">
+    <div id="upgrade-modal">
+        <div class="um-icon">🚀</div>
+        <h2>You've hit today's free limit</h2>
+        <p>Free accounts get <strong>10 practice questions per day</strong>. Upgrade to Pro for unlimited practice, AI tutoring, and detailed worked solutions.</p>
+        <ul class="um-perks">
+            <li>Unlimited daily practice questions</li>
+            <li>AI tutor explains every wrong answer</li>
+            <li>Step-by-step worked solutions</li>
+            <li>Predicted grade &amp; revision timetable</li>
+            <li>Offline mode &amp; push reminders</li>
+        </ul>
+        <button class="um-btn um-btn-primary" onclick="window.location.href='/'">Upgrade to Pro →</button>
+        <button class="um-btn um-btn-secondary" onclick="document.getElementById('upgrade-modal-overlay').classList.remove('active')">Maybe later</button>
+    </div>
+</div>
     <div class="container">
         <div class="back"><a href="javascript:history.back()">← Back</a></div>
 
@@ -598,6 +636,11 @@
                     credentials: 'include',
                     body: JSON.stringify(payload)
                 });
+                if (r.status === 403) {
+                    document.getElementById('upgrade-modal-overlay').classList.add('active');
+                    document.getElementById('submit-btn').disabled = false;
+                    return;
+                }
                 const data = await r.json();
                 const correct = r.ok && data.is_correct;
                 
