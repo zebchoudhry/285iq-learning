@@ -86,4 +86,8 @@ urlpatterns = [
     path('mock-exams/start/', views.mock_exam_start, name='mock-exam-start'),
     path('mock-exams/attempt/<int:attempt_id>/question/<int:question_id>/', views.mock_exam_question, name='mock-exam-question'),
     path('mock-exams/attempt/<int:attempt_id>/submit/', views.mock_exam_submit, name='mock-exam-submit'),
+
+    # Weakness digest & mastery gate
+    path('weakness-digest/', views.weakness_digest_view, name='weakness_digest'),
+    path('topics/<int:topic_id>/mastery/', views.topic_mastery_view, name='topic_mastery'),
 ]

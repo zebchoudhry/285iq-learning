@@ -433,6 +433,7 @@ class StudentExamSettings(models.Model):
         choices=TIER_CHOICES,
         default='higher',
     )
+    mastery_gate_enabled = models.BooleanField(default=True)
     last_outlook_tier = models.CharField(
         max_length=50,
         blank=True,

@@ -623,6 +623,20 @@
                 <a href="/quiz/?mode=quick_fire">⚡ QUICK QUIZ (5Q)</a>
             </div>
 
+            <div id="focus-panel" class="card" style="display:none; margin-bottom: 1.5rem; border-left: 4px solid #f59e0b; background: #fffbeb;">
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
+    <h3 style="margin:0; color:#92400e; font-size:1rem;">🎯 CURRENT FOCUS</h3>
+    <span id="focus-subject-badge" style="font-size:0.75rem; background:#f59e0b; color:#fff; padding:2px 8px; border-radius:12px;"></span>
+  </div>
+  <div id="focus-topic-name" style="font-size:1.2rem; font-weight:700; color:#1f2937; margin-bottom:0.5rem;"></div>
+  <div id="focus-progress-bar-container" style="background:#fde68a; border-radius:8px; height:12px; margin-bottom:0.5rem;">
+    <div id="focus-progress-bar" style="background:#f59e0b; height:12px; border-radius:8px; transition:width 0.4s; width:0%;"></div>
+  </div>
+  <div id="focus-status-text" style="font-size:0.85rem; color:#78350f; margin-bottom:0.75rem;"></div>
+  <div id="focus-summary" style="font-size:0.85rem; color:#374151; line-height:1.5; margin-bottom:0.75rem; white-space:pre-line;"></div>
+  <button onclick="startFocusDrill()" style="background:#f59e0b; color:#fff; border:none; padding:0.5rem 1.25rem; border-radius:8px; cursor:pointer; font-size:0.9rem; font-weight:600;">▶ Start Focus Drill</button>
+</div>
+
             <div class="panel anim-in" id="mission-card" style="animation-delay:0.04s;margin-bottom:14px;">
                 <div class="panel-label">◎ TODAY'S MISSION</div>
                 <div id="mission-content" style="font-size:13px;color:var(--text-muted);line-height:1.55;">
@@ -1208,6 +1222,56 @@
             } catch(e) {}
         }
 
+        async function loadFocusPanel() {
+          try {
+            const res = await fetch('/api/learning/weakness-digest/');
+            if (!res.ok) return;
+            const data = await res.json();
+            if (!data.weaknesses || data.weaknesses.length === 0) return;
+
+            const panel = document.getElementById('focus-panel');
+            const topicName = document.getElementById('focus-topic-name');
+            const statusText = document.getElementById('focus-status-text');
+            const summary = document.getElementById('focus-summary');
+            const progressBar = document.getElementById('focus-progress-bar');
+            const badge = document.getElementById('focus-subject-badge');
+
+            const top = data.weaknesses[0];
+            topicName.textContent = top.topic_name || 'Weak Topic';
+            badge.textContent = top.subject_name || 'STEM';
+
+            // Fetch mastery status for top focus topic
+            if (data.top_focus_topic_id) {
+              try {
+                const mr = await fetch(`/api/learning/topics/${data.top_focus_topic_id}/mastery/`);
+                if (mr.ok) {
+                  const ms = await mr.json();
+                  const pct = Math.round((ms.status?.success_rate || 0) * 100);
+                  progressBar.style.width = pct + '%';
+                  const needed = ms.status?.questions_to_mastery || 5;
+                  statusText.textContent = ms.gated
+                    ? `${pct}% mastery — ${needed} more correct answers to unlock`
+                    : ms.reason === 'mastered'
+                      ? '✅ Mastered! Moving to next weak topic…'
+                      : `${pct}% — keep going!`;
+                }
+              } catch(e) {}
+            }
+
+            if (data.summary) summary.textContent = data.summary;
+            panel.style.display = 'block';
+          } catch(e) {}
+        }
+
+        function startFocusDrill() {
+          // Trigger drill mode — use existing practice UI if present, else navigate
+          const subjectSelect = document.getElementById('subject-select');
+          const subjectId = subjectSelect ? subjectSelect.value : '';
+          window.location.href = subjectId
+            ? `/practice/?subject=${subjectId}&intent=drill`
+            : '/practice/?intent=drill';
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             loadProfile().then(function (ud) { if (ud) loadBillingBanner(ud); });
             loadMission();
@@ -1217,6 +1281,7 @@
             loadDueCardCount();
             loadLoopMetrics();
             subscribeToPush();
+            loadFocusPanel();
         });
     </script>
 </body>
