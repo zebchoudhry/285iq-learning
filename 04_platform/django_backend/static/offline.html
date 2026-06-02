@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>285IQ — Offline</title>
+  <style>
+    :root {
+      --bg: #020817;
+      --surface: #0f172a;
+      --border: #334155;
+      --cyan: #06b6d4;
+      --text: #f1f5f9;
+      --text-muted: #64748b;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { min-height: 100vh; }
+    body {
+      font-family: 'Exo 2', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 40px;
+      max-width: 460px;
+      width: 100%;
+    }
+    .brand {
+      font-family: 'Orbitron', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+    .divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      margin: 16px auto 32px;
+      max-width: 200px;
+    }
+    .icon {
+      font-size: 64px;
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+    .sync-note {
+      margin-top: 24px;
+      padding: 14px 18px;
+      border: 1px solid var(--cyan);
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--cyan);
+    }
+    button {
+      margin-top: 28px;
+      padding: 12px 28px;
+      background: transparent;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.06em;
+    }
+    button:hover { background: rgba(6,182,212,0.1); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">285IQ</div>
+    <div class="divider"></div>
+    <div class="icon">📡</div>
+    <h1>You're Offline</h1>
+    <p>
+      Your revision progress is safe.<br>
+      Any answers you submit will be saved locally and automatically
+      synced to your account as soon as you reconnect.
+    </p>
+    <div class="sync-note">
+      Your progress will sync when you reconnect.
+    </div>
+    <button onclick="window.location.reload()">Try Again</button>
+  </div>
+</body>
+</html>

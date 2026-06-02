@@ -24,6 +24,10 @@ class Student(AbstractUser):
     stripe_subscription_id = models.CharField(max_length=100, blank=True, null=True)
     subscription_expires_at = models.DateTimeField(null=True, blank=True)
     parent_email = models.EmailField(blank=True, null=True)
+    parent_phone = models.CharField(
+        max_length=20, blank=True, null=True,
+        help_text="Parent WhatsApp/SMS number in E.164 format, e.g. +447700900123"
+    )
     
     # Fix reverse accessor conflicts
     groups = models.ManyToManyField(
@@ -255,6 +259,37 @@ class PrizePool(models.Model):
     
     def __str__(self):
         return f"{self.name} - £{self.total_prize_pool}"
+
+
+class Friendship(models.Model):
+    """Peer friendship between two students."""
+    STATUS_PENDING = 'pending'
+    STATUS_ACCEPTED = 'accepted'
+    STATUS_DECLINED = 'declined'
+    STATUS_CHOICES = [
+        (STATUS_PENDING, 'Pending'),
+        (STATUS_ACCEPTED, 'Accepted'),
+        (STATUS_DECLINED, 'Declined'),
+    ]
+
+    student = models.ForeignKey(
+        'users.Student',
+        on_delete=models.CASCADE,
+        related_name='friendships_sent',
+    )
+    friend = models.ForeignKey(
+        'users.Student',
+        on_delete=models.CASCADE,
+        related_name='friendships_received',
+    )
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=STATUS_PENDING)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('student', 'friend')
+
+    def __str__(self):
+        return f"{self.student.username} -> {self.friend.username} ({self.status})"
 
 
 class PrizeWinner(models.Model):

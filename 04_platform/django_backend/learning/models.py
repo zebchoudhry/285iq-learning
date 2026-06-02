@@ -201,6 +201,10 @@ class Question(models.Model):
     llm_explanation_cache = models.TextField(blank=True, default='')
     llm_explanation_cached_at = models.DateTimeField(null=True, blank=True)
 
+    # Cached step-by-step worked solution (JSON list of step dicts)
+    worked_solution_cache = models.TextField(blank=True, default='')
+    worked_solution_cached_at = models.DateTimeField(null=True, blank=True)
+
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

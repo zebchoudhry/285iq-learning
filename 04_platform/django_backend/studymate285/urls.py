@@ -42,6 +42,8 @@ urlpatterns = [
     path('api/v1/billing/webhook/', stripe_webhook, name='billing-webhook-v1'),
     path('api/v1/billing/status/', billing_status, name='billing-status-v1'),
     path('api/v1/', include('learning.urls')),
+    path('api/v1/teachers/', include('teachers.urls')),
+    path('api/teachers/', include('teachers.urls')),
     # Legacy unversioned routes — kept for backwards compatibility
     path('api/users/', include('users.urls')),
     path('api/billing/create-checkout-session/', create_checkout_session, name='billing-create-checkout'),

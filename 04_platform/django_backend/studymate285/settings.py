@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'content',
     'dashboard',
     'decision_engine',
+    'teachers',
 ]
 
 # WhiteNoise is for local/Docker only; Vercel serves static files from the CDN.
@@ -278,6 +279,12 @@ STRIPE_MONTHLY_PRICE_ID = config('STRIPE_MONTHLY_PRICE_ID', default='')
 STRIPE_ANNUAL_PRICE_ID = config('STRIPE_ANNUAL_PRICE_ID', default='')
 
 ANTHROPIC_API_KEY = config('ANTHROPIC_API_KEY', default='')
+
+# Twilio (WhatsApp + SMS parent notifications — optional)
+TWILIO_ACCOUNT_SID = config('TWILIO_ACCOUNT_SID', default='')
+TWILIO_AUTH_TOKEN = config('TWILIO_AUTH_TOKEN', default='')
+TWILIO_WHATSAPP_FROM = config('TWILIO_WHATSAPP_FROM', default='')  # e.g. +14155238886
+TWILIO_SMS_FROM = config('TWILIO_SMS_FROM', default='')             # e.g. +14155238886
 
 # Parent notifications — comma-separated parent email list (production)
 PARENT_NOTIFICATION_EMAILS_RAW = config('PARENT_NOTIFICATION_EMAILS', default='')

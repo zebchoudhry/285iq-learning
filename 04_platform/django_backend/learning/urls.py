@@ -47,6 +47,7 @@ urlpatterns = [
     path('tutor/explain-wrong/', views.tutor_explain_wrong, name='tutor-explain-wrong'),
     path('tutor/diagnose-stuck/', views.tutor_diagnose_stuck, name='tutor-diagnose-stuck'),
     path('strength/<int:topic_id>/', views.topic_strength, name='topic-strength'),
+    path('questions/<int:question_id>/worked-solution/', views.worked_solution, name='worked-solution'),
 
     # Quiz
     path('quiz/start/', views.quiz_start, name='quiz-start'),
@@ -72,6 +73,9 @@ urlpatterns = [
     path('parent/export/<uuid:parent_access_token>/pdf/',
          parent_export_views.parent_export_pdf,
          name='parent-export-pdf'),
+
+    path('predicted-grade/', views.predicted_grade_view, name='predicted-grade'),
+    path('revision-timetable/', views.revision_timetable_view, name='revision-timetable'),
 
     # Staff-only content management
     path('admin/generate-questions/', admin_content_views.admin_generate_questions, name='admin-generate-questions'),

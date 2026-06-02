@@ -721,6 +721,18 @@ def tutor_diagnose_stuck(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
+def worked_solution(request, question_id):
+    """
+    Return step-by-step worked solution for a question.
+    GET /api/questions/<question_id>/worked-solution/
+    """
+    from learning.services.worked_solutions import get_worked_solution
+    steps = get_worked_solution(question_id)
+    return Response({'question_id': question_id, 'steps': steps})
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def topic_strength(request, topic_id):
     """Return latest strength trend for current student/topic."""
     from .models import TopicStrengthSnapshot
@@ -1961,3 +1973,73 @@ def submit_attempt(request):
 def subject_detail_page(request, subject_id):
     """Render subject detail page with topic cards."""
     return render(request, 'subject_detail.html', {'subject_id': subject_id})
+
+
+# ---------------------------------------------------------------------
+# Predicted Grade endpoint
+# ---------------------------------------------------------------------
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def predicted_grade_view(request):
+    """GET /api/predicted-grade/ — predicted grades per subject with exam settings."""
+    from datetime import date as _date
+    from decision_engine.v1_0.decision_engine_v1 import evaluate_student_subject
+    from .services.predicted_grade import predict_grade
+
+    settings_qs = (
+        StudentExamSettings.objects
+        .filter(student=request.user)
+        .select_related('subject')
+    )
+
+    results = []
+    for setting in settings_qs:
+        if setting.exam_date < _date.today():
+            continue
+        try:
+            engine_result = evaluate_student_subject(
+                student_id=request.user.pk,
+                subject_id=setting.subject_id,
+                exam_date=setting.exam_date,
+                target_grade=setting.target_grade,
+            )
+            grade_data = predict_grade(
+                attainment_band=engine_result['attainment_band'],
+                target_grade=setting.target_grade,
+                weeks_remaining=engine_result['weeks_remaining'],
+            )
+        except Exception as exc:
+            logger.warning("predicted_grade_view error for subject %s: %s", setting.subject_id, exc)
+            continue
+
+        results.append({
+            'subject_id': setting.subject_id,
+            'subject_name': setting.subject.display_name,
+            'predicted_grade': grade_data['predicted_grade'],
+            'confidence': grade_data['confidence'],
+            'message': grade_data['message'],
+            'target_grade': setting.target_grade,
+            'weeks_remaining': engine_result['weeks_remaining'],
+        })
+
+    return Response(results)
+
+
+# ---------------------------------------------------------------------
+# Revision Timetable endpoint
+# ---------------------------------------------------------------------
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def revision_timetable_view(request):
+    """GET /api/revision-timetable/?days=42 — personalised revision calendar."""
+    from django.utils.timezone import now as _now
+    from .services.revision_timetable import build_revision_timetable
+
+    try:
+        days = int(request.query_params.get('days', 42))
+        days = max(1, min(days, 365))
+    except (TypeError, ValueError):
+        days = 42
+
+    timetable = build_revision_timetable(request.user, days_ahead=days)
+    return Response({'timetable': timetable, 'generated_at': _now().isoformat()})
