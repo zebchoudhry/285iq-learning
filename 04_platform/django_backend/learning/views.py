@@ -2045,3 +2045,36 @@ def revision_timetable_view(request):
 
     timetable = build_revision_timetable(request.user, days_ahead=days)
     return Response({'timetable': timetable, 'generated_at': _now().isoformat()})
+
+
+# ---------------------------------------------------------------------
+# Weakness Digest endpoint
+# ---------------------------------------------------------------------
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def weakness_digest_view(request):
+    """GET /api/learning/weakness-digest/?subject_id=<int> — weakness digest."""
+    from .services.weakness_digest import build_weakness_digest
+
+    subject_id = request.query_params.get('subject_id')
+    if subject_id:
+        try:
+            subject_id = int(subject_id)
+        except (TypeError, ValueError):
+            subject_id = None
+
+    data = build_weakness_digest(request.user, subject_id=subject_id)
+    return Response(data)
+
+
+# ---------------------------------------------------------------------
+# Topic Mastery endpoint
+# ---------------------------------------------------------------------
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def topic_mastery_view(request, topic_id):
+    """GET /api/learning/topics/<topic_id>/mastery/ — mastery gate status."""
+    from .services.mastery_gate import check_mastery_gate
+
+    result = check_mastery_gate(request.user, topic_id)
+    return Response(result)
