@@ -772,8 +772,10 @@ def frontend_view(request, subject_id=None, topic_id=None):
     Main frontend view that serves different templates based on URL.
     Used for dashboard and practice pages.
     """
+    if not request.user.is_authenticated:
+        return redirect('/login/')
     if not StudentExamSettings.objects.filter(student=request.user).exists():
-        return redirect('/onboarding/exam-dates/')
+        return redirect('/onboarding/')
     
     # Check if this is a practice route
     if 'practice' in request.path:
@@ -1520,6 +1522,14 @@ def revision_planner_page(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
     return render(request, 'revision_planner.html')
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def subjects_list(request):
+    """Return list of active subjects."""
+    subjects = Subject.objects.filter(is_active=True).order_by('display_name')
+    return Response([{'id': s.id, 'name': s.display_name, 'description': s.description} for s in subjects])
 
 
 def subjects_page(request):

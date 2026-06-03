@@ -57,6 +57,7 @@ urlpatterns = [
     path('forgot-password/', user_views.forgot_password_page, name='forgot_password_page'),
     path('reset-password/', user_views.reset_password_page, name='reset_password_page'),
     path('settings/', user_views.settings_page, name='settings_page'),
+    path('onboarding/', user_views.onboarding_page, name='onboarding_page'),
     path('onboarding/exam-dates/', user_views.onboarding_exam_dates_page, name='onboarding_exam_dates_page'),
     path('lessons/', lessons_page, name='lessons_page'),
     path('quiz/', quiz_page, name='quiz_page'),
