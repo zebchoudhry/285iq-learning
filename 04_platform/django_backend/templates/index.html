@@ -1224,7 +1224,7 @@
 
         async function loadFocusPanel() {
           try {
-            const res = await fetch('/api/learning/weakness-digest/');
+            const res = await fetch('/api/weakness-digest/');
             if (!res.ok) return;
             const data = await res.json();
             if (!data.weaknesses || data.weaknesses.length === 0) return;
@@ -1243,7 +1243,7 @@
             // Fetch mastery status for top focus topic
             if (data.top_focus_topic_id) {
               try {
-                const mr = await fetch(`/api/learning/topics/${data.top_focus_topic_id}/mastery/`);
+                const mr = await fetch(`/api/topics/${data.top_focus_topic_id}/mastery/`);
                 if (mr.ok) {
                   const ms = await mr.json();
                   const pct = Math.round((ms.status?.success_rate || 0) * 100);
