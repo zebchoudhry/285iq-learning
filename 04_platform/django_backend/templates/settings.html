@@ -4,99 +4,207 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - 285IQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #020817;
+            --surface: #0f172a;
+            --surface2: #1e293b;
+            --border: #334155;
+            --primary: #3b82f6;
+            --cyan: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text: #f1f5f9;
+            --text-muted: #64748b;
+            --accent: var(--cyan);
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 24px; }
-        .container { max-width: 640px; margin: 0 auto; background: white; border-radius: 16px; padding: 32px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
-        h1 { font-size: 24px; color: #1e293b; margin-bottom: 8px; }
-        .subtitle { color: #64748b; margin-bottom: 24px; font-size: 14px; }
-        .back { margin-bottom: 16px; }
-        .back a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 600; }
-        .settings-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid #f1f5f9; }
-        .settings-row:last-child { border-bottom: none; }
-        .form-group { flex: 1; min-width: 120px; }
-        .form-group label { display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px; }
-        .form-group input, .form-group select { width: 100%; padding: 10px 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px; }
-        .subject-name { font-weight: 700; color: #1e293b; margin-bottom: 8px; }
-        .btn { padding: 10px 16px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; }
-        .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
-        .btn-secondary { background: #e2e8f0; color: #475569; margin-top: 24px; }
-        .btn-logout { background: #fee2e2; color: #dc2626; margin-top: 24px; }
-        #message { padding: 12px; border-radius: 8px; margin-bottom: 16px; display: none; }
-        #message.success { background: #d1fae5; color: #065f46; display: block; }
-        #message.error { background: #fee2e2; color: #dc2626; display: block; }
-        .empty { color: #64748b; padding: 24px; text-align: center; }
+        body { font-family: 'Exo 2', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background-image: linear-gradient(rgba(6,182,212,0.03) 1px,transparent 1px), linear-gradient(90deg,rgba(6,182,212,0.03) 1px,transparent 1px);
+            background-size: 50px 50px; pointer-events: none; z-index: 0;
+        }
+        .page { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 32px 20px; }
+        .back { margin-bottom: 24px; }
+        .back a { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 600; transition: color .2s; }
+        .back a:hover { color: var(--text); }
+        h1 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+        .subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 28px; }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        .card-title {
+            font-size: 11px; font-weight: 700; letter-spacing: .1em;
+            color: var(--accent); text-transform: uppercase; margin-bottom: 16px;
+        }
+        .settings-row {
+            display: flex; flex-wrap: wrap; gap: 12px;
+            align-items: flex-end; padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .settings-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .subject-name { font-weight: 700; color: var(--text); font-size: 15px; min-width: 100px; flex: 0 0 auto; align-self: center; }
+        .form-group { flex: 1; min-width: 130px; }
+        .form-group label { display: block; font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+        .form-group input, .form-group select {
+            width: 100%; padding: 9px 12px;
+            background: var(--surface2); border: 1px solid var(--border);
+            border-radius: 8px; font-size: 14px; color: var(--text);
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
+        .form-group select option { background: var(--surface2); }
+
+        .btn { padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; font-family: inherit; transition: opacity .2s; }
+        .btn:hover { opacity: .85; }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-danger { background: transparent; color: var(--danger); border: 1px solid var(--danger); margin-top: 8px; }
+        .btn-logout { background: transparent; color: var(--danger); border: 1px solid var(--danger); width: 100%; padding: 12px; font-size: 14px; }
+
+        .parent-link-box {
+            background: var(--surface2); border-radius: 10px;
+            padding: 14px 16px; margin-top: 12px;
+            font-size: 13px; color: var(--text-muted);
+            word-break: break-all; border: 1px solid var(--border);
+        }
+        .parent-link-box a { color: var(--accent); }
+        .copy-btn { margin-top: 10px; font-size: 12px; padding: 6px 14px; }
+
+        #message { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; display: none; font-size: 13px; font-weight: 600; }
+        #message.success { background: rgba(16,185,129,.15); color: var(--success); border: 1px solid var(--success); display: block; }
+        #message.error { background: rgba(239,68,68,.12); color: var(--danger); border: 1px solid var(--danger); display: block; }
+        .empty { color: var(--text-muted); padding: 24px; text-align: center; font-size: 14px; }
+        .empty a { color: var(--accent); }
     </style>
 </head>
 <body>
+<div class="page">
     <div class="back"><a href="/">← Dashboard</a></div>
-    <div class="container">
-        <h1>Settings</h1>
-        <p class="subtitle">Manage your exam dates and target grades</p>
-        <div id="message"></div>
+    <h1>Settings</h1>
+    <p class="subtitle">Manage your exam dates, target grades, and account</p>
+
+    <div id="message"></div>
+
+    <!-- Exam Settings -->
+    <div class="card">
+        <div class="card-title">📅 Exam Settings</div>
         <div id="settingsList"><div class="empty">Loading...</div></div>
+    </div>
+
+    <!-- Parent Dashboard -->
+    <div class="card">
+        <div class="card-title">👨‍👩‍👧 Parent Dashboard</div>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Share this link with a parent or guardian. They can view your progress, predicted grades, and weekly updates — no login needed.</p>
+        <div class="parent-link-box" id="parentLinkBox">Loading…</div>
+        <button class="btn btn-primary copy-btn" onclick="copyParentLink()">Copy link</button>
+    </div>
+
+    <!-- Account -->
+    <div class="card">
+        <div class="card-title">⚙️ Account</div>
         <button type="button" class="btn btn-logout" id="logoutBtn">Log out</button>
     </div>
-    <script>
-        const csrf = document.cookie.match(/csrftoken=([^;]+)/) ? document.cookie.match(/csrftoken=([^;]+)/)[1] : '';
-        function showMsg(text, isError) {
-            const el = document.getElementById('message');
-            el.textContent = text;
-            el.className = isError ? 'error' : 'success';
-            el.style.display = 'block';
-            setTimeout(() => { el.style.display = 'none'; }, 3000);
-        }
-        async function loadSettings() {
-            try {
-                const r = await fetch('/api/users/me/settings/', { credentials: 'include' });
-                const data = await r.json();
-                const list = document.getElementById('settingsList');
-                if (!data.settings || data.settings.length === 0) {
-                    list.innerHTML = '<div class="empty">No exam settings yet. <a href="/onboarding/exam-dates/">Add exam dates</a>.</div>';
-                    return;
-                }
-                list.innerHTML = data.settings.map(s => {
-                    const examDate = (s.exam_dates && s.exam_dates[0]) ? s.exam_dates[0].exam_date : (s.exam_date || '');
-                    return `<div class="settings-row" data-subject-id="${s.subject_id}">
-                        <div class="subject-name">${s.subject_name}</div>
-                        <div class="form-group"><label>Exam date</label><input type="date" value="${examDate}" data-field="exam_date"></div>
-                        <div class="form-group" style="max-width:100px;"><label>Target grade</label>
-                            <select data-field="target_grade">${[1,2,3,4,5,6,7,8,9].map(g => `<option value="${g}" ${g==s.target_grade?'selected':''}>Grade ${g}</option>`).join('')}</select>
-                        </div>
-                        <button type="button" class="btn btn-primary" data-save-subject="${s.subject_id}">Save</button>
-                    </div>`;
-                }).join('');
-                list.querySelectorAll('[data-save-subject]').forEach(btn => {
-                    btn.addEventListener('click', () => saveSubject(parseInt(btn.dataset.saveSubject, 10)));
-                });
-            } catch (e) {
-                document.getElementById('settingsList').innerHTML = '<div class="empty">Failed to load settings.</div>';
+</div>
+
+<script>
+    const csrf = (document.cookie.match(/csrftoken=([^;]+)/) || [])[1] || '';
+
+    function showMsg(text, isError) {
+        const el = document.getElementById('message');
+        el.textContent = text;
+        el.className = isError ? 'error' : 'success';
+        el.style.display = 'block';
+        setTimeout(() => { el.style.display = 'none'; }, 3000);
+    }
+
+    async function loadSettings() {
+        try {
+            const r = await fetch('/api/users/me/settings/', { credentials: 'include' });
+            const data = await r.json();
+            const list = document.getElementById('settingsList');
+            if (!data.settings || data.settings.length === 0) {
+                list.innerHTML = '<div class="empty">No subjects yet. <a href="/onboarding/">Complete onboarding</a> to add subjects.</div>';
+                return;
             }
+            list.innerHTML = data.settings.map(s => {
+                const examDate = (s.exam_dates && s.exam_dates[0]) ? s.exam_dates[0].exam_date : (s.exam_date || '');
+                return `<div class="settings-row" data-subject-id="${s.subject_id}">
+                    <div class="subject-name">${esc(s.subject_name)}</div>
+                    <div class="form-group"><label>Exam date</label><input type="date" value="${examDate}" data-field="exam_date"></div>
+                    <div class="form-group" style="max-width:130px;"><label>Target grade</label>
+                        <select data-field="target_grade">${[1,2,3,4,5,6,7,8,9].map(g=>`<option value="${g}" ${g==s.target_grade?'selected':''}>Grade ${g}</option>`).join('')}</select>
+                    </div>
+                    <button class="btn btn-primary" data-save-subject="${s.subject_id}">Save</button>
+                </div>`;
+            }).join('');
+            list.querySelectorAll('[data-save-subject]').forEach(btn => {
+                btn.addEventListener('click', () => saveSubject(parseInt(btn.dataset.saveSubject, 10)));
+            });
+        } catch (e) {
+            document.getElementById('settingsList').innerHTML = '<div class="empty">Failed to load settings.</div>';
         }
-        async function saveSubject(subjectId) {
-            const row = document.querySelector(`.settings-row[data-subject-id="${subjectId}"]`);
-            if (!row) return;
-            const examDate = row.querySelector('[data-field="exam_date"]').value;
-            const targetGrade = parseInt(row.querySelector('[data-field="target_grade"]').value, 10);
-            try {
-                const r = await fetch(`/api/users/me/settings/${subjectId}/`, {
-                    method: 'PATCH',
-                    credentials: 'include',
-                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrf },
-                    body: JSON.stringify({ exam_date: examDate, target_grade: targetGrade, exam_dates: [{ exam_date: examDate, paper_label: 'Paper 1' }] }),
-                });
-                const data = await r.json();
-                if (r.ok) showMsg('Settings saved.');
-                else showMsg(data.error || 'Save failed', true);
-            } catch (e) { showMsg('Network error', true); }
+    }
+
+    async function saveSubject(subjectId) {
+        const row = document.querySelector(`.settings-row[data-subject-id="${subjectId}"]`);
+        if (!row) return;
+        const examDate = row.querySelector('[data-field="exam_date"]').value;
+        const targetGrade = parseInt(row.querySelector('[data-field="target_grade"]').value, 10);
+        try {
+            const r = await fetch(`/api/users/me/settings/${subjectId}/`, {
+                method: 'PATCH', credentials: 'include',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrf },
+                body: JSON.stringify({ exam_date: examDate, target_grade: targetGrade, exam_dates: [{ exam_date: examDate, paper_label: 'Paper 1' }] }),
+            });
+            const data = await r.json();
+            if (r.ok) showMsg('Settings saved.');
+            else showMsg(data.error || 'Save failed', true);
+        } catch (e) { showMsg('Network error', true); }
+    }
+
+    async function loadParentLink() {
+        try {
+            const r = await fetch('/api/users/me/', { credentials: 'include' });
+            const data = await r.json();
+            const token = data.parent_access_token;
+            const box = document.getElementById('parentLinkBox');
+            if (token) {
+                const url = `${location.origin}/parent/${token}/`;
+                box.innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
+                box.dataset.url = url;
+            } else {
+                box.textContent = 'No parent token found. Contact support.';
+            }
+        } catch (e) {
+            document.getElementById('parentLinkBox').textContent = 'Could not load parent link.';
         }
-        document.getElementById('logoutBtn').addEventListener('click', async () => {
-            try {
-                await fetch('/api/users/auth/logout/', { method: 'POST', credentials: 'include', headers: { 'X-CSRFToken': csrf } });
-                window.location.href = '/login/';
-            } catch (e) { window.location.href = '/login/'; }
-        });
-        loadSettings();
-    </script>
+    }
+
+    function copyParentLink() {
+        const url = document.getElementById('parentLinkBox').dataset.url;
+        if (url) navigator.clipboard.writeText(url).then(() => showMsg('Parent link copied!'));
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+        try {
+            await fetch('/api/users/auth/logout/', { method: 'POST', credentials: 'include', headers: { 'X-CSRFToken': csrf } });
+        } catch(e) {}
+        window.location.href = '/login/';
+    });
+
+    function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    loadSettings();
+    loadParentLink();
+</script>
 </body>
 </html>
