@@ -32,7 +32,7 @@ QUESTIONS = {
             ("Solve the inequality: 4x − 3 > 9.", "x > 3", "4x > 12 → x > 3", "short_answer", 1, 2),
             ("A sequence has nth term 3n² − 1. What is the 4th term?", "47", "3(16)−1 = 48−1 = 47", "calculation", 2, 3),
         ],
-        "Ratio, Proportion & Rates": [
+        "Ratio, Proportion & Rates of Changes": [
             ("Divide £240 in the ratio 3:5.", "£90 and £150", "Total parts = 8; each part = £30; 3×30=90, 5×30=150", "calculation", 1, 2),
             ("A car travels 150 km in 2.5 hours. What is its average speed?", "60 km/h", "speed = distance ÷ time = 150 ÷ 2.5 = 60", "calculation", 1, 2),
             ("If 5 workers take 12 days to build a wall, how long would 3 workers take (same rate)?", "20 days", "5×12 = 60 worker-days; 60 ÷ 3 = 20 days", "calculation", 2, 3),
@@ -48,7 +48,7 @@ QUESTIONS = {
             ("A parallelogram has base 9 cm and height 5 cm. Find its area.", "45 cm²", "A = base × height = 9 × 5 = 45", "calculation", 1, 2),
             ("Describe a full rotation of a shape about a point. How many degrees?", "360°", "A full rotation is 360°", "short_answer", 1, 1),
         ],
-        "Statistics & Probability": [
+        "Probability & Statistics": [
             ("A dice is rolled once. What is the probability of getting a number greater than 4?", "1/3", "Favourable: 5 and 6 → 2/6 = 1/3", "short_answer", 1, 2),
             ("Find the mean of: 3, 7, 7, 9, 14.", "8", "(3+7+7+9+14)/5 = 40/5 = 8", "calculation", 1, 2),
             ("What is the median of: 2, 5, 8, 11, 14?", "8", "Middle value of 5 ordered values", "short_answer", 1, 1),
@@ -106,7 +106,7 @@ QUESTIONS = {
             ("An element has atomic number 11 and mass number 23. How many neutrons does it have?", "12", "Neutrons = mass number − atomic number = 23 − 11 = 12", "calculation", 1, 2),
             ("Why are noble gases unreactive?", "They have a full outer electron shell (stable octet), so they have no tendency to gain or lose electrons.", "Group 0 — full outer shell = stable.", "short_answer", 1, 2),
         ],
-        "Bonding, Structure & Properties": [
+        "Bonding, Structure & Properties of Matter": [
             ("Describe ionic bonding.", "The transfer of electrons from a metal to a non-metal to form oppositely charged ions that attract each other.", "Metal loses electrons → cation; non-metal gains → anion.", "short_answer", 2, 3),
             ("Why do ionic compounds have high melting points?", "They have strong electrostatic forces between the oppositely charged ions in a giant lattice structure, requiring a lot of energy to break.", "Giant ionic lattice — strong forces between ions.", "short_answer", 2, 3),
             ("Describe covalent bonding.", "The sharing of a pair of electrons between two non-metal atoms.", "Both atoms achieve a full outer shell.", "short_answer", 1, 2),
@@ -129,7 +129,7 @@ QUESTIONS = {
             ("What is bond energy?", "The energy required to break one mole of a particular bond between atoms.", "Breaking bonds requires energy; forming bonds releases energy.", "short_answer", 1, 2),
             ("Using bond energies, H–H = 436 kJ/mol and H–Cl = 432 kJ/mol, Cl–Cl = 243 kJ/mol, calculate ΔH for H₂ + Cl₂ → 2HCl.", "ΔH = −184 kJ/mol", "Bonds broken: 436+243=679; bonds made: 2×432=864; ΔH=679−864=−185 kJ (accept ±5)", "calculation", 3, 5),
         ],
-        "Rate & Equilibrium": [
+        "The Rate & Extent of Chemical Change": [
             ("State four factors that increase the rate of a chemical reaction.", "Increased temperature, increased concentration, increased surface area, addition of a catalyst", "More collisions with sufficient energy = faster rate.", "short_answer", 1, 2),
             ("Define a catalyst.", "A substance that speeds up a reaction by providing an alternative pathway with a lower activation energy, without being used up.", "Not consumed — can be reused; specific to reactions.", "short_answer", 1, 2),
             ("State Le Chatelier's Principle.", "If a system at equilibrium is disturbed, it will shift to oppose the change and re-establish equilibrium.", "Applied to temperature, pressure, concentration changes.", "short_answer", 2, 3),
@@ -157,7 +157,7 @@ QUESTIONS = {
             ("Calculate the density of a block with mass 500 g and volume 250 cm³.", "2 g/cm³", "ρ = m/V = 500/250 = 2 g/cm³", "calculation", 1, 2),
             ("Define specific latent heat of vaporisation.", "The energy needed to change 1 kg of a liquid to gas at constant temperature.", "No temperature change during change of state.", "short_answer", 2, 3),
         ],
-        "Atomic Structure (Physics)": [
+        "Atomic Structure": [
             ("What is alpha radiation?", "A helium nucleus (2 protons + 2 neutrons) emitted from a radioactive nucleus.", "Charge +2; stopped by paper or a few cm of air.", "short_answer", 1, 2),
             ("What is meant by half-life?", "The time taken for half the radioactive nuclei in a sample to decay.", "After n half-lives: N remaining = N₀ × (½)ⁿ", "short_answer", 1, 2),
             ("A sample starts with 800 undecayed atoms and has a half-life of 4 years. How many atoms remain after 12 years?", "100", "12/4 = 3 half-lives; 800 → 400 → 200 → 100", "calculation", 2, 3),
@@ -211,7 +211,7 @@ QUESTIONS = {
             ("What is the output of: for i in range(1, 4): print(i)?", "1\n2\n3", "range(1,4) generates 1, 2, 3 (4 is excluded).", "short_answer", 1, 2),
             ("Define recursion.", "When a function calls itself as part of its own definition, with a base case to stop infinite recursion.", "Every recursive call must move toward the base case.", "short_answer", 2, 3),
         ],
-        "Boolean Logic": [
+        "Boolean Logic & Logic Gates": [
             ("What does an AND gate output when inputs are A=1 and B=0?", "0", "AND: output is 1 only if BOTH inputs are 1.", "short_answer", 1, 1),
             ("Complete the truth table row: NOT(A OR B) when A=1, B=0.", "0", "A OR B = 1; NOT 1 = 0", "short_answer", 1, 2),
             ("Simplify using De Morgan's Law: NOT(A AND B).", "NOT A OR NOT B", "De Morgan: NOT(A AND B) = (NOT A) OR (NOT B)", "short_answer", 2, 3),
