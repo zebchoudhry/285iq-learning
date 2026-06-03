@@ -14,6 +14,7 @@ py manage.py seed_exam_boards
 py manage.py bootstrap_gcse
 py manage.py seed_computer_science
 py manage.py seed_extended_questions
+py manage.py seed_flashcards
 py manage.py seed_mock_exams
 
 echo Creating test account...

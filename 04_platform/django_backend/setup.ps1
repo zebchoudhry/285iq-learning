@@ -25,6 +25,7 @@ python manage.py seed_exam_boards
 python manage.py bootstrap_gcse
 python manage.py seed_computer_science
 python manage.py seed_extended_questions
+python manage.py seed_flashcards
 python manage.py seed_mock_exams
 
 Write-Host "`nCreating test account (testuser / Test285IQ!)..." -ForegroundColor Yellow
