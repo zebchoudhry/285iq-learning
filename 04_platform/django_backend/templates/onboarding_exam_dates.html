@@ -4,205 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>When are your exams? - 285IQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 24px;
-        }
-        .container {
-            max-width: 640px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-        }
-        h1 { font-size: 24px; color: #1e293b; margin-bottom: 8px; }
-        .subtitle { color: #64748b; margin-bottom: 24px; font-size: 14px; }
-        .subject-block {
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            background: #f8fafc;
-        }
-        .subject-block h3 { font-size: 14px; color: #475569; margin-bottom: 12px; }
-        .form-row { display: flex; gap: 16px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
-        .form-group { flex: 1; min-width: 140px; }
-        .form-group label { display: block; margin-bottom: 4px; font-size: 12px; font-weight: 600; color: #475569; }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 10px 12px;
-                            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        .exam-date-row { margin-bottom: 8px; }
-        .add-paper { margin-top: 8px; }
-        .btn {
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            width: 100%;
-            padding: 14px;
-            margin-top: 8px;
-        }
-        .btn-primary:hover { opacity: 0.95; }
-        .btn-secondary { background: #e2e8f0; color: #475569; }
-        .btn-secondary:hover { background: #cbd5e1; }
-        .btn-remove { background: #fee2e2; color: #dc2626; font-size: 12px; padding: 6px 12px; }
-        #errorMessage {
-            background: #fee2e2;
-            color: #dc2626;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 16px;
-            font-size: 14px;
-            display: none;
-        }
-        #errorMessage.show { display: block; }
-        .add-subject { margin-bottom: 20px; }
+        :root{--bg:#020817;--surface:#0f172a;--surface2:#1e293b;--border:#334155;--primary:#3b82f6;--cyan:#06b6d4;--text:#f1f5f9;--text-muted:#64748b;--danger:#ef4444;--accent:#06b6d4;}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Exo 2',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:32px 20px;}
+        body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(6,182,212,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(6,182,212,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0;}
+        .wrap{position:relative;z-index:1;width:100%;max-width:640px;}
+        h1{font-size:22px;font-weight:800;margin-bottom:6px;}
+        .subtitle{color:var(--text-muted);font-size:13px;margin-bottom:24px;}
+        .subj-block{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px;}
+        .subj-block h3{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+        .form-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+        .form-group{flex:1;min-width:130px;}
+        .form-group label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;}
+        .form-group input,.form-group select{width:100%;padding:9px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);font-family:inherit;}
+        .form-group input:focus,.form-group select:focus{outline:none;border-color:var(--accent);}
+        .form-group select option{background:var(--surface2);}
+        .btn{padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:opacity .2s;} .btn:hover{opacity:.85;}
+        .btn-primary{background:var(--primary);color:#fff;width:100%;padding:14px;margin-top:8px;font-size:15px;}
+        .btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);margin-bottom:16px;}
+        .error{background:rgba(239,68,68,.12);border:1px solid var(--danger);color:#fca5a5;padding:12px;border-radius:8px;margin-bottom:16px;font-size:13px;display:none;}
+        .error.show{display:block;}
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>When are your exams?</h1>
-        <p class="subtitle">Add each subject and the dates for Paper 1 and Paper 2 (or other papers). We'll use this to plan your revision.</p>
-        <div id="errorMessage"></div>
-        <div id="subjectBlocks"></div>
-        <button type="button" class="btn btn-secondary add-subject" id="addSubjectBtn">+ Add another subject</button>
-        <button type="button" class="btn btn-primary" id="submitBtn">Save and go to dashboard</button>
-    </div>
-    <script>
-        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || getCookie('csrftoken');
-        let subjects = [];
-        let subjectBlockIndex = 0;
+<div class="wrap">
+    <h1>When are your exams?</h1>
+    <p class="subtitle">Add each subject and your exam dates. We'll use this to plan your revision.</p>
+    <div id="errorMessage" class="error"></div>
+    <div id="subjectBlocks"></div>
+    <button class="btn btn-ghost" id="addSubjectBtn">+ Add another subject</button>
+    <button class="btn btn-primary" id="submitBtn">Save and go to dashboard →</button>
+</div>
+<script>
+    const csrfToken=(document.cookie.match(/csrftoken=([^;]+)/)||[])[1]||'';
+    let subjects=[], idx=0;
 
-        function getCookie(name) {
-            let v = null;
-            if (document.cookie) {
-                document.cookie.split(';').forEach(c => {
-                    const [k, val] = c.trim().split('=');
-                    if (k === name) v = decodeURIComponent(val);
-                });
-            }
-            return v;
+    async function loadSubjects(){
+        const r=await fetch('/api/subjects/',{credentials:'include'});
+        if(!r.ok)return;
+        const data=await r.json();
+        subjects=Array.isArray(data)?data:(data.results||[]);
+        addSubjectBlock();
+    }
+
+    function addSubjectBlock(){
+        const block=document.createElement('div');
+        block.className='subj-block'; block.dataset.index=idx++;
+        block.innerHTML=`<h3>Subject</h3>
+        <div class="form-row">
+            <div class="form-group" style="flex:2;"><label>Subject</label>
+                <select class="subject-select"><option value="">-- Choose --</option>${subjects.map(s=>`<option value="${s.id}">${s.display_name||s.name}</option>`).join('')}</select>
+            </div>
+            <div class="form-group" style="max-width:120px;"><label>Target grade</label>
+                <select class="target-grade">${[1,2,3,4,5,6,7,8,9].map(g=>`<option value="${g}" ${g===5?'selected':''}>Grade ${g}</option>`).join('')}</select>
+            </div>
+            <div class="form-group" style="max-width:130px;"><label>Exam board</label>
+                <select class="exam-board"><option value="aqa" selected>AQA</option><option value="edexcel">Edexcel</option><option value="ocr">OCR</option><option value="wjec">WJEC</option></select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group"><label>Paper 1 date</label><input type="date" class="exam-date" data-paper="Paper 1"></div>
+            <div class="form-group"><label>Paper 2 date</label><input type="date" class="exam-date" data-paper="Paper 2"></div>
+        </div>`;
+        document.getElementById('subjectBlocks').appendChild(block);
+    }
+
+    document.getElementById('addSubjectBtn').addEventListener('click',addSubjectBlock);
+
+    document.getElementById('submitBtn').addEventListener('click',async()=>{
+        const blocks=document.querySelectorAll('.subj-block');
+        const payload={subjects:[]};
+        for(const block of blocks){
+            const sid=block.querySelector('.subject-select').value;
+            if(!sid)continue;
+            const exam_dates=[];
+            block.querySelectorAll('.exam-date').forEach(inp=>{if(inp.value)exam_dates.push({exam_date:inp.value,paper_label:inp.dataset.paper||'Paper 1'});});
+            if(!exam_dates.length)continue;
+            payload.subjects.push({subject_id:parseInt(sid,10),target_grade:parseInt(block.querySelector('.target-grade').value,10),exam_board:block.querySelector('.exam-board').value||'aqa',exam_dates});
         }
+        if(!payload.subjects.length){showErr('Add at least one subject with an exam date.');return;}
+        hideErr();
+        const btn=document.getElementById('submitBtn');
+        btn.disabled=true;btn.textContent='Saving...';
+        try{
+            const r=await fetch('/api/users/onboarding/exam-dates/',{method:'POST',headers:{'Content-Type':'application/json','X-CSRFToken':csrfToken},credentials:'include',body:JSON.stringify(payload)});
+            const data=await r.json();
+            if(r.ok)location.href=data.redirect||'/';
+            else showErr(data.error||JSON.stringify(data));
+        }catch(e){showErr('Network error. Please try again.');}
+        finally{btn.disabled=false;btn.textContent='Save and go to dashboard →';}
+    });
 
-        async function loadSubjects() {
-            const r = await fetch('/api/subjects/', { credentials: 'include' });
-            if (!r.ok) return;
-            const data = await r.json();
-            subjects = Array.isArray(data) ? data : (data.results || []);
-            if (!Array.isArray(subjects)) subjects = [];
-            addSubjectBlock();
-        }
-
-        function addSubjectBlock() {
-            const block = document.createElement('div');
-            block.className = 'subject-block';
-            block.dataset.index = subjectBlockIndex++;
-            block.innerHTML = `
-                <h3>Subject</h3>
-                <div class="form-row">
-                    <div class="form-group" style="flex:2;">
-                        <label>Subject</label>
-                        <select class="subject-select" data-subject-id>
-                            <option value="">-- Choose subject --</option>
-                            ${subjects.map(s => `<option value="${s.id}">${s.display_name || s.name || s.id}</option>`).join('')}
-                        </select>
-                    </div>
-                    <div class="form-group" style="max-width:120px;">
-                        <label>Target grade</label>
-                        <select class="target-grade">
-                            ${[1,2,3,4,5,6,7,8,9].map(g => `<option value="${g}" ${g===5?'selected':''}>Grade ${g}</option>`).join('')}
-                        </select>
-                    </div>
-                    <div class="form-group" style="max-width:130px;">
-                        <label>Exam board</label>
-                        <select class="exam-board">
-                            <option value="aqa" selected>AQA</option>
-                            <option value="edexcel">Edexcel</option>
-                            <option value="ocr">OCR</option>
-                            <option value="wjec">WJEC</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="exam-dates-container">
-                    <div class="exam-date-row">
-                        <div class="form-row">
-                            <div class="form-group"><label>Paper 1 date</label><input type="date" class="exam-date" data-paper="Paper 1"></div>
-                            <div class="form-group"><label>Paper 2 date</label><input type="date" class="exam-date" data-paper="Paper 2"></div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.getElementById('subjectBlocks').appendChild(block);
-        }
-
-        document.getElementById('addSubjectBtn').addEventListener('click', addSubjectBlock);
-
-        document.getElementById('submitBtn').addEventListener('click', async () => {
-            const blocks = document.querySelectorAll('.subject-block');
-            const payload = { subjects: [] };
-            for (const block of blocks) {
-                const sid = block.querySelector('.subject-select').value;
-                if (!sid) continue;
-                const targetGrade = parseInt(block.querySelector('.target-grade').value, 10);
-                const dateInputs = block.querySelectorAll('.exam-date');
-                const exam_dates = [];
-                dateInputs.forEach(inp => {
-                    if (inp.value) exam_dates.push({ exam_date: inp.value, paper_label: inp.dataset.paper || 'Paper 1' });
-                });
-                if (exam_dates.length === 0) continue;
-                const examBoard = block.querySelector('.exam-board').value || 'aqa'; payload.subjects.push({ subject_id: parseInt(sid, 10), target_grade: targetGrade, exam_board: examBoard, exam_dates });
-            }
-            if (payload.subjects.length === 0) {
-                document.getElementById('errorMessage').textContent = 'Add at least one subject with at least one exam date.';
-                document.getElementById('errorMessage').classList.add('show');
-                return;
-            }
-            document.getElementById('errorMessage').classList.remove('show');
-            document.getElementById('submitBtn').disabled = true;
-            document.getElementById('submitBtn').textContent = 'Saving...';
-            try {
-                const r = await fetch('/api/users/onboarding/exam-dates/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
-                    credentials: 'include',
-                    body: JSON.stringify(payload),
-                });
-                const data = await r.json();
-                if (r.ok) {
-                    window.location.href = data.redirect || '/';
-                } else {
-                    document.getElementById('errorMessage').textContent = data.error || JSON.stringify(data);
-                    document.getElementById('errorMessage').classList.add('show');
-                }
-            } catch (e) {
-                document.getElementById('errorMessage').textContent = 'Network error. Please try again.';
-                document.getElementById('errorMessage').classList.add('show');
-            } finally {
-                document.getElementById('submitBtn').disabled = false;
-                document.getElementById('submitBtn').textContent = 'Save and go to dashboard';
-            }
-        });
-
-        loadSubjects();
-    </script>
+    function showErr(m){const el=document.getElementById('errorMessage');el.textContent=m;el.classList.add('show');}
+    function hideErr(){document.getElementById('errorMessage').classList.remove('show');}
+    loadSubjects();
+</script>
 </body>
 </html>

@@ -4,92 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revision Planner - 285IQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); min-height: 100vh; padding: 24px; }
-        .container { max-width: 800px; margin: 0 auto; }
-        .back { margin-bottom: 16px; }
-        .back a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 600; }
-        .back a:hover { text-decoration: underline; }
-        h1 { color: white; font-size: 28px; margin-bottom: 8px; }
-        .subtitle { color: rgba(255,255,255,0.85); margin-bottom: 24px; font-size: 14px; }
-        .card { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        .card h2 { font-size: 18px; color: #1e293b; margin-bottom: 16px; }
-        .exam-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
-        .exam-row:last-child { border-bottom: none; }
-        .exam-subject { font-weight: 700; color: #1e293b; }
-        .exam-paper { font-size: 13px; color: #64748b; }
-        .exam-days { background: #667eea; color: white; padding: 6px 12px; border-radius: 8px; font-weight: 700; font-size: 14px; }
-        .exam-mode { font-size: 13px; color: #475569; }
-        .banner-48h { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 16px 20px; border-radius: 12px; margin-bottom: 20px; }
-        .banner-48h h3 { font-size: 16px; margin-bottom: 8px; }
-        .banner-48h a { color: white; font-weight: 700; text-decoration: underline; }
-        .empty { text-align: center; color: #64748b; padding: 24px; }
+        :root{--bg:#020817;--surface:#0f172a;--surface2:#1e293b;--border:#334155;--primary:#3b82f6;--cyan:#06b6d4;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--text:#f1f5f9;--text-muted:#64748b;--accent:#06b6d4;}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Exo 2',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+        body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(6,182,212,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(6,182,212,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0;}
+        .page{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:32px 20px;}
+        .back{margin-bottom:20px;} .back a{color:var(--text-muted);text-decoration:none;font-size:14px;font-weight:600;} .back a:hover{color:var(--text);}
+        h1{font-size:22px;font-weight:800;margin-bottom:4px;}
+        .subtitle{color:var(--text-muted);font-size:13px;margin-bottom:6px;}
+        .readiness-link{font-size:13px;margin-bottom:24px;} .readiness-link a{color:var(--accent);font-weight:600;text-decoration:none;}
+        .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+        .card-title{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;}
+        .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);}
+        .row:last-child{border-bottom:none;}
+        .subj{font-weight:700;color:var(--text);min-width:110px;}
+        .paper{font-size:13px;color:var(--text-muted);}
+        .days-pill{padding:6px 14px;border-radius:999px;font-weight:700;font-size:13px;background:var(--primary);color:#fff;}
+        .mode{font-size:13px;color:var(--text-muted);}
+        .banner{background:rgba(245,158,11,.12);border:1px solid var(--warning);border-radius:12px;padding:16px 20px;margin-bottom:20px;color:var(--text);}
+        .banner h3{font-size:15px;font-weight:700;margin-bottom:6px;color:var(--warning);}
+        .banner a{color:var(--warning);font-weight:700;text-decoration:underline;}
+        .empty{color:var(--text-muted);text-align:center;padding:24px;font-size:14px;}
+        .empty a{color:var(--accent);}
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="back"><a href="/">← Dashboard</a></div>
-        <h1>Revision Planner</h1>
-        <p class="subtitle">Time left to revise and upcoming exams</p>
-        <p style="margin-bottom:20px;"><a href="/exam-readiness/" style="color:white;font-weight:700;">View full Exam Readiness monitor -></a></p>
-        <div id="banner48h"></div>
-        <div class="card">
-            <h2>Upcoming exams</h2>
-            <div id="exam-dates-list"><div class="empty">Loading...</div></div>
-        </div>
-        <div class="card" id="exam-readiness-card">
-            <h2>Exam readiness (target grade)</h2>
-            <div id="exam-readiness-list"><div class="empty">Loading...</div></div>
-        </div>
+<div class="page">
+    <div class="back"><a href="/">← Dashboard</a></div>
+    <h1>Revision Planner</h1>
+    <p class="subtitle">Time left to revise and upcoming exams</p>
+    <p class="readiness-link"><a href="/exam-readiness/">View full Exam Readiness monitor →</a></p>
+
+    <div id="banner48h"></div>
+
+    <div class="card">
+        <div class="card-title">📅 Upcoming Exams</div>
+        <div id="exam-dates-list"><div class="empty">Loading...</div></div>
     </div>
-    <script>
-        (async function() {
-            try {
-                const r = await fetch('/api/revision-summary/', { credentials: 'include' });
-                if (!r.ok) { document.getElementById('exam-dates-list').innerHTML = '<div class="empty">Please log in.</div>'; return; }
-                const data = await r.json();
-                const within48h = data.exams_within_48h || [];
-                const list = data.exam_dates || [];
-                const readiness = data.subject_readiness || [];
-                if (within48h.length > 0) {
-                    const subjectNames = within48h.map(e => e.subject_name).join(', ');
-                    document.getElementById('banner48h').innerHTML = `
-                        <div class="banner-48h">
-                            <h3>Exams in the next 48 hours</h3>
-                            <p>Focus on: <strong>${subjectNames}</strong></p>
-                            <p><a href="/lessons/">Go to lessons</a> | <a href="/quiz/">Practice quiz</a></p>
-                        </div>
-                    `;
-                }
-                if (list.length === 0) {
-                    document.getElementById('exam-dates-list').innerHTML = '<div class="empty">No upcoming exams. Add exam dates in settings or onboarding.</div>';
-                } else {
-                    document.getElementById('exam-dates-list').innerHTML = list.map(ed => `
-                        <div class="exam-row">
-                            <span class="exam-subject">${ed.subject_name}</span>
-                            <span class="exam-paper">${ed.paper_label}</span>
-                            <span class="exam-days">${ed.days_remaining} days left</span>
-                            <span class="exam-mode">${ed.description || ed.study_mode || ''}</span>
-                        </div>
-                    `).join('');
-                }
-                if (readiness.length === 0) {
-                    document.getElementById('exam-readiness-list').innerHTML = '<div class="empty">No subject readiness data yet.</div>';
-                } else {
-                    const statusText = { yes: 'Yes', almost: 'Almost', not_yet: 'Not yet' };
-                    document.getElementById('exam-readiness-list').innerHTML = readiness.map(s => `
-                        <div class="exam-row">
-                            <span class="exam-subject">${s.subject_name}</span>
-                            <span class="exam-mode">Target: Grade ${s.target_grade}, Current: Grade ${s.attainment_band}</span>
-                            <span class="exam-days" style="background:${s.exam_ready?'#10b981':s.status==='almost'?'#f59e0b':'#64748b'}">${statusText[s.status] || s.status}</span>
-                        </div>
-                    `).join('');
-                }
-            } catch (e) {
-                document.getElementById('exam-dates-list').innerHTML = '<div class="empty">Failed to load revision summary.</div>';
-            }
-        })();
-    </script>
+
+    <div class="card">
+        <div class="card-title">🎯 Exam Readiness vs Target Grade</div>
+        <div id="exam-readiness-list"><div class="empty">Loading...</div></div>
+    </div>
+</div>
+<script>
+(async function(){
+    try{
+        const r=await fetch('/api/revision-summary/',{credentials:'include'});
+        if(!r.ok){document.getElementById('exam-dates-list').innerHTML='<div class="empty">Please <a href="/login/">log in</a>.</div>';return;}
+        const data=await r.json();
+        const within48h=data.exams_within_48h||[];
+        const list=data.exam_dates||[];
+        const readiness=data.subject_readiness||[];
+
+        if(within48h.length){
+            const names=within48h.map(e=>e.subject_name).join(', ');
+            document.getElementById('banner48h').innerHTML=`<div class="banner"><h3>⚠️ Exams in the next 48 hours</h3><p>Focus on: <strong>${names}</strong></p><p style="margin-top:6px;"><a href="/lessons/">Go to lessons</a> &nbsp;·&nbsp; <a href="/quiz/">Practice quiz</a></p></div>`;
+        }
+
+        if(!list.length){
+            document.getElementById('exam-dates-list').innerHTML='<div class="empty">No upcoming exams. <a href="/settings/">Add exam dates in settings</a>.</div>';
+        }else{
+            document.getElementById('exam-dates-list').innerHTML=list.map(ed=>`
+                <div class="row">
+                    <span class="subj">${ed.subject_name}</span>
+                    <span class="paper">${ed.paper_label}</span>
+                    <span class="days-pill">${ed.days_remaining} days left</span>
+                    <span class="mode">${ed.description||ed.study_mode||''}</span>
+                </div>`).join('');
+        }
+
+        if(!readiness.length){
+            document.getElementById('exam-readiness-list').innerHTML='<div class="empty">No readiness data yet — complete some practice questions first.</div>';
+        }else{
+            const color={yes:'var(--success)',almost:'var(--warning)',not_yet:'var(--text-muted)'};
+            const label={yes:'Ready ✓',almost:'Almost',not_yet:'Not yet'};
+            document.getElementById('exam-readiness-list').innerHTML=readiness.map(s=>`
+                <div class="row">
+                    <span class="subj">${s.subject_name}</span>
+                    <span class="mode">Target: Grade ${s.target_grade} &nbsp;·&nbsp; Current: Grade ${s.attainment_band}</span>
+                    <span class="days-pill" style="background:${color[s.status]||'var(--text-muted)'}">${label[s.status]||s.status}</span>
+                </div>`).join('');
+        }
+    }catch(e){
+        document.getElementById('exam-dates-list').innerHTML='<div class="empty">Failed to load revision summary.</div>';
+    }
+})();
+</script>
 </body>
 </html>

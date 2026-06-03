@@ -4,269 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcards - 285IQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 24px;
-            color: #1e293b;
-        }
-        .container { max-width: 700px; margin: 0 auto; }
-        .back-link {
-            display: inline-block;
-            color: rgba(255,255,255,0.9);
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 24px;
-        }
-        .back-link:hover { color: white; text-decoration: underline; }
-        h1 { color: white; font-size: 28px; margin-bottom: 8px; }
-        .subtitle { color: rgba(255,255,255,0.8); margin-bottom: 24px; }
-        .decks-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
-        }
-        .deck-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .deck-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-        }
-        .deck-name { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
-        .deck-meta { font-size: 13px; color: #64748b; }
-        .empty-state {
-            background: white;
-            border-radius: 12px;
-            padding: 48px 24px;
-            text-align: center;
-            color: #64748b;
-        }
-        .empty-state-icon { font-size: 48px; margin-bottom: 16px; }
-        .flashcard-view { display: none; }
-        .flashcard-view.active { display: block; }
-        .flashcard-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            color: white;
-        }
-        .flashcard-nav span { font-size: 14px; font-weight: 600; }
-        .flashcard-nav button {
-            padding: 8px 16px;
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.5);
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .flashcard-nav button:hover { background: rgba(255,255,255,0.3); }
-        .flashcard-nav button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .flashcard-container {
-            perspective: 1200px;
-            margin-bottom: 24px;
-        }
-        /* Inner wrapper keeps a stable height; faces are stacked in 3D (both absolute). */
-        .flashcard {
-            position: relative;
-            min-height: 220px;
-            cursor: pointer;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
-        }
-        .flashcard.flipped { transform: rotateY(180deg); }
-        .flashcard-front,
-        .flashcard-back {
-            position: absolute;
-            inset: 0;
-            padding: 32px;
-            border-radius: 16px;
-            background: white;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            /* Nudge onto own layer so hidden backfaces don’t bleed through (Chrome/Edge). */
-            transform-style: preserve-3d;
-        }
-        .flashcard-front {
-            transform: rotateY(0deg) translateZ(1px);
-        }
-        .flashcard-back {
-            transform: rotateY(180deg) translateZ(1px);
-        }
-        .flashcard-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            color: #64748b;
-            margin-bottom: 8px;
-        }
-        .flashcard-text { font-size: 18px; line-height: 1.6; color: #1e293b; }
-        .flip-hint { color: rgba(255,255,255,0.7); font-size: 13px; margin-top: 12px; }
+        :root { --bg:#020817;--surface:#0f172a;--surface2:#1e293b;--border:#334155;--primary:#3b82f6;--cyan:#06b6d4;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--text:#f1f5f9;--text-muted:#64748b;--accent:#06b6d4; }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Exo 2',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+        body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(6,182,212,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(6,182,212,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0;}
+        .page{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:32px 20px;}
+        .back{margin-bottom:20px;} .back a{color:var(--text-muted);text-decoration:none;font-size:14px;font-weight:600;} .back a:hover{color:var(--text);}
+        h1{font-size:22px;font-weight:800;margin-bottom:4px;}
+        .subtitle{color:var(--text-muted);font-size:13px;margin-bottom:24px;}
+        .decks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}
+        .deck-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;cursor:pointer;transition:border-color .2s,transform .2s;}
+        .deck-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+        .deck-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;}
+        .deck-meta{font-size:12px;color:var(--text-muted);}
+        .empty{color:var(--text-muted);text-align:center;padding:48px 24px;font-size:14px;}
+        /* nav */
+        .fc-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+        .fc-nav span{font-size:14px;font-weight:600;color:var(--text-muted);}
+        .btn{padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:opacity .2s;} .btn:hover{opacity:.85;}
+        .btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+        .btn-ghost:disabled{opacity:.4;cursor:not-allowed;}
+        /* card flip */
+        .fc-wrap{perspective:1200px;margin-bottom:16px;}
+        .fc{position:relative;min-height:240px;cursor:pointer;transform-style:preserve-3d;transition:transform .5s ease;}
+        .fc.flipped{transform:rotateY(180deg);}
+        .fc-front,.fc-back{position:absolute;inset:0;padding:36px 32px;border-radius:16px;background:var(--surface);border:1px solid var(--border);backface-visibility:hidden;-webkit-backface-visibility:hidden;transform-style:preserve-3d;display:flex;flex-direction:column;justify-content:center;}
+        .fc-front{transform:rotateY(0deg) translateZ(1px);}
+        .fc-back{transform:rotateY(180deg) translateZ(1px);border-color:var(--accent);}
+        .fc-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+        .fc-text{font-size:18px;line-height:1.6;color:var(--text);}
+        .flip-hint{color:var(--text-muted);font-size:12px;text-align:center;}
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="/" class="back-link">&larr; Dashboard</a>
-        <h1>Flashcards</h1>
-        <p class="subtitle">Review key concepts by topic</p>
+<div class="page">
+    <div class="back"><a href="/">← Dashboard</a></div>
+    <h1>Flashcards</h1>
+    <p class="subtitle">Tap a deck to review key concepts by topic</p>
 
-        <div id="decksView" class="decks-view">
-            <div id="decksList" class="decks-grid"></div>
-            <div id="decksEmpty" class="empty-state" style="display:none;">
-                <div class="empty-state-icon">🃏</div>
-                <p style="font-size:16px;font-weight:600;color:#1e293b;margin-bottom:8px;">No flashcard decks yet</p>
-                <p>Run the generate_flashcards management command to create flashcards from your content.</p>
-            </div>
-        </div>
-
-        <div id="flashcardView" class="flashcard-view">
-            <div class="flashcard-nav">
-                <button type="button" id="backToDecks">← Back to decks</button>
-                <span id="cardCounter">1 / 1</span>
-                <div>
-                    <button type="button" id="prevCard">← Prev</button>
-                    <button type="button" id="nextCard">Next →</button>
-                </div>
-            </div>
-            <div class="flashcard-container">
-                <div id="flashcard" class="flashcard">
-                    <div class="flashcard-front">
-                        <div class="flashcard-label">Front</div>
-                        <div id="frontText" class="flashcard-text"></div>
-                    </div>
-                    <div class="flashcard-back">
-                        <div class="flashcard-label">Back</div>
-                        <div id="backText" class="flashcard-text"></div>
-                    </div>
-                </div>
-            </div>
-            <p class="flip-hint">Click the card to flip</p>
-        </div>
+    <div id="decksView">
+        <div class="decks-grid" id="decksList"></div>
+        <div class="empty" id="decksEmpty" style="display:none;">🃏 No flashcard decks yet — run <code>py manage.py seed_flashcards</code> to generate cards.</div>
     </div>
 
-    <script>
-        let decks = [];
-        let currentDeck = null;
-        let currentIndex = 0;
-        const urlParams = new URLSearchParams(window.location.search);
-        const topicIdParam = urlParams.get('topic_id');
+    <div id="flashcardView" style="display:none;">
+        <div class="fc-nav">
+            <button class="btn btn-ghost" id="backToDecks">← Decks</button>
+            <span id="cardCounter">1 / 1</span>
+            <div style="display:flex;gap:8px;">
+                <button class="btn btn-ghost" id="prevCard">← Prev</button>
+                <button class="btn btn-ghost" id="nextCard">Next →</button>
+            </div>
+        </div>
+        <div class="fc-wrap">
+            <div class="fc" id="flashcard">
+                <div class="fc-front"><div class="fc-label">Question</div><div class="fc-text" id="frontText"></div></div>
+                <div class="fc-back"><div class="fc-label">Answer</div><div class="fc-text" id="backText"></div></div>
+            </div>
+        </div>
+        <p class="flip-hint">Click the card to reveal the answer</p>
+    </div>
+</div>
+<script>
+    let decks=[], currentDeck=null, currentIndex=0;
+    const topicIdParam = new URLSearchParams(location.search).get('topic_id');
 
-        async function loadDecks() {
-            try {
-                const r = await fetch('/api/flashcards/decks/', { credentials: 'include' });
-                if (r.status === 401 || r.status === 403) {
-                    window.location.href = '/login/';
-                    return;
-                }
-                decks = await r.json();
-                renderDecks();
-                if (topicIdParam && decks.some(d => d.id == topicIdParam)) {
-                    openDeck(parseInt(topicIdParam, 10));
-                }
-            } catch (e) {
-                console.error('Failed to load decks', e);
-                document.getElementById('decksEmpty').style.display = 'block';
-            }
-        }
+    async function loadDecks(){
+        try{
+            const r = await fetch('/api/flashcards/decks/',{credentials:'include'});
+            if(r.status===401||r.status===403){location.href='/login/';return;}
+            decks = await r.json();
+            renderDecks();
+            if(topicIdParam && decks.some(d=>d.id==topicIdParam)) openDeck(parseInt(topicIdParam,10));
+        }catch(e){ document.getElementById('decksEmpty').style.display='block'; }
+    }
 
-        function renderDecks() {
-            const list = document.getElementById('decksList');
-            const empty = document.getElementById('decksEmpty');
-            if (decks.length === 0) {
-                list.innerHTML = '';
-                empty.style.display = 'block';
-                return;
-            }
-            empty.style.display = 'none';
-            list.innerHTML = decks.map(d => `
-                <div class="deck-card" data-topic-id="${d.id}">
-                    <div class="deck-name">${escapeHtml(d.name)}</div>
-                    <div class="deck-meta">${d.subject_name} · ${d.card_count} cards</div>
-                </div>
-            `).join('');
-            list.querySelectorAll('.deck-card').forEach(el => {
-                el.addEventListener('click', () => openDeck(parseInt(el.dataset.topicId, 10)));
-            });
-        }
+    function renderDecks(){
+        const list=document.getElementById('decksList'), empty=document.getElementById('decksEmpty');
+        if(!decks.length){empty.style.display='block';return;}
+        empty.style.display='none';
+        list.innerHTML=decks.map(d=>`<div class="deck-card" data-id="${d.id}"><div class="deck-name">${esc(d.name)}</div><div class="deck-meta">${esc(d.subject_name)} · ${d.card_count} cards</div></div>`).join('');
+        list.querySelectorAll('.deck-card').forEach(el=>el.addEventListener('click',()=>openDeck(parseInt(el.dataset.id,10))));
+    }
 
-        function escapeHtml(s) {
-            const d = document.createElement('div');
-            d.textContent = s || '';
-            return d.innerHTML;
-        }
+    async function openDeck(id){
+        const r=await fetch(`/api/flashcards/topic/${id}/`,{credentials:'include'});
+        if(!r.ok)return;
+        currentDeck=await r.json(); currentIndex=0;
+        document.getElementById('decksView').style.display='none';
+        document.getElementById('flashcardView').style.display='block';
+        showCard();
+    }
 
-        async function openDeck(topicId) {
-            try {
-                const r = await fetch(`/api/flashcards/topic/${topicId}/`, { credentials: 'include' });
-                if (!r.ok) return;
-                currentDeck = await r.json();
-                currentIndex = 0;
-                document.getElementById('decksView').classList.remove('active');
-                document.getElementById('decksView').style.display = 'none';
-                document.getElementById('flashcardView').classList.add('active');
-                document.getElementById('flashcardView').style.display = 'block';
-                showCard();
-            } catch (e) {
-                console.error('Failed to load deck', e);
-            }
-        }
+    function showCard(){
+        const cards=currentDeck?.flashcards||[];
+        if(!cards.length){document.getElementById('frontText').textContent='No cards in this deck.';return;}
+        const card=cards[currentIndex];
+        document.getElementById('frontText').textContent=card.front||'';
+        document.getElementById('backText').textContent=card.back||'';
+        document.getElementById('cardCounter').textContent=`${currentIndex+1} / ${cards.length}`;
+        document.getElementById('flashcard').classList.remove('flipped');
+        document.getElementById('prevCard').disabled=currentIndex===0;
+        document.getElementById('nextCard').disabled=currentIndex===cards.length-1;
+    }
 
-        function showCard() {
-            const cards = currentDeck.flashcards || [];
-            if (cards.length === 0) {
-                document.getElementById('frontText').textContent = 'No cards in this deck.';
-                document.getElementById('backText').textContent = '';
-                document.getElementById('cardCounter').textContent = '0 / 0';
-                return;
-            }
-            const card = cards[currentIndex];
-            document.getElementById('frontText').textContent = card.front || '';
-            document.getElementById('backText').textContent = card.back || '';
-            document.getElementById('cardCounter').textContent = `${currentIndex + 1} / ${cards.length}`;
-            document.getElementById('flashcard').classList.remove('flipped');
-            document.getElementById('prevCard').disabled = currentIndex === 0;
-            document.getElementById('nextCard').disabled = currentIndex === cards.length - 1;
-        }
+    document.getElementById('flashcard').addEventListener('click',()=>document.getElementById('flashcard').classList.toggle('flipped'));
+    document.getElementById('prevCard').addEventListener('click',()=>{if(currentIndex>0){currentIndex--;showCard();}});
+    document.getElementById('nextCard').addEventListener('click',()=>{const c=currentDeck?.flashcards||[];if(currentIndex<c.length-1){currentIndex++;showCard();}});
+    document.getElementById('backToDecks').addEventListener('click',()=>{document.getElementById('flashcardView').style.display='none';document.getElementById('decksView').style.display='block';});
 
-        document.getElementById('flashcard').addEventListener('click', () => {
-            document.getElementById('flashcard').classList.toggle('flipped');
-        });
-
-        document.getElementById('prevCard').addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                showCard();
-            }
-        });
-
-        document.getElementById('nextCard').addEventListener('click', () => {
-            const cards = currentDeck?.flashcards || [];
-            if (currentIndex < cards.length - 1) {
-                currentIndex++;
-                showCard();
-            }
-        });
-
-        document.getElementById('backToDecks').addEventListener('click', () => {
-            document.getElementById('flashcardView').classList.remove('active');
-            document.getElementById('flashcardView').style.display = 'none';
-            document.getElementById('decksView').style.display = 'block';
-        });
-
-        loadDecks();
-    </script>
+    function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+    loadDecks();
+</script>
 </body>
 </html>

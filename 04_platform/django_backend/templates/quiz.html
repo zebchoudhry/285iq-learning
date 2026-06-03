@@ -4,333 +4,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz - 285IQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 24px;
-        }
-        .container {
-            max-width: 640px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-        }
-        .back { margin-bottom: 20px; }
-        .back a { color: #667eea; text-decoration: none; font-weight: 600; }
-        .mode-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            background: #ede9fe;
-            color: #6d28d9;
-            margin-bottom: 16px;
-        }
-        .timer {
-            font-size: 14px;
-            color: #64748b;
-            margin-bottom: 16px;
-        }
-        .question-text {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 24px;
-            line-height: 1.5;
-        }
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .option {
-            padding: 14px 18px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .option:hover { border-color: #667eea; background: #f8fafc; }
-        .option.selected { border-color: #667eea; background: #ede9fe; }
-        .option.correct { border-color: #10b981; background: #d1fae5; }
-        .option.incorrect { border-color: #ef4444; background: #fee2e2; }
-        .short-answer-input {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 16px;
-        }
-        .short-answer-input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        .feedback {
-            margin-top: 20px;
-            padding: 16px;
-            border-radius: 10px;
-            font-size: 14px;
-        }
-        .feedback.correct { background: #d1fae5; color: #065f46; }
-        .feedback.incorrect { background: #fee2e2; color: #991b1b; }
-        .feedback .explanation { margin-top: 8px; color: #475569; }
-        .btn {
-            margin-top: 24px;
-            padding: 14px 24px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-        .btn-secondary { background: #e2e8f0; color: #475569; }
-        .progress-text { font-size: 13px; color: #64748b; margin-bottom: 12px; }
-        .start-form label { display: block; margin-bottom: 8px; font-weight: 600; color: #1e293b; }
-        .start-form input { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 16px; }
-        .error-msg { background: #fee2e2; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 16px; }
+        :root{--bg:#020817;--surface:#0f172a;--surface2:#1e293b;--border:#334155;--primary:#3b82f6;--cyan:#06b6d4;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--text:#f1f5f9;--text-muted:#64748b;--accent:#06b6d4;}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Exo 2',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:32px 20px;}
+        body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(6,182,212,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(6,182,212,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0;}
+        .wrap{position:relative;z-index:1;width:100%;max-width:640px;}
+        .back{margin-bottom:20px;} .back a{color:var(--text-muted);text-decoration:none;font-size:14px;font-weight:600;} .back a:hover{color:var(--text);}
+        .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;}
+        .badge{display:inline-block;padding:4px 12px;border-radius:999px;font-size:11px;font-weight:700;background:var(--surface2);color:var(--accent);border:1px solid var(--border);margin-bottom:14px;}
+        .timer{font-size:13px;color:var(--text-muted);margin-bottom:10px;}
+        .progress{font-size:13px;color:var(--text-muted);margin-bottom:16px;}
+        .question{font-size:17px;font-weight:600;color:var(--text);line-height:1.6;margin-bottom:22px;}
+        .options{display:flex;flex-direction:column;gap:10px;}
+        .option{padding:13px 16px;border:1px solid var(--border);border-radius:10px;cursor:pointer;color:var(--text);background:var(--surface2);transition:border-color .2s;}
+        .option:hover{border-color:var(--accent);}
+        .option.selected{border-color:var(--primary);background:rgba(59,130,246,.1);}
+        .option.correct{border-color:var(--success);background:rgba(16,185,129,.12);}
+        .option.incorrect{border-color:var(--danger);background:rgba(239,68,68,.1);}
+        input[type=text]{width:100%;padding:13px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;font-size:15px;color:var(--text);font-family:inherit;}
+        input[type=text]:focus{outline:none;border-color:var(--accent);}
+        input[type=number]{width:100%;padding:11px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);font-family:inherit;}
+        input[type=number]:focus{outline:none;border-color:var(--accent);}
+        .feedback{margin-top:18px;padding:14px 16px;border-radius:10px;font-size:14px;}
+        .feedback.correct{background:rgba(16,185,129,.15);border:1px solid var(--success);color:var(--success);}
+        .feedback.incorrect{background:rgba(239,68,68,.1);border:1px solid var(--danger);color:#fca5a5;}
+        .feedback .expl{margin-top:8px;color:var(--text-muted);font-size:13px;}
+        .btn{margin-top:18px;padding:12px 22px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:opacity .2s;} .btn:hover{opacity:.85;}
+        .btn-primary{background:var(--primary);color:#fff;}
+        .btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+        .btn:disabled{opacity:.5;cursor:not-allowed;}
+        .error-msg{background:rgba(239,68,68,.12);border:1px solid var(--danger);color:#fca5a5;padding:12px;border-radius:8px;margin-bottom:16px;font-size:13px;}
+        .form-group{margin-bottom:14px;} .form-group label{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px;}
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="back"><a href="/">← Back to Dashboard</a></div>
+<div class="wrap">
+    <div class="back"><a href="/">← Dashboard</a></div>
 
-        <div id="start-screen">
-            <h1 style="margin-bottom: 16px;">Start Quiz</h1>
-            <div style="margin-bottom: 20px;">
-                <a href="/quiz/?mode=quick_fire" class="btn" style="display: inline-block; text-decoration: none; margin-bottom: 12px;">Quick Quiz (5–10 questions)</a>
-            </div>
-            <p style="color: #64748b; margin-bottom: 20px;">Or enter a topic ID to practice a specific topic.</p>
-            <form id="start-form" class="start-form">
-                <label for="topic-id">Topic ID</label>
-                <input type="number" id="topic-id" name="topic_id" min="1" placeholder="e.g. 1">
-                <button type="submit" class="btn btn-secondary">Start Topic Quiz</button>
-            </form>
-            <div id="start-error" class="error-msg" style="display: none;"></div>
-        </div>
-
-        <div id="quiz-screen" style="display: none;">
-            <div class="mode-badge" id="mode-badge"></div>
-            <div class="timer" id="timer">Time: 0s</div>
-            <div class="progress-text" id="progress-text"></div>
-            <div class="question-text" id="question-text"></div>
-            <div id="answer-area"></div>
-            <div id="feedback-area"></div>
-            <button type="button" class="btn" id="submit-btn" style="display: none;">Submit</button>
-            <button type="button" class="btn btn-secondary" id="next-btn" style="display: none;">Next question</button>
-        </div>
+    <div class="card" id="start-screen">
+        <h1 style="font-size:20px;font-weight:800;margin-bottom:18px;">Start Quiz</h1>
+        <a href="/quiz/?mode=quick_fire" class="btn btn-primary" style="display:inline-block;text-decoration:none;margin-bottom:16px;">⚡ Quick Quiz (5–10 questions)</a>
+        <p style="color:var(--text-muted);font-size:13px;margin-bottom:18px;">Or enter a topic ID to practice a specific topic.</p>
+        <form id="start-form">
+            <div class="form-group"><label>Topic ID</label><input type="number" id="topic-id" min="1" placeholder="e.g. 1"></div>
+            <button type="submit" class="btn btn-ghost">Start Topic Quiz</button>
+        </form>
+        <div id="start-error" class="error-msg" style="display:none;margin-top:12px;"></div>
     </div>
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const topicIdParam = urlParams.get('topic_id');
-        const modeParam = urlParams.get('mode');
+    <div class="card" id="quiz-screen" style="display:none;">
+        <div class="badge" id="mode-badge"></div>
+        <div class="timer" id="timer">Time: 0s</div>
+        <div class="progress" id="progress-text"></div>
+        <div class="question" id="question-text"></div>
+        <div id="answer-area"></div>
+        <div id="feedback-area"></div>
+        <button class="btn btn-primary" id="submit-btn" style="display:none;">Submit</button>
+        <button class="btn btn-ghost" id="next-btn" style="display:none;">Next question →</button>
+    </div>
+</div>
+<script>
+    const urlParams=new URLSearchParams(location.search);
+    const topicIdParam=urlParams.get('topic_id'), modeParam=urlParams.get('mode');
+    let state={topicId:null,questionIds:[],currentIndex:0,currentQuestion:null,mode:null,startTime:null,firstActionTime:null,timerInterval:null};
 
-        let state = {
-            topicId: topicIdParam ? parseInt(topicIdParam, 10) : null,
-            questionIds: [],
-            currentIndex: 0,
-            currentQuestion: null,
-            mode: null,
-            startTime: null,
-            firstActionTime: null,
-        };
+    function getCookie(n){const c=document.cookie.match(new RegExp(n+'=([^;]+)'));return c?c[1]:'';}
 
-        function getCookie(name) {
-            const c = document.cookie.split(';');
-            for (let i = 0; i < c.length; i++) {
-                const x = c[i].trim();
-                if (x.startsWith(name + '=')) return decodeURIComponent(x.slice(name.length + 1));
-            }
-            return null;
+    async function startQuiz(topicId){
+        try{
+            const body=topicId?{topic_id:topicId}:{mode:'quick_fire'};
+            const r=await fetch('/api/quiz/start/',{method:'POST',headers:{'Content-Type':'application/json','X-CSRFToken':getCookie('csrftoken')},credentials:'include',body:JSON.stringify(body)});
+            const data=await r.json();
+            if(!r.ok){showError(data.error||'Failed to start quiz');return;}
+            state.questionIds=data.question_ids||[];
+            state.mode=data.mode||'';
+            state.currentIndex=0;
+            document.getElementById('mode-badge').textContent='Mode: '+(state.mode||'quiz');
+            document.getElementById('start-screen').style.display='none';
+            document.getElementById('quiz-screen').style.display='block';
+            if(data.question){state.currentQuestion=data.question;renderQuestion(data.question);updateProgress();}
+            else if(state.questionIds.length){await loadQuestion(state.questionIds[0]);}
+            else{document.getElementById('question-text').textContent='No questions available for this topic yet.';}
+            state.timerInterval=setInterval(updateTimer,1000);
+        }catch(e){showError('Network error. Try again.');}
+    }
+
+    async function loadQuestion(id){
+        const r=await fetch('/api/quiz/question/'+id+'/',{credentials:'include'});
+        const q=await r.json();
+        if(r.ok){state.currentQuestion=q;renderQuestion(q);}
+    }
+
+    function renderQuestion(q){
+        document.getElementById('question-text').textContent=q.question_text;
+        const area=document.getElementById('answer-area');
+        document.getElementById('feedback-area').innerHTML='';
+        document.getElementById('submit-btn').style.display='inline-block';
+        document.getElementById('submit-btn').disabled=false;
+        document.getElementById('next-btn').style.display='none';
+        if(q.question_type==='multiple_choice'&&q.options?.length){
+            area.innerHTML='<div class="options">'+q.options.map(o=>`<div class="option" data-option-id="${o.id}">${o.option_text}</div>`).join('')+'</div>';
+            area.querySelectorAll('.option').forEach(el=>el.addEventListener('click',()=>{
+                area.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+                el.classList.add('selected');
+                if(!state.firstActionTime)state.firstActionTime=Date.now();
+            }));
+        }else{
+            area.innerHTML='<input type="text" id="short-answer" placeholder="Your answer">';
+            const inp=document.getElementById('short-answer');
+            inp.focus();
+            inp.addEventListener('input',()=>{if(!state.firstActionTime)state.firstActionTime=Date.now();});
         }
+        state.startTime=Date.now();
+    }
 
-        function showStart() {
-            document.getElementById('start-screen').style.display = 'block';
-            document.getElementById('quiz-screen').style.display = 'none';
+    function updateTimer(){if(!state.startTime)return;const e=Math.floor((Date.now()-state.startTime)/1000);document.getElementById('timer').textContent='Time: '+e+'s';}
+    function updateProgress(){if(state.questionIds.length)document.getElementById('progress-text').textContent=`Question ${state.currentIndex+1} of ${state.questionIds.length}`;}
+
+    function getAnswer(){
+        const sel=document.querySelector('.option.selected');
+        if(sel)return{selected_option_id:parseInt(sel.dataset.optionId,10)};
+        const inp=document.getElementById('short-answer');
+        if(inp)return{answer:inp.value.trim()};
+        return{};
+    }
+
+    async function submitAnswer(){
+        const q=state.currentQuestion;if(!q)return;
+        const payload={question_id:q.id,time_spent_ms:Math.round(Date.now()-state.startTime),time_to_first_action_ms:state.firstActionTime?Math.round(state.firstActionTime-state.startTime):null,...getAnswer()};
+        document.getElementById('submit-btn').disabled=true;
+        const r=await fetch('/api/attempts/',{method:'POST',headers:{'Content-Type':'application/json','X-CSRFToken':getCookie('csrftoken')},credentials:'include',body:JSON.stringify(payload)});
+        const data=await r.json();
+        const correct=r.ok&&data.is_correct;
+        const fb=document.getElementById('feedback-area');
+        fb.className='feedback '+(correct?'correct':'incorrect');
+        fb.innerHTML=(correct?'✓ Correct!':'✗ Incorrect.')+(data.explanation?`<div class="expl">${data.explanation}</div>`:'');
+        document.getElementById('submit-btn').style.display='none';
+        document.getElementById('next-btn').style.display='inline-block';
+    }
+
+    function nextQuestion(){
+        state.currentIndex++;state.firstActionTime=null;
+        if(state.currentIndex<state.questionIds.length){
+            updateProgress();
+            loadQuestion(state.questionIds[state.currentIndex]);
+        }else{
+            document.getElementById('question-text').textContent='Quiz complete! Well done.';
+            document.getElementById('answer-area').innerHTML='';
+            document.getElementById('feedback-area').innerHTML='';
+            document.getElementById('next-btn').style.display='none';
+            if(state.timerInterval)clearInterval(state.timerInterval);
         }
+    }
 
-        function showQuiz() {
-            document.getElementById('start-screen').style.display = 'none';
-            document.getElementById('quiz-screen').style.display = 'block';
-        }
+    function showError(msg){const el=document.getElementById('start-error');el.textContent=msg;el.style.display='block';}
+    document.getElementById('start-form').addEventListener('submit',e=>{e.preventDefault();const id=parseInt(document.getElementById('topic-id').value,10);if(id&&!isNaN(id))startQuiz(id);else showError('Enter a valid topic ID');});
+    document.getElementById('submit-btn').addEventListener('click',submitAnswer);
+    document.getElementById('next-btn').addEventListener('click',nextQuestion);
 
-        function renderQuestion(q) {
-            document.getElementById('question-text').textContent = q.question_text;
-            const area = document.getElementById('answer-area');
-            document.getElementById('feedback-area').innerHTML = '';
-            document.getElementById('submit-btn').style.display = 'inline-block';
-            document.getElementById('next-btn').style.display = 'none';
-
-            if (q.question_type === 'multiple_choice' && q.options && q.options.length) {
-                area.innerHTML = '<div class="options">' + q.options.map(opt =>
-                    `<div class="option" data-option-id="${opt.id}">${opt.option_text}</div>`
-                ).join('') + '</div>';
-                area.querySelectorAll('.option').forEach(el => {
-                    el.addEventListener('click', () => {
-                        area.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-                        el.classList.add('selected');
-                        if (!state.firstActionTime) state.firstActionTime = Date.now();
-                    });
-                });
-            } else {
-                area.innerHTML = '<input type="text" class="short-answer-input" id="short-answer" placeholder="Your answer">';
-                const input = document.getElementById('short-answer');
-                input.focus();
-                input.addEventListener('input', () => { if (!state.firstActionTime) state.firstActionTime = Date.now(); });
-            }
-            state.startTime = Date.now();
-        }
-
-        function updateTimer() {
-            if (!state.startTime) return;
-            const elapsed = Math.floor((Date.now() - state.startTime) / 1000);
-            document.getElementById('timer').textContent = 'Time: ' + elapsed + 's';
-        }
-
-        async function startQuiz(topicId) {
-            try {
-                const body = topicId ? { topic_id: topicId } : { mode: 'quick_fire' };
-                const r = await fetch('/api/quiz/start/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
-                    credentials: 'include',
-                    body: JSON.stringify(body)
-                });
-                const data = await r.json();
-                if (!r.ok) {
-                    document.getElementById('start-error').textContent = data.error || 'Failed to start quiz';
-                    document.getElementById('start-error').style.display = 'block';
-                    return;
-                }
-                state.topicId = topicId;
-                state.questionIds = data.question_ids || [];
-                state.mode = data.mode || '';
-                state.currentIndex = 0;
-                document.getElementById('mode-badge').textContent = 'Mode: ' + (state.mode || 'quiz');
-                showQuiz();
-                if (data.question) {
-                    state.currentQuestion = data.question;
-                    renderQuestion(data.question);
-                    document.getElementById('progress-text').textContent =
-                        state.questionIds.length ? `Question ${state.currentIndex + 1} of ${state.questionIds.length}` : '';
-                } else if (state.questionIds.length) {
-                    await loadQuestion(state.questionIds[0]);
-                } else {
-                    document.getElementById('question-text').textContent = 'No questions available for this topic yet. Try another topic or complete some lessons first.';
-                    document.getElementById('answer-area').innerHTML = '';
-                }
-                const t = setInterval(updateTimer, 1000);
-                state.timerInterval = t;
-            } catch (err) {
-                document.getElementById('start-error').textContent = 'Network error. Try again.';
-                document.getElementById('start-error').style.display = 'block';
-            }
-        }
-
-        async function loadQuestion(id) {
-            try {
-                const r = await fetch('/api/quiz/question/' + id + '/', { credentials: 'include' });
-                const q = await r.json();
-                if (r.ok) {
-                    state.currentQuestion = q;
-                    renderQuestion(q);
-                }
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        function getSelectedAnswer() {
-            const selected = document.querySelector('.option.selected');
-            if (selected) return { selected_option_id: parseInt(selected.dataset.optionId, 10) };
-            const input = document.getElementById('short-answer');
-            if (input) return { answer: input.value.trim() };
-            return {};
-        }
-
-        async function submitAnswer() {
-            const q = state.currentQuestion;
-            if (!q) return;
-            const timeSpent = Math.round((Date.now() - state.startTime));
-            const timeToFirst = state.firstActionTime ? Math.round(state.firstActionTime - state.startTime) : null;
-            const payload = {
-                question_id: q.id,
-                time_spent_ms: timeSpent,
-                time_to_first_action_ms: timeToFirst,
-                ...getSelectedAnswer()
-            };
-
-            document.getElementById('submit-btn').disabled = true;
-            try {
-                const r = await fetch('/api/attempts/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
-                    credentials: 'include',
-                    body: JSON.stringify(payload)
-                });
-                const data = await r.json();
-                const correct = r.ok && data.is_correct;
-                const feedback = document.getElementById('feedback-area');
-                feedback.className = 'feedback ' + (correct ? 'correct' : 'incorrect');
-                feedback.innerHTML = (correct ? '✓ Correct!' : '✗ Incorrect.') +
-                    (data.explanation ? '<div class="explanation">' + data.explanation + '</div>' : '');
-                feedback.style.display = 'block';
-                document.getElementById('submit-btn').style.display = 'none';
-                document.getElementById('next-btn').style.display = 'inline-block';
-
-                if (document.querySelector('.option.selected')) {
-                    document.querySelectorAll('.option').forEach(o => o.classList.remove('correct', 'incorrect'));
-                    // We don't show which option was correct to avoid leaking answer
-                }
-            } catch (err) {
-                document.getElementById('submit-btn').disabled = false;
-            }
-        }
-
-        function nextQuestion() {
-            state.currentIndex++;
-            state.firstActionTime = null;
-            if (state.currentIndex < state.questionIds.length) {
-                document.getElementById('progress-text').textContent =
-                    `Question ${state.currentIndex + 1} of ${state.questionIds.length}`;
-                loadQuestion(state.questionIds[state.currentIndex]);
-                document.getElementById('submit-btn').style.display = 'inline-block';
-                document.getElementById('submit-btn').disabled = false;
-            } else {
-                document.getElementById('question-text').textContent = 'Quiz complete! Well done.';
-                document.getElementById('answer-area').innerHTML = '';
-                document.getElementById('feedback-area').innerHTML = '';
-                document.getElementById('next-btn').style.display = 'none';
-                if (state.timerInterval) clearInterval(state.timerInterval);
-            }
-        }
-
-        document.getElementById('start-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const topicId = parseInt(document.getElementById('topic-id').value, 10);
-            if (topicId && !isNaN(topicId)) startQuiz(topicId);
-            else document.getElementById('start-error').textContent = 'Enter a valid topic ID';
-            document.getElementById('start-error').style.display = topicId && !isNaN(topicId) ? 'none' : 'block';
-        });
-
-        document.getElementById('submit-btn').addEventListener('click', submitAnswer);
-        document.getElementById('next-btn').addEventListener('click', nextQuestion);
-
-        if (modeParam === 'quick_fire') {
-            startQuiz(null);
-        } else if (topicIdParam) {
-            document.getElementById('topic-id').value = topicIdParam;
-            startQuiz(parseInt(topicIdParam, 10));
-        }
-    </script>
+    if(modeParam==='quick_fire')startQuiz(null);
+    else if(topicIdParam){document.getElementById('topic-id').value=topicIdParam;startQuiz(parseInt(topicIdParam,10));}
+</script>
 </body>
 </html>
