@@ -178,13 +178,23 @@ def settings_page(request):
 
 
 def onboarding_exam_dates_page(request):
-    """Render exam dates onboarding (Paper 1/2 per subject). Redirect to / if onboarding complete."""
+    """Render exam dates onboarding (Paper 1/2 per subject). Redirect to /onboarding/ if not yet started."""
     if not request.user.is_authenticated:
         return redirect(settings.LOGIN_URL)
     from learning.models import StudentExamSettings
     if StudentExamSettings.objects.filter(student=request.user).exists():
         return redirect('/')
-    return render(request, 'onboarding_exam_dates.html')
+    return redirect('/onboarding/')
+
+
+def onboarding_page(request):
+    """3-step onboarding wizard"""
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    from learning.models import StudentExamSettings
+    if StudentExamSettings.objects.filter(student=request.user).exists():
+        return redirect('/')
+    return render(request, 'onboarding.html')
 
 
 @api_view(['POST'])

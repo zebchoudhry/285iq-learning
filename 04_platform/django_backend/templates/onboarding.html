@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started - 285IQ Learning Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 560px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            color: #667eea;
+            margin-bottom: 4px;
+        }
+
+        .logo p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Progress bar */
+        .progress-bar-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .progress-step {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: #e2e8f0;
+            transition: background 0.3s;
+        }
+
+        .progress-step.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .progress-label {
+            text-align: center;
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        /* Steps */
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        /* Subject cards */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .subject-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subject-card:hover {
+            border-color: #667eea;
+            background: #f8f7ff;
+        }
+
+        .subject-card.selected {
+            border-color: #667eea;
+            background: #f0efff;
+        }
+
+        .subject-card input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+            cursor: pointer;
+        }
+
+        .subject-card label {
+            font-weight: 600;
+            color: #1e293b;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Exam date sections */
+        .subject-section {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .subject-section h3 {
+            color: #667eea;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-row {
+            margin-bottom: 14px;
+        }
+
+        .form-row label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 6px;
+        }
+
+        .form-row input[type="date"],
+        .form-row select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.2s;
+        }
+
+        .form-row input[type="date"]:focus,
+        .form-row select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Step 3 */
+        .subject-quiz-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .subject-quiz-card span {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .btn-start {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Buttons */
+        .btn-next {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-skip {
+            display: block;
+            text-align: center;
+            margin-top: 14px;
+            color: #64748b;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .btn-skip:hover {
+            color: #667eea;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-icon {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>285IQ</h1>
+            <p>GCSE Learning Platform</p>
+        </div>
+
+        <div class="progress-bar-wrap">
+            <div class="progress-step active" id="prog-1"></div>
+            <div class="progress-step" id="prog-2"></div>
+            <div class="progress-step" id="prog-3"></div>
+        </div>
+        <div class="progress-label" id="progress-label">Step 1 of 3</div>
+
+        <div id="errorMessage" class="error-message"></div>
+
+        <!-- Step 1: Pick subjects -->
+        <div class="step active" id="step-1">
+            <div class="step-title">Pick your subjects</div>
+            <div class="step-desc">Select all the GCSE subjects you are studying.</div>
+            <div class="subjects-grid" id="subjects-grid">
+                <div style="color:#64748b;font-size:14px;">Loading subjects...</div>
+            </div>
+            <button class="btn-next" id="btn-step1" onclick="goToStep2()" disabled>Next &rarr;</button>
+        </div>
+
+        <!-- Step 2: Set exam dates -->
+        <div class="step" id="step-2">
+            <div class="step-title">Set your exam dates</div>
+            <div class="step-desc">Tell us when your exams are so we can prioritise your revision.</div>
+            <div id="exam-dates-form"></div>
+            <button class="btn-next" id="btn-step2" onclick="submitExamDates()">Next &rarr;</button>
+        </div>
+
+        <!-- Step 3: First diagnostic quiz -->
+        <div class="step" id="step-3">
+            <div class="success-icon">&#127881;</div>
+            <div class="step-title" style="text-align:center;">You're all set!</div>
+            <div class="step-desc" style="text-align:center;margin-bottom:24px;">
+                Great! Let's find out where you're starting from. Take a short diagnostic quiz for each subject.
+            </div>
+            <div id="diagnostic-cards"></div>
+            <a href="/" class="btn-skip">Go to dashboard &rarr;</a>
+        </div>
+    </div>
+
+    <script>
+        let selectedSubjects = []; // [{id, name}]
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function showError(msg) {
+            const el = document.getElementById('errorMessage');
+            el.textContent = msg;
+            el.classList.add('show');
+        }
+
+        function hideError() {
+            document.getElementById('errorMessage').classList.remove('show');
+        }
+
+        function setProgress(step) {
+            document.getElementById('progress-label').textContent = `Step ${step} of 3`;
+            for (let i = 1; i <= 3; i++) {
+                const el = document.getElementById(`prog-${i}`);
+                el.classList.toggle('active', i <= step);
+            }
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`step-${i}`).classList.toggle('active', i === step);
+            }
+        }
+
+        // Load subjects from API
+        async function loadSubjects() {
+            try {
+                const res = await fetch('/api/subjects/', { credentials: 'include' });
+                if (!res.ok) throw new Error('Failed to load subjects');
+                const data = await res.json();
+                renderSubjects(data.results || data);
+            } catch (e) {
+                document.getElementById('subjects-grid').innerHTML = '<div style="color:#dc2626;">Failed to load subjects. Please refresh.</div>';
+            }
+        }
+
+        function renderSubjects(subjects) {
+            const grid = document.getElementById('subjects-grid');
+            if (!subjects || subjects.length === 0) {
+                grid.innerHTML = '<div style="color:#64748b;">No subjects available.</div>';
+                return;
+            }
+            grid.innerHTML = subjects.map(s => `
+                <div class="subject-card" id="card-${s.id}" onclick="toggleSubject(${s.id}, '${escapeHtml(s.name || s.display_name)}')">
+                    <input type="checkbox" id="chk-${s.id}" value="${s.id}">
+                    <label for="chk-${s.id}">${escapeHtml(s.name || s.display_name)}</label>
+                </div>
+            `).join('');
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        function toggleSubject(id, name) {
+            const chk = document.getElementById(`chk-${id}`);
+            const card = document.getElementById(`card-${id}`);
+            chk.checked = !chk.checked;
+            card.classList.toggle('selected', chk.checked);
+
+            if (chk.checked) {
+                if (!selectedSubjects.find(s => s.id === id)) {
+                    selectedSubjects.push({ id, name });
+                }
+            } else {
+                selectedSubjects = selectedSubjects.filter(s => s.id !== id);
+            }
+
+            document.getElementById('btn-step1').disabled = selectedSubjects.length === 0;
+        }
+
+        function goToStep2() {
+            if (selectedSubjects.length === 0) return;
+            hideError();
+            buildExamDatesForm();
+            setProgress(2);
+        }
+
+        function buildExamDatesForm() {
+            const container = document.getElementById('exam-dates-form');
+            container.innerHTML = selectedSubjects.map(s => `
+                <div class="subject-section">
+                    <h3>${escapeHtml(s.name)}</h3>
+                    <div class="form-row">
+                        <label>Target grade (1–9)</label>
+                        <select id="grade-${s.id}">
+                            ${[1,2,3,4,5,6,7,8,9].map(g => `<option value="${g}"${g===6?' selected':''}>${g}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label>Paper 1 date</label>
+                        <input type="date" id="date1-${s.id}" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Paper 2 date <span style="font-weight:400;color:#64748b;">&mdash; optional</span></label>
+                        <input type="date" id="date2-${s.id}">
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function submitExamDates() {
+            hideError();
+            // Validate Paper 1 dates
+            for (const s of selectedSubjects) {
+                const d1 = document.getElementById(`date1-${s.id}`).value;
+                if (!d1) {
+                    showError(`Please enter Paper 1 date for ${s.name}.`);
+                    return;
+                }
+            }
+
+            const btn = document.getElementById('btn-step2');
+            btn.disabled = true;
+            btn.textContent = 'Saving...';
+
+            const payload = {
+                subjects: selectedSubjects.map(s => {
+                    const d1 = document.getElementById(`date1-${s.id}`).value;
+                    const d2 = document.getElementById(`date2-${s.id}`).value;
+                    const target_grade = parseInt(document.getElementById(`grade-${s.id}`).value, 10);
+                    const exam_dates = [{ exam_date: d1, paper_label: 'Paper 1' }];
+                    if (d2) exam_dates.push({ exam_date: d2, paper_label: 'Paper 2' });
+                    return { subject_id: s.id, target_grade, exam_dates };
+                })
+            };
+
+            try {
+                const res = await fetch('/api/users/onboarding/exam-dates/', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    },
+                    body: JSON.stringify(payload),
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    buildDiagnosticCards();
+                    setProgress(3);
+                } else {
+                    showError(JSON.stringify(data));
+                }
+            } catch (e) {
+                showError('Network error. Please try again.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Next →';
+            }
+        }
+
+        function buildDiagnosticCards() {
+            const container = document.getElementById('diagnostic-cards');
+            container.innerHTML = selectedSubjects.map(s => `
+                <div class="subject-quiz-card">
+                    <span>${escapeHtml(s.name)}</span>
+                    <a href="/practice/?subject_id=${s.id}&intent=diagnostic" class="btn-start">Start diagnostic &rarr;</a>
+                </div>
+            `).join('');
+        }
+
+        // Init
+        loadSubjects();
+    </script>
+</body>
+</html>

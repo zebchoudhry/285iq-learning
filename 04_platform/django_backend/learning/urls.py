@@ -15,6 +15,7 @@ urlpatterns = [
     path('', include(router.urls)),
     
     # Custom API endpoints
+    path('subjects/', views.subjects_list, name='subjects_list'),
     path('subject/<int:subject_id>/topics/', views.get_subject_topics, name='subject-topics'),
     path('subject/<int:subject_id>/detail/', views.get_subject_detail, name='subject-detail'),
     path('topic/<int:topic_id>/lessons/', views.get_topic_lessons, name='topic-lessons'),
