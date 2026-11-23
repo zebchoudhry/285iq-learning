@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boss Battle: {{ topic.name }} – 285IQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #020817; --surface: #0f172a; --surface2: #1e293b; --border: #334155;
+            --cyan: #06b6d4; --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
+            --text: #f1f5f9; --muted: #94a3b8; --purple: #8b5cf6;
+        }
+        body { background: var(--bg); color: var(--text); font-family: 'Sora', system-ui, sans-serif; min-height: 100vh; }
+        a { color: var(--cyan); text-decoration: none; }
+        .wrap { max-width: 760px; margin: 0 auto; padding: 18px 16px 48px; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 14px; }
+        .level-chip { background: var(--surface2); border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; font-weight: 600; white-space: nowrap; }
+        .level-chip small { color: var(--muted); font-weight: 400; }
+
+        .boss-card { background: linear-gradient(160deg, #1a1033, var(--surface)); border: 1px solid #4c1d95; border-radius: 18px; padding: 20px; text-align: center; }
+        .boss-icon { font-size: 56px; line-height: 1; transition: transform .15s; }
+        .boss-icon.hit { animation: shake .35s; }
+        .boss-icon.heal { animation: pulse .5s; }
+        .boss-icon.dead { opacity: .35; filter: grayscale(1); transform: rotate(-12deg); }
+        @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+        @keyframes pulse { 50% { transform: scale(1.15); } }
+        .boss-name { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 18px; margin: 8px 0 12px; }
+        .hp-track { height: 16px; background: #1e1b2e; border-radius: 999px; overflow: hidden; border: 1px solid #4c1d95; }
+        .hp-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #ef4444, #f97316); transition: width .5s ease; }
+        .hp-text { margin-top: 6px; font-size: 13px; color: var(--muted); }
+        .meta-row { display: flex; justify-content: space-between; gap: 8px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+        .combo { color: var(--warning); font-weight: 700; }
+
+        .question-card { margin-top: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+        .question-text { font-size: 18px; line-height: 1.5; margin-bottom: 16px; white-space: pre-wrap; }
+        .option { display: block; width: 100%; text-align: left; background: var(--surface2); color: var(--text); border: 2px solid var(--border);
+                  border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; font: inherit; cursor: pointer; }
+        .option:hover:not(:disabled), .option:focus-visible { border-color: var(--cyan); outline: none; }
+        .option.selected { border-color: var(--cyan); background: rgba(6,182,212,.12); }
+        .option:disabled { cursor: default; opacity: .75; }
+        .text-answer { width: 100%; background: var(--surface2); color: var(--text); border: 2px solid var(--border); border-radius: 12px; padding: 12px 14px; font: inherit; font-size: 16px; }
+        .text-answer:focus { border-color: var(--cyan); outline: none; }
+        .btn { display: inline-block; margin-top: 12px; background: var(--cyan); color: #02121a; border: 0; border-radius: 12px; padding: 12px 22px; font: inherit; font-weight: 700; cursor: pointer; }
+        .btn:disabled { opacity: .5; cursor: default; }
+        .btn.secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+
+        .feedback { margin-top: 16px; border-radius: 14px; padding: 14px 16px; line-height: 1.5; }
+        .feedback.good { background: rgba(16,185,129,.14); border: 1px solid rgba(16,185,129,.5); }
+        .feedback.bad { background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.45); }
+        .hit-line { font-weight: 700; font-size: 17px; }
+        .hit-line .crit { color: var(--warning); }
+        .tag { display: inline-block; padding: 2px 10px; border-radius: 999px; background: rgba(245,158,11,.18); color: #fcd34d; font-size: 12px; font-weight: 700; margin-left: 6px; }
+        .xp-line { margin-top: 8px; color: var(--muted); font-size: 14px; }
+        .levelup { margin-top: 8px; font-weight: 700; color: var(--purple); }
+        .explanation { margin-top: 10px; color: #e2e8f0; font-size: 15px; }
+
+        .end-card { margin-top: 16px; text-align: center; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 28px 20px; }
+        .end-card h2 { font-family: 'Orbitron', sans-serif; font-size: 24px; margin-bottom: 8px; }
+        .end-card.win { border-color: var(--success); }
+        .stats { display: flex; justify-content: center; gap: 24px; margin: 18px 0; flex-wrap: wrap; }
+        .stats div { min-width: 90px; }
+        .stats strong { display: block; font-size: 22px; }
+        .stats span { color: var(--muted); font-size: 13px; }
+        .message { margin-top: 16px; padding: 14px 16px; background: var(--surface2); border-radius: 12px; color: var(--muted); }
+        [hidden] { display: none !important; }
+        @media (prefers-reduced-motion: reduce) { .boss-icon.hit, .boss-icon.heal { animation: none; } .hp-fill { transition: none; } }
+    </style>
+</head>
+<body data-topic-id="{{ topic.id }}" data-subject-id="{{ topic.subject_id }}">
+<div class="wrap">
+    <div class="topbar">
+        <a href="/subject/{{ topic.subject_id }}/">← Back to topics</a>
+        <span class="level-chip" id="level-chip">Level –</span>
+    </div>
+
+    <section class="boss-card" aria-label="Boss">
+        <div class="boss-icon" id="boss-icon" aria-hidden="true">👹</div>
+        <div class="boss-name" id="boss-name">Loading boss…</div>
+        <div class="hp-track" role="progressbar" aria-label="Boss health" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="hp-track">
+            <div class="hp-fill" id="hp-fill"></div>
+        </div>
+        <div class="hp-text" id="hp-text"></div>
+        <div class="meta-row">
+            <span id="round-text"></span>
+            <span class="combo" id="combo-text"></span>
+        </div>
+    </section>
+
+    <div class="message" id="message" hidden></div>
+
+    <section class="question-card" id="question-card" hidden>
+        <div class="question-text" id="question-text"></div>
+        <div id="answer-area"></div>
+        <button class="btn" id="submit-btn" type="button">Attack</button>
+        <div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div>
+        <button class="btn" id="next-btn" type="button" hidden>Next</button>
+    </section>
+
+    <section class="end-card" id="end-card" hidden>
+        <h2 id="end-title"></h2>
+        <p id="end-text"></p>
+        <div class="stats" id="end-stats"></div>
+        <button class="btn" id="again-btn" type="button">Fight again</button>
+        <a class="btn secondary" id="back-btn" href="/subject/{{ topic.subject_id }}/">Back to topics</a>
+    </section>
+</div>
+
+<script>
+(function () {
+    const topicId = parseInt(document.body.dataset.topicId, 10);
+    const $ = (id) => document.getElementById(id);
+    let battle = null, question = null, selectedOption = null, shownAt = 0, firstActionAt = null, locked = false, pendingEnd = false;
+
+    function escapeHtml(s) {
+        const d = document.createElement('div');
+        d.textContent = s == null ? '' : String(s);
+        return d.innerHTML;
+    }
+    function getCookie(name) {
+        const m = document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith(name + '='));
+        return m ? decodeURIComponent(m.slice(name.length + 1)) : '';
+    }
+    async function api(url, body) {
+        const r = await fetch(url, {
+            method: body ? 'POST' : 'GET', credentials: 'include',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+            body: body ? JSON.stringify(body) : undefined,
+        });
+        let data = {};
+        try { data = await r.json(); } catch (e) {}
+        return { ok: r.ok, status: r.status, data };
+    }
+    function showMessage(text) { const m = $('message'); m.textContent = text; m.hidden = false; }
+
+    async function loadLevel() {
+        const { ok, data } = await api('/api/gamification/me/');
+        if (ok) renderLevel(data.level, data.rank, data.progress_pct);
+    }
+    function renderLevel(level, rank, pct) {
+        if (!level) return;
+        $('level-chip').innerHTML = 'Level ' + escapeHtml(level) + ' · ' + escapeHtml(rank) +
+            (pct != null ? ' <small>(' + escapeHtml(pct) + '% to next)</small>' : '');
+    }
+
+    function renderBattle(b, animate) {
+        battle = b;
+        $('boss-name').textContent = b.boss_name;
+        const pct = Math.round(100 * b.hp / b.max_hp);
+        $('hp-fill').style.width = pct + '%';
+        $('hp-track').setAttribute('aria-valuenow', pct);
+        $('hp-text').textContent = b.hp + ' / ' + b.max_hp + ' HP';
+        $('round-text').textContent = b.status === 'active' ? 'Round ' + b.round + ' of ' + b.max_rounds : '';
+        $('combo-text').textContent = b.combo > 1 ? '🔥 ' + b.combo + ' in a row' : '';
+        const icon = $('boss-icon');
+        icon.classList.toggle('dead', b.status === 'won');
+        if (animate) {
+            icon.classList.remove('hit', 'heal'); void icon.offsetWidth; icon.classList.add(animate);
+        }
+    }
+
+    function renderQuestion(q) {
+        question = q; selectedOption = null; locked = false; firstActionAt = null; shownAt = Date.now();
+        $('question-text').textContent = q.question_text;
+        const area = $('answer-area');
+        if (q.question_type === 'multiple_choice' && q.options && q.options.length) {
+            area.innerHTML = q.options.map(o =>
+                '<button type="button" class="option" data-id="' + escapeHtml(o.id) + '">' + escapeHtml(o.option_text) + '</button>').join('');
+            area.querySelectorAll('.option').forEach(btn => btn.addEventListener('click', () => {
+                if (locked) return;
+                if (!firstActionAt) firstActionAt = Date.now();
+                area.querySelectorAll('.option').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected'); selectedOption = parseInt(btn.dataset.id, 10);
+            }));
+        } else {
+            area.innerHTML = '<input class="text-answer" id="text-answer" type="text" autocomplete="off" autocapitalize="off" aria-label="Your answer" placeholder="Type your answer">';
+            const input = $('text-answer');
+            input.addEventListener('input', () => { if (!firstActionAt) firstActionAt = Date.now(); });
+            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(); });
+            input.focus();
+        }
+        $('feedback').hidden = true; $('next-btn').hidden = true;
+        $('submit-btn').hidden = false; $('submit-btn').disabled = false;
+        $('question-card').hidden = false;
+    }
+
+    function hitLine(res) {
+        const h = res.hit || {};
+        if (res.is_correct) {
+            return '<div class="hit-line">⚔️ −' + escapeHtml(h.damage) + ' HP' +
+                (h.critical ? ' <span class="crit">CRITICAL HIT on a weak spot!</span>' : '') + '</div>';
+        }
+        return '<div class="hit-line">🛡️ The boss heals' + (h.healed ? ' +' + escapeHtml(h.healed) + ' HP' : '') + '</div>';
+    }
+    function xpLine(res) {
+        const parts = [];
+        if (res.combo_bonus_xp) parts.push('combo ×' + res.multiplier);
+        if (res.weak_spot_bonus_xp) parts.push('weak spot fixed +' + res.weak_spot_bonus_xp);
+        return '<div class="xp-line">+' + escapeHtml(res.xp_earned) + ' XP' + (parts.length ? ' (' + escapeHtml(parts.join(', ')) + ')' : '') + '</div>';
+    }
+
+    async function submit() {
+        if (locked || !question) return;
+        const payload = { question_id: question.id, time_spent_ms: Date.now() - shownAt,
+                          time_to_first_action_ms: firstActionAt ? firstActionAt - shownAt : null };
+        if (question.question_type === 'multiple_choice' && question.options && question.options.length) {
+            if (selectedOption == null) { showMessage('Pick an answer first.'); return; }
+            payload.selected_option_id = selectedOption;
+        } else {
+            const v = ($('text-answer').value || '').trim();
+            if (!v) { showMessage('Type an answer first.'); return; }
+            payload.answer = v;
+        }
+        $('message').hidden = true;
+        locked = true; $('submit-btn').disabled = true;
+        document.querySelectorAll('.option').forEach(b => b.disabled = true);
+
+        const { ok, status, data } = await api('/api/boss/' + battle.id + '/answer/', payload);
+        if (!ok) {
+            locked = false; $('submit-btn').disabled = false;
+            document.querySelectorAll('.option').forEach(b => b.disabled = false);
+            showMessage(status === 403 ? (data.detail || 'Daily limit reached. Upgrade to Pro for unlimited practice.')
+                                       : (data.error || data.detail || 'Something went wrong. Try again.'));
+            return;
+        }
+        const res = data.result;
+        renderBattle(data.battle, res.is_correct ? 'hit' : 'heal');
+        renderLevel(res.level, res.rank, res.level_progress_pct);
+
+        let html = hitLine(res);
+        if (!res.is_correct && res.mistake_feedback && res.mistake_feedback.label) {
+            html += '<span class="tag">' + escapeHtml(res.mistake_feedback.label) + '</span>';
+        }
+        html += xpLine(res);
+        if (res.leveled_up) html += '<div class="levelup">⬆️ Level up! You are now level ' + escapeHtml(res.level) + ' (' + escapeHtml(res.rank) + ')</div>';
+        if (!res.is_correct) {
+            if (res.correct_answer) html += '<div class="explanation"><strong>Answer:</strong> ' + escapeHtml(res.correct_answer) + '</div>';
+            if (res.explanation) html += '<div class="explanation">' + escapeHtml(res.explanation) + '</div>';
+        }
+        const fb = $('feedback');
+        fb.className = 'feedback ' + (res.is_correct ? 'good' : 'bad');
+        fb.innerHTML = html; fb.hidden = false;
+        $('submit-btn').hidden = true;
+
+        pendingEnd = !data.question;
+        const next = $('next-btn');
+        next.textContent = pendingEnd ? 'See result' : 'Next question';
+        next.hidden = false; next.focus();
+        next.onclick = () => { pendingEnd ? showEnd(data.battle, res) : renderQuestion(data.question); };
+    }
+
+    function showEnd(b, lastResult) {
+        $('question-card').hidden = true;
+        const won = b.status === 'won';
+        const card = $('end-card');
+        card.classList.toggle('win', won);
+        $('end-title').textContent = won ? 'Victory! ' + b.boss_name + ' is defeated' : b.boss_name + ' escaped';
+        $('end-text').textContent = won
+            ? 'You beat the boss and earned ' + b.xp_awarded + ' bonus XP. This topic is in good shape.'
+            : 'You answered ' + b.correct_count + ' of ' + b.max_rounds + ' correctly. Review the questions you missed and try again: the boss is waiting.';
+        $('end-stats').innerHTML =
+            '<div><strong>' + escapeHtml(b.correct_count) + '/' + escapeHtml(b.answered) + '</strong><span>Correct</span></div>' +
+            '<div><strong>' + escapeHtml(b.best_combo) + '</strong><span>Best combo</span></div>' +
+            '<div><strong>' + escapeHtml(b.hp) + '</strong><span>Boss HP left</span></div>';
+        card.hidden = false;
+        loadLevel();
+    }
+
+    async function start() {
+        $('end-card').hidden = true;
+        const { ok, data } = await api('/api/boss/start/', { topic_id: topicId });
+        if (!ok) {
+            $('boss-name').textContent = 'No boss yet';
+            showMessage(data.error || 'Could not start the battle. Try again later.');
+            return;
+        }
+        renderBattle(data.battle);
+        if (data.question) renderQuestion(data.question); else showEnd(data.battle, null);
+    }
+
+    $('submit-btn').addEventListener('click', submit);
+    $('again-btn').addEventListener('click', () => { $('boss-icon').classList.remove('dead'); start(); });
+    loadLevel();
+    start();
+})();
+</script>
+</body>
+</html>

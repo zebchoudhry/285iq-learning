@@ -1082,6 +1082,16 @@
         /* ────────────────────────────────
            LESSON VIEW HELPERS
         ──────────────────────────────── */
+        function rewardText(data) {
+            if (!data || data.xp_earned == null) return '';
+            var t = '+' + data.xp_earned + ' XP', bits = [];
+            if (data.combo_bonus_xp) bits.push('combo x' + data.multiplier);
+            if (data.weak_spot_bonus_xp) bits.push('weak spot fixed +' + data.weak_spot_bonus_xp);
+            if (bits.length) t += ' (' + bits.join(', ') + ')';
+            if (data.leveled_up) t += ' - Level up! Level ' + data.level;
+            return t;
+        }
+
         function escapeHtml(s) {
             const d = document.createElement('div');
             d.textContent = s || '';
@@ -1344,7 +1354,7 @@
                     document.getElementById(`question-${questionId}`).classList.add('correct');
                     const feedback = document.getElementById(`feedback-${questionId}`);
                     feedback.className = 'question-feedback correct';
-                    feedback.textContent = '✓ Correct!';
+                    feedback.textContent = '✓ Correct!' + (rewardText(data) ? ' ' + rewardText(data) : '');
                     feedback.style.display = 'block';
                     document.getElementById(`submit-btn-${questionId}`).disabled = true;
                     document.getElementById(`hint-btn-${questionId}`).disabled = true;

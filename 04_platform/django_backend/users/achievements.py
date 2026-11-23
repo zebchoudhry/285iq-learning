@@ -1,4 +1,23 @@
 """Achievement check and award logic."""
+
+
+def award_achievement(user, slug, name, description, icon):
+    """Award an achievement by slug, creating the Achievement row the first time it is needed."""
+    try:
+        profile = getattr(user, 'profile', None)
+        if profile is None:
+            return None
+        from .models import Achievement, UserAchievement
+        achievement, _ = Achievement.objects.get_or_create(
+            slug=slug,
+            defaults={'name': name, 'description': description, 'icon': icon, 'is_active': True},
+        )
+        UserAchievement.objects.get_or_create(user_profile=profile, achievement=achievement)
+        return achievement
+    except Exception:
+        return None
+
+
 def check_and_award_achievements(user):
     """Check if user qualifies for any achievements and award them."""
     try:

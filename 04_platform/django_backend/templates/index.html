@@ -752,6 +752,7 @@
                 total_xp: p.total_xp != null ? p.total_xp : (ud.total_xp || 0),
                 daily_streak: p.daily_streak != null ? p.daily_streak : (ud.daily_streak || 0),
                 achievements_count: p.achievement_count != null ? p.achievement_count : (ud.achievements_count || 0),
+                level_progress_pct: p.level_progress_pct != null ? p.level_progress_pct : null,
                 first_name: ud.first_name,
                 username: ud.username,
                 subscription_status: ud.subscription_status,
@@ -778,7 +779,9 @@
 
             var xpBar = document.getElementById('xp-bar-fill');
             if (xpBar) {
-                var pct = Math.min(100, ((data.total_xp || 0) % 1000) / 10);
+                var pct = data.level_progress_pct != null
+                    ? data.level_progress_pct
+                    : Math.min(100, ((data.total_xp || 0) % 1000) / 10);
                 xpBar.style.width = pct + '%';
             }
 
@@ -949,7 +952,7 @@
             }
 
             const level = profile.current_level || 1;
-            document.getElementById('profile-level').textContent = 'LEVEL ' + level + ' SCHOLAR';
+            document.getElementById('profile-level').textContent = 'LEVEL ' + level + ' ' + String(profile.rank || 'Rookie').toUpperCase();
 
             const key = 'gm_' + (userData.id || username);
             const prev = JSON.parse(sessionStorage.getItem(key) || '{}');

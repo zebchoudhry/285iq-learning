@@ -740,3 +740,42 @@ class SkillVideo(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class BossBattle(models.Model):
+    """
+    A boss fight on one topic: a fixed run of questions where correct answers
+    damage the boss and wrong answers heal it. The student's weak questions
+    are mixed in and do extra damage when answered correctly.
+    """
+    STATUS_CHOICES = [
+        ('active', 'Active'),
+        ('won', 'Won'),
+        ('escaped', 'Boss escaped'),
+    ]
+
+    student = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='boss_battles',
+    )
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='boss_battles')
+    boss_name = models.CharField(max_length=120)
+    max_hp = models.PositiveIntegerField(default=100)
+    hp = models.PositiveIntegerField(default=100)
+    max_rounds = models.PositiveSmallIntegerField(default=15)
+    question_ids = models.JSONField(default=list)
+    weak_question_ids = models.JSONField(default=list)
+    answered = models.PositiveSmallIntegerField(default=0)
+    correct_count = models.PositiveSmallIntegerField(default=0)
+    combo = models.PositiveSmallIntegerField(default=0)
+    best_combo = models.PositiveSmallIntegerField(default=0)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='active')
+    xp_awarded = models.PositiveIntegerField(default=0)
+    started_at = models.DateTimeField(auto_now_add=True)
+    finished_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-started_at']
+        indexes = [models.Index(fields=['student', 'topic', 'status'])]
+
+    def __str__(self):
+        return f"{self.student_id} vs {self.boss_name} ({self.status})"
