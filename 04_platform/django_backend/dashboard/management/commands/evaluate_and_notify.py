@@ -4,8 +4,7 @@ notifications on tier changes. Run weekly via cron: 0 9 * * 1
 """
 from django.core.management.base import BaseCommand
 from learning.models import StudentExamSettings
-from decision_engine.v1_0.decision_engine_v1 import evaluate_student_subject
-from decision_engine.v1_0.core import OutlookTier
+from decision_engine.dispatcher import evaluate_student_subject, OutlookTier
 
 
 class Command(BaseCommand):

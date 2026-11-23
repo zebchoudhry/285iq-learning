@@ -184,6 +184,15 @@ class Question(models.Model):
     
     difficulty_level = models.IntegerField(default=2)
     # 1 (easy) to 5 (very hard)
+
+    difficulty_rating = models.FloatField(
+        default=1500.0,
+        help_text="Learned Elo difficulty. Updated on each first-attempt by a student."
+    )
+    rating_attempts = models.PositiveIntegerField(
+        default=0,
+        help_text="Number of first-attempts that have updated difficulty_rating. Drives K-factor."
+    )
     
     marks_available = models.IntegerField(default=1)
     
@@ -303,6 +312,30 @@ class QuizAttempt(models.Model):
 
     def __str__(self):
         return f"{self.student_id} - Q{self.question_id} ({'correct' if self.is_correct else 'wrong'})"
+
+
+class StudentTopicSkill(models.Model):
+    """Per-(student, topic) Elo skill rating. Updated on every attempt."""
+    student = models.ForeignKey(
+        'users.Student',
+        on_delete=models.CASCADE,
+        related_name='topic_skills',
+    )
+    topic = models.ForeignKey(
+        Topic,
+        on_delete=models.CASCADE,
+        related_name='student_skills',
+    )
+    skill_rating = models.FloatField(default=1500.0)
+    attempt_count = models.PositiveIntegerField(default=0)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('student', 'topic')
+        indexes = [models.Index(fields=['student', 'topic'])]
+
+    def __str__(self):
+        return f"{self.student_id} @ {self.topic_id}: {self.skill_rating:.0f}"
 
 
 class StudentGymState(models.Model):
