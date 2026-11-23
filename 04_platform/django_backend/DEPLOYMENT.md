@@ -33,6 +33,8 @@ If a build log shows **“Build Completed in ~100ms”** with no `pip install`, 
 
 Vercel Postgres also provides `POSTGRES_URL` — either works.
 
+**Migrations.** Vercel does not run them. The GitHub Action `.github/workflows/migrate-production.yml` runs `migrate` against production when a commit on `main` changes a migration (it needs the `PRODUCTION_DATABASE_URL` repository secret). It can also be run by hand from the Actions tab. Preview deployments share the production database, so never run migrations from a preview build.
+
 **500 FUNCTION_INVOCATION_FAILED** — fix in order:
 
 1. **Storage → Postgres** on Vercel, then confirm `POSTGRES_URL_NON_POOLING` or `DATABASE_URL` exists in env vars.

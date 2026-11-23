@@ -1,0 +1,42 @@
+name: Migrate production database
+
+# Vercel deploys the code but does not run migrations (a build step there would also run
+# for preview deployments, which share the production database). This runs them once,
+# only for commits on main that change a migration.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "04_platform/django_backend/**/migrations/**"
+  workflow_dispatch:
+
+concurrency:
+  group: migrate-production
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 04_platform/django_backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: 04_platform/django_backend/requirements.txt
+      - run: pip install -r requirements.txt
+      - name: Check the secret is set
+        env:
+          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: test -n "$DATABASE_URL" || { echo "Set the PRODUCTION_DATABASE_URL repository secret"; exit 1; }
+      - name: Show the plan
+        env:
+          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python manage.py migrate --plan
+      - name: Migrate
+        env:
+          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python manage.py migrate --noinput

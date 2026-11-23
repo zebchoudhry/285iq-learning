@@ -1195,9 +1195,12 @@ def get_lesson_content(request, lesson_id):
             'title': lesson.title,
             'content': lesson.content,
             'duration': lesson.estimated_duration,
+            'estimated_duration': lesson.estimated_duration,  # the lesson page reads this name
             'lesson_type': getattr(lesson, 'get_lesson_type_display', lambda: lesson.lesson_type)(),
             'difficulty_level': lesson.difficulty_level,
             'key_skills': lesson.key_skills,
+            'focus_areas': lesson.focus_areas or [],
+            'common_mistakes': lesson.common_mistakes or [],
             'topic_id': lesson.topic_id,
             'topic_name': lesson.topic.name,
             'subject_name': lesson.topic.subject.display_name,
