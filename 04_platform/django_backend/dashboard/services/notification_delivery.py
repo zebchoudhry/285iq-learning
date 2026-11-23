@@ -2,8 +2,10 @@
 Parent notification delivery: rate limiting + email + audit log.
 Contract: 285IQ Decision & Notification Contract v1.0
 """
+import logging
 from datetime import date, timedelta
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from django.utils import timezone
 
@@ -13,6 +15,8 @@ from decision_engine.v1_0.core import (
     NotificationPriority,
     apply_notification_rate_limits,
 )
+
+logger = logging.getLogger(__name__)
 
 
 def _week_start(d: date) -> date:
@@ -83,12 +87,21 @@ def send_parent_notification(
     if student_name:
         body = f"Student: {student_name}\n\n{body}"
 
-    # Get parent email from settings or student (if we had parent email on student profile)
-    # For now we use a placeholder; in production you'd have ParentProfile or similar.
-    recipient_list = getattr(settings, 'PARENT_NOTIFICATION_EMAILS', None)
-    if not recipient_list:
-        # Development: don't fail, just log. Console backend will print.
-        recipient_list = [getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@285iq.com')]
+    # Only ever send to this student's own parent. Never fall back to a shared
+    # or sender address: that would deliver a child's name and performance data
+    # to someone who is not their parent.
+    parent_email = (
+        get_user_model().objects.filter(pk=student_id)
+        .values_list('parent_email', flat=True)
+        .first()
+    )
+    if not parent_email:
+        logger.warning(
+            "Parent notification for student %s not sent: no parent_email set.",
+            student_id,
+        )
+        return False
+    recipient_list = [parent_email]
 
     try:
         send_mail(
