@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ game.title }} – 285IQ Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg: #020817; --surface: #0f172a; --surface2: #1e293b; --border: #334155; --cyan: #06b6d4; --success: #10b981; --danger: #ef4444; --warning: #f59e0b; --text: #f1f5f9; --muted: #94a3b8; --purple: #8b5cf6; }
+        body { background: var(--bg); color: var(--text); font-family: 'Sora', system-ui, sans-serif; min-height: 100vh; }
+        a { color: var(--cyan); text-decoration: none; }
+        .wrap { max-width: 720px; margin: 0 auto; padding: 18px 16px 48px; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 14px; }
+        .pills { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .pill { background: var(--surface2); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; font-weight: 600; font-size: 13px; white-space: nowrap; }
+        .pill.timer.low { color: var(--danger); border-color: var(--danger); }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 22px; margin-bottom: 4px; }
+        .prompt { color: var(--muted); font-size: 14px; line-height: 1.5; margin-bottom: 14px; }
+        .stage { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+        .btn { display: inline-block; background: var(--cyan); color: #02121a; border: 0; border-radius: 12px; padding: 12px 22px; font: inherit; font-weight: 700; cursor: pointer; }
+        .btn:disabled { opacity: .45; cursor: default; }
+        .btn.secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+        .row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
+        .feedback { margin-top: 14px; border-radius: 14px; padding: 12px 16px; line-height: 1.5; font-size: 15px; }
+        .feedback.good { background: rgba(16,185,129,.14); border: 1px solid rgba(16,185,129,.5); }
+        .feedback.bad { background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.45); }
+        .message { margin-top: 14px; padding: 12px 16px; background: var(--surface2); border-radius: 12px; color: var(--muted); }
+
+        .big-number { font-family: 'Orbitron', sans-serif; font-size: 72px; text-align: center; padding: 18px 0; }
+        .choice-btn { min-width: 150px; font-size: 18px; padding: 16px 24px; }
+        .keys { text-align: center; color: var(--muted); font-size: 12px; margin-top: 10px; }
+
+        .equation { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 14px; font-size: 20px; }
+        .species { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .formula { font-size: 22px; font-weight: 600; }
+        .stepper { display: inline-flex; align-items: center; gap: 6px; }
+        .stepper button { width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 18px; cursor: pointer; }
+        .stepper button:disabled { opacity: .4; cursor: default; }
+        .stepper output { min-width: 26px; text-align: center; font-size: 20px; font-weight: 700; }
+        .arrow, .plus { color: var(--muted); }
+
+        .ions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+        .ion { flex: 1 1 200px; background: var(--surface2); border: 1px solid var(--border); border-radius: 14px; padding: 14px; text-align: center; }
+        .ion .sym { font-size: 28px; font-weight: 700; }
+        .ion .nm { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+        .charge-line { text-align: center; margin-top: 12px; font-size: 16px; }
+        .charge-line.ok { color: var(--success); }
+
+        .nucleus { text-align: center; font-size: 18px; margin: 6px 0; }
+        .nucleus strong { font-family: 'Orbitron', sans-serif; }
+        .steps { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+        .step { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .step .lbl { min-width: 64px; color: var(--muted); font-size: 13px; }
+        .opt { border: 2px solid var(--border); background: var(--surface2); color: var(--text); border-radius: 10px; padding: 8px 14px; font: inherit; cursor: pointer; }
+        .opt.on { border-color: var(--cyan); background: rgba(6,182,212,.14); }
+        .opt:disabled { cursor: default; }
+
+        .lines { display: flex; flex-direction: column; gap: 8px; }
+        .line { display: flex; gap: 12px; text-align: left; width: 100%; border: 2px solid var(--border); background: var(--surface2); color: var(--text); border-radius: 12px; padding: 12px 14px; font: inherit; font-size: 17px; cursor: pointer; }
+        .line .no { color: var(--muted); min-width: 52px; font-size: 13px; padding-top: 3px; }
+        .line:hover:not(:disabled), .line:focus-visible { border-color: var(--cyan); outline: none; }
+        .line.wrong-line { border-color: var(--danger); background: rgba(239,68,68,.12); }
+        .line:disabled { cursor: default; }
+
+        .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .tile { min-height: 84px; border: 2px solid var(--border); background: var(--surface2); color: var(--text); border-radius: 12px; padding: 8px; font: inherit; font-size: 13px; line-height: 1.3; cursor: pointer; }
+        .tile.up { border-color: var(--cyan); background: rgba(6,182,212,.12); }
+        .tile.matched { border-color: var(--success); background: rgba(16,185,129,.14); cursor: default; }
+        .tile .q { font-size: 24px; color: var(--muted); }
+        .tile.term { font-weight: 700; }
+
+        .end-card { text-align: center; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 26px 18px; }
+        .end-card h2 { font-family: 'Orbitron', sans-serif; margin-bottom: 8px; }
+        .stats { display: flex; gap: 24px; justify-content: center; margin: 16px 0; flex-wrap: wrap; }
+        .stats strong { display: block; font-size: 24px; }
+        .stats span { color: var(--muted); font-size: 13px; }
+        .dots { display: flex; gap: 6px; justify-content: center; margin: 8px 0 14px; }
+        .dot { width: 14px; height: 14px; border-radius: 50%; }
+        .dot.ok { background: var(--success); } .dot.no { background: var(--danger); }
+        .levelup { color: var(--purple); font-weight: 700; margin-top: 8px; }
+        [hidden] { display: none !important; }
+        @media (max-width: 480px) { .big-number { font-size: 56px; } .tiles { grid-template-columns: repeat(2, 1fr); } }
+        @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+    </style>
+</head>
+<body data-slug="{{ game.slug }}">
+<div class="wrap">
+    <div class="topbar">
+        <a href="/games/">← All games</a>
+        <div class="pills">
+            <span class="pill" id="round-pill" hidden></span>
+            <span class="pill timer" id="timer-pill" hidden></span>
+            <span class="pill" id="score-pill" hidden>Score 0</span>
+        </div>
+    </div>
+    <h1>{{ game.icon }} {{ game.title }}</h1>
+    <p class="prompt">{{ game.blurb }}</p>
+
+    <div class="message" id="message" hidden></div>
+    <div class="stage" id="stage" aria-live="polite"><p class="prompt">Loading…</p></div>
+    <div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div>
+    <div class="row"><button class="btn" id="next-btn" type="button" hidden>Next</button></div>
+
+    <section class="end-card" id="end-card" hidden>
+        <h2 id="end-title"></h2>
+        <div class="dots" id="end-dots"></div>
+        <div class="stats" id="end-stats"></div>
+        <div id="end-extra"></div>
+        <div class="row">
+            <button class="btn" id="again-btn" type="button">Play again</button>
+            <a class="btn secondary" href="/games/">All games</a>
+        </div>
+    </section>
+</div>
+
+<script>
+(function () {
+    const slug = document.body.dataset.slug;
+    const $ = (id) => document.getElementById(id);
+    const S = { session: null, i: 0, score: 0, pending: [], timerId: null, over: false };
+
+    function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+    function formula(s) { return esc(s).replace(/(\d+)/g, '<sub>$1</sub>'); }
+    function getCookie(name) {
+        const m = document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith(name + '='));
+        return m ? decodeURIComponent(m.slice(name.length + 1)) : '';
+    }
+    async function api(url, body) {
+        const r = await fetch(url, { method: 'POST', credentials: 'include',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+            body: JSON.stringify(body || {}) });
+        let data = {}; try { data = await r.json(); } catch (e) {}
+        return { ok: r.ok, status: r.status, data };
+    }
+    function say(text) { const m = $('message'); m.textContent = text; m.hidden = !text; }
+    function setScore() { $('score-pill').textContent = 'Score ' + S.score; $('score-pill').hidden = false; }
+    function setRound() {
+        const total = S.session.rounds.length;
+        if (slug === 'memory-match') { $('round-pill').hidden = true; return; }
+        $('round-pill').textContent = 'Round ' + Math.min(S.i + 1, total) + ' / ' + total; $('round-pill').hidden = false;
+    }
+    function feedback(res) {
+        const fb = $('feedback');
+        fb.className = 'feedback ' + (res.correct ? 'good' : 'bad');
+        fb.innerHTML = '<strong>' + (res.correct ? '✓ Correct. ' : '✗ Not quite. ') + '</strong>' + esc(res.detail);
+        fb.hidden = false;
+    }
+    function clearFeedback() { $('feedback').hidden = true; $('next-btn').hidden = true; say(''); }
+
+    // Send an answer; returns the server's verdict (or null if the request failed).
+    async function answer(round, value) {
+        const { ok, data } = await api('/api/games/session/' + S.session.session_id + '/answer/', { round, answer: value });
+        if (!ok) { say(data.error || 'Something went wrong. Try again.'); return null; }
+        if (data.correct && !data.already_answered) { S.score++; setScore(); }
+        return data;
+    }
+    function offerNext() {
+        const next = $('next-btn');
+        const last = S.i >= S.session.rounds.length - 1;
+        next.textContent = last ? 'See result' : 'Next round';
+        next.hidden = false; next.focus();
+        next.onclick = () => { last ? finish() : go(S.i + 1); };
+    }
+    function go(i) {
+        S.i = i; setRound();
+        // Prime or Not moves straight on, so keep showing the verdict on the number just answered.
+        if (slug !== 'prime-or-not') clearFeedback();
+        R[slug].render(S.session.rounds[i], i);
+    }
+
+    // ----- games ---------------------------------------------------------
+    const R = {};
+
+    R['prime-or-not'] = {
+        render(round) {
+            $('stage').innerHTML = '<div class="big-number" id="num">' + esc(round.n) + '</div>' +
+                '<div class="row"><button class="btn choice-btn" id="p-btn" type="button">Prime</button>' +
+                '<button class="btn secondary choice-btn" id="c-btn" type="button">Composite</button></div>' +
+                '<div class="keys">Keys: P = prime, C = composite</div>';
+            const idx = S.i;
+            const pick = (v) => {
+                if (S.over || S.locked === idx) return; S.locked = idx;
+                S.pending.push(answer(idx, v).then(res => { if (res) feedback(res); }));
+                idx >= S.session.rounds.length - 1 ? finish() : setTimeout(() => go(idx + 1), 120);
+            };
+            $('p-btn').onclick = () => pick(true); $('c-btn').onclick = () => pick(false);
+            R['prime-or-not'].key = (e) => {
+                const k = e.key.toLowerCase();
+                if (k === 'p' || k === 'arrowleft') pick(true); else if (k === 'c' || k === 'arrowright') pick(false);
+            };
+        },
+    };
+
+    R['balance-it'] = {
+        render(round, i) {
+            const species = round.left.concat(round.right), values = species.map(() => 1);
+            const parts = species.map((s, k) =>
+                (k === round.left.length ? '<span class="arrow">→</span>' : (k ? '<span class="plus">+</span>' : '')) +
+                '<div class="species"><div class="stepper"><button type="button" data-k="' + k + '" data-d="-1" aria-label="Decrease">−</button>' +
+                '<output id="v' + k + '">1</output><button type="button" data-k="' + k + '" data-d="1" aria-label="Increase">+</button></div>' +
+                '<div class="formula">' + formula(s) + '</div></div>').join('');
+            $('stage').innerHTML = '<p class="prompt">Set the number in front of each substance so both sides have the same atoms.</p>' +
+                '<div class="equation">' + parts + '</div><div class="row"><button class="btn" id="check" type="button">Check</button></div>';
+            $('stage').querySelectorAll('.stepper button').forEach(b => b.onclick = () => {
+                const k = +b.dataset.k; values[k] = Math.max(1, Math.min(20, values[k] + +b.dataset.d)); $('v' + k).textContent = values[k];
+            });
+            $('check').onclick = async () => {
+                $('check').disabled = true;
+                const res = await answer(i, values.slice());
+                if (!res) { $('check').disabled = false; return; }
+                $('stage').querySelectorAll('.stepper button').forEach(b => b.disabled = true);
+                feedback(res); offerNext();
+            };
+        },
+    };
+
+    R['build-the-compound'] = {
+        render(round, i) {
+            const c = round.cation, a = round.anion; let nc = 1, na = 1;
+            const sup = (n, sign) => '<sup>' + (n === 1 ? '' : n) + sign + '</sup>';  // Na+ not Na1+
+            const ion = (x, id, sign) => '<div class="ion"><div class="sym">' + formula(x.symbol) + sup(x.charge, sign) + '</div>' +
+                '<div class="nm">' + esc(x.name) + '</div><div class="stepper"><button type="button" data-id="' + id + '" data-d="-1" aria-label="Fewer ' + esc(x.name) + ' ions">−</button>' +
+                '<output id="n' + id + '">1</output><button type="button" data-id="' + id + '" data-d="1" aria-label="More ' + esc(x.name) + ' ions">+</button></div></div>';
+            $('stage').innerHTML = '<p class="prompt">How many of each ion make a compound with no overall charge? Use the smallest numbers that work.</p>' +
+                '<div class="ions">' + ion(c, 'c', '+') + ion(a, 'a', '−') + '</div><div class="charge-line" id="charge"></div>' +
+                '<div class="row"><button class="btn" id="check" type="button">Check</button></div>';
+            const refresh = () => {
+                $('nc').textContent = nc; $('na').textContent = na;
+                const pos = nc * c.charge, neg = na * a.charge, el = $('charge');
+                el.textContent = '+' + pos + ' and −' + neg + ' = total charge ' + (pos - neg > 0 ? '+' : '') + (pos - neg);
+                el.className = 'charge-line' + (pos === neg ? ' ok' : '');
+            };
+            $('stage').querySelectorAll('.stepper button').forEach(b => b.onclick = () => {
+                const d = +b.dataset.d;
+                if (b.dataset.id === 'c') nc = Math.max(1, Math.min(8, nc + d)); else na = Math.max(1, Math.min(8, na + d));
+                refresh();
+            });
+            refresh();
+            $('check').onclick = async () => {
+                $('check').disabled = true;
+                const res = await answer(i, [nc, na]);
+                if (!res) { $('check').disabled = false; return; }
+                $('stage').querySelectorAll('.stepper button').forEach(b => b.disabled = true);
+                feedback(res); offerNext();
+            };
+        },
+    };
+
+    R['decay-chain'] = {
+        render(round, i) {
+            const STEP = { alpha: [-4, -2], beta: [0, 1], gamma: [0, 0] }, LABEL = { alpha: 'Alpha α', beta: 'Beta β', gamma: 'Gamma γ' };
+            const picks = new Array(round.steps).fill(null);
+            const nuc = (A, Z) => 'mass number <strong>' + A + '</strong>, atomic number <strong>' + Z + '</strong>';
+            let html = '<div class="nucleus">Start: ' + esc(round.name) + '-' + round.start.A + ' (' + nuc(round.start.A, round.start.Z) + ')</div>' +
+                '<div class="nucleus">Target: ' + nuc(round.target.A, round.target.Z) + '</div><div class="steps">';
+            for (let k = 0; k < round.steps; k++) {
+                html += '<div class="step"><span class="lbl">Step ' + (k + 1) + '</span>' +
+                    Object.keys(STEP).map(t => '<button type="button" class="opt" data-k="' + k + '" data-t="' + t + '">' + LABEL[t] + '</button>').join('') + '</div>';
+            }
+            html += '</div><div class="nucleus" id="now"></div><div class="row"><button class="btn" id="check" type="button" disabled>Check</button></div>';
+            $('stage').innerHTML = html;
+            const refresh = () => {
+                let A = round.start.A, Z = round.start.Z;
+                picks.forEach(t => { if (t) { A += STEP[t][0]; Z += STEP[t][1]; } });
+                $('now').innerHTML = 'Now: ' + nuc(A, Z);
+                $('check').disabled = picks.some(t => !t);
+                $('stage').querySelectorAll('.opt').forEach(o => o.classList.toggle('on', picks[+o.dataset.k] === o.dataset.t));
+            };
+            $('stage').querySelectorAll('.opt').forEach(o => o.onclick = () => { picks[+o.dataset.k] = o.dataset.t; refresh(); });
+            refresh();
+            $('check').onclick = async () => {
+                $('check').disabled = true;
+                const res = await answer(i, picks.slice());
+                if (!res) { $('check').disabled = false; return; }
+                $('stage').querySelectorAll('.opt').forEach(o => o.disabled = true);
+                feedback(res); offerNext();
+            };
+        },
+    };
+
+    R['spot-the-mistake'] = {
+        render(round, i) {
+            $('stage').innerHTML = '<p class="prompt"><strong>' + esc(round.title) + '</strong><br>One line of this worked solution is wrong. Tap it.</p><div class="lines">' +
+                round.lines.map((l, k) => '<button type="button" class="line" data-k="' + k + '"><span class="no">Line ' + (k + 1) + '</span><span>' + esc(l) + '</span></button>').join('') + '</div>';
+            const buttons = [...$('stage').querySelectorAll('.line')];
+            buttons.forEach(b => b.onclick = async () => {
+                buttons.forEach(x => x.disabled = true);
+                const res = await answer(i, +b.dataset.k);
+                if (!res) { buttons.forEach(x => x.disabled = false); return; }
+                const m = /Line (\d+)/.exec(res.detail || ''); if (m && buttons[+m[1] - 1]) buttons[+m[1] - 1].classList.add('wrong-line');
+                feedback(res); offerNext();
+            });
+        },
+    };
+
+    R['memory-match'] = {
+        render() {
+            const tiles = S.session.rounds[0].tiles; let first = null, lock = false, matched = 0, moves = 0;
+            $('stage').innerHTML = '<p class="prompt">Flip two tiles. Match each term to its definition. <span id="moves">Moves: 0</span></p><div class="tiles" id="tiles"></div>';
+            const grid = $('tiles');
+            tiles.forEach(t => {
+                const b = document.createElement('button'); b.type = 'button'; b.className = 'tile'; b.dataset.id = t.id;
+                b.innerHTML = '<span class="q">?</span>'; b.setAttribute('aria-label', 'Hidden tile ' + (t.id + 1)); grid.appendChild(b);
+            });
+            const show = (b, t) => { b.classList.add('up'); b.classList.toggle('term', t.side === 'term'); b.textContent = t.text; };
+            const hide = (b) => { b.classList.remove('up', 'term'); b.innerHTML = '<span class="q">?</span>'; };
+            grid.onclick = async (e) => {
+                const b = e.target.closest('.tile'); if (!b || lock || b.classList.contains('up') || b.classList.contains('matched') || S.over) return;
+                const t = tiles[+b.dataset.id]; show(b, t);
+                if (!first) { first = { b, t }; return; }
+                moves++; $('moves').textContent = 'Moves: ' + moves; lock = true;
+                if (first.t.pair === t.pair && first.t.side !== t.side) {
+                    first.b.classList.add('matched'); b.classList.add('matched'); matched++;
+                    const res = await answer(t.pair, true); if (res) { /* score updates in answer() */ }
+                    first = null; lock = false;
+                    if (matched === 6) { setTimeout(finish, 500); }
+                } else {
+                    const a = first.b; first = null;
+                    setTimeout(() => { hide(a); hide(b); lock = false; }, 900);
+                }
+            };
+        },
+    };
+
+    // ----- flow ----------------------------------------------------------
+    async function finish() {
+        if (S.over) return; S.over = true;
+        if (S.timerId) clearInterval(S.timerId);
+        await Promise.all(S.pending);
+        $('stage').hidden = true; $('feedback').hidden = true; $('next-btn').hidden = true; $('timer-pill').hidden = true;
+        const { ok, data } = await api('/api/games/session/' + S.session.session_id + '/finish/');
+        if (!ok) { say(data.error || 'Could not save your result.'); return; }
+        $('end-title').textContent = data.score === data.total ? 'Perfect!' : (data.score / data.total >= 0.8 ? 'Great work' : 'Finished');
+        $('end-dots').innerHTML = data.rounds.map(r => '<span class="dot ' + (r.correct ? 'ok' : 'no') + '" title="' + esc(r.detail) + '"></span>').join('');
+        $('end-stats').innerHTML = '<div><strong>' + data.score + '/' + data.total + '</strong><span>Correct</span></div>' +
+            '<div><strong>+' + data.xp_earned + '</strong><span>XP</span></div>' +
+            (data.level ? '<div><strong>' + esc(data.level) + '</strong><span>' + esc(data.rank) + '</span></div>' : '');
+        let extra = '';
+        if (data.leveled_up) extra += '<div class="levelup">⬆️ Level up! You are now level ' + esc(data.level) + '.</div>';
+        if (data.daily_cap_reached) extra += '<p class="prompt">You have hit today\'s game XP cap. Games still count as revision, so keep going.</p>';
+        $('end-extra').innerHTML = extra; $('end-card').hidden = false;
+    }
+
+    function startTimer(seconds) {
+        let left = seconds; const pill = $('timer-pill'); pill.hidden = false;
+        const tick = () => { pill.textContent = '⏱ ' + left + 's'; pill.classList.toggle('low', left <= 10); };
+        tick();
+        S.timerId = setInterval(() => { left--; tick(); if (left <= 0) finish(); }, 1000);
+    }
+
+    async function begin() {
+        const { ok, data } = await api('/api/games/' + slug + '/start/');
+        if (!ok) { $('stage').innerHTML = ''; say(data.error || 'Could not start the game. Try again later.'); return; }
+        S.session = data; setScore();
+        if (data.time_limit_s) startTimer(data.time_limit_s);
+        document.addEventListener('keydown', (e) => { if (R[slug].key && !S.over) R[slug].key(e); });
+        go(0);
+    }
+
+    $('again-btn').onclick = () => location.reload();
+    begin();
+})();
+</script>
+</body>
+</html>

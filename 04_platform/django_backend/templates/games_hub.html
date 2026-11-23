@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games – 285IQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg: #020817; --surface: #0f172a; --surface2: #1e293b; --border: #334155; --cyan: #06b6d4; --text: #f1f5f9; --muted: #94a3b8; --warning: #f59e0b; }
+        body { background: var(--bg); color: var(--text); font-family: 'Sora', system-ui, sans-serif; min-height: 100vh; }
+        a { color: inherit; text-decoration: none; }
+        .wrap { max-width: 900px; margin: 0 auto; padding: 18px 16px 48px; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; font-size: 14px; color: var(--cyan); }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 26px; margin-bottom: 6px; }
+        .sub { color: var(--muted); line-height: 1.5; margin-bottom: 14px; }
+        .xp-today { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; font-size: 13px; margin-bottom: 18px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+        .card { display: flex; flex-direction: column; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; transition: border-color .15s, transform .15s; }
+        .card:hover, .card:focus-visible { border-color: var(--cyan); outline: none; transform: translateY(-2px); }
+        .icon { font-size: 34px; }
+        .title { font-weight: 700; font-size: 18px; }
+        .area { color: var(--cyan); font-size: 12px; font-weight: 600; }
+        .blurb { color: var(--muted); font-size: 14px; line-height: 1.5; flex: 1; }
+        .meta { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-top: 6px; }
+        .best { color: var(--warning); font-weight: 700; }
+        .play { margin-top: 6px; background: var(--cyan); color: #02121a; text-align: center; border-radius: 10px; padding: 10px; font-weight: 700; }
+        .error { background: var(--surface2); border-radius: 12px; padding: 14px; color: var(--muted); }
+        @media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="topbar"><a href="/">← Dashboard</a></div>
+    <h1>Games</h1>
+    <p class="sub">Quick games that are real revision: every round makes you recall something. Win XP, but not too much: game XP is capped each day, so use them as a warm-up between topics.</p>
+    <div class="xp-today" id="xp-today" hidden></div>
+    <div class="grid" id="grid" aria-live="polite"><div class="error">Loading games…</div></div>
+</div>
+<script>
+(function () {
+    function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+    fetch('/api/games/', { credentials: 'include' }).then(r => r.ok ? r.json() : Promise.reject()).then(data => {
+        const x = $('xp-today'); x.hidden = false;
+        x.textContent = 'Game XP today: ' + data.xp_today + ' / ' + data.daily_cap;
+        $('grid').innerHTML = data.games.map(g =>
+            '<a class="card" href="/games/' + esc(g.slug) + '/">' +
+            '<div class="icon" aria-hidden="true">' + esc(g.icon) + '</div>' +
+            '<div class="title">' + esc(g.title) + '</div><div class="area">' + esc(g.area) + '</div>' +
+            '<div class="blurb">' + esc(g.blurb) + '</div>' +
+            '<div class="meta"><span>' + (g.time_limit_s ? g.time_limit_s + 's timer · ' : '') + esc(g.plays) + ' play' + (g.plays === 1 ? '' : 's') + '</span>' +
+            '<span class="best">' + (g.plays ? 'Best ' + esc(g.best_pct) + '%' : 'New') + '</span></div>' +
+            '<div class="play">Play</div></a>').join('');
+    }).catch(() => { $('grid').innerHTML = '<div class="error">Could not load the games. Try again later.</div>'; });
+    function $(id) { return document.getElementById(id); }
+})();
+</script>
+</body>
+</html>
