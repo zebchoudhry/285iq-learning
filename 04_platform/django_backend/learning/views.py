@@ -37,6 +37,7 @@ from .serializers import (
     SkillVideoSerializer,
 )
 from .services.gym_controller import decide_gym_mode
+from .services.gamification import reward_payload
 from .services.subscription_limits import check_free_tier_limits
 from .services.learning_mission import build_learning_mission
 from .ai_tutor import generate_tutor_response, generate_wrong_answer_explanation
@@ -1913,8 +1914,8 @@ def submit_attempt(request):
         skill_codes = list(
             attempt.question.steps.values_list('skill__code', flat=True).distinct()
         )
-        xp_earned = 10 if attempt.is_correct else 2
-        
+        reward_fields = reward_payload(getattr(attempt, 'reward', None), attempt.is_correct)
+
         confidence_level = (request.data.get("confidence_level") or "unsure").strip().lower()
         if confidence_level not in ("guessed", "unsure", "confident"):
             confidence_level = "unsure"
@@ -1930,7 +1931,7 @@ def submit_attempt(request):
             'question_id': attempt.question.id,
             'explanation': attempt.question.explanation or "",
             'skill_codes': skill_codes,
-            'xp_earned': xp_earned,
+            **reward_fields,
             'marks_awarded': getattr(attempt, "partial_marks", 0),
             'marks_available': getattr(attempt, "marks_available", attempt.question.marks_available or 1),
             'confidence_level': confidence_level,

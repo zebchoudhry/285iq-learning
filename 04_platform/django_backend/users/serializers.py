@@ -64,9 +64,15 @@ class UserSerializer(serializers.ModelSerializer):
                 .select_related('achievement')
                 .values_list('achievement__name', 'achievement__icon')
             )
+            from learning.services.gamification import level_for_xp
+            info = level_for_xp(profile.total_xp)
             return {
                 'total_xp': profile.total_xp,
-                'current_level': profile.current_level,
+                'current_level': info['level'],
+                'rank': info['rank'],
+                'level_progress_pct': info['progress_pct'],
+                'xp_into_level': info['xp_into_level'],
+                'xp_for_next_level': info['xp_for_next_level'],
                 'daily_streak': profile.daily_streak,
                 'school_rank': profile.school_rank,
                 'achievements': [{'name': n, 'icon': i} for n, i in achievements],
@@ -76,6 +82,10 @@ class UserSerializer(serializers.ModelSerializer):
             return {
                 'total_xp': 0,
                 'current_level': 1,
+                'rank': 'Rookie',
+                'level_progress_pct': 0,
+                'xp_into_level': 0,
+                'xp_for_next_level': 100,
                 'daily_streak': 0,
                 'school_rank': 0,
                 'achievements': [],

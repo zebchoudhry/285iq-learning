@@ -408,17 +408,26 @@ class AttemptSerializer(serializers.Serializer):
         except Exception:
             pass
 
-        # Update XP, streak, and check achievements (best-effort)
+        # XP rewards a combo of correct answers and fixing weak spots (see services/gamification.py).
+        reward = None
         try:
+            from learning.services import gamification
+            reward = gamification.reward_for_attempt(
+                is_correct,
+                gamification.current_combo(user, exclude_attempt_id=attempt.id),
+                is_correct and gamification.is_weak_spot_fixed(
+                    user, question, exclude_attempt_id=attempt.id
+                ),
+            )
+            reward['level'] = gamification.award_xp(user, reward['xp'])
             profile = getattr(user, 'profile', None)
             if profile is not None:
-                profile.total_xp = profile.total_xp + (10 if is_correct else 2)
-                profile.save(update_fields=['total_xp'])
                 profile.update_streak()
                 from users.achievements import check_and_award_achievements
                 check_and_award_achievements(user)
         except Exception:
             pass
+        attempt.reward = reward
 
         # Daily topic strength snapshot (best-effort)
         try:

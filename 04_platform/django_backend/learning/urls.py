@@ -2,6 +2,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from . import views
 from . import parent_dashboard_views
+from . import boss_views
 
 # Create router for ViewSets
 router = DefaultRouter()
@@ -50,6 +51,10 @@ urlpatterns = [
     path('quiz/start/', views.quiz_start, name='quiz-start'),
     path('quiz/question/<int:question_id>/', views.quiz_question, name='quiz-question'),
     path('attempts/', views.submit_attempt, name='submit-attempt'),
+    path('boss/start/', boss_views.boss_start, name='boss-start'),
+    path('boss/<int:battle_id>/', boss_views.boss_detail, name='boss-detail'),
+    path('boss/<int:battle_id>/answer/', boss_views.boss_answer, name='boss-answer'),
+    path('gamification/me/', boss_views.gamification_me, name='gamification-me'),
     
     # Practice (6-question adaptive)
     path('practice/start/', views.practice_start, name='practice-start'),

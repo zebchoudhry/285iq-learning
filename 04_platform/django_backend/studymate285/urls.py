@@ -23,6 +23,7 @@ def health_check(request):
         {'status': 'ok' if db_ok else 'degraded', 'database': db_ok, 'detail': db_error},
         status=status_code,
     )
+from learning.boss_views import boss_page
 from learning.views import frontend_view, lessons_page, quiz_page, parent_dashboard_page, revision_planner_page, mock_tests_page, subjects_page, flashcards_page, mistakes_page, mistake_retry_page, exam_readiness_page, subject_detail_page
 from learning.billing_views import (
     create_checkout_session,
@@ -51,6 +52,7 @@ urlpatterns = [
     path('onboarding/exam-dates/', user_views.onboarding_exam_dates_page, name='onboarding_exam_dates_page'),
     path('lessons/', lessons_page, name='lessons_page'),
     path('quiz/', quiz_page, name='quiz_page'),
+    path('boss/<int:topic_id>/', boss_page, name='boss_page'),
     path('subjects/', subjects_page, name='subjects_page'),
     path('subject/<int:subject_id>/', subject_detail_page, name='subject_detail_page'),
     path('practice/<int:subject_id>/', frontend_view, name='practice_subject_page'),

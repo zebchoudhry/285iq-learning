@@ -300,6 +300,7 @@
                 '<p>' + escapeHtml(computedStatus(topic)) + ' · ' + Math.round(topic.accuracy_pct || 0) + '% accuracy · ' + Math.round(topic.completion_pct || 0) + '% complete</p>' +
                 '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">' +
                 '<a class="btn btn-primary" href="/practice/topic/' + topic.id + '/">Practice topic</a>' +
+                '<a class="btn btn-secondary" href="/boss/' + topic.id + '/">⚔️ Boss battle</a>' +
                 '<a class="btn btn-secondary" href="/lessons/?subject=' + subjectId + '&topic=' + topic.id + '">Open lessons</a></div>';
             lessonPanel.classList.add('active');
             lessonPanel.innerHTML = '<div class="panel-title" style="margin-top:4px;">' + escapeHtml(topic.name) + ' Lessons</div>' +
