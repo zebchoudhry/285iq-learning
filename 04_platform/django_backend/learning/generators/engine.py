@@ -60,7 +60,9 @@ def topic_key(name: str) -> str:
 
 def load_all_templates() -> List[Template]:
     """Import every template module so that REGISTRY is populated."""
-    from learning.generators import templates_maths, templates_science  # noqa: F401
+    from learning.generators import (  # noqa: F401
+        templates_chemistry_calculations, templates_maths, templates_physics_equations, templates_science,
+    )
 
     return REGISTRY
 
