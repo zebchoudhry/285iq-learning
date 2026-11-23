@@ -13,11 +13,20 @@ def _env(name, default=''):
     """Prefer real environment variables (Vercel) over .env files."""
     return os.environ.get(name) or config(name, default=default)
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-me-in-production')
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False if _IS_VERCEL else True, cast=bool)
+
+# SECURITY WARNING: keep the secret key used in production secret!
+# In production (DEBUG=False or running on Vercel), SECRET_KEY MUST be set via env.
+# Falling back to a known default would make session cookies forgeable.
+SECRET_KEY = config(
+    'SECRET_KEY',
+    default='django-insecure-dev-only-do-not-use-in-prod' if (DEBUG and not _IS_VERCEL) else '',
+)
+if not SECRET_KEY:
+    raise RuntimeError(
+        "SECRET_KEY must be set in production. Refusing to start with an insecure default."
+    )
 
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
@@ -123,13 +132,12 @@ if _database_url:
         )
     }
 elif _IS_VERCEL:
-    # Ephemeral fallback so the process can start; use DATABASE_URL in production.
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': '/tmp/285iq.sqlite3',
-        }
-    }
+    # No ephemeral SQLite fallback: /tmp is wiped between invocations and would
+    # silently lose every signup/payment with no error. Crash loudly instead.
+    raise RuntimeError(
+        "No DATABASE_URL (or POSTGRES_URL / POSTGRES_URL_NON_POOLING) set on Vercel. "
+        "Refusing to start on ephemeral /tmp SQLite (would cause silent data loss)."
+    )
 elif _use_sqlite:
     DATABASES = {
         'default': {
@@ -206,8 +214,11 @@ if _IS_VERCEL:
         'learning.middleware.VercelDiagnosticMiddleware',
     )
 
-    if _env('VERCEL_DIAGNOSTIC', '0') in ('1', 'true', 'True'):
-        DEBUG = True
+    # VERCEL_DIAGNOSTIC: relax ALLOWED_HOSTS for debugging *only* when DEBUG is
+    # already on. It must NEVER be able to flip DEBUG=True in production — a
+    # production DEBUG page leaks SECRET_KEY, DB URL, and Stripe keys via
+    # the traceback view.
+    if DEBUG and _env('VERCEL_DIAGNOSTIC', '0') in ('1', 'true', 'True'):
         ALLOWED_HOSTS = ['*']
 
 # Default primary key field type
