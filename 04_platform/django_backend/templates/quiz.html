@@ -144,6 +144,12 @@
             firstActionTime: null,
         };
 
+        function escapeHtml(s) {
+            const d = document.createElement('div');
+            d.textContent = s || '';
+            return d.innerHTML;
+        }
+
         function getCookie(name) {
             const c = document.cookie.split(';');
             for (let i = 0; i < c.length; i++) {
@@ -281,8 +287,10 @@
                 const correct = r.ok && data.is_correct;
                 const feedback = document.getElementById('feedback-area');
                 feedback.className = 'feedback ' + (correct ? 'correct' : 'incorrect');
+                const mf = (!correct && data.mistake_feedback) ? data.mistake_feedback : null;
                 feedback.innerHTML = (correct ? '✓ Correct!' : '✗ Incorrect.') +
-                    (data.explanation ? '<div class="explanation">' + data.explanation + '</div>' : '');
+                    (mf && mf.label ? ' <strong>' + escapeHtml(mf.label) + '</strong>' : '') +
+                    (data.explanation ? '<div class="explanation">' + escapeHtml(data.explanation) + '</div>' : '');
                 feedback.style.display = 'block';
                 document.getElementById('submit-btn').style.display = 'none';
                 document.getElementById('next-btn').style.display = 'inline-block';
