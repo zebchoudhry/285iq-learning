@@ -779,3 +779,29 @@ class BossBattle(models.Model):
 
     def __str__(self):
         return f"{self.student_id} vs {self.boss_name} ({self.status})"
+
+
+class GameSession(models.Model):
+    """
+    One play of a learning mini-game. The server builds the rounds and keeps the
+    answers, grades every answer, and awards XP when the game is finished.
+    """
+    student = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='game_sessions',
+    )
+    slug = models.CharField(max_length=40)
+    rounds = models.JSONField(default=list)    # [{"public": {...}, "private": {...}}, ...]
+    results = models.JSONField(default=dict)   # {"0": {"answer": ..., "correct": bool, "detail": str}}
+    extra = models.JSONField(default=dict)
+    score = models.PositiveSmallIntegerField(default=0)
+    total = models.PositiveSmallIntegerField(default=0)
+    xp_awarded = models.PositiveIntegerField(default=0)
+    started_at = models.DateTimeField(auto_now_add=True)
+    finished_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-started_at']
+        indexes = [models.Index(fields=['student', 'slug', 'finished_at'])]
+
+    def __str__(self):
+        return f"{self.student_id} {self.slug} {self.score}/{self.total}"

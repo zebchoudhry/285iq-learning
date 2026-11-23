@@ -3,6 +3,7 @@ from rest_framework.routers import DefaultRouter
 from . import views
 from . import parent_dashboard_views
 from . import boss_views
+from . import game_views
 
 # Create router for ViewSets
 router = DefaultRouter()
@@ -55,6 +56,10 @@ urlpatterns = [
     path('boss/<int:battle_id>/', boss_views.boss_detail, name='boss-detail'),
     path('boss/<int:battle_id>/answer/', boss_views.boss_answer, name='boss-answer'),
     path('gamification/me/', boss_views.gamification_me, name='gamification-me'),
+    path('games/', game_views.games_list, name='games-list'),
+    path('games/session/<int:session_id>/answer/', game_views.game_answer, name='game-answer'),
+    path('games/session/<int:session_id>/finish/', game_views.game_finish, name='game-finish'),
+    path('games/<slug:slug>/start/', game_views.game_start, name='game-start'),
     
     # Practice (6-question adaptive)
     path('practice/start/', views.practice_start, name='practice-start'),
