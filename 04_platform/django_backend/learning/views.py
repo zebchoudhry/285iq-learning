@@ -1950,6 +1950,11 @@ def submit_attempt(request):
         }
         if not attempt.is_correct:
             payload['correct_answer'] = attempt.question.correct_answer or ""
+            feedback = getattr(attempt, "mistake_feedback", None)
+            if feedback:
+                payload['mistake_feedback'] = feedback
+                if feedback.get('explanation'):
+                    payload['explanation'] = feedback['explanation']
         return Response(payload)
     return Response(serializer.errors, status=400)
 

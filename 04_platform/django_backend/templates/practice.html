@@ -626,7 +626,10 @@
                 if (typeof data.marks_awarded !== 'undefined' && typeof data.marks_available !== 'undefined') {
                     feedbackHtml += `<div class="explanation" style="margin-top:8px;">Marks: ${data.marks_awarded}/${data.marks_available}</div>`;
                 }
-                if (!correct && data.wrong_category && data.wrong_category !== 'none') {
+                const mf = (!correct && data.mistake_feedback) ? data.mistake_feedback : null;
+                if (mf && mf.label) {
+                    feedbackHtml += `<div class="explanation">Likely issue: <strong>${escapeHtml(mf.label)}</strong></div>`;
+                } else if (!correct && data.wrong_category && data.wrong_category !== 'none') {
                     feedbackHtml += `<div class="explanation">Likely issue: ${String(data.wrong_category).replace(/_/g, ' ')}</div>`;
                 }
                 if (!correct && data.failed_skill && data.failed_skill.skill_code) {
@@ -639,7 +642,7 @@
                     feedbackHtml += `<div class="explanation">Next fix: ${data.remediation_tip}</div>`;
                 }
                 if (data.explanation) {
-                    feedbackHtml += '<div class="explanation" id="explanation-content">' + data.explanation + '</div>';
+                    feedbackHtml += '<div class="explanation" id="explanation-content">' + escapeHtml(data.explanation) + '</div>';
                 }
                 if (!correct && data.question_id) {
                     state.lastWrongAttempt = {
@@ -755,9 +758,9 @@
                 const data = r.ok ? await r.json() : null;
                 const aiExplanation = (data && data.explanation) ? data.explanation : null;
                 const text = aiExplanation || w.static_explanation;
-                explEl.innerHTML = text ? text.replace(/\n/g, '<br>') : '';
+                explEl.innerHTML = text ? escapeHtml(text).replace(/\n/g, '<br>') : '';
             } catch (err) {
-                explEl.innerHTML = w.static_explanation;
+                explEl.innerHTML = escapeHtml(w.static_explanation);
             }
             btn.style.display = 'none';
         }

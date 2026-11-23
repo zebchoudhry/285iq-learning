@@ -4,6 +4,7 @@ Lightweight LLM service abstraction.
 Backends:
   - disabled / none: raises RuntimeError
   - mock: deterministic JSON for local dev
+  - anthropic: Claude via the Anthropic SDK (uses ANTHROPIC_API_KEY)
   - openai_compatible: any OpenAI-style /v1/chat/completions (OpenAI, HF TGI endpoints, etc.)
   - huggingface: Hugging Face Inference Providers via huggingface_hub.InferenceClient
 """
@@ -31,6 +32,9 @@ def generate(prompt, max_tokens=700, temperature=0.2):
             '"difficulty_level":1}]'
         )
 
+    if backend == "anthropic":
+        return _generate_anthropic(prompt, max_tokens)
+
     if backend == "openai_compatible":
         return _generate_openai_compatible(prompt, max_tokens, temperature)
 
@@ -38,6 +42,46 @@ def generate(prompt, max_tokens=700, temperature=0.2):
         return _generate_huggingface(prompt, max_tokens, temperature)
 
     raise RuntimeError(f"Unsupported LLM backend: {backend}")
+
+
+DEFAULT_ANTHROPIC_MODEL = "claude-opus-5-5"
+
+
+def _generate_anthropic(prompt, max_tokens):
+    """
+    Claude via the official Anthropic SDK.
+    LLM_MODEL is used when it names a Claude model; otherwise the default.
+    Temperature is not sent: current Claude models reject sampling params.
+    Effort is low because these are short, latency-sensitive replies.
+    """
+    import anthropic
+
+    api_key = (
+        getattr(settings, "ANTHROPIC_API_KEY", "")
+        or getattr(settings, "LLM_API_KEY", "")
+        or ""
+    ).strip()
+    if not api_key:
+        raise RuntimeError("ANTHROPIC_API_KEY is not set")
+
+    model = (getattr(settings, "LLM_MODEL", "") or "").strip()
+    if not model.startswith("claude-"):
+        model = DEFAULT_ANTHROPIC_MODEL
+
+    client = anthropic.Anthropic(api_key=api_key, timeout=20.0, max_retries=1)
+    response = client.messages.create(
+        model=model,
+        max_tokens=max(int(max_tokens), 1024),
+        system=_SYSTEM_PROMPT,
+        output_config={"effort": "low"},
+        messages=[{"role": "user", "content": prompt}],
+    )
+    if response.stop_reason == "refusal":
+        raise RuntimeError("Claude declined the request")
+    text = "".join(b.text for b in response.content if b.type == "text").strip()
+    if not text:
+        raise RuntimeError(f"Empty Claude response (stop_reason={response.stop_reason})")
+    return text
 
 
 def _hf_token():

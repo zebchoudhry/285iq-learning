@@ -639,6 +639,25 @@
         }
         .question-feedback.correct { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
         .question-feedback.incorrect { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
+        .mistake-tag {
+            display: inline-block;
+            margin: 0 4px;
+            padding: 2px 10px;
+            border-radius: 999px;
+            background: rgba(245, 158, 11, 0.18);
+            color: #fcd34d;
+            font-size: 12px;
+            font-weight: 700;
+            vertical-align: middle;
+        }
+        .mistake-explanation {
+            margin: 10px 0 6px;
+            color: #e2e8f0;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.55;
+            font-family: inherit;
+        }
         .question-btn {
             margin-top: 14px;
             padding: 14px 24px;
@@ -1340,23 +1359,29 @@
                     const feedback = document.getElementById(`feedback-${questionId}`);
                     feedback.style.display = 'block';
 
+                    const mf = data.mistake_feedback || null;
+                    const mistakeTag = mf && mf.label
+                        ? `<span class="mistake-tag">${escapeHtml(mf.label)}</span> `
+                        : '';
+
                     if (state.attempts >= maxAttempts) {
                         // Max attempts reached — show answer and lock
                         state.answered = true;
                         feedback.className = 'question-feedback incorrect';
-                        feedback.innerHTML = '✗ Incorrect. ' + 
-                            (data.explanation || '') + 
-                            '<br><strong style="color:#f59e0b;">Moving on — revisit this topic.</strong>';
+                        feedback.innerHTML = '✗ Incorrect. ' + mistakeTag +
+                            (data.explanation ? `<div class="mistake-explanation">${escapeHtml(data.explanation)}</div>` : '') +
+                            '<strong style="color:#f59e0b;">Moving on — revisit this topic.</strong>';
                         document.getElementById(`submit-btn-${questionId}`).disabled = true;
                         document.getElementById(`hint-btn-${questionId}`).disabled = true;
                     } else {
                         // Allow retry
                         const remaining = maxAttempts - state.attempts;
                         feedback.className = 'question-feedback incorrect';
-                        feedback.innerHTML = `✗ Not quite — try again. 
+                        feedback.innerHTML = `✗ Not quite — try again. ${mistakeTag}
                             <span style="color:#f59e0b;font-weight:700;">
                                 ${remaining} attempt${remaining !== 1 ? 's' : ''} left
-                            </span>`;
+                            </span>` +
+                            (mf && mf.hint ? `<div class="mistake-explanation">💡 ${escapeHtml(mf.hint)}</div>` : '');
 
                         // Reset input for retry
                         if (q.question_type === 'multiple_choice') {

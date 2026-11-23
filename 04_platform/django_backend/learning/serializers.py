@@ -341,6 +341,30 @@ class AttemptSerializer(serializers.Serializer):
             time_spent_ms=validated_data.get('time_spent_ms') or 0,
             time_to_first_action_ms=validated_data.get('time_to_first_action_ms'),
         )
+
+        # Classify the mistake and prepare a hint + explanation for the student.
+        # Saving error_type here is what lets gym mode tell a concept gap from
+        # a method slip or a guess.
+        mistake_feedback = None
+        if not is_correct:
+            from learning.services.mistake_feedback import diagnose_wrong_answer
+            student_answer = raw_answer
+            if selected_option_id:
+                student_answer = (
+                    MultipleChoiceOption.objects.filter(id=selected_option_id, question=question)
+                    .values_list('option_text', flat=True)
+                    .first()
+                ) or ""
+            mistake_feedback = diagnose_wrong_answer(
+                question,
+                student_answer,
+                time_spent_ms=validated_data.get('time_spent_ms') or None,
+                is_multiple_choice=bool(selected_option_id),
+            )
+            if attempt.error_type == 'none':
+                attempt.error_type = mistake_feedback['error_type']
+                attempt.save(update_fields=['error_type'])
+
         # Flag for review if 3+ consecutive wrong answers on this question
         if not is_correct:
             recent_attempts = QuizAttempt.objects.filter(
@@ -425,7 +449,7 @@ class AttemptSerializer(serializers.Serializer):
             raw_answer=raw_answer,
             is_correct=is_correct,
             selected_option_id=selected_option_id,
-            error_type=validated_data.get("error_type", "none"),
+            error_type=attempt.error_type,
         )
         partial_marks = _estimate_partial_marks(question, is_correct, raw_answer)
         failed_skill = None if is_correct else _first_failed_skill(question)
@@ -453,5 +477,6 @@ class AttemptSerializer(serializers.Serializer):
         attempt.wrong_category = wrong_category
         attempt.failed_skill = failed_skill
         attempt.remediation_tip = remediation_tip
+        attempt.mistake_feedback = mistake_feedback
 
         return attempt

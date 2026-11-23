@@ -11,7 +11,7 @@ dj-database-url>=2.1.0
 psycopg2-binary==2.9.9
 gunicorn==21.2.0
 stripe>=10,<12
-anthropic>=0.25.0
+anthropic>=0.94.0
 huggingface_hub>=0.26.0
 # Optional: semantic question dedupe (HF_EMBEDDINGS_ENABLED=true)
 # sentence-transformers>=3.0.0
