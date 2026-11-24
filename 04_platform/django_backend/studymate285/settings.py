@@ -28,6 +28,9 @@ if not SECRET_KEY:
         "SECRET_KEY must be set in production. Refusing to start with an insecure default."
     )
 
+# The public address, used for canonical links, the sitemap and social previews.
+SITE_URL = config('SITE_URL', default='https://285iq.com')
+
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
     default='localhost,127.0.0.1,.vercel.app,285iq.com,www.285iq.com',
@@ -73,6 +76,7 @@ _use_whitenoise = (not _IS_VERCEL) and config('USE_WHITENOISE', default=False, c
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'learning.middleware.PrivatePagesNoIndexMiddleware',
 ]
 if _use_whitenoise:
     MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')

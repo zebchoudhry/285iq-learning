@@ -1,0 +1,133 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page_title }}</title>
+    <meta name="description" content="{{ page_description }}">
+    <link rel="canonical" href="{{ site_url }}{{ path }}">
+    {% if noindex %}<meta name="robots" content="noindex, nofollow">{% else %}<meta name="robots" content="index, follow, max-image-preview:large">{% endif %}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="285IQ">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="{{ page_title }}">
+    <meta property="og:description" content="{{ page_description }}">
+    <meta property="og:url" content="{{ site_url }}{{ path }}">
+    <meta property="og:image" content="{{ site_url }}{% static 'og-image.png' %}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="285IQ: GCSE revision for Maths, Biology, Chemistry and Physics">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title }}">
+    <meta name="twitter:description" content="{{ page_description }}">
+    <meta name="twitter:image" content="{{ site_url }}{% static 'og-image.png' %}">
+    <meta name="theme-color" content="#020817">
+    {% if jsonld %}<script type="application/ld+json">{{ jsonld|safe }}</script>{% endif %}
+    <style>
+        :root { --bg:#020817; --surface:#0f172a; --surface2:#1e293b; --border:#334155; --cyan:#22d3ee; --cyan-d:#0891b2;
+                --text:#f1f5f9; --muted:#a8b3c7; --gold:#fbbf24; --green:#34d399; --red:#f87171; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg); color: var(--text); line-height: 1.6; font-size: 17px;
+               font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+        a { color: var(--cyan); }
+        a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+        .skip { position: absolute; left: -999px; top: 8px; background: var(--gold); color: #111; padding: 10px 14px; border-radius: 8px; z-index: 10; }
+        .skip:focus { left: 8px; }
+        .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+        header.site { border-bottom: 1px solid var(--border); background: rgba(2,8,23,.92); position: sticky; top: 0; z-index: 5; backdrop-filter: blur(8px); }
+        .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
+        .logo { font-weight: 800; font-size: 22px; letter-spacing: .5px; color: var(--text); text-decoration: none; }
+        .logo span { color: var(--cyan); }
+        nav.main { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+        nav.main a { color: var(--muted); text-decoration: none; padding: 10px 12px; border-radius: 8px; font-size: 15px; }
+        nav.main a:hover { color: var(--text); background: var(--surface2); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 24px; border-radius: 12px;
+               font-weight: 700; text-decoration: none; border: 2px solid transparent; font-size: 17px; cursor: pointer; font-family: inherit; }
+        .btn-primary { background: var(--cyan); color: #02121a; }
+        .btn-primary:hover { background: #67e8f9; }
+        .btn-ghost { border-color: var(--border); color: var(--text); background: transparent; }
+        .btn-ghost:hover { border-color: var(--cyan); }
+        nav.main .btn { padding: 8px 18px; min-height: 44px; font-size: 15px; color: #02121a; }
+        section { padding: 64px 0; }
+        h1 { font-size: clamp(32px, 5.5vw, 54px); line-height: 1.1; letter-spacing: -.5px; }
+        h2 { font-size: clamp(26px, 3.8vw, 36px); line-height: 1.2; margin-bottom: 14px; }
+        h3 { font-size: 20px; margin-bottom: 6px; }
+        p.lead { font-size: 20px; color: var(--muted); max-width: 640px; margin-top: 18px; }
+        .muted { color: var(--muted); }
+        .grid { display: grid; gap: 18px; }
+        .g2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .g3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+        .g4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+        .card .icon { font-size: 30px; margin-bottom: 10px; }
+        a.card { text-decoration: none; color: inherit; display: block; transition: border-color .15s, transform .15s; }
+        a.card:hover { border-color: var(--cyan); transform: translateY(-2px); }
+        .eyebrow { color: var(--cyan); font-weight: 700; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+        .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+        .note { color: var(--muted); font-size: 15px; margin-top: 14px; }
+        .stats { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 36px; }
+        .stats strong { display: block; font-size: 28px; color: var(--gold); line-height: 1.2; }
+        .stats span { color: var(--muted); font-size: 15px; }
+        .steps { counter-reset: s; }
+        .steps .card { position: relative; padding-top: 46px; }
+        .steps .card::before { counter-increment: s; content: counter(s); position: absolute; top: 14px; left: 20px; width: 28px; height: 28px; border-radius: 50%;
+                               background: var(--cyan); color: #02121a; font-weight: 800; display: grid; place-items: center; }
+        details { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 10px; }
+        summary { cursor: pointer; font-weight: 700; }
+        details[open] summary { margin-bottom: 8px; }
+        .try { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 24px; max-width: 720px; }
+        .try .q { font-size: 20px; font-weight: 600; margin: 8px 0 16px; }
+        .opt { display: block; width: 100%; text-align: left; min-height: 48px; padding: 12px 16px; margin-bottom: 10px; background: var(--surface2); color: var(--text);
+               border: 2px solid var(--border); border-radius: 12px; font: inherit; cursor: pointer; }
+        .opt:hover:not(:disabled) { border-color: var(--cyan); }
+        .opt.good { border-color: var(--green); background: rgba(52,211,153,.15); }
+        .opt.bad { border-color: var(--red); background: rgba(248,113,113,.12); }
+        .why { display: none; margin-top: 12px; padding: 14px 16px; border-radius: 12px; background: var(--surface2); }
+        .why.show { display: block; }
+        .tag { display: inline-block; font-size: 13px; padding: 3px 10px; border-radius: 999px; background: var(--surface2); color: var(--muted); }
+        ul.topics { list-style: none; }
+        ul.topics li { border-bottom: 1px solid var(--border); padding: 14px 0; }
+        ul.topics li:last-child { border-bottom: 0; }
+        ul.lessons { margin: 10px 0 0 18px; color: var(--muted); font-size: 15px; columns: 2 260px; }
+        .crumbs { font-size: 14px; color: var(--muted); padding-top: 20px; }
+        .crumbs a { color: var(--muted); }
+        footer.site { border-top: 1px solid var(--border); padding: 40px 0; color: var(--muted); font-size: 15px; }
+        footer.site a { color: var(--muted); }
+        footer.site .links { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 14px; }
+        @media (max-width: 640px) { body { font-size: 16px; } section { padding: 44px 0; } nav.main .hide-sm { display: none; } }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } a.card { transition: none; } a.card:hover { transform: none; } }
+    </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+    <div class="wrap bar">
+        <a class="logo" href="/" aria-label="285IQ home">285<span>IQ</span></a>
+        <nav class="main" aria-label="Main">
+            <a class="hide-sm" href="/gcse-maths/">Maths</a>
+            <a class="hide-sm" href="/gcse-biology/">Biology</a>
+            <a class="hide-sm" href="/gcse-chemistry/">Chemistry</a>
+            <a class="hide-sm" href="/gcse-physics/">Physics</a>
+            <a href="/login/">Log in</a>
+            <a class="btn btn-primary" href="/register/">Start free</a>
+        </nav>
+    </div>
+</header>
+<main id="main">
+{% block content %}{% endblock %}
+</main>
+<footer class="site">
+    <div class="wrap">
+        <div class="links">
+            {% for slug, title in subjects_nav %}<a href="/{{ slug }}/">{{ title }}</a>{% endfor %}
+            <a href="/login/">Log in</a>
+            <a href="/register/">Sign up</a>
+        </div>
+        <p>285IQ is an independent revision tool. It is not affiliated with, or endorsed by, AQA or any other exam board.
+           Exam board names are used only to say which specification the topics follow.</p>
+    </div>
+</footer>
+{% block scripts %}{% endblock %}
+</body>
+</html>
