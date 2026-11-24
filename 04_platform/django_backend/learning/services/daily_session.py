@@ -20,10 +20,11 @@ from learning.models import (
     Flashcard,
     MistakeBankItem,
     Question,
+    StudentExamSettings,
     StudentFlashcardProgress,
     Topic,
 )
-from users.models import StudentTopicPerformance
+from learning.services.topic_mastery import topic_mastery
 from learning.serializers import QuestionForQuizSerializer
 
 DEFAULT_SIZE = 8
@@ -89,28 +90,81 @@ def _card_items(student, limit: int) -> List[Dict[str, Any]]:
     return [_card_item(p.flashcard) for p in due]
 
 
-def _focus_topic(student) -> Optional[Dict[str, Any]]:
-    """Weakest topic with enough attempts to judge; otherwise one the student has not tried."""
-    perfs = list(
-        StudentTopicPerformance.objects.filter(
-            student=student, questions_attempted__gte=3, topic__is_active=True
-        ).select_related("topic")
+MAX_FOCUS_TOPICS = 3
+UNTRIED_WEIGHT = 0.4
+GRADUATED_WEIGHT = 0.08
+URGENCY_HORIZON_DAYS = 180
+
+
+def _urgency_by_subject(student) -> Dict[int, float]:
+    """1.0 when no exam is near, rising to 2.0 as a subject's exam date approaches."""
+    today = timezone.now().date()
+    out: Dict[int, float] = {}
+    for st in StudentExamSettings.objects.filter(student=student):
+        days = (st.exam_date - today).days
+        if 0 <= days <= URGENCY_HORIZON_DAYS:
+            out[st.subject_id] = 1.0 + (1.0 - days / URGENCY_HORIZON_DAYS)
+        else:
+            out[st.subject_id] = 1.0
+    return out
+
+
+def plan_topics(student) -> List[Dict[str, Any]]:
+    """
+    Which topics deserve today's fresh questions, and how much of the session each gets.
+
+    The weight of a topic comes from recent accuracy, so it falls as the student improves:
+    a weak topic keeps coming back, in larger shares, until they have answered it well enough
+    to "graduate" (see topic_mastery), after which it only gets a light refresher. Untried topics
+    get a middling weight so new ground is still covered. Subjects with a nearer exam date are
+    weighted up. Only topics that have questions are considered.
+    """
+    topics = list(
+        Topic.objects.filter(
+            is_active=True, lessons__is_active=True, lessons__questions__is_active=True
+        ).select_related("subject").distinct()
     )
-    if perfs:
-        perfs.sort(key=lambda p: p.questions_correct / p.questions_attempted)
-        worst = perfs[0]
-        if worst.questions_correct / worst.questions_attempted < 0.8:
-            return {"topic": worst.topic, "source": "weak_topic"}
-    tried = set(
-        StudentTopicPerformance.objects.filter(student=student).values_list("topic_id", flat=True)
-    )
-    fresh = Topic.objects.filter(is_active=True, lessons__questions__is_active=True).exclude(id__in=tried)
-    topic = fresh.order_by("subject_id", "order", "id").distinct().first()
-    if topic:
-        return {"topic": topic, "source": "new_topic"}
-    if perfs:  # everything tried and fine: keep practising the weakest anyway
-        return {"topic": perfs[0].topic, "source": "weak_topic"}
-    return None
+    if not topics:
+        return []
+    with_exams = set(StudentExamSettings.objects.filter(student=student).values_list("subject_id", flat=True))
+    if with_exams:  # a student who set exam dates is revising those subjects
+        scoped = [t for t in topics if t.subject_id in with_exams]
+        topics = scoped or topics
+    mastery = topic_mastery(student, [t.id for t in topics])
+    urgency = _urgency_by_subject(student)
+
+    plan = []
+    for t in topics:
+        m = mastery[t.id]
+        if m["accuracy"] is None:
+            weight, source = UNTRIED_WEIGHT, "new_topic"
+        elif m["graduated"]:
+            weight, source = GRADUATED_WEIGHT, "maintenance"
+        else:
+            weight, source = (1.0 - m["accuracy"]) ** 1.5 + 0.05, "weak_topic"
+        weight *= urgency.get(t.subject_id, 1.0)
+        plan.append({"topic": t, "source": source, "weight": weight, "accuracy": m["accuracy"]})
+    plan.sort(key=lambda p: (-p["weight"], p["topic"].subject_id, p["topic"].order, p["topic"].id))
+    return plan[:MAX_FOCUS_TOPICS]
+
+
+def _allocate(plan: List[Dict[str, Any]], total: int) -> List[int]:
+    """Split `total` questions across the planned topics by weight (largest remainder, min 1 each)."""
+    n = len(plan)
+    if n == 0 or total <= 0:
+        return [0] * n
+    shares = [0] * n
+    if total >= n:
+        shares = [1] * n
+        total -= n
+    weight_sum = sum(p["weight"] for p in plan) or 1.0
+    raw = [total * p["weight"] / weight_sum for p in plan]
+    whole = [int(r) for r in raw]
+    leftover = total - sum(whole)
+    order = sorted(range(n), key=lambda i: raw[i] - whole[i], reverse=True)
+    for i in order[:leftover]:
+        whole[i] += 1
+    return [shares[i] + whole[i] for i in range(n)]
 
 
 def _fresh_questions(student, topic: Topic, exclude: Set[int], count: int) -> List[Question]:
@@ -171,19 +225,45 @@ def build_daily_session(student, size: int = DEFAULT_SIZE) -> Dict[str, Any]:
     items += _mistake_items(student, min(MAX_MISTAKES, size))
     items += _card_items(student, min(MAX_CARDS, size - len(items)))
 
-    focus = _focus_topic(student)
+    plan = plan_topics(student)
     focus_name = None
     gym_mode = None
-    if focus and len(items) < size:
+    focus_topics: List[Dict[str, Any]] = []
+    if plan and len(items) < size:
         used = {i["question"]["id"] for i in items if i["kind"] == "question"}
         need = size - len(items)
-        picked, gym_mode = _gym_questions(student, focus["topic"], used, need)
-        if len(picked) < need:  # gym mode had too few (or only lessons): top up with unseen questions
+        shares = _allocate(plan, need)
+        picked_by_topic: List[List[Question]] = []
+        for entry, share in zip(plan, shares):
+            picked, mode = _gym_questions(student, entry["topic"], used, share)
+            if len(picked) < share:
+                picked += _fresh_questions(student, entry["topic"], used | {q.id for q in picked}, share - len(picked))
             used |= {q.id for q in picked}
-            picked += _fresh_questions(student, focus["topic"], used, need - len(picked))
-        for q in picked:
-            items.append(_question_item(q, focus["source"]))
-        focus_name = focus["topic"].name
+            picked_by_topic.append(picked)
+            if gym_mode is None:
+                gym_mode = mode
+        # a topic with too few questions hands its unused share to the others
+        shortfall = need - sum(len(p) for p in picked_by_topic)
+        for entry, picked in zip(plan, picked_by_topic):
+            if shortfall <= 0:
+                break
+            extra = _fresh_questions(student, entry["topic"], used, shortfall)
+            picked += extra
+            used |= {q.id for q in extra}
+            shortfall -= len(extra)
+        for entry, picked in zip(plan, picked_by_topic):
+            for q in picked:
+                items.append(_question_item(q, entry["source"]))
+            if picked:
+                focus_topics.append({
+                    "topic": entry["topic"].name,
+                    "subject": entry["topic"].subject.display_name,
+                    "questions": len(picked),
+                    "accuracy": None if entry["accuracy"] is None else round(entry["accuracy"] * 100),
+                    "reason": entry["source"],
+                })
+        if focus_topics:
+            focus_name = focus_topics[0]["topic"]
 
     # questions first-in-first-out, but spread flashcards through the session so it is not two blocks
     questions = [i for i in items if i["kind"] == "question"]
@@ -203,14 +283,18 @@ def build_daily_session(student, size: int = DEFAULT_SIZE) -> Dict[str, Any]:
 
     n_mistakes = sum(1 for i in ordered if i.get("source") == "mistake")
     n_cards = sum(1 for i in ordered if i["kind"] == "flashcard")
-    n_new = len(ordered) - n_mistakes - n_cards
     parts = []
     if n_mistakes:
         parts.append(f"{n_mistakes} question{'s' if n_mistakes != 1 else ''} you missed before")
     if n_cards:
         parts.append(f"{n_cards} flashcard{'s' if n_cards != 1 else ''} due today")
-    if n_new:
-        parts.append(f"{n_new} on {focus_name}" if focus_name else f"{n_new} new")
+    for ft in focus_topics:
+        label = {
+            "weak_topic": f"{ft['questions']} on {ft['topic']} (needs work, {ft['accuracy']}% lately)" if ft["accuracy"] is not None else f"{ft['questions']} on {ft['topic']}",
+            "new_topic": f"{ft['questions']} new on {ft['topic']}",
+            "maintenance": f"{ft['questions']} refresher on {ft['topic']}",
+        }[ft["reason"]]
+        parts.append(label)
     seconds = sum(SECONDS_PER_ITEM[i["kind"]] for i in ordered)
 
     return {
@@ -218,6 +302,7 @@ def build_daily_session(student, size: int = DEFAULT_SIZE) -> Dict[str, Any]:
         "minutes": max(1, round(seconds / 60)) if ordered else 0,
         "summary": ", ".join(parts),
         "focus_topic": focus_name,
+        "focus_topics": focus_topics,
         "difficulty": GYM_LABELS.get(gym_mode) if gym_mode else None,
         "items": ordered,
     }
