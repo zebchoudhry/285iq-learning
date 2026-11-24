@@ -805,3 +805,29 @@ class GameSession(models.Model):
 
     def __str__(self):
         return f"{self.student_id} {self.slug} {self.score}/{self.total}"
+
+
+class ReadinessSnapshot(models.Model):
+    """
+    One row per student, subject and day (written at most once a day). It lets the app show
+    progress over a year, estimate how fast a student is improving, and later gives us the
+    history needed to train something smarter than rules.
+    """
+
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='readiness_snapshots')
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='readiness_snapshots')
+    taken_on = models.DateField()
+    score = models.PositiveSmallIntegerField(help_text='Exam readiness 0-100')
+    recent_accuracy = models.PositiveSmallIntegerField(default=0)
+    coverage = models.PositiveSmallIntegerField(default=0)
+    active_mistakes = models.PositiveIntegerField(default=0)
+    sessions_7d = models.PositiveIntegerField(default=0)
+    topic_mastery = models.JSONField(default=dict, blank=True, help_text='topic_id -> recent accuracy % (or null)')
+
+    class Meta:
+        unique_together = ('student', 'subject', 'taken_on')
+        ordering = ['taken_on']
+        indexes = [models.Index(fields=['student', 'subject', 'taken_on'])]
+
+    def __str__(self):
+        return f"{self.student_id} {self.subject_id} {self.taken_on}: {self.score}"

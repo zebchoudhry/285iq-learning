@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from learning.services.daily_session import build_daily_session
+from learning.services.exam_progress import build_exam_progress
 
 
 @api_view(["GET"])
@@ -17,6 +18,13 @@ def daily_session(request):
     except (TypeError, ValueError):
         size = 8
     return Response(build_daily_session(request.user, size=size))
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def exam_progress(request):
+    """Readiness bar per subject, days to exam, and whether the student is on pace."""
+    return Response(build_exam_progress(request.user))
 
 
 @ensure_csrf_cookie

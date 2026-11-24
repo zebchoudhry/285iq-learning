@@ -623,6 +623,49 @@
                 <a href="/quiz/?mode=quick_fire">⚡ QUICK QUIZ (5Q)</a>
             </div>
 
+            <div class="panel anim-in" id="exam-progress-card" style="animation-delay:0.02s;margin-bottom:14px;">
+                <div class="panel-label">🎯 EXAM READINESS</div>
+                <div id="exam-progress-body" style="font-size:13px;color:var(--text-muted);line-height:1.55;">Loading...</div>
+            </div>
+            <script>
+            (function () {
+                var STATE = { ready: ['Exam ready', '#10b981'], on_track: ['On track', '#22d3ee'], behind: ['Behind pace', '#f59e0b'], exam_passed: ['Exam date passed', '#9ca3af'] };
+                function el(tag, css, text) { var e = document.createElement(tag); if (css) e.style.cssText = css; if (text != null) e.textContent = text; return e; }
+                fetch('/api/exam-progress/', { credentials: 'include' }).then(function (r) { return r.json(); }).then(function (d) {
+                    var body = document.getElementById('exam-progress-body');
+                    body.replaceChildren();
+                    if (!d.has_exam_dates) {
+                        var a = el('a', 'color:#22d3ee;font-weight:700;', 'Add your exam month'); a.href = '/onboarding/exam-dates/';
+                        body.append('See how ready you are and what to do each week. ', a, '.');
+                        return;
+                    }
+                    d.subjects.forEach(function (s) {
+                        var st = STATE[s.state] || STATE.on_track;
+                        var row = el('div', 'margin-bottom:14px;');
+                        var head = el('div', 'display:flex;justify-content:space-between;gap:8px;font-weight:700;color:var(--text,#e5e7eb);margin-bottom:5px;');
+                        head.append(el('span', '', s.subject + ' · ' + s.exam_month), el('span', 'color:' + st[1] + ';', st[0]));
+                        var bar = el('div', 'position:relative;height:12px;border-radius:99px;background:rgba(255,255,255,0.12);overflow:hidden;');
+                        var fill = el('div', 'height:100%;border-radius:99px;background:' + st[1] + ';width:' + s.score + '%;');
+                        bar.append(fill);
+                        var mark = el('div', 'position:absolute;top:0;bottom:0;width:2px;background:#fff;left:' + s.target + '%;'); bar.append(mark);
+                        bar.setAttribute('role', 'progressbar'); bar.setAttribute('aria-valuenow', s.score); bar.setAttribute('aria-valuemin', 0); bar.setAttribute('aria-valuemax', 100);
+                        bar.setAttribute('aria-label', s.subject + ' exam readiness');
+                        var line = 'Readiness ' + s.score + '% (exam ready at ' + s.target + '%). ';
+                        if (s.state === 'exam_passed') line = 'Exam date has passed. Update your exam month to keep tracking.';
+                        else {
+                            line += s.days_left + ' days to go. ';
+                            if (s.state === 'ready') line += 'Keep topics fresh with a short session most days.';
+                            else if (s.sessions_per_week_needed) line += 'Estimate: about ' + s.sessions_per_week_needed + ' session' + (s.sessions_per_week_needed > 1 ? 's' : '') + ' a week to get there.';
+                        }
+                        row.append(head, bar, el('div', 'margin-top:5px;', line));
+                        body.append(row);
+                    });
+                    var note = el('div', 'font-size:11px;opacity:.7;', 'Estimates based on your practice so far. They get more accurate the more you use the app.');
+                    body.append(note);
+                }).catch(function () { document.getElementById('exam-progress-card').style.display = 'none'; });
+            })();
+            </script>
+
             <div class="panel anim-in" id="ten-min-card" style="animation-delay:0.03s;margin-bottom:14px;">
                 <div class="panel-label">⏱ START YOUR 10 MINUTES</div>
                 <div id="ten-min-text" style="font-size:13px;color:var(--text-muted);line-height:1.55;margin-bottom:10px;">Picking today's session...</div>
