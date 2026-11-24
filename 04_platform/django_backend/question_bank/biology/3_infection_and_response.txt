@@ -1,0 +1,112 @@
+// AQA GCSE Biology 8461, topic 3: Infection and response. Written for 285IQ.
+topic: Infection & Response
+
+lesson: 3.1 - Communicable Disease 1 - Introduction
+MC | 1 | What is a pathogen? | A microorganism that causes disease | A drug that kills bacteria inside the body | A white blood cell that destroys microorganisms | A weakened microorganism used in a vaccine | Pathogens include bacteria, viruses, protists and fungi.
+MC | 1 | Which of these is a pathogen? | A virus | A red blood cell | A platelet | A vaccine | Viruses are pathogens that invade cells and cause disease.
+MC | 2 | How can pathogens be spread? | By water, by air and by direct contact | Only by direct contact between two people | Only by droplets in the air | Only by eating contaminated food | Pathogens spread in several ways, including water, air and direct contact.
+MC | 2 | How can the spread of a communicable disease be reduced? | By good hygiene, destroying vectors and vaccination | By eating more protein and resting in bed | By taking painkillers when symptoms begin | By drinking extra fluids and avoiding exercise | Hygiene, killing vectors and vaccination all reduce the spread of infection.
+MC | 2 | What is a vector? | An organism that carries a pathogen from one host to another | A drug that carries a vaccine from the injection site into the body's cells | A virus that infects bacterial cells and carries genes between them | A white blood cell that carries antibodies from one part of the body to another | The mosquito is a vector for malaria.
+MC | 3 | Which action helps prevent the spread of a pathogen in the air? | Covering your mouth when you sneeze | Washing your clothes at a high temperature | Eating a balanced diet every day | Taking a painkiller when you feel ill | Sneezing into a tissue stops droplets containing pathogens from spreading.
+SA | 1 | What name is given to a microorganism that causes disease? (one word) | pathogen | Pathogens are microorganisms that cause infectious disease.
+SA | 2 | What name is given to an organism that spreads a pathogen without being harmed by it? (one word) | vector | Mosquitoes are vectors for the malaria protist.
+
+lesson: 3.2 - Communicable Disease 2 - Viruses
+MC | 1 | How do viruses reproduce? | By taking over host cells and using them to make copies | By splitting in two by binary fission | By dividing by mitosis in the blood | By making their own food using photosynthesis | Viruses reproduce inside the cells of their host.
+MC | 2 | What disease does the measles virus cause? | Red skin rash and fever | A stomach upset | Black spots on leaves | Gonorrhoea | Measles causes a fever and a red skin rash.
+MC | 2 | How is the HIV virus spread? | By sexual contact and by exchange of body fluids | Through the air when an infected person coughs | By mosquitoes that bite an infected person | By drinking water that contains the virus | HIV is spread by sexual contact and exchange of body fluids, such as blood.
+MC | 2 | What does HIV do to the body over time? | It attacks the immune system and can lead to AIDS | It attacks the lungs and can lead to a red skin rash | It attacks red blood cells and can lead to malaria | It attacks the digestive system and can lead to scurvy | HIV damages white blood cells so the body cannot fight infections.
+MC | 2 | What does the tobacco mosaic virus (TMV) affect? | Plants | Humans | Fish | Mosquitoes | TMV causes a mosaic pattern of discolouration on leaves.
+MC | 3 | Why can viruses not be treated with antibiotics? | Antibiotics do not work against viruses | Viruses are too large | Viruses are only found in plants | Antibiotics are viruses | Antibiotics kill bacteria but have no effect on viruses.
+SA | 1 | What is the name of the virus that attacks the human immune system? (one word) | HIV | HIV is the virus that can lead to AIDS.
+SA | 2 | Which virus causes a mosaic pattern of discoloured patches on the leaves of tobacco plants? (give the abbreviation) | TMV | Tobacco mosaic virus reduces photosynthesis in infected plants.
+
+lesson: 3.3 - Communicable Disease 3 - Bacteria
+MC | 1 | Which disease is caused by a bacterium? | Salmonella food poisoning | Measles | HIV | Malaria | Salmonella is a bacterium that causes food poisoning.
+MC | 2 | How can Salmonella food poisoning be prevented? | By cooking food thoroughly and good hygiene | By taking antibiotics all the time | By eating only raw food | By drinking cold water | Hygiene and thorough cooking kill the bacteria.
+MC | 2 | Which disease is caused by a bacterium and is a sexually transmitted infection? | Gonorrhoea | HIV | Measles | Malaria | Gonorrhoea is a bacterial STI that is treated with antibiotics.
+MC | 2 | What symptoms does Salmonella cause? | Fever, abdominal cramps, vomiting and diarrhoea | A red skin rash and a high fever with no other symptoms | Black or purple spots that spread across the skin | Repeated episodes of fever that come and go | Salmonella produces toxins that cause these symptoms.
+MC | 2 | How does using a condom help prevent gonorrhoea spreading? | It acts as a barrier | It kills bacteria in the blood | It gives immunity | It cures infection | A condom stops the bacteria passing between partners.
+MC | 3 | Why are chickens vaccinated against Salmonella? | To reduce the spread of the bacteria to people through eggs and meat | To cure people who are already ill with food poisoning | To kill all the bacteria in people's digestive systems | To make the eggs larger and the chickens grow faster | Vaccinating poultry reduces the amount of Salmonella that reaches people.
+SA | 1 | Name the bacterium that causes food poisoning with fever, cramps and diarrhoea. (one word) | salmonella | Salmonella food poisoning is caused by the bacterium Salmonella.
+SA | 2 | What type of drug is used to treat bacterial infections? (one word) | antibiotics | Antibiotics kill bacteria, such as the one that causes gonorrhoea.
+
+lesson: 3.4 - Communicable Disease 4 - Protists & Fungi
+MC | 1 | Which organism spreads the protist that causes malaria? | Mosquito | Housefly | Rat | Tick | The mosquito is the vector for the malarial protist.
+MC | 2 | What are the symptoms of malaria? | Recurrent episodes of fever | A red skin rash | A mosaic pattern | Black or purple spots | The malarial protist damages red blood cells and liver, causing repeated fevers.
+MC | 2 | How can the spread of malaria be reduced? | By preventing mosquitoes from breeding and using nets | By vaccinating poultry and cooking meat thoroughly | By washing hands and covering the mouth when coughing | By using condoms and avoiding contact with body fluids | Mosquito nets and removing breeding sites reduce the spread of malaria.
+MC | 2 | Which plant disease is caused by a fungus and results in black or purple spots on leaves? | Rose black spot | Tobacco mosaic disease | Measles | Malaria | Rose black spot is a fungal disease that reduces photosynthesis.
+MC | 2 | How is rose black spot spread? | By wind and water | By mosquitoes | By direct contact with people | Through food | Spores spread from plant to plant by wind and water.
+MC | 3 | How can rose black spot be treated? | By using fungicides and removing infected leaves | By using antibiotics and covering the leaves | By vaccinating the plants against the fungus | By using mosquito nets around the plants | Fungicides and removing affected leaves control the spread.
+SA | 1 | Name the insect that spreads the protist that causes malaria. (one word) | mosquito | The mosquito spreads the malarial protist from person to person.
+SA | 2 | What type of chemical is used to treat fungal plant diseases? (one word) | fungicide | Fungicides kill fungi.
+
+lesson: 3.5 - Immune System & Defences
+MC | 1 | Which of these is a non-specific defence of the human body? | Skin | Antibodies | Vaccines | Antibiotics | Skin acts as a barrier to pathogens. It is non-specific.
+MC | 2 | What do white blood cells do to pathogens? | They ingest them and produce antibodies and antitoxins | They carry oxygen and release it near the pathogens | They clot the blood to trap pathogens in a wound | They make glucose that the pathogens use as food | White blood cells defend the body in three ways: phagocytosis, antibodies and antitoxins.
+MC | 2 | What is phagocytosis? | White blood cells engulfing and digesting pathogens | A cell dividing into two identical cells | A cell making glucose using light energy | Blood forming a clot over a wound | Phagocytes ingest pathogens and destroy them.
+MC | 2 | What is an antibody? | A protein that binds to a specific antigen on a pathogen | A type of virus that attacks and destroys the bacteria in the blood | A type of bacterium that lives in the blood and makes toxins | A drug that kills bacteria inside the body without harming healthy cells | Antibodies are specific to a particular antigen.
+MC | 2 | What do antitoxins do? | They neutralise toxins made by pathogens | They kill bacteria by bursting their cell walls | They carry oxygen around the body in the blood | They destroy the antibodies made by white blood cells | Antitoxins neutralise the poison released by pathogens.
+MC | 3 | Why can the body recognise the same pathogen quickly if it infects again? | Memory cells are produced and make the right antibodies quickly | The pathogens become weaker each time they infect | The skin becomes thicker after the first infection | The antibodies from the first infection become stronger | Memory cells remember the antigen so the immune response is faster.
+SA | 1 | What name is given to the molecules on the surface of a pathogen that the body recognises? (one word) | antigens | Antigens trigger the immune system to make antibodies.
+SA | 2 | What name is given to the process where white blood cells engulf pathogens? (one word) | phagocytosis | Phagocytes ingest and destroy pathogens.
+
+lesson: 3.6 - Vaccinations & Immunisation
+MC | 1 | What does a vaccine contain? | Dead or weakened forms of a pathogen | A dose of antibiotics to kill the pathogen | A painkiller to reduce the symptoms of infection | Healthy white blood cells from another person | A vaccine contains inactive pathogens that carry antigens.
+MC | 2 | How does a vaccine give protection against a disease? | It makes white blood cells produce antibodies and memory cells | It kills the pathogens directly when they enter the body | It gives you ready-made antibodies from another person | It makes your skin thicker so pathogens cannot get in | The immune system learns to recognise the antigen so it responds quickly later.
+MC | 2 | What is herd immunity? | When enough of a population are vaccinated that unvaccinated people are protected | When a whole population has been infected with a disease and has recovered from it | When every single person in the population has exactly the same antibodies | When animals as well as people have been given the vaccine so the disease cannot spread | If most people are immune, the disease cannot spread easily.
+MC | 2 | What is an advantage of vaccination? | It prevents epidemics | It cures diseases | It removes all bacteria | It stops all illness | Vaccination can prevent the spread of disease through a population.
+MC | 2 | What is a possible disadvantage of vaccination? | Some people may have a bad reaction | It always causes the disease | It makes the immune system weaker | It kills white blood cells | A small number of people have side effects, but serious ones are rare.
+MC | 3 | Why can a person not catch the disease from a vaccine that contains a dead pathogen? | The pathogen cannot reproduce | The pathogen is alive | The pathogen is stronger | The vaccine contains antibiotics | Dead or inactive pathogens cannot cause the disease.
+SA | 1 | What name is given to the protection of a whole population when most people are vaccinated? (two words) | herd immunity | Herd immunity protects those who cannot be vaccinated.
+SA | 2 | What cells remain in the blood after vaccination so that the body can respond quickly later? (two words) | memory cells | Memory cells allow a fast secondary response.
+
+lesson: 3.7 - Drugs & Medicines
+MC | 1 | What do antibiotics do? | Kill bacteria | Kill viruses | Cure all diseases | Reduce fever only | Antibiotics, such as penicillin, kill bacteria.
+MC | 1 | Which type of drug reduces pain without affecting the cause of the disease? | Painkiller | Antibiotic | Antiviral | Vaccine | Painkillers treat symptoms but do not kill pathogens.
+MC | 2 | Why is it hard to develop drugs that kill viruses? | Viruses live and reproduce inside cells | Viruses are far too large to be affected by a drug | Viruses are not alive so they can never be killed | Viruses are found only in plants | Drugs that kill viruses also tend to damage the host's cells.
+MC | 2 | From which plant is the heart drug digitalis originally obtained? | Foxglove | Willow | Penicillium mould | Cannabis | Digitalis comes from foxgloves.
+MC | 2 | From which organism did Alexander Fleming discover penicillin? | A mould | A plant | A virus | A bacterium | Fleming noticed that the mould Penicillium killed bacteria around it.
+MC | 3 | Why is it important not to use antibiotics for viral infections? | They do not work and can lead to resistance | They make the virus stronger and harder to treat | They are too expensive to use for common infections | They damage the immune system and cause allergies | Misuse of antibiotics increases antibiotic resistance.
+SA | 1 | Which drug, discovered by Alexander Fleming, was the first antibiotic? (one word) | penicillin | Fleming discovered penicillin from a mould.
+SA | 2 | What name is given to drugs that kill bacteria? (one word) | antibiotics | Antibiotics are used to treat bacterial infections.
+
+lesson: 3.8 - Developing New Medicines
+MC | 1 | What are the three stages of drug testing? | Preclinical testing, clinical trials, then approval | Clinical trials, preclinical testing, then approval | Approval, preclinical testing, then clinical trials | Preclinical testing, approval, then clinical trials | New drugs are tested for safety and effectiveness before use.
+MC | 2 | Why are new drugs tested in the laboratory on cells and tissues before human trials? | To test for toxicity and efficacy | To make a profit before human trials begin | To advertise the drug to doctors and patients | To produce more of the drug for later use | Preclinical trials check safety and if the drug works.
+MC | 2 | In clinical trials, what is a placebo? | A treatment that looks like the drug but has no active ingredient | A stronger dose of the drug used to compare results | A type of antibiotic used when the drug fails | A new drug that has not yet been tested on humans | Placebos help to see if the drug itself works.
+MC | 2 | What is a double-blind trial? | Neither the patient nor the doctor knows who has the drug or the placebo | Only the patient knows which treatment they are getting | Only the doctor knows which treatment each patient is getting | Both the patient and the doctor know which treatment is given | Double-blind trials reduce bias.
+MC | 2 | Why are low doses used first in clinical trials on healthy volunteers? | To test for safety | To test for effectiveness only | To save money | To get a faster result | Low doses are given first to check the drug is safe.
+MC | 3 | Why do scientists publish their results and have them checked by other scientists? | Peer review makes sure the results are valid | So the scientists can make money from the results | So the drug can be advertised to patients | So any unexpected results can be kept hidden | Peer review checks that the methods and conclusions are sound.
+SA | 1 | What name is given to a treatment with no active drug used in trials? (one word) | placebo | A placebo is a dummy treatment.
+SA | 2 | What process is used so other scientists check a trial before it is published? (two words) | peer review | Peer review helps make sure the findings are reliable.
+
+lesson: 3.9 - Monoclonal Antibodies
+MC | 1 | What are monoclonal antibodies? | Identical antibodies that are all specific to one antigen | Antibodies made by many different types of cell | A type of bacterium that produces antibodies | A type of antibiotic that kills many bacteria | Monoclonal antibodies are produced from a single clone of cells.
+MC | 2 | Which cells are fused to make hybridoma cells? | Lymphocytes and tumour cells | Red cells and white cells | Bacteria and viruses | Nerve cells and muscle cells | A hybridoma divides rapidly and makes the antibody.
+MC | 2 | How can monoclonal antibodies be used in diagnosis? | They can be used in pregnancy tests | They can cure infections | They can kill bacteria | They can replace antibiotics | Monoclonal antibodies bind to specific molecules in a test.
+MC | 2 | How can monoclonal antibodies treat cancer? | They can carry a drug directly to cancer cells | They kill every cell they come into contact with | They make tumours bigger by stimulating cell division | They stop the immune system attacking the tumour | Antibodies bind to antigens on cancer cells and deliver a toxic drug.
+MC | 2 | Why do monoclonal antibodies lead to fewer side effects in cancer treatment? | They target cancer cells and not healthy cells | They work on every type of cell in the body | They are weaker than other cancer drugs | They are broken down before they reach the tumour | The drug is delivered only to the cancer cells.
+MC | 3 | Why was the use of monoclonal antibodies less successful than first expected? | They caused more side effects than expected | They worked on every disease they were tried on | They were too cheap for companies to produce | They caused no side effects so nobody used them | Unexpected side effects limited their use.
+SA | 1 | What type of cells are fused with lymphocytes to form hybridoma cells? (one word) | tumour | Tumour cells divide quickly and help produce many antibodies.
+SA | 2 | What name is given to cells formed from fusing a lymphocyte and a tumour cell? (one word) | hybridoma | Hybridoma cells divide to produce monoclonal antibodies.
+
+lesson: 3.10 - Pregnancy Tests
+MC | 1 | Which hormone does a pregnancy test detect? | hCG | Insulin | Adrenaline | Oestrogen | hCG is found in the urine of pregnant women.
+MC | 2 | How does a pregnancy test work? | Monoclonal antibodies bind to hCG and cause a colour change | Bacteria in the test strip break down hCG and release a dye | Antibiotics in the strip kill bacteria in the urine | Light detects hCG as it passes through the strip | Antibodies with a coloured bead bind to hCG.
+MC | 2 | Why are monoclonal antibodies used in pregnancy tests? | They are specific to the hormone hCG | They kill any bacteria in the urine sample | They carry oxygen to the test strip | They detect every hormone in the urine | Each monoclonal antibody binds only to one antigen.
+MC | 2 | Where on a pregnancy test strip are the antibodies that bind to hCG? | On a coloured bead and fixed on the strip | In the plastic cap that covers the strip | In the handle where the test is held | In the urine that the woman produces | Antibodies are on the beads and on the strip.
+MC | 2 | What does a colour change on a pregnancy test show? | hCG has bound to the antibodies | The woman has an infection in her urine | The test strip has been damaged by water | The urine has become too concentrated | The beads bind to hCG and collect on the strip.
+MC | 3 | Why can a pregnancy test not be used by a man? | Only pregnant women produce hCG | The test is too complex for men to use | Men do not produce any urine to test | Men have much more hCG than women | hCG is produced by the placenta.
+SA | 1 | What hormone is found in the urine of a pregnant woman? (one word) | hCG | The test detects hCG.
+SA | 2 | What type of antibody is used in pregnancy tests? (one word) | monoclonal | Monoclonal antibodies are specific to hCG.
+
+lesson: 3.11 - Plant Diseases & Defences
+MC | 1 | Which mineral deficiency causes yellow leaves in plants? | Magnesium | Calcium | Potassium | Sodium | Without magnesium, chlorophyll cannot be made.
+MC | 2 | Which mineral deficiency causes stunted growth in plants? | Nitrate | Magnesium | Calcium | Iron | Nitrates are needed to make amino acids and proteins.
+MC | 2 | What is a physical plant defence? | A waxy cuticle | An antibacterial chemical | A poison | A hormone | The waxy cuticle stops pathogens entering.
+MC | 2 | What is a chemical plant defence? | Antibacterial chemicals | Thorns | A cell wall | Bark | Chemicals kill pathogens.
+MC | 2 | How do thorns help protect a plant? | They deter animals from eating it | They kill bacteria that land on the stem | They absorb light to speed up photosynthesis | They hold water for the plant to use in dry weather | Thorns are a mechanical adaptation.
+MC | 3 | Why does a lack of nitrate affect plant growth? | Plants cannot make proteins | Plants cannot make water | Plants cannot absorb light | Plants cannot make fat | Nitrate is needed to make amino acids and so proteins.
+SA | 1 | What mineral is needed to make chlorophyll? (one word) | magnesium | A lack of magnesium causes yellow leaves.
+SA | 2 | What name is given to the waxy layer on the surface of a leaf? (one word) | cuticle | The cuticle is a physical barrier to pathogens.

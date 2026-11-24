@@ -1,0 +1,42 @@
+// AQA GCSE Biology 8461, topic 4: Bioenergetics. Written for 285IQ.
+topic: Bioenergetics
+
+lesson: 4.1 - Photosynthesis
+MC | 1 | What is the word equation for photosynthesis? | Carbon dioxide + water → glucose + oxygen | Glucose + oxygen → carbon dioxide + water | Oxygen + water → glucose + carbon dioxide | Glucose → carbon dioxide + water | Plants use light energy to turn carbon dioxide and water into glucose and oxygen.
+MC | 1 | Where does photosynthesis take place in a plant cell? | Chloroplasts | Mitochondria | Nucleus | Ribosomes | Chloroplasts contain the green pigment chlorophyll.
+MC | 2 | Is photosynthesis an exothermic or an endothermic reaction? | Endothermic | Exothermic | Neither | Both | Photosynthesis takes in energy from light, so it is endothermic.
+MC | 2 | What does chlorophyll do? | It absorbs light energy | It makes carbon dioxide | It transports water | It makes proteins | Chlorophyll absorbs light, which provides the energy for photosynthesis.
+MC | 2 | Which of these is a use of the glucose made in photosynthesis? | Respiration to release energy | Making oxygen for the plant to breathe | Absorbing light for photosynthesis | Making carbon dioxide for the next cycle | Plants use glucose for respiration, to make cellulose, starch, fats and proteins.
+MC | 3 | How do plants use glucose to make proteins? | They combine it with nitrate ions from the soil to make amino acids | They combine it with oxygen from the air to make amino acids | They combine it with carbon dioxide from the air to make amino acids | They use it to make chlorophyll, which is a protein | Nitrate ions provide the nitrogen that is needed for amino acids.
+SA | 1 | What gas do plants take in for photosynthesis? (two words) | carbon dioxide | Carbon dioxide diffuses into the leaf through the stomata.
+SA | 2 | What name is given to the green substance in chloroplasts that absorbs light? (one word) | chlorophyll | Chlorophyll absorbs the light energy needed for photosynthesis.
+
+lesson: 4.2 - Factors that Affect Photosynthesis
+MC | 1 | Which of these is a limiting factor of photosynthesis? | Light intensity | Soil colour | Leaf shape only | Wind direction | Light intensity, carbon dioxide concentration and temperature can all limit photosynthesis.
+MC | 2 | What happens to the rate of photosynthesis as light intensity increases? | It increases up to a point | It always decreases | It always stays the same | It stops straight away | At first more light means a faster rate, until another factor becomes limiting.
+MC | 2 | What is a limiting factor? | A factor that stops the rate of a reaction increasing | A factor that speeds up the rate of a reaction | A factor that has no effect on the rate | A type of enzyme found in the leaf | A limiting factor is in short supply and limits the rate.
+MC | 2 | Why does the rate of photosynthesis stop increasing at very high temperatures? | The enzymes are denatured | The leaf gets bigger | The chlorophyll is made faster | The carbon dioxide gets thicker | Enzymes involved in photosynthesis are denatured by high temperatures.
+MC | 3 | A graph shows the rate of photosynthesis levelling off as light intensity increases. What could be limiting the rate at this point? | Carbon dioxide concentration or temperature | Light intensity, because it is still too low | The colour of the lamp used in the experiment | The shape of the line on the graph | When light is no longer limiting, another factor limits the rate.
+MC | 3 | A farmer grows tomatoes in a greenhouse. Why might the farmer add extra carbon dioxide? | To increase the rate of photosynthesis | To decrease the temperature inside the greenhouse | To kill any pests that are feeding on the plants | To turn the leaves brown so they absorb more light | More carbon dioxide can raise the rate of photosynthesis if it is limiting.
+SA | 1 | What name is given to a factor that restricts the rate of photosynthesis? (two words) | limiting factor | Temperature, light and carbon dioxide can be limiting factors.
+SA | 2 | A lamp is moved further from a pondweed and the rate of photosynthesis falls. Which factor is changing? (two words) | light intensity | Light intensity falls with distance from the lamp, so the rate of photosynthesis decreases.
+
+lesson: 4.3 - Aerobic & Anaerobic Respiration
+MC | 1 | What is the word equation for aerobic respiration? | Glucose + oxygen → carbon dioxide + water | Carbon dioxide + water → glucose + oxygen | Glucose → lactic acid | Glucose → ethanol + carbon dioxide | Aerobic respiration uses oxygen to release energy from glucose.
+MC | 1 | Where in the cell does aerobic respiration take place? | Mitochondria | Nucleus | Cell wall | Ribosomes | Mitochondria are the site of aerobic respiration.
+MC | 2 | Is respiration an exothermic or an endothermic reaction? | Exothermic | Endothermic | Neither | Only in plants | Respiration releases energy to the surroundings.
+MC | 2 | What is made in anaerobic respiration in human muscles? | Lactic acid | Ethanol | Carbon dioxide only | Oxygen | Without enough oxygen, muscle cells make lactic acid.
+MC | 2 | What is made in anaerobic respiration in yeast? | Ethanol and carbon dioxide | Lactic acid | Water and oxygen | Glucose | Anaerobic respiration in yeast is called fermentation.
+MC | 3 | Why is anaerobic respiration less efficient than aerobic respiration? | It releases much less energy per glucose molecule | It uses more oxygen than aerobic respiration | It makes more water than aerobic respiration | It makes glucose instead of releasing energy | Glucose is not completely oxidised, so less energy is released.
+SA | 1 | What waste product is made when muscles respire anaerobically? (two words) | lactic acid | Lactic acid builds up in muscles during hard exercise.
+SA | 2 | What name is given to anaerobic respiration in yeast? (one word) | fermentation | Fermentation produces ethanol and carbon dioxide and is used to make bread and alcoholic drinks.
+
+lesson: 4.4 - Exercise
+MC | 1 | What happens to heart rate during exercise? | It increases | It decreases | It stays the same | It stops | The heart beats faster to supply muscles with oxygen and glucose.
+MC | 2 | Why does breathing rate increase during exercise? | More oxygen is needed and more carbon dioxide must be removed | Less oxygen is needed as the cells slow down | The lungs get smaller so breaths have to be faster | The blood becomes colder and needs more oxygen | Muscles respire faster during exercise.
+MC | 2 | What is the oxygen debt? | The extra oxygen needed after exercise to break down lactic acid | The oxygen used by muscles during the exercise itself | The oxygen that is left in the air after you breathe out | A shortage of carbon dioxide in the blood after exercise | After exercise you keep breathing heavily to repay the oxygen debt.
+MC | 2 | What causes muscle fatigue? | A build-up of lactic acid | A lack of carbon dioxide | Too much oxygen | Too much glucose | Lactic acid builds up in muscles and stops them contracting well.
+MC | 2 | How is lactic acid removed after exercise? | It is broken down using oxygen in the liver | It is stored in the heart until the next exercise | It is breathed out through the lungs as a gas | It is lost in sweat through the skin | The liver converts lactic acid back to glucose, which needs oxygen.
+MC | 3 | Why does the body continue to breathe quickly after exercise has finished? | To supply oxygen to break down lactic acid | To make the muscles stronger for the next exercise | To cool the lungs after they have warmed up | To increase the carbon dioxide level in the blood | The extra oxygen is needed to remove the lactic acid.
+SA | 1 | What name is given to the extra oxygen needed after exercise to remove lactic acid? (two words) | oxygen debt | The oxygen debt is repaid by continuing to breathe deeply after exercise.
+SA | 2 | What word describes muscles that become tired and stop contracting efficiently? (one word) | fatigue | Muscle fatigue is caused by lactic acid build-up.

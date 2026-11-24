@@ -1,0 +1,182 @@
+// AQA GCSE Biology 8461, topic 2: Organisation. Written for 285IQ.
+topic: Organisation
+
+lesson: 2.1 - Cells, Tissues, Organs & Organ Systems
+MC | 1 | What is a tissue? | A group of similar cells that work together to do a job | A group of different organs that work together to do a job | A single specialised cell that carries out one particular job | A group of different tissues that carry out a function | Tissues are groups of similar cells with a shared function, such as muscle tissue.
+MC | 1 | What is an organ? | A group of different tissues that work together to perform a function | A group of similar cells that work together to do a job | A group of organ systems working together in one organism | A single specialised cell with a particular function | An organ, such as the stomach, contains several tissues.
+MC | 2 | What is an organ system? | A group of organs that work together to do a job | A group of similar cells that work together to do a job | A group of tissues of the same type found in one organ | A single large organ made of identical cells | The digestive system is a group of organs working together to digest and absorb food.
+MC | 2 | Which is the correct order of organisation from smallest to largest? | Cell, tissue, organ, organ system | Tissue, cell, organ system, organ | Organ, tissue, cell, organ system | Cell, organ, tissue, organ system | Cells make tissues, tissues make organs, and organs make organ systems.
+MC | 2 | Which of these is an organ? | Stomach | Muscular tissue | Red blood cell | Digestive system | The stomach is made of muscular tissue, glandular tissue and epithelial tissue.
+MC | 3 | The pancreas makes digestive enzymes and hormones. Which level of organisation is the pancreas? | Organ | Tissue | Cell | Organ system | The pancreas is made of several tissues working together, so it is an organ.
+SA | 1 | What is the name for a group of similar cells that work together? (one word) | tissue | A tissue is a group of similar cells carrying out a particular function.
+SA | 2 | What name is given to a group of organs that work together to carry out a function? (two words) | organ system | The digestive, circulatory and nervous systems are organ systems.
+
+lesson: 2.2 - What are Enzymes
+MC | 1 | What is an enzyme? | A biological catalyst | A type of carbohydrate | A type of fat | A type of hormone | Enzymes are proteins that speed up chemical reactions without being used up.
+MC | 1 | What type of molecule is an enzyme? | Protein | Carbohydrate | Lipid | Mineral | Enzymes are made of proteins folded into a specific shape.
+MC | 2 | What is the name of the part of an enzyme where the substrate binds? | Active site | Cell membrane | Nucleus | Binding wall | The substrate fits into the enzyme's active site.
+MC | 2 | In the lock and key model, why can an enzyme only catalyse one type of reaction? | The shape of the active site only fits one type of substrate | The enzyme is too large to fit other substrates | The enzyme changes its shape for every substrate | The substrate is always a protein | The active site has a specific shape that matches only certain substrates.
+MC | 2 | What is a catalyst? | A substance that speeds up a reaction without being used up | A substance that is used up as it speeds up a reaction | A substance that slows a reaction down but is not used up | A substance that only works at very high temperatures | Catalysts increase the rate of reaction and are unchanged at the end.
+MC | 2 | What is the substrate in an enzyme-controlled reaction? | The molecule that the enzyme acts on | The enzyme that speeds up the reaction in the cell | The new molecule that is made at the end of the reaction | The energy needed to start the reaction off | The substrate binds to the active site and is changed into the products.
+SA | 1 | What name is given to the part of an enzyme that the substrate fits into? (two words) | active site | The substrate binds to the active site of the enzyme.
+SA | 2 | What name is given to a substance that speeds up a reaction but is not used up? (one word) | catalyst | Enzymes are biological catalysts.
+
+lesson: 2.3 - Factors Affecting Enzyme Action
+MC | 2 | What happens to most enzymes if the temperature gets too high? | The active site changes shape and the enzyme becomes denatured | The enzyme works faster and faster as the temperature rises | The enzyme turns into a substrate and is used up | The active site becomes larger so more substrate fits | High temperatures break the bonds that hold the enzyme's shape.
+MC | 2 | What does the word 'denatured' mean? | The shape of the active site has changed so the substrate no longer fits | The enzyme has been used up in the reaction and cannot be reused | The active site has become larger so the substrate fits more easily | The enzyme has become a catalyst for a different reaction | A denatured enzyme can no longer catalyse the reaction.
+MC | 2 | What happens to the rate of an enzyme-controlled reaction as temperature increases up to the optimum? | It increases | It decreases | It stays the same | It stops | More collisions happen between enzyme and substrate as temperature rises.
+MC | 2 | What is the optimum pH of the enzyme pepsin, which works in the stomach? | About pH 2 | About pH 7 | About pH 9 | About pH 12 | Pepsin works best in acidic conditions in the stomach.
+MC | 3 | An enzyme works fastest at 37 °C. Why does the reaction slow down at 60 °C? | The enzyme is denatured | The substrate is used up | The enzyme is a different molecule | There are fewer collisions | At 60 °C the enzyme's shape changes and the substrate no longer fits the active site.
+MC | 2 | What is meant by the optimum pH of an enzyme? | The pH at which it works fastest | The pH at which it stops working | The pH of the substrate | The pH of water | Each enzyme has a pH at which its rate of reaction is greatest.
+SA | 1 | What word describes an enzyme whose active site has changed shape so it no longer works? (one word) | denatured | High temperatures or extreme pH can denature an enzyme.
+SA | 2 | What name is given to the temperature or pH at which an enzyme works fastest? (one word) | optimum | The optimum is the condition at which the enzyme's rate of reaction is greatest.
+
+lesson: 2.4 - Balanced Diet (Nutrients)
+MC | 1 | Which nutrient is needed for growth and repair? | Protein | Fibre | Water | Vitamin C | Proteins are used to build new cells and repair damaged tissue.
+MC | 1 | Which nutrient is the body's main source of energy? | Carbohydrates | Vitamins | Minerals | Fibre | Carbohydrates are broken down to glucose, which is used in respiration.
+MC | 2 | Why does the body need fibre? | It helps food move through the gut | It provides most of the energy the body needs | It is used to build and repair muscle tissue | It carries oxygen around the body in the blood | Fibre adds bulk so food passes easily through the digestive system.
+MC | 2 | Which mineral ion is needed to make haemoglobin? | Iron | Calcium | Sodium | Potassium | Haemoglobin contains iron. A lack causes anaemia.
+MC | 2 | Which disease is caused by a lack of vitamin C? | Scurvy | Rickets | Anaemia | Night blindness | Vitamin C deficiency causes scurvy.
+MC | 2 | What is a balanced diet? | A diet that contains the right amount of each nutrient | A diet that contains only protein and carbohydrates | A diet that contains no fat of any kind | A diet that contains only fruit and vegetables | A balanced diet supplies all nutrients in the correct amounts.
+SA | 1 | Which nutrient, found in dairy foods, is needed for strong teeth and bones? (one word) | calcium | Calcium is needed to build strong bones and teeth.
+SA | 2 | What name is given to a condition caused by lack of iron that leaves a person tired and pale? (one word) | anaemia | Without enough iron the body cannot make enough haemoglobin.
+
+lesson: 2.5 - Biological Molecules
+MC | 1 | Which molecules are made when carbohydrates are fully digested? | Simple sugars such as glucose | Amino acids that are used to make proteins | Fatty acids and glycerol that are used to make lipids | Starch that is stored in the liver | Carbohydrates are made of sugar units, so they break down to simple sugars.
+MC | 2 | What are proteins made from? | Amino acids | Simple sugars | Fatty acids and glycerol | Nucleotides | Proteins are long chains of amino acids.
+MC | 2 | What are lipids made from? | Fatty acids and glycerol | Amino acids | Simple sugars | Starch | One molecule of glycerol joins with three fatty acids.
+MC | 2 | Which of these is a carbohydrate that plants use to store energy? | Starch | Protein | Lipid | Glycogen | Plants store energy in starch. Animals store it in glycogen.
+MC | 2 | Which of these is a function of lipids in the body? | Energy storage and insulation | Speeding up chemical reactions | Carrying oxygen in the blood | Building muscle only | Fat stores energy and insulates the body.
+MC | 3 | Starch is a long chain made of many smaller units. What are these units? | Glucose | Amino acids | Fatty acids | Glycerol | Starch is a polymer of glucose.
+SA | 1 | What are the units that make up a protein? (two words) | amino acids | Proteins are long chains of amino acids.
+SA | 2 | Which molecule joins with fatty acids to make a lipid? (one word) | glycerol | A lipid is made from one glycerol and three fatty acids.
+
+lesson: 2.6 - Digestive Enzymes
+MC | 1 | Which enzyme breaks down starch? | Amylase | Protease | Lipase | Lactase | Amylase digests starch into simple sugars.
+MC | 1 | Which enzyme breaks down proteins into amino acids? | Protease | Amylase | Lipase | Bile | Protease digests proteins.
+MC | 2 | Which enzyme breaks down lipids? | Lipase | Amylase | Protease | Pepsin | Lipase breaks lipids into fatty acids and glycerol.
+MC | 2 | What is the function of bile? | To neutralise stomach acid and emulsify fats | To digest proteins into amino acids in the stomach | To break starch down into simple sugars | To absorb water from undigested food | Bile is alkaline and breaks fat into small droplets, giving a larger surface area for lipase.
+MC | 2 | Where is bile made? | Liver | Stomach | Pancreas | Small intestine | Bile is made in the liver and stored in the gall bladder.
+MC | 3 | Why does bile make fat digestion faster? | Emulsifying fat gives a larger surface area for lipase to work on | Bile is an enzyme that breaks lipids into fatty acids | Bile makes the stomach more acidic so lipase works | Bile stops lipase working so fat is absorbed whole | Large fat droplets are broken into small ones, increasing the surface area.
+SA | 1 | Lipase breaks lipids down into glycerol and which other product? (two words) | fatty acids | Lipase breaks lipids into fatty acids and glycerol.
+SA | 2 | What gland makes amylase, protease and lipase and releases them into the small intestine? (one word) | pancreas | The pancreas makes digestive enzymes that are released into the small intestine.
+
+lesson: 2.7 - Digestive System
+MC | 1 | Where does most digestion and absorption of food take place? | Small intestine | Stomach | Large intestine | Mouth | Digestion is completed and food is absorbed in the small intestine.
+MC | 1 | What is the function of the large intestine? | To absorb water | To digest proteins | To make bile | To absorb most nutrients | The large intestine absorbs water from undigested food.
+MC | 2 | What does the stomach do to food? | It churns it and adds acid and protease | It absorbs glucose and amino acids into the blood | It makes bile to emulsify fats | It absorbs water from undigested food | The stomach muscles mix food with pepsin and hydrochloric acid.
+MC | 2 | Which organ makes bile? | Liver | Pancreas | Stomach | Gall bladder | Bile is made in the liver and stored in the gall bladder.
+MC | 2 | What is the function of the oesophagus? | To carry food from the mouth to the stomach | To digest protein using protease before it reaches the stomach | To absorb water from the food as it passes through | To store bile until it is needed to digest fat | Muscles squeeze food down the oesophagus.
+MC | 3 | Why is the stomach acidic? | The acid kills bacteria and gives the right pH for stomach protease | The acid digests starch into simple sugars so they can be absorbed quickly | The acid makes bile in the liver so that fats can be emulsified more easily | The acid absorbs nutrients into the blood through the wall of the stomach | Hydrochloric acid kills microbes and provides the optimum pH for protease.
+SA | 1 | What name is given to the muscular movement that pushes food along the gut? (one word) | peristalsis | Peristalsis is a wave of muscle contraction that moves food along the digestive system.
+SA | 2 | In which organ is food stored and mixed with acid and enzymes? (one word) | stomach | The stomach churns food with acid and enzymes.
+
+lesson: 2.8 - Food Tests (Practical)
+MC | 1 | Which solution is used to test for starch? | Iodine solution | Benedict's solution | Biuret solution | Ethanol | Iodine turns from orange-brown to blue-black if starch is present.
+MC | 1 | What colour does iodine solution turn if starch is present? | Blue-black | Brick red | Purple | Cloudy white | A blue-black colour shows starch is present.
+MC | 2 | Which solution is used to test for sugars? | Benedict's solution | Iodine solution | Biuret solution | Ethanol | Benedict's solution is heated with the food sample to test for sugars.
+MC | 2 | What colour is a positive result for sugar with Benedict's solution after heating? | Green, yellow or brick red | Blue-black | Purple | Clear | The colour changes from blue to green, yellow or brick red, depending on how much sugar is present.
+MC | 2 | What does a purple colour with Biuret solution show? | Protein is present | Starch is present | Sugar is present | Lipid is present | Biuret solution turns from blue to purple if protein is present.
+MC | 3 | A food sample is mixed with ethanol and then poured into water. The mixture turns cloudy. What is present? | Lipid | Protein | Sugar | Starch | In the ethanol emulsion test, a cloudy white emulsion shows lipids are present.
+SA | 1 | Which food group is shown by a blue-black colour with iodine? (one word) | starch | Starch turns iodine solution blue-black.
+SA | 2 | Which food group is shown by a purple colour with Biuret solution? (one word) | protein | Biuret solution turns purple when protein is present.
+
+lesson: 2.9 - Lungs & Gas Exchange
+MC | 1 | Which gas passes from the alveoli into the blood? | Oxygen | Carbon dioxide | Nitrogen | Water vapour only | Oxygen diffuses from the alveoli into the blood.
+MC | 1 | Which tube carries air from the mouth and nose towards the lungs? | Trachea | Bronchiole | Oesophagus | Aorta | Air passes down the trachea, then into the bronchi.
+MC | 2 | What is the function of the diaphragm in breathing in? | It contracts and flattens to increase the volume of the chest | It relaxes and moves upwards to increase the volume of the chest | It contracts and moves upwards to decrease the volume of the chest | It carries oxygen from the lungs into the blood | When the diaphragm contracts and the ribs rise, the chest volume increases.
+MC | 2 | Which feature of the alveoli makes gas exchange efficient? | A large surface area with a good blood supply | A small surface area with thick walls | A large surface area with a poor blood supply | Thick walls with a good blood supply | Alveoli are very numerous and have thin walls and many capillaries.
+MC | 2 | What happens to the pressure in the chest when you breathe in? | It decreases | It increases | It stays the same | It becomes zero | The volume increases, so the pressure drops and air flows in.
+MC | 3 | Why do the alveoli have a very good blood supply? | It maintains a steep concentration gradient for oxygen and carbon dioxide | It makes the walls of the alveoli thicker so gases cross faster | It reduces the surface area so less oxygen is lost | It carries air into the lungs so the alveoli can inflate | Blood removes oxygen and brings carbon dioxide, so the gradients stay steep.
+SA | 1 | What is the name of the main tube leading from the throat to the lungs? (one word) | trachea | Air travels down the trachea to the lungs.
+SA | 2 | Which muscle below the lungs contracts when you breathe in? (one word) | diaphragm | The diaphragm contracts and flattens to draw air into the lungs.
+
+lesson: 2.10 - Circulatory System 1 - Heart
+MC | 1 | How many chambers does the human heart have? | 4 | 2 | 3 | 6 | There are two atria and two ventricles.
+MC | 2 | Which chamber pumps blood to the body? | Left ventricle | Right ventricle | Left atrium | Right atrium | The left ventricle has a thick wall to pump blood at high pressure round the body.
+MC | 2 | Which blood vessel carries blood from the heart to the lungs? | Pulmonary artery | Pulmonary vein | Aorta | Vena cava | The pulmonary artery carries deoxygenated blood to the lungs.
+MC | 2 | What is the function of the valves in the heart? | To stop blood flowing backwards | To pump blood out of the heart at high pressure | To carry oxygen from the lungs to the heart | To make new heart muscle cells when they are needed | Valves ensure blood flows in one direction only.
+MC | 2 | Which blood vessel carries oxygenated blood from the lungs to the heart? | Pulmonary vein | Pulmonary artery | Aorta | Vena cava | The pulmonary vein returns oxygenated blood to the left atrium.
+MC | 3 | Why is the wall of the left ventricle thicker than the wall of the right ventricle? | It has to pump blood around the whole body at a higher pressure | It only has to pump blood a short distance to the lungs | It holds a larger volume of blood than the right ventricle | It contains more valves than the right ventricle | The left ventricle must generate more pressure than the right to push blood around the body.
+SA | 1 | What is the name of the main artery that carries blood from the heart to the body? (one word) | aorta | The aorta carries oxygenated blood from the left ventricle.
+SA | 2 | What is the name of the natural group of cells that controls the resting heart rate? (two words) | pacemaker cells | Pacemaker cells in the right atrium control the heart rate.
+
+lesson: 2.11 - Circulatory System 2 - Blood Vessels
+MC | 1 | Which type of blood vessel carries blood away from the heart? | Artery | Vein | Capillary | Valve | Arteries carry blood away from the heart at high pressure.
+MC | 1 | Which type of blood vessel allows substances to be exchanged with body tissues? | Capillary | Artery | Vein | Aorta | Capillary walls are one cell thick, so substances diffuse across them.
+MC | 2 | How is an artery adapted to carry blood at high pressure? | It has thick, elastic and muscular walls | It has thin walls and a very wide lumen | It has valves to stop blood flowing backwards | It has walls that are only one cell thick | Thick walls with elastic fibres withstand high pressure.
+MC | 2 | Why do veins have valves? | To stop blood flowing backwards | To make the walls thicker | To allow diffusion | To increase pressure | Blood in veins is at low pressure, so valves prevent backflow.
+MC | 2 | How are capillaries adapted for exchange? | Their walls are one cell thick | They have thick walls | They have valves | They carry blood at high pressure | A one-cell-thick wall gives a short diffusion distance.
+MC | 3 | Blood flows through a vessel at low pressure and the vessel has valves and a wide lumen. What is the vessel? | Vein | Artery | Capillary | Aorta | Veins have wide lumens and valves, and carry blood to the heart at low pressure.
+SA | 1 | What name is given to the vessels that carry blood to the heart? (one word) | veins | Veins carry blood towards the heart.
+SA | 2 | What is the name of the hole in the middle of a blood vessel that blood flows through? (one word) | lumen | The lumen is the space inside a blood vessel.
+
+lesson: 2.12 - Circulatory System 3 - Blood
+MC | 1 | Which part of the blood carries oxygen? | Red blood cells | White blood cells | Platelets | Plasma | Red blood cells contain haemoglobin, which binds to oxygen.
+MC | 1 | What is the function of platelets? | To help the blood clot | To carry oxygen | To destroy pathogens | To carry hormones only | Platelets are fragments of cells that help blood clot at a wound.
+MC | 2 | Which part of the blood destroys pathogens? | White blood cells | Red blood cells | Platelets | Plasma | White blood cells ingest pathogens or produce antibodies.
+MC | 2 | What is blood plasma mostly made of? | Water | Protein | Fat | Salt | Plasma is a straw-coloured liquid that is mostly water.
+MC | 2 | What does plasma transport? | Dissolved substances such as glucose, urea and hormones | Only oxygen, which dissolves in the plasma | Only white blood cells and platelets | Only carbon dioxide on its way to the lungs | Plasma carries dissolved substances around the body.
+MC | 3 | Why do red blood cells have a biconcave shape? | It gives them a large surface area to absorb oxygen quickly | It makes them heavier so they flow more slowly | It lets them divide faster inside the blood | It allows them to contain a nucleus and mitochondria | The disc shape gives a larger surface area for oxygen to diffuse in and out.
+SA | 1 | What is the name of the liquid part of blood? (one word) | plasma | Plasma is the liquid in which blood cells are carried.
+SA | 2 | Which type of blood cell has no nucleus and contains haemoglobin? (three words) | red blood cell | Red blood cells have no nucleus, which leaves more room for haemoglobin.
+
+lesson: 2.13 - Cardiovascular Disease
+MC | 1 | What is coronary heart disease? | A disease where arteries supplying the heart muscle become blocked | A disease where the lungs become filled with fluid | A disease where the heart valves are damaged by bacteria | A disease where the liver cannot remove cholesterol | In coronary heart disease, layers of fatty material narrow the coronary arteries.
+MC | 2 | What is the purpose of a stent? | To keep a blocked artery open | To replace a heart valve | To lower blood pressure | To destroy fatty deposits | A stent is a tube placed inside an artery to keep it open.
+MC | 2 | What is the purpose of statins? | To reduce blood cholesterol | To increase heart rate | To destroy bacteria | To replace blood | Statins lower cholesterol, reducing fatty deposits in the arteries.
+MC | 2 | What is a possible disadvantage of taking statins? | They can have side effects | They cause heart disease | They are always ineffective | They stop the heart | Statins can cause side effects, such as muscle pain.
+MC | 2 | Which of these is a possible treatment for a faulty heart valve? | Replacing the valve | Taking antibiotics | Fitting a stent in the gut | Removing the lungs | A damaged valve can be replaced with a mechanical or biological valve.
+MC | 3 | Why might a patient with heart failure be given a donor heart transplant? | The heart is not working well enough to keep them alive | Their cholesterol level is too high and statins have not worked | They have a bacterial infection of the heart valves | They have a mild cold and want to improve their fitness | A transplant replaces a failing heart, but there is a risk of rejection.
+SA | 1 | What is the name of the fatty substance that can build up in the arteries? (one word) | cholesterol | Too much cholesterol can lead to fatty deposits in arteries.
+SA | 2 | What is the name of the arteries that supply the heart muscle with blood? (one word) | coronary | The coronary arteries supply the heart muscle with oxygen and glucose.
+
+lesson: 2.14 - Health & Disease
+MC | 1 | How does the World Health Organization define health? | A state of complete physical, mental and social well-being | The absence of any disease or injury in the body | Being physically fit enough to run a long distance | Having a balanced diet and taking regular exercise | Health is more than the absence of disease.
+MC | 2 | What is a communicable disease? | A disease that can be spread from person to person | A disease caused only by eating an unhealthy diet | A disease that is passed on in the genes from parents | A disease that can never be passed to anyone else | Communicable diseases are caused by pathogens.
+MC | 2 | Which of these is a non-communicable disease? | Coronary heart disease | Influenza | Malaria | Cholera | Heart disease is not caused by a pathogen and cannot be passed from person to person.
+MC | 2 | How can a disease in one organ affect another part of the body? | Poor health in one organ can cause problems elsewhere | A disease can only ever affect the organ where it started | A disease can only affect the skin and the lungs | A disease in one organ always stops the immune system working | Diseases can interact, such as a weakened immune system leading to infections.
+MC | 2 | Which can make mental health worse? | Physical illness | Regular exercise | A balanced diet | Good sleep | Physical and mental health are linked.
+MC | 3 | A person with a defective immune system catches many infections. Which statement is correct? | Disease can interact: one problem makes another more likely | Infections do not affect a person's general health | A weakened immune system protects a person from infections | Infections always cure other immune problems | A weakened immune system makes infections more likely.
+SA | 1 | What word describes a disease caused by a pathogen that can spread from person to person? (one word) | communicable | Communicable diseases are caused by pathogens.
+SA | 2 | What name is given to a disease that cannot be spread from one person to another? (one word) | non-communicable | Non-communicable diseases, such as cancer, are not infectious.
+
+lesson: 2.15 - Risk factors for Non-Communicable Disease
+MC | 1 | Which of these is a risk factor for cardiovascular disease? | Smoking | Eating fruit | Exercise | Drinking water | Smoking damages the heart and blood vessels.
+MC | 2 | Which disease is linked to obesity? | Type 2 diabetes | Malaria | Influenza | Measles | Obesity increases the risk of type 2 diabetes.
+MC | 2 | What is a risk of drinking too much alcohol? | Liver disease | Anaemia | Scurvy | Influenza | Excess alcohol damages the liver.
+MC | 2 | What effect can smoking in pregnancy have? | Low birth mass | High birth mass | Better lung development | Higher immunity | Smoking in pregnancy can reduce the baby's birth mass.
+MC | 2 | What does a correlation show? | A link between two things | That one thing causes another | That the data are wrong | That a test was fair | A correlation does not prove that one factor causes the other.
+MC | 3 | Studies show that people who smoke are more likely to get lung cancer. Which statement is the most accurate? | Smoking is a risk factor for lung cancer | Smoking always causes lung cancer | Lung cancer causes smoking | There is no link | A risk factor increases the chance of disease but does not guarantee it.
+SA | 1 | What name is given to a factor that increases the chance of developing a disease? (two words) | risk factor | Smoking, obesity and alcohol are risk factors.
+SA | 2 | What gas in cigarette smoke reduces the amount of oxygen the blood can carry? (two words) | carbon monoxide | Carbon monoxide binds to haemoglobin and reduces oxygen transport.
+
+lesson: 2.16 - Cancer
+MC | 1 | What is cancer? | Uncontrolled cell division | A disease caused by a virus | A lack of vitamins | A disease of the blood vessels | Cancer is caused by cells dividing in an uncontrolled way.
+MC | 2 | What is a tumour? | A mass of abnormal cells | A type of virus | A type of enzyme | A blood clot | Tumours form when cancer cells divide uncontrollably.
+MC | 2 | What is a benign tumour? | A tumour that stays in one place and does not spread | A tumour that spreads to other parts of the body | A tumour that is always fatal | A tumour that has no cells | Benign tumours are contained and do not invade other tissues.
+MC | 2 | What is a malignant tumour? | A tumour whose cells invade other tissues | A tumour that stays in one place | A tumour that is harmless | A type of blood cell | Malignant cells spread in the blood to form secondary tumours.
+MC | 2 | Which of these is a lifestyle risk factor for lung cancer? | Smoking | Eating vegetables | Walking | Sleep | Smoking is strongly linked to lung cancer.
+MC | 3 | Why is cancer cell spread through the blood dangerous? | Cells can form secondary tumours in other parts of the body | Cells stop dividing and the tumour shrinks away | The blood becomes stronger and carries more oxygen | The tumour is removed by the immune system | Malignant cells can travel in the blood and start new tumours elsewhere.
+SA | 1 | What word describes a tumour that spreads to other parts of the body? (one word) | malignant | Malignant tumours invade neighbouring tissues and spread.
+SA | 2 | What word describes a tumour that does not spread? (one word) | benign | Benign tumours are growths that stay in one place.
+
+lesson: 2.17 - Plant Cell Organisation
+MC | 1 | Which plant tissue carries water and mineral ions up the plant? | Xylem | Phloem | Epidermis | Palisade mesophyll | Xylem tubes carry water and mineral ions from the roots to the leaves.
+MC | 1 | Which plant tissue transports sugars around the plant? | Phloem | Xylem | Epidermis | Meristem | Phloem carries sucrose from the leaves to the rest of the plant.
+MC | 2 | What is the function of the palisade mesophyll? | To carry out photosynthesis | To absorb water | To protect the leaf | To transport sugars | Palisade cells contain many chloroplasts and are the main site of photosynthesis.
+MC | 2 | What is the function of the epidermis of a leaf? | To protect the leaf | To transport water | To make sugar | To store starch | The epidermis forms a protective covering.
+MC | 2 | What is the function of the stomata? | To allow gas exchange | To carry sugars | To absorb light | To store water | Gases enter and leave a leaf through the stomata.
+MC | 3 | What controls the opening and closing of stomata? | Guard cells | Xylem | Phloem | Meristem | Guard cells change shape to open or close the stomata.
+SA | 1 | What name is given to the tiny pores on the underside of a leaf? (one word) | stomata | Gas exchange in leaves happens through stomata.
+SA | 2 | What name is given to the cells that open and close the stomata? (two words) | guard cells | Guard cells control the size of the stomata.
+
+lesson: 2.18 - Transpiration & Translocation
+MC | 1 | What is transpiration? | The loss of water vapour from a plant's leaves | The movement of sugars in the phloem | The absorption of light | The making of glucose | Water evaporates from the leaves and is drawn up the plant.
+MC | 2 | Which factor increases the rate of transpiration? | A higher temperature | Higher humidity | Lower light intensity | No wind | Higher temperature increases evaporation and diffusion.
+MC | 2 | What is translocation? | The movement of dissolved sugars around the plant in the phloem | The movement of water up the plant in the xylem | The loss of water vapour from the leaves through the stomata | The absorption of mineral ions from the soil by active transport | Phloem transports sucrose from the leaves to growing parts.
+MC | 2 | How does low humidity affect the rate of transpiration? | It increases it | It decreases it | It has no effect | It stops it | A drier atmosphere increases the concentration gradient for water vapour.
+MC | 2 | How does a windy day affect transpiration? | It increases the rate | It decreases the rate | It has no effect | It stops transpiration | Wind carries away water vapour, keeping a steep gradient.
+MC | 3 | Why do stomata close when a plant is losing too much water? | To reduce water loss by transpiration | To increase photosynthesis | To let more carbon dioxide in | To absorb more light | Closing stomata reduces water loss.
+SA | 1 | What name is given to the transport of sugars around the plant? (one word) | translocation | Translocation moves sugars in the phloem.
+SA | 2 | Which plant tissue carries water up from the roots? (one word) | xylem | Xylem tubes carry water and mineral ions.
