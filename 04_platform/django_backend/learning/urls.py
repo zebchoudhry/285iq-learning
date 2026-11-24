@@ -4,6 +4,7 @@ from . import views
 from . import parent_dashboard_views
 from . import boss_views
 from . import game_views
+from . import session_views
 
 # Create router for ViewSets
 router = DefaultRouter()
@@ -37,6 +38,7 @@ urlpatterns = [
     path('struggle-events/', views.struggle_events, name='struggle-events'),
     path('struggle/report-stuck/', views.report_stuck, name='report-stuck'),
     path('mission/', views.mission, name='mission'),
+    path('today/', session_views.daily_session, name='daily-session'),
     path('loop-metrics/', views.loop_metrics, name='loop-metrics'),
     path('loop-metrics/summary/', views.loop_metrics_summary, name='loop-metrics-summary'),
     path('leaderboard/', views.leaderboard, name='leaderboard'),

@@ -24,6 +24,7 @@ def health_check(request):
         status=status_code,
     )
 from learning.boss_views import boss_page
+from learning.session_views import today_page
 from learning.game_views import game_play_page, games_hub_page
 from learning.views import frontend_view, lessons_page, quiz_page, parent_dashboard_page, revision_planner_page, mock_tests_page, subjects_page, flashcards_page, mistakes_page, mistake_retry_page, exam_readiness_page, subject_detail_page
 from learning.billing_views import (
@@ -64,6 +65,7 @@ urlpatterns = [
     path('exam-readiness/', exam_readiness_page, name='exam_readiness_page'),
     path('mock-tests/', mock_tests_page, name='mock_tests_page'),
     path('flashcards/', flashcards_page, name='flashcards_page'),
+    path('today/', today_page, name='today_page'),
     path('mistakes/', mistakes_page, name='mistakes_page'),
     path('mistakes/retry/<int:item_id>/', mistake_retry_page, name='mistake_retry_page'),
     path('parent/<uuid:parent_access_token>/', parent_dashboard_page, name='parent_dashboard_page'),
