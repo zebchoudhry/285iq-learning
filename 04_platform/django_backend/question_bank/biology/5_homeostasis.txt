@@ -1,0 +1,182 @@
+// AQA GCSE Biology 8461, topic 5: Homeostasis and response. Written for 285IQ.
+topic: Homeostasis
+
+lesson: 5.1 - Homeostasis
+MC | 1 | What is homeostasis? | The regulation of conditions inside the body to keep them constant | The growth and repair of the cells and tissues that make up the body | The breakdown of large food molecules into smaller ones that can be absorbed | The movement of blood around the body by the heart through arteries and veins | Homeostasis keeps conditions such as temperature and blood glucose within narrow limits.
+MC | 2 | Which of these is controlled by homeostasis? | Body temperature | Hair colour | Eye colour | Height | Body temperature, blood glucose and water content are all controlled.
+MC | 2 | Why is it important to keep body temperature constant? | Enzymes work best at an optimum temperature | Cells stop dividing if the temperature rises slightly | Blood becomes too thick to flow if the temperature falls | The heart muscle can only contract at exactly 37 °C | Enzymes are denatured if the temperature is too high or too low.
+MC | 2 | What is the role of a receptor in a control system? | It detects a change in the environment | It carries out the response to a change | It processes information from the senses | It releases a hormone into the blood | Receptors detect stimuli.
+MC | 2 | What is the role of an effector? | It brings about a response | It detects a stimulus | It processes information | It stores information | Muscles and glands are effectors.
+MC | 3 | What is negative feedback? | A change that causes a response which reverses the change | A response that makes the original change even bigger | A response that has no effect on the original change | A hormone that is released only at night | Negative feedback returns conditions to the normal level.
+SA | 1 | What name is given to a change in the environment that is detected by a receptor? (one word) | stimulus | A stimulus is detected by receptors.
+SA | 2 | What name is given to muscles or glands that bring about a response? (one word) | effectors | Effectors carry out the response to a stimulus.
+
+lesson: 5.2 - The Nervous System, Synapses & Reflexes
+MC | 1 | What are the two parts of the central nervous system? | The brain and the spinal cord | The brain and the heart | The spinal cord and the nerves | The heart and lungs | The CNS is the brain and spinal cord.
+MC | 2 | What is the order of a reflex arc? | Stimulus, receptor, sensory neurone, relay neurone, motor neurone, effector, response | Stimulus, receptor, motor neurone, relay neurone, sensory neurone, effector, response | Stimulus, effector, sensory neurone, relay neurone, motor neurone, receptor, response | Stimulus, receptor, relay neurone, sensory neurone, motor neurone, effector, response | A reflex is a rapid, automatic response.
+MC | 2 | What is a synapse? | A gap between two neurones | A type of neurone | A type of hormone | A part of the brain | Synapses are the junctions between neurones.
+MC | 2 | How does an impulse cross a synapse? | Chemicals diffuse across the gap | An electrical signal jumps | Blood carries it | Air carries it | The impulse triggers the release of chemicals that diffuse across the gap.
+MC | 2 | Why are reflexes important? | They are automatic and rapid, so they protect the body | They are slow, so the brain has time to decide what to do | They are voluntary, so they depend on conscious thought | They need the cerebral cortex to coordinate the response | A reflex does not involve the conscious part of the brain.
+MC | 3 | Which type of neurone carries impulses from the CNS to an effector? | Motor neurone | Sensory neurone | Relay neurone | Synaptic neurone | Motor neurones carry impulses to muscles and glands.
+SA | 1 | What name is given to a rapid, automatic response to a stimulus? (one word) | reflex | Reflexes do not involve conscious thought.
+SA | 2 | What name is given to the gap between two neurones? (one word) | synapse | Chemicals diffuse across the synapse.
+
+lesson: 5.3 - Brain
+MC | 1 | Which part of the brain controls consciousness, intelligence, memory and language? | Cerebral cortex | Cerebellum | Medulla | Spinal cord | The cerebral cortex is responsible for higher functions.
+MC | 1 | Which part of the brain controls muscle coordination? | Cerebellum | Cerebral cortex | Medulla | Retina | The cerebellum controls balance and coordination.
+MC | 2 | Which part of the brain controls unconscious activities such as breathing and heart rate? | Medulla | Cerebral cortex | Cerebellum | Spinal cord | The medulla controls automatic functions.
+MC | 2 | Why is it difficult to treat brain damage and diseases? | The brain is complex and delicate | The brain is large | The brain has no blood | The brain is not made of cells | Treating the brain is difficult as it is so delicate and complex.
+MC | 2 | How have scientists mapped the brain regions? | By studying patients with damaged brains and using MRI | By removing parts of the brain from healthy volunteers | By taking X-rays of the skull to see the brain's surface | By measuring the size of the skull and comparing it | Studying damage and scanning have shown what regions do.
+MC | 3 | A patient has damage to the cerebellum. Which problem is the most likely? | Poor coordination of movement | Loss of the ability to see | Loss of the ability to speak and understand language | The heart and breathing stop | The cerebellum coordinates muscles and balance.
+SA | 1 | What name is given to the outer layer of the brain that controls memory and language? (two words) | cerebral cortex | The cerebral cortex is involved in intelligence and memory.
+SA | 2 | Which part of the brain controls the heart rate and breathing rate? (one word) | medulla | The medulla controls vital unconscious functions.
+
+lesson: 5.4 - Eyes 1 - Structure of the Eye & Iris Reflex
+MC | 1 | Which part of the eye is sensitive to light? | Retina | Cornea | Iris | Lens | The retina contains light receptor cells.
+MC | 1 | Which part of the eye refracts light as it enters? | Cornea | Retina | Optic nerve | Iris | The cornea refracts light to focus it on the retina.
+MC | 2 | What does the iris do? | It controls how much light enters the pupil | It focuses light onto the retina | It detects light and sends impulses along a nerve | It carries impulses from the eye to the brain | The iris contains muscles that change the size of the pupil.
+MC | 2 | What happens to the pupil in bright light? | It gets smaller | It gets larger | It stays the same | It disappears | The pupil constricts to protect the retina.
+MC | 2 | What does the optic nerve do? | It carries impulses from the retina to the brain | It focuses light from the cornea onto the retina at the back of the eye | It controls the size of the pupil so that the right amount of light enters | It detects light and colour and converts them into electrical impulses | The optic nerve carries visual information to the brain.
+MC | 3 | The circular muscles of the iris contract. What happens? | The pupil gets smaller | The pupil gets larger | The lens gets thicker | The lens gets thinner | Contraction of the circular muscles makes the pupil smaller.
+SA | 1 | What name is given to the transparent outer layer at the front of the eye? (one word) | cornea | The cornea refracts light into the eye.
+SA | 2 | What is the name of the hole in the middle of the iris? (one word) | pupil | Light enters the eye through the pupil.
+
+lesson: 5.5 - Eyes 2 - Accommodation & Visual Defects
+MC | 1 | What does accommodation mean? | The eye changing the shape of the lens to focus on near or distant objects | The eye detecting light and sending impulses to the brain | The pupil changing size in bright or dim light | The eye making tears to keep the cornea moist | Accommodation lets the eye focus at different distances.
+MC | 2 | What happens to the ciliary muscles when looking at a near object? | They contract | They relax | They stay the same | They get longer | The ciliary muscles contract, so the suspensory ligaments loosen.
+MC | 2 | What happens to the lens when focusing on a distant object? | It becomes thinner | It becomes thicker | It disappears | It moves | The ciliary muscles relax and the suspensory ligaments tighten, making the lens thin.
+MC | 2 | What is myopia? | Short-sightedness: distant objects look blurred | Long-sightedness: near objects look blurred | Colour blindness: some colours cannot be told apart | Night blindness: dim objects cannot be seen | Short-sighted people cannot focus on distant objects.
+MC | 2 | How is short-sightedness corrected? | A concave lens | A convex lens | A mirror | A prism | A concave lens spreads the light rays before they enter the eye.
+MC | 3 | What is hyperopia? | Long-sightedness: near objects look blurred | Short-sightedness: distant objects look blurred | Colour blindness: some colours cannot be told apart | Cataracts: the lens becomes cloudy | Long-sighted people cannot focus on near objects.
+SA | 1 | What type of lens is used to correct long-sightedness? (one word) | convex | A convex lens converges light so it focuses on the retina.
+SA | 2 | What word means the eye's ability to change focus? (one word) | accommodation | Accommodation is carried out by the ciliary muscles and lens.
+
+lesson: 5.6 - Thermoregulation
+MC | 1 | Which part of the brain monitors and controls body temperature? | Hypothalamus | Cerebellum | Medulla | Cerebral cortex | The thermoregulatory centre in the hypothalamus controls temperature.
+MC | 1 | What is the normal core body temperature? | About 37 °C | About 25 °C | About 50 °C | About 10 °C | Our body temperature is kept at about 37 °C.
+MC | 2 | What happens when the body is too hot? | Sweat is produced and blood vessels dilate | Shivering starts and blood vessels dilate | Sweat is produced and blood vessels constrict | Hairs stand up and blood vessels constrict | Sweating cools the skin as it evaporates and vasodilation loses heat.
+MC | 2 | What happens when the body is too cold? | Shivering and blood vessels constrict | Sweating and blood vessels constrict | Shivering and blood vessels dilate | Sweating and blood vessels dilate | Shivering warms the body and vasoconstriction reduces heat loss.
+MC | 2 | What is vasodilation? | Blood vessels near the skin widen | Blood vessels near the skin narrow | The heart beats faster | The body makes sweat | More blood flows near the skin surface, so more heat is lost.
+MC | 3 | Why does sweating cool the body? | Evaporation of sweat takes energy from the skin | Sweat is cold so it cools the blood directly | Sweat reduces the flow of blood to the skin | Sweat makes the hairs on the skin stand up | Evaporation needs energy, which comes from the body.
+SA | 1 | What name is given to the narrowing of blood vessels near the skin? (one word) | vasoconstriction | Vasoconstriction reduces heat loss.
+SA | 2 | What muscle action warms the body when it is cold? (one word) | shivering | Shivering releases heat from respiration in the muscles.
+
+lesson: 5.7 - Endocrine System
+MC | 1 | What are hormones? | Chemical messengers carried in the blood | Electrical signals carried along neurones | Chemical catalysts that speed up reactions | Cells that carry messages to the brain | Hormones are secreted by glands and travel in the blood.
+MC | 2 | Which gland is called the master gland? | Pituitary gland | Thyroid gland | Pancreas | Adrenal gland | The pituitary gland produces hormones that control other glands.
+MC | 2 | Where is insulin produced? | Pancreas | Liver | Pituitary gland | Thyroid gland | The pancreas produces insulin and glucagon.
+MC | 2 | Which gland produces adrenaline? | Adrenal gland | Thyroid gland | Pituitary gland | Ovary | The adrenal glands sit above the kidneys.
+MC | 2 | How does the effect of the nervous system compare to the endocrine system? | Nervous responses are faster and shorter lasting | Nervous responses are slower and last longer | They are identical | Hormones are faster | Hormones act more slowly but their effects last longer.
+MC | 3 | Why do hormones only affect certain target organs? | Only target organs have the right receptors | Hormones only travel to certain places | Blood vessels block them | They are too slow | Target cells have receptors that fit the hormone.
+SA | 1 | What name is given to the organs that release hormones? (one word) | glands | Glands secrete hormones into the blood.
+SA | 2 | Which gland, found in the neck, produces thyroxine? (one word) | thyroid | The thyroid gland produces thyroxine.
+
+lesson: 5.8 - Regulating Glucose
+MC | 1 | Which organ monitors and controls blood glucose concentration? | Pancreas | Liver | Heart | Kidney | The pancreas detects glucose and releases hormones.
+MC | 2 | What happens when blood glucose is too high? | Insulin is released and glucose moves into cells | Glucagon is released and glycogen is broken down | Adrenaline is released and glucose moves out of cells | The liver stops making glycogen and the pancreas stops working | Insulin lowers blood glucose.
+MC | 2 | What does insulin cause the liver to do? | Convert glucose to glycogen | Convert glycogen to glucose | Make glucagon | Make adrenaline | Glycogen is stored in the liver and muscles.
+MC | 2 | What happens when blood glucose is too low? | Glucagon is released and glycogen is converted to glucose | Insulin is released and glucose is converted to glycogen | Glucagon is released and glucose is converted to glycogen | Insulin is released and glycogen is converted to glucose | Glucagon raises blood glucose.
+MC | 2 | What type of control system keeps blood glucose constant? | Negative feedback | Positive feedback | Reflex | Digestion | Changes are reversed to return to normal.
+MC | 3 | Which two hormones work together to control blood glucose? | Insulin and glucagon | Insulin and adrenaline | Thyroxine and glucagon | FSH and LH | Insulin lowers and glucagon raises blood glucose.
+SA | 1 | What hormone lowers blood glucose concentration? (one word) | insulin | Insulin causes glucose to be taken into cells and stored.
+SA | 2 | What carbohydrate is glucose stored as in the liver? (one word) | glycogen | Glucose is stored as glycogen.
+
+lesson: 5.9 - Diabetes
+MC | 1 | What happens in type 1 diabetes? | The pancreas does not produce enough insulin | The body cells do not respond to insulin | The liver makes too much insulin | The kidneys stop working | Type 1 diabetes is treated with insulin injections.
+MC | 2 | What is type 2 diabetes? | Body cells no longer respond to insulin | The pancreas stops making any insulin | The liver stores too much glycogen | The kidneys cannot remove glucose from the blood | Type 2 is linked to obesity and may be treated with diet and exercise.
+MC | 2 | How is type 1 diabetes treated? | Insulin injections | Antibiotics | Surgery | Vaccination | Insulin injections replace the missing hormone.
+MC | 2 | Which risk factor is linked to type 2 diabetes? | Obesity | Smoking | Vaccination | Exercise | Obesity increases the risk of type 2 diabetes.
+MC | 2 | How can type 2 diabetes be controlled? | A carbohydrate-controlled diet and regular exercise | Daily insulin injections and a high-sugar diet | A course of antibiotics and plenty of rest | Regular painkillers and a high-fat diet | Diet and exercise help control type 2 diabetes.
+MC | 3 | Why does a person with type 1 diabetes need to inject insulin and eat a controlled diet? | To keep blood glucose levels within safe limits | To stop the pancreas making too much insulin | To raise the body's core temperature | To fight infections caused by bacteria | Insulin and diet together control blood glucose.
+SA | 1 | Which type of diabetes is treated with insulin injections? (give a number) | 1 | Type 1 diabetes requires insulin.
+SA | 2 | Which type of diabetes is linked to obesity? (give a number) | 2 | Type 2 diabetes is often linked to obesity.
+
+lesson: 5.10 - Kidneys 1 - Overview & ADH
+MC | 1 | What is the function of the kidneys? | To filter the blood and remove urea | To digest food and absorb nutrients | To make bile to break down fats | To pump blood around the body | The kidneys filter waste and control water balance.
+MC | 1 | What waste substance is made in the liver and removed by the kidneys? | Urea | Glucose | Oxygen | Haemoglobin | Urea is made from excess amino acids.
+MC | 2 | What does ADH do? | It controls how much water the kidneys reabsorb | It controls the level of glucose in the blood | It controls the temperature of the body | It controls the speed of the heart | ADH makes the kidney tubules more permeable to water.
+MC | 2 | Where is ADH released from? | Pituitary gland | Pancreas | Kidney | Thyroid | The pituitary releases ADH into the blood.
+MC | 2 | What happens to ADH levels if the blood is too concentrated? | They increase | They decrease | They stay the same | They stop | More ADH means more water is reabsorbed.
+MC | 3 | Why does a person produce small amounts of concentrated urine on a hot day? | More ADH is released so more water is reabsorbed | Less ADH is released so less water is reabsorbed | More ADH is released so less water is reabsorbed | The kidneys stop working until the body is cool | Sweating reduces water in the blood, so ADH increases.
+SA | 1 | What waste product is removed from the blood by the kidneys? (one word) | urea | Urea is excreted in urine.
+SA | 2 | What hormone controls water reabsorption in the kidneys? (one word) | ADH | ADH controls water balance.
+
+lesson: 5.11 - Kidneys 2 - Anatomy & Nephrons
+MC | 1 | What is the name of the tube that carries urine from the kidney to the bladder? | Ureter | Urethra | Renal artery | Aorta | The ureter carries urine to the bladder.
+MC | 2 | Which substances are filtered out of the blood in the nephron? | Water, urea, glucose and ions | Red blood cells and proteins | Oxygen only | Platelets | Small molecules are filtered out.
+MC | 2 | Which substances are reabsorbed in the nephron? | All glucose, some ions and water | Urea, some ions and water | Red blood cells, glucose and some ions | Proteins, urea and water | Useful substances are reabsorbed into the blood.
+MC | 2 | Which structure stores urine? | Bladder | Kidney | Ureter | Liver | The bladder stores urine before it is released.
+MC | 2 | Which blood vessel brings blood to the kidney? | Renal artery | Renal vein | Aorta | Vena cava | The renal artery carries blood to the kidney.
+MC | 3 | Why is glucose not normally found in urine? | It is all reabsorbed into the blood | It is destroyed in the kidney | It is changed into urea in the nephron | It is stored in the kidney until it is needed | All glucose is selectively reabsorbed.
+SA | 1 | What name is given to the tube that carries urine out of the body? (one word) | urethra | The urethra carries urine out of the body.
+SA | 2 | What is the name of the filtering unit of the kidney? (one word) | nephron | Each kidney contains thousands of nephrons.
+
+lesson: 5.12 - Kidneys 3 - Dialysis & Transplants
+MC | 1 | What is dialysis? | A treatment that filters the blood when kidneys fail | A type of surgery that removes a damaged kidney | A drug that helps the kidneys make more urine | A vaccine that protects the kidneys from infection | Dialysis removes waste from the blood.
+MC | 2 | In a dialysis machine, why is the dialysis fluid the same concentration of glucose as normal blood? | So that glucose does not diffuse out of the blood | So that urea stays in the blood and is not removed from it | So that water diffuses into the blood and dilutes it | So that proteins leave the blood and are lost in the fluid | The fluid has the same glucose concentration so useful substances are kept.
+MC | 2 | What is an advantage of a kidney transplant compared with dialysis? | The patient does not need regular dialysis | There is no risk of the kidney being rejected | The operation is always successful | There is never a shortage of donors | A transplant allows a normal life.
+MC | 2 | What is a disadvantage of a kidney transplant? | The body may reject the kidney | The kidney cures all diseases | No drugs are needed | It is quick | Patients take drugs to prevent rejection.
+MC | 2 | How does dialysis remove urea from the blood? | Urea diffuses into the dialysis fluid | Urea is digested by enzymes in the machine | Urea is absorbed by the dialysis membrane | Urea is changed into glucose in the machine | Urea moves down a concentration gradient into the fluid.
+MC | 3 | Why must a kidney transplant patient take drugs for the rest of their life? | To stop the immune system rejecting the new kidney | To make the new kidney grow larger so that it can filter more blood | To replace the need to drink water while the new kidney recovers | To stop the new kidney making urea, which would harm the patient | Drugs suppress the immune system so the donor kidney is not attacked.
+SA | 1 | Which blood vessel brings blood to the kidney from the aorta? (two words) | renal artery | The renal artery carries blood to the kidney to be filtered.
+SA | 2 | What is the name of the machine that cleans blood when the kidneys fail? (one word) | dialysis | A dialysis machine removes waste substances.
+
+lesson: 5.13 - Reproductive Hormones - Puberty & Menstrual Cycle
+MC | 1 | Which hormone is the main male sex hormone? | Testosterone | Oestrogen | Progesterone | FSH | Testosterone is produced by the testes.
+MC | 1 | Which hormone is the main female sex hormone? | Oestrogen | Testosterone | Insulin | ADH | Oestrogen is produced by the ovaries.
+MC | 2 | What does FSH do? | It causes eggs to mature in the ovary | It causes ovulation | It maintains the uterus lining | It stops the cycle | FSH stimulates follicle growth.
+MC | 2 | What does LH do? | It stimulates the release of an egg | It causes the egg to mature in the ovary | It thickens the lining of the uterus | It stops ovulation happening | LH causes ovulation.
+MC | 2 | What does progesterone do? | It maintains the lining of the uterus | It causes the release of an egg from the ovary | It causes an egg to mature in the ovary | It reduces the level of oestrogen | Progesterone keeps the lining thick for pregnancy.
+MC | 3 | On which day of the 28-day cycle does ovulation usually occur? | Day 14 | Day 1 | Day 7 | Day 28 | Ovulation occurs about halfway through the cycle.
+SA | 1 | What is the name for the release of an egg from the ovary? (one word) | ovulation | Ovulation is triggered by LH.
+SA | 2 | Which hormone is produced by the pituitary gland and stimulates egg maturation? (give the abbreviation) | FSH | FSH stimulates egg maturation.
+
+lesson: 5.14 - Contraception
+MC | 1 | What is contraception? | A method of preventing pregnancy | A method of getting pregnant | A type of vaccine | A type of hormone | Contraception reduces the chance of pregnancy.
+MC | 2 | How does the oral contraceptive pill prevent pregnancy? | It stops the ovaries releasing eggs | It kills sperm in the vagina | It blocks the vagina so sperm cannot enter | It makes sperm swim more slowly | The pill contains hormones that inhibit FSH.
+MC | 2 | Which method of contraception also protects against sexually transmitted infections? | Condom | Contraceptive pill | Contraceptive implant | Injection | Condoms act as a barrier.
+MC | 2 | What is a barrier method of contraception? | A method that stops sperm reaching the egg | A method that uses hormones to stop ovulation | A method that stops the egg being released | A method that makes the lining of the uterus unsuitable | Condoms and diaphragms are barrier methods.
+MC | 2 | What is a disadvantage of the contraceptive pill? | It can have side effects | It always works | It protects against STIs | It needs no thought | Hormonal contraceptives can have side effects.
+MC | 3 | Why is spermicidal cream used with a diaphragm? | To kill or disable sperm | To block ovulation | To protect against STIs | To make the diaphragm last | The cream kills or disables sperm.
+SA | 1 | What type of contraceptive is a condom? (one word) | barrier | Condoms form a barrier between sperm and egg.
+SA | 2 | What type of contraceptive is the pill? (one word) | hormonal | The pill contains hormones.
+
+lesson: 5.15 - Fertility Treatment
+MC | 1 | Which hormones can be given to help a woman become pregnant? | FSH and LH | Insulin and glucagon | ADH and thyroxine | Testosterone | FSH and LH stimulate egg maturation and release.
+MC | 2 | What is IVF? | Fertilising eggs outside the body | Fertilising eggs inside the body | A type of surgery | A type of contraception | IVF fertilises eggs in a laboratory.
+MC | 2 | What happens after fertilisation in IVF? | Embryos are placed in the uterus | Embryos are destroyed and replaced with new ones | Embryos are injected into the ovary | Sperm are removed from the embryos | Embryos are inserted into the mother's uterus.
+MC | 2 | What is a disadvantage of IVF? | It has a low success rate and can be stressful | It is cheap and available to everyone | It always works the first time | It has no physical risks to the mother | IVF is expensive and success rates are low.
+MC | 2 | Why can fertility drugs cause multiple births? | They stimulate several eggs to mature | They damage the embryo so it splits | They stop ovulation so eggs build up | They kill sperm so fewer reach the egg | Several eggs may be released at once.
+MC | 3 | Why are hormones given before collecting eggs for IVF? | To make several eggs mature | To stop ovulation | To kill sperm | To increase blood pressure | FSH and LH cause multiple eggs to mature.
+SA | 1 | What is the abbreviation for the technique in which eggs are fertilised outside the body? | IVF | In vitro fertilisation (IVF) fertilises eggs in a laboratory.
+SA | 2 | What is the name of the stage when sperm and egg join? (one word) | fertilisation | Fertilisation is the fusing of gametes.
+
+lesson: 5.16 - Adrenaline & Thyroxine
+MC | 1 | What is adrenaline used for? | To prepare the body for fight or flight | To lower the level of glucose in the blood | To control the temperature of the body | To help the stomach digest food | Adrenaline increases heart rate and blood flow to muscles.
+MC | 2 | What effect does adrenaline have on the heart? | Increases heart rate | Decreases heart rate | No effect | Stops the heart | Adrenaline makes the heart beat faster.
+MC | 2 | What does thyroxine control? | Metabolic rate | Blood glucose | Water balance | Reproduction | Thyroxine regulates the basal metabolic rate.
+MC | 2 | How is thyroxine level controlled? | By negative feedback | By positive feedback | By nerves | By digestion | Thyroxine lowers the stimulating hormone TSH.
+MC | 2 | Which gland releases adrenaline? | Adrenal gland | Thyroid gland | Pituitary gland | Pancreas | Adrenal glands release adrenaline.
+MC | 3 | Why does adrenaline increase blood glucose? | More glucose is available for muscles to respire | It kills bacteria in the blood stream | It lowers the heart rate so energy is saved | It decreases breathing so less energy is needed | More glucose is delivered for energy.
+SA | 1 | Which hormone prepares the body for 'fight or flight'? (one word) | adrenaline | Adrenaline prepares the body for action.
+SA | 2 | Which hormone controls metabolic rate? (one word) | thyroxine | Thyroxine is made by the thyroid gland.
+
+lesson: 5.17 - Plant Hormones 1 - Auxins
+MC | 1 | What is a tropism? | Growth of a plant in response to a stimulus | A hormone that makes fruits ripen | A type of leaf adapted to catch light | A type of root that grows sideways | Tropisms are growth responses.
+MC | 2 | What is phototropism? | Growth in response to light | Growth in response to gravity | Growth in response to water | Growth in response to touch | Shoots grow towards light.
+MC | 2 | What is gravitropism? | Growth in response to gravity | Growth in response to light | Growth in response to wind | Growth in response to heat | Roots grow downwards.
+MC | 2 | Which hormone controls tropisms in plants? | Auxin | Insulin | Adrenaline | Thyroxine | Auxin controls growth.
+MC | 2 | Where does auxin accumulate in a shoot growing towards light? | On the shaded side | On the lit side | In the roots | In the leaves | Auxin on the shaded side makes cells elongate.
+MC | 3 | Why do shoots grow towards light? | Cells on the shaded side elongate faster | Cells on the lit side elongate faster | Cells on both sides stop | Auxin is destroyed | Unequal growth bends the shoot.
+SA | 1 | What name is given to growth towards light? (one word) | phototropism | Shoots show positive phototropism.
+SA | 2 | What plant hormone causes cells to elongate? (one word) | auxin | Auxin promotes cell elongation.
+
+lesson: 5.18 - Plant Hormones 2 - Commercial Uses
+MC | 1 | Which plant hormone is used to ripen fruit? | Ethene | Auxin | Gibberellin | Insulin | Ethene controls ripening.
+MC | 2 | What is auxin used for in gardening? | As rooting powder for cuttings | To kill all the weeds in a lawn | To ripen fruit while it is stored | To stop plants from flowering | Rooting powder helps cuttings grow roots.
+MC | 2 | How are gibberellins used commercially? | To end seed dormancy and promote flowering | To ripen fruit while it is being transported | To kill broad-leaved weeds in a lawn | To slow the growth of shoots and roots | Gibberellins help seeds germinate.
+MC | 2 | What is a selective weedkiller? | A weedkiller that kills only certain plants | A weedkiller that kills all plants | A fertiliser | A type of pesticide for insects | Auxin-based weedkillers affect broad-leaved weeds.
+MC | 2 | Why is ethene used to ripen fruit during transport? | Fruit can be picked unripe and ripened later | It makes the fruit rot before it reaches the shop | It stops the fruit from ripening for longer | It adds colour to the fruit without ripening it | Unripe fruit is less easily damaged.
+MC | 3 | Why can gibberellins produce seedless grapes? | They stimulate fruit growth without fertilisation | They kill the seeds as they form | They stop the plant from flowering | They increase the speed of ripening only | Gibberellins can make fruit grow without seeds.
+SA | 1 | Which gas is a plant hormone that ripens fruit? (one word) | ethene | Ethene speeds up ripening.
+SA | 2 | Which plant hormone ends seed dormancy? (one word) | gibberellin | Gibberellins stimulate germination.

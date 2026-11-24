@@ -1,0 +1,232 @@
+// AQA GCSE Biology 8461, topic 6: Inheritance, variation and evolution. Written for 285IQ.
+topic: Inheritance & Evolution
+
+lesson: 6.1 - DNA 1 - Chromosomes, Genome & Migration
+MC | 1 | Where is DNA found in a human cell? | In the nucleus | In the cell wall | In the cell membrane | In the ribosomes | Human DNA is in the nucleus, in structures called chromosomes.
+MC | 1 | How many pairs of chromosomes are in a human body cell? | 23 | 46 | 22 | 2 | A human body cell has 23 pairs of chromosomes, 46 in total.
+MC | 2 | What is the genome of an organism? | The entire genetic material of that organism | A single gene that controls one characteristic | A single chromosome from each parent | A protein made from the organism's DNA | The genome includes all of an organism's DNA.
+MC | 2 | What is a gene? | A small section of DNA that codes for a protein | A type of cell found in the nucleus that carries genetic information | A whole chromosome made of many tightly coiled DNA molecules | A type of enzyme that copies the DNA before a cell divides | Genes code for particular proteins.
+MC | 2 | Why is understanding the human genome important? | It helps to find genes linked to diseases | It makes people taller and stronger | It shows how the climate has changed over time | It cures every inherited disease straight away | It helps with searching for genes linked to disease and tracing human migration.
+MC | 3 | How has DNA evidence been used to study human migration? | By comparing genomes of different populations | By measuring the height of people in each country | By counting the number of chromosomes in each population | By looking at their cells under a microscope | Differences in DNA show how populations are related.
+SA | 1 | What name is given to a section of DNA that codes for a protein? (one word) | gene | A gene is a short section of DNA.
+SA | 2 | What is the name for all the genetic material of an organism? (one word) | genome | The genome is an organism's complete set of DNA.
+
+lesson: 6.2 - DNA 2 - Key Terms
+MC | 1 | What is an allele? | A different version of the same gene | A different type of chromosome in the nucleus | A type of cell that carries genes | A protein made from a gene | Alleles are different forms of a gene.
+MC | 2 | What does 'dominant' mean? | The allele that is expressed if present | The allele that is hidden if a second one is present | A gene that is only found in males | An allele that is lost during meiosis | A dominant allele shows even if only one copy is present.
+MC | 2 | What does 'recessive' mean? | The allele is only expressed if two copies are present | The allele is always expressed whenever it is present | The allele can never be passed on to offspring | The allele is lost during fertilisation | A recessive allele only shows in a homozygous recessive person.
+MC | 2 | What is a genotype? | The combination of alleles a person has | The way a person looks because of their genes | A type of cell that carries genes | A protein produced from a gene | Genotype means the alleles present.
+MC | 2 | What is a phenotype? | The characteristics that appear in an organism | The alleles that an organism has inherited | The number of chromosomes in each cell | A single gene on a chromosome | Phenotype is the observable characteristic.
+MC | 3 | A person has two identical alleles for a gene. What are they? | Homozygous | Heterozygous | Dominant | Recessive | Homozygous means the same alleles.
+SA | 1 | What name is given to the combination of alleles in an organism? (one word) | genotype | Genotype refers to the alleles present.
+SA | 2 | What word describes an organism with two different alleles for a gene? (one word) | heterozygous | Heterozygous means two different alleles.
+
+lesson: 6.3 - DNA 3 - Structure & How it Codes
+MC | 1 | What shape is a DNA molecule? | A double helix | A single strand | A sphere | A cube | DNA is two strands coiled into a double helix.
+MC | 2 | What are the units that make up DNA called? | Nucleotides | Amino acids | Fatty acids | Sugars | DNA is a polymer of nucleotides.
+MC | 2 | Which bases pair together in DNA? | A with T and C with G | A with C and T with G | A with G and C with T | A with A | Complementary base pairing is A-T and C-G.
+MC | 2 | What does a sequence of three bases code for? | One amino acid | One protein | One gene | One chromosome | Each triplet codes for a particular amino acid.
+MC | 2 | What is the role of DNA in a cell? | It carries the instructions to make proteins | It releases energy from glucose in respiration | It carries oxygen around the body | It stores water inside the cell | DNA's code determines the order of amino acids.
+MC | 3 | The order of bases in a gene determines which of these? | The order of amino acids in a protein | The size of the nucleus in the cell | The number of mitochondria in the cell | The temperature at which the cell works | The base sequence determines the protein's structure.
+SA | 1 | Which base pairs with adenine in DNA? (one word) | thymine | A always pairs with T.
+SA | 2 | What name is given to the shape of DNA? (two words) | double helix | DNA consists of two strands forming a double helix.
+
+lesson: 6.4 - Protein Synthesis
+MC | 1 | Where does protein synthesis happen in the cell? | Ribosomes | Nucleus | Mitochondria | Cell wall | Proteins are made at ribosomes.
+MC | 2 | What carries the code from the DNA to the ribosome? | mRNA | Haemoglobin | Insulin | Glucose | mRNA copies the gene and takes it to the ribosome.
+MC | 2 | What decides the order in which amino acids are joined together at a ribosome? | The sequence of bases in the mRNA copied from the gene | The shape of the cell membrane around the outside of the ribosome | The number of mitochondria in the cell that makes the protein | The size of the nucleus where the gene for the protein is found | The mRNA carries a copy of the gene's base sequence, and the ribosome reads it three bases at a time.
+MC | 2 | What happens to the protein chain after it is made? | It folds into a specific shape | It is destroyed once it has been made | It is copied to make more DNA | It becomes part of a chromosome | The protein folds to make a unique shape.
+MC | 2 | What determines a protein's function? | Its shape | Its colour | Its size only | Its location only | A protein's shape allows it to do its job, such as an enzyme.
+MC | 3 | Why is the order of bases in DNA important? | It determines the order of amino acids in the protein | It controls the temperature at which the cell is able to work | It determines the colour of the cell when seen under a microscope | It makes the cell larger when it is getting ready to divide | A change in the sequence can change the protein.
+SA | 1 | What type of molecule carries a copy of a gene to the ribosome? (abbreviation) | mRNA | mRNA is copied from DNA.
+SA | 2 | What are the building blocks of proteins? (two words) | amino acids | Ribosomes join amino acids together.
+
+lesson: 6.5 - Mutations
+MC | 1 | What is a mutation? | A change in the DNA sequence | A type of protein made in the nucleus | A type of cell that divides abnormally | A type of disease caused by a virus | Mutations are random changes in genes.
+MC | 2 | What can cause mutations? | Radiation and some chemicals | Eating a healthy balanced diet | Taking regular exercise | Getting plenty of sleep | Ionising radiation and chemicals can cause mutations.
+MC | 2 | What effect can a mutation have on a protein? | It can change the protein's shape | It always destroys the cell | It never has an effect | It always makes the protein better | A change in amino acids can alter the shape.
+MC | 2 | What happens to an enzyme if a mutation changes its active site? | The substrate may not fit | The enzyme works faster | The enzyme becomes DNA | Nothing | A different shape may mean the substrate no longer binds.
+MC | 3 | Why do most mutations have little or no effect? | They do not change the amino acid or the protein's function | They always cause the protein to be harmful to the organism | They always change the shape of the protein that is made | They only happen in the cell wall of the organism | Many mutations do not change the protein.
+MC | 2 | What is a possible harmful effect of a mutation? | Cancer | Improved health | Faster growth | Better vision | Mutations in genes controlling cell division can lead to cancer.
+SA | 1 | What name is given to a random change in DNA? (one word) | mutation | Mutations are changes in the base sequence.
+SA | 2 | What type of radiation can cause mutations? (one word) | ionising | Ionising radiation such as X-rays can damage DNA.
+
+lesson: 6.6 - Sexual & Asexual Reproduction
+MC | 1 | How many parents are involved in asexual reproduction? | One | Two | Three | None | Asexual reproduction needs only one parent.
+MC | 1 | What are gametes? | Sex cells | Body cells | Stem cells | Red blood cells | Gametes are sperm and egg cells.
+MC | 2 | How do offspring from asexual reproduction compare with the parent? | They are genetically identical | They are all different | They have half the chromosomes | They have double the chromosomes | Asexual reproduction produces clones.
+MC | 2 | Which cell division produces gametes? | Meiosis | Mitosis | Binary fission | Cloning | Gametes are made by meiosis.
+MC | 2 | What happens when gametes fuse? | Fertilisation | Mitosis | Meiosis | Replication | Fertilisation makes a zygote.
+MC | 3 | Why does sexual reproduction produce variation? | Offspring get a mixture of genes from both parents | Offspring are identical copies of one parent | Only one parent is involved in making offspring | The gametes are made by mitosis | Gametes contain a mixture of alleles.
+SA | 1 | What name is given to sex cells? (one word) | gametes | Sperm and egg cells are gametes.
+SA | 2 | What name is given to the cell formed when a sperm fuses with an egg? (one word) | zygote | A fertilised egg is a zygote.
+
+lesson: 6.7 - Pros & Cons of Sexual & Asexual Reproduction
+MC | 1 | What is an advantage of asexual reproduction? | It is faster and needs only one parent | It produces offspring with a lot of variation | It needs two parents to produce offspring | It needs sex cells to fuse together | Asexual reproduction is quick and efficient.
+MC | 2 | What is an advantage of sexual reproduction? | It produces variation that helps survival | It is very fast and needs only one parent | It needs only one parent to produce offspring | It produces offspring that are clones of the parent | Variation helps a species adapt to a changing environment.
+MC | 2 | What is a disadvantage of asexual reproduction? | No variation, so a disease can kill all offspring | It is slow and uses a lot of energy | It needs a mate, which can be hard to find | It uses gametes that need to meet | All offspring are clones.
+MC | 2 | What is a disadvantage of sexual reproduction? | It is slower and needs a mate | It produces offspring that are identical clones | It needs only one parent to produce offspring | It produces offspring with no variation | Finding a mate takes time and energy.
+MC | 2 | Which organism can reproduce both sexually and asexually? | Malaria parasite | Human | Dog | Elephant | Some organisms such as fungi, plants and the malarial parasite can do both.
+MC | 3 | Why can a disease wipe out a population of asexually reproducing plants? | They are genetically identical | They are all genetically different from each other | They are all too large to resist infection | They produce too many seeds | No individual has resistance.
+SA | 1 | What word describes genetically identical offspring? (one word) | clones | Asexual reproduction produces clones.
+SA | 2 | What is made by meiosis that allows sexual reproduction? (one word) | gametes | Meiosis makes sex cells.
+
+lesson: 6.8 - Meiosis
+MC | 1 | How many cells are produced by meiosis from one parent cell? | Four | Two | One | Eight | Meiosis produces four daughter cells.
+MC | 2 | How many chromosomes are in a human gamete? | 23 | 46 | 92 | 22 | Gametes have half the number of chromosomes.
+MC | 2 | How are the cells made by meiosis different from the parent cell? | They have half the chromosomes and are all different | They are identical to the parent cell | They have the same number of chromosomes as the parent | They have double the chromosomes of the parent | Meiosis halves the chromosome number.
+MC | 2 | Where does meiosis take place in humans? | In the ovaries and testes | In the heart | In the lungs | In the liver | Meiosis makes gametes in the reproductive organs.
+MC | 2 | What does fertilisation restore? | The full number of chromosomes | The number of gametes | The number of cell membranes | The number of daughter cells | Two gametes each carrying half the chromosomes fuse to restore the normal number.
+MC | 3 | Why are cells made by meiosis genetically different from each other? | The chromosomes are shuffled | They copy exactly | They are produced by mitosis | They are clones | Alleles are mixed before division.
+SA | 1 | What is the name of the type of cell division that produces gametes? (one word) | meiosis | Meiosis halves the chromosome number.
+SA | 2 | How many cells are produced by one cell dividing by meiosis? (give a number) | 4 | Meiosis produces four cells.
+
+lesson: 6.9 - Genetic Diagrams & Punnet Squares
+MC | 1 | What is a Punnett square used for? | To predict the outcome of a genetic cross | To measure the length of a DNA molecule | To count the number of cells in a tissue | To view cells under a microscope | Punnett squares show possible offspring genotypes.
+MC | 2 | Two heterozygous parents (Bb × Bb) are crossed. What proportion of offspring will be homozygous recessive (bb)? | 25% | 50% | 75% | 100% | Bb × Bb gives BB, Bb, Bb and bb, so one in four is bb.
+MC | 2 | What is the chance of a boy in each pregnancy? | 50% | 25% | 75% | 100% | Males have XY, so half of sperm carry the Y chromosome.
+MC | 2 | Which sex chromosomes does a female have? | XX | XY | YY | X only | Females have two X chromosomes.
+MC | 3 | A cross between Bb and bb gives what proportion of bb offspring? | 50% | 25% | 75% | 100% | Bb × bb gives Bb, Bb, bb and bb, so half are bb.
+MC | 2 | What is the ratio of dominant to recessive offspring in a Bb × Bb cross? | 3 : 1 | 1 : 1 | 2 : 1 | 1 : 3 | Three offspring show the dominant trait and one shows the recessive.
+SA | 1 | What is the percentage chance of a heterozygous couple having a recessive child? (give a number) | 25 | One in four offspring will be homozygous recessive.
+SA | 2 | What sex chromosomes does a male have? (two letters) | XY | Males have X and Y chromosomes.
+
+lesson: 6.10 - Family Trees
+MC | 1 | What does a family tree show? | How a characteristic is inherited | How many cells a person has | The size of genes | The temperature | Family trees show the inheritance of a trait.
+MC | 2 | In a family tree, what does a circle usually represent? | A female | A male | A gene | A disease | Circles are females and squares are males.
+MC | 2 | Two parents without a disorder have a child with the disorder. What type of allele causes it? | Recessive | Dominant | Mutated only | None | The parents are carriers, so the allele is recessive.
+MC | 2 | What is a carrier? | A person who has one copy of a recessive allele but no symptoms | A person who has two copies of a recessive allele and the disease | A virus that carries a gene into a cell | A person who is immune to all inherited disorders | Carriers are heterozygous.
+MC | 3 | A child has a disorder caused by a dominant allele. Which statement about the parents is most likely to be true? | At least one parent has the disorder | Both parents are carriers who are unaffected | Both parents are unaffected and have no copy of the allele | The child must be male | A dominant allele is always expressed, so a parent who carries it is affected.
+MC | 2 | What is the chance a child of two carriers (Cc × Cc) has the disorder? | 25% | 50% | 75% | 0% | One in four children will be cc.
+SA | 1 | What name is given to a person who has one recessive allele but is not affected? (one word) | carrier | Carriers can pass the allele to children.
+SA | 2 | What shape represents males in a family tree? (one word) | square | Squares are male and circles are female.
+
+lesson: 6.11 - Inherited Disorders & Embryo Screening
+MC | 1 | Which disorder is caused by a recessive allele and affects cell membranes in the lungs? | Cystic fibrosis | Polydactyly | Huntington's | Diabetes | Cystic fibrosis is caused by a recessive allele.
+MC | 2 | Which disorder is caused by a dominant allele and results in extra fingers or toes? | Polydactyly | Cystic fibrosis | Diabetes | Anaemia | Polydactyly is caused by a dominant allele.
+MC | 2 | What is embryo screening? | Testing embryos for genetic disorders before implantation | Treating a genetic disorder in an embryo | Making clones of an embryo in the laboratory | Growing an embryo outside the body | Embryos are checked for genetic disorders.
+MC | 2 | What is an argument against embryo screening? | It could lead to designer babies | It cures genetic disorders in embryos | It is cheap and quick to carry out | It helps parents to have healthy children | Some people object to selecting embryos.
+MC | 2 | What is an argument for embryo screening? | It prevents serious genetic disorders | It makes babies taller and stronger | It is free and has no risks | It guarantees a baby will never get ill | Screening prevents suffering.
+MC | 3 | Why do some people object to embryo screening? | Embryos that are not selected are destroyed | It makes embryos stronger than normal | It is a quick and painless procedure | It can only be used for male babies | Some believe embryos have a right to life.
+SA | 1 | Which disorder is caused by a recessive allele and affects the lungs and digestive system? (two words) | cystic fibrosis | Cystic fibrosis is an inherited disorder.
+SA | 2 | What condition has extra fingers or toes? (one word) | polydactyly | Polydactyly is caused by a dominant allele.
+
+lesson: 6.12 - Mendel
+MC | 1 | Who is known as the father of genetics? | Gregor Mendel | Charles Darwin | Alexander Fleming | Louis Pasteur | Mendel worked on pea plants.
+MC | 2 | What did Mendel use for his experiments? | Pea plants | Fruit flies | Bacteria | Mice | Mendel bred pea plants.
+MC | 2 | What did Mendel conclude about inheritance? | Characteristics are inherited as units from each parent | Characteristics blend together from both parents | Characteristics are acquired during an organism's life | Characteristics never change from one generation to the next | Mendel proposed that inheritance is by separate units, now called genes.
+MC | 2 | Why was Mendel's work not accepted at first? | Chromosomes and genes had not been observed | His results had been shown to be wrong | His experiments had been kept secret by Mendel | His work had been copied from another scientist | Scientists did not yet know about genes.
+MC | 3 | When was Mendel's work recognised? | After chromosomes were observed | While he was still alive, soon after he published it | After antibiotics were discovered | After the structure of DNA was discovered | Later scientists observed chromosomes and linked them to his units.
+MC | 3 | Mendel crossed pure-breeding tall pea plants with pure-breeding short pea plants and all the offspring were tall. What does this show about the allele for tallness? | It is dominant | It is recessive | It is a mutation | It was lost in the offspring | The allele for tallness is expressed even when a copy of the short allele is present, so tall is dominant.
+SA | 1 | What plant did Mendel breed? (one word) | pea | Mendel crossed pea plants.
+SA | 2 | What name do we now use for the 'units' of inheritance that Mendel described? (one word) | genes | Mendel's inherited 'units' are what we now call genes.
+
+lesson: 6.13 - Variation & Evolution
+MC | 1 | What is variation? | Differences between individuals | Similarities between individuals | A type of cell | A type of gene | Variation can be genetic or caused by the environment.
+MC | 2 | What causes variation? | Genes and the environment | Genes only | The environment only | Chance only | Both genetic and environmental factors cause variation.
+MC | 2 | What is evolution? | A change in inherited characteristics over many generations | A change in an individual's characteristics during its life | The division of a cell into two identical cells | A disease that spreads through a population | Evolution occurs through natural selection.
+MC | 2 | What is natural selection? | Individuals with beneficial characteristics survive and breed | All individuals survive and breed equally | The weakest individuals are the ones that survive | Nothing changes from one generation to the next | Better-adapted individuals pass on their genes.
+MC | 3 | Why can a species become extinct? | It cannot adapt to a change in environment | It adapts too well to every change in the environment | It has a large and varied gene pool | It has plenty of food and no competitors | Extinction occurs if there are no suited variants.
+MC | 2 | What word describes features that help an organism survive? | Adaptations | Mutations | Diseases | Hormones | Adaptations increase survival.
+SA | 1 | What name is given to differences between individuals? (one word) | variation | Variation may be caused by genes or environment.
+SA | 2 | What process leads to the best adapted organisms surviving? (two words) | natural selection | Natural selection drives evolution.
+
+lesson: 6.14 - Darwin, Wallace & Lamarck
+MC | 1 | Who proposed the theory of evolution by natural selection? | Charles Darwin | Gregor Mendel | Jean-Baptiste Lamarck | Louis Pasteur | Darwin published On the Origin of Species.
+MC | 2 | What was Lamarck's theory? | Characteristics acquired in life are passed on | Evolution happens by natural selection | Genes are passed on from parents to offspring | Organisms never change over time | Lamarck thought organisms change during life and pass this on.
+MC | 2 | Why was Darwin's theory not accepted immediately? | It challenged religious ideas and lacked a mechanism | It was too simple for scientists to accept | It was proved correct as soon as it was published | Nobody read the book at the time | There was little evidence for how inheritance worked.
+MC | 2 | What evidence supports Darwin's theory? | Fossils and antibiotic resistance | Rumours and opinion from other people | Chance events in single individuals | Observations made only in one organism | Fossils and resistance in bacteria support natural selection.
+MC | 3 | Which scientist independently suggested evolution by natural selection? | Alfred Russel Wallace | Gregor Mendel | Jean-Baptiste Lamarck | Robert Hooke | Wallace worked on speciation in isolated islands.
+MC | 2 | What did Wallace study? | Warning colours in animals and speciation | How pea plants inherit their characteristics | How antibiotics kill bacteria | How DNA is copied during cell division | Wallace's work on speciation supported Darwin.
+SA | 1 | Who wrote On the Origin of Species? (one word) | Darwin | Charles Darwin published his theory in 1859.
+SA | 2 | Who suggested that acquired characteristics are inherited? (one word) | Lamarck | Lamarck's idea is now not accepted.
+
+lesson: 6.15 - Selective Breeding
+MC | 1 | What is selective breeding? | Choosing parents with desired characteristics to breed together | Letting nature select which organisms breed | Changing the genes of an organism in a laboratory | Making an identical copy of an organism | Selective breeding produces animals or plants with chosen features.
+MC | 2 | Which of these is an example of selective breeding? | Producing cows that give more milk | Using antibiotics to treat an infection | Making vaccines from dead pathogens | Cloning a sheep from a body cell | Farmers breed cows with high milk yields.
+MC | 2 | What is a disadvantage of selective breeding? | Reduces the gene pool and may lead to inherited disorders | Increases the gene pool so offspring are less useful | Always produces organisms that cannot breed | Is quick but produces too few offspring | Inbreeding increases the risk of disease.
+MC | 2 | What is inbreeding? | Breeding closely related individuals | Breeding unrelated individuals | A type of mutation | A type of cloning | It can cause genetic disorders.
+MC | 3 | Why can selective breeding make a species vulnerable to disease? | Individuals are genetically similar | Individuals are all different | It increases the gene pool | It prevents mutations | A new disease could kill most of them.
+MC | 2 | What is an advantage of selective breeding in crops? | Disease-resistant crops with higher yield | Crops with more variation in size | Crops that grow without any water | Crops that never need to be replanted | Plants can be bred for useful characteristics.
+SA | 1 | What name is given to breeding closely related individuals? (one word) | inbreeding | Inbreeding can increase genetic disorders.
+SA | 2 | What name is given to choosing parents with desired traits? (two words) | selective breeding | Humans have used selective breeding for thousands of years.
+
+lesson: 6.16 - Genetic Modification (Genetic Engineering)
+MC | 1 | What is genetic engineering? | Changing the genome of an organism by inserting a gene from another | Breeding animals that have the characteristics that you want to keep | Making an exact copy of an organism from one of its body cells | Dividing a cell into two identical cells so that the organism grows | A gene from one organism is put into another.
+MC | 2 | What is used to cut out a gene? | Enzymes | Antibiotics | Light | Water | Restriction enzymes cut DNA at specific places.
+MC | 2 | What can be used to carry a gene into a cell? | A vector such as a plasmid or virus | A white blood cell from the same organism | A mitochondrion removed from the cell | A vaccine containing dead bacteria | Vectors carry the gene into the target cell.
+MC | 2 | What is an example of a GM crop? | Golden rice with vitamin A | Seedless grapes | Wild rice | Organic wheat | Golden rice has been modified to make beta-carotene.
+MC | 2 | What is a concern about GM crops? | They may affect wild flowers and insects | They never produce a higher yield | They always cost far less to grow | They are always completely safe to eat | Some people worry about effects on the environment.
+MC | 3 | Why was bacteria used to make human insulin? | Bacteria can be given the human insulin gene and reproduce quickly | Bacteria are large enough to inject into the patient | Bacteria do not need food or warmth to grow | Bacteria can already make insulin naturally | Bacteria produce large amounts of insulin.
+SA | 1 | What name is given to changing an organism's genes by adding genes from another? (two words) | genetic engineering | Genetic engineering is used to make GM crops.
+SA | 2 | What name is given to the small ring of DNA that can be used as a vector to carry a gene into a bacterial cell? (one word) | plasmid | Plasmids are used as vectors in genetic engineering.
+
+lesson: 6.17 - Genome Research in Medicine
+MC | 1 | How can genome research help medicine? | It can identify genes linked to diseases | It stops all inherited diseases from developing | It makes new drugs cheaper to produce | It slows down the ageing process | Genome research helps find inherited disease genes.
+MC | 2 | What is personalised medicine? | Treatment based on a person's genetic makeup | Medicine that is the same for every patient | A type of vaccine made from a person's blood | A pill that is designed to look different | Treatments can be chosen to suit a patient's genes.
+MC | 2 | What does genetic screening for a disease allow? | Early diagnosis and preventive treatment | A guaranteed cure for the disease | No need for any further tests | A decision not to treat the patient | Screening can find at-risk people.
+MC | 2 | What is a risk of genetic screening? | Results could cause anxiety or discrimination | It always saves the lives of the people tested | It is free and available to everyone | It is a simple test with no consequences | People may worry about the results.
+MC | 3 | What is a concern about the results of genetic screening being shared with insurance companies? | People with a risk gene could be charged more or refused cover | The test results would become less accurate over time | The people tested would pass the disease on more often | The disease would be cured for everyone tested | Some people worry about discrimination based on their genes.
+MC | 2 | What can genome sequencing help scientists find? | Inherited disorders and how people respond to drugs | The causes of infections spread by bacteria | The number of chromosomes in each body cell | Which diet will cure a patient's illness | DNA sequences link to health.
+SA | 1 | What type of medicine uses genome data to suit a patient? (one word) | personalised | Personalised medicine uses genetic information.
+SA | 2 | What is the entire set of an organism's DNA called? (one word) | genome | Genome sequencing finds the order of bases.
+
+lesson: 6.18 - Cloning Animals
+MC | 1 | What is a clone? | A genetically identical organism | An organism with half of its genes from each parent | An organism with a different set of alleles | An organism produced by sexual reproduction | Clones have the same DNA as the parent.
+MC | 2 | What is the process used to clone Dolly the sheep? | Nuclear transfer | Fertilisation | Mitosis | Meiosis | The nucleus from a body cell was put in an egg cell with no nucleus.
+MC | 2 | What happens to the egg cell's nucleus in cloning? | It is removed | It is doubled | It is kept | It is destroyed by bacteria | The egg's own nucleus is removed.
+MC | 2 | What is an advantage of cloning animals? | Producing many identical animals with desired characteristics | Increasing the amount of variation in a population | Producing animals that are free of all disease | Making animals that live much longer than usual | Clones can save endangered species.
+MC | 3 | What is a risk of cloning? | Reduced genetic variation | Increased variation | Faster growth | None | A population of clones is vulnerable to disease.
+MC | 2 | How was the cloned embryo developed? | It was grown in a lab and put into a surrogate mother | It was planted in the soil in a greenhouse | It was frozen and stored until it was needed | It was fertilised by sperm from the donor | The embryo was implanted in a surrogate.
+SA | 1 | What name was given to the first cloned mammal? (one word) | Dolly | Dolly the sheep was born in 1996.
+SA | 2 | What type of cell is the nucleus taken from in cloning? (two words) | body cell | The nucleus of a body cell is transferred.
+
+lesson: 6.19 - Cloning Plants & Tissue Culture
+MC | 1 | What are cuttings? | Pieces of a plant used to grow new plants | Seeds produced by a plant after fertilisation | Flowers that are cut for decoration | Roots that are removed to stop a plant growing | Cuttings produce clones.
+MC | 2 | What is tissue culture? | Growing new plants from small pieces of tissue | Growing new animals from a single body cell | Growing bacteria on agar in a Petri dish | Growing plants from seeds in sterile soil | Small pieces of plant tissue are grown on agar.
+MC | 2 | What is an advantage of tissue culture? | It produces many identical plants quickly | It increases the variation of the plants produced | It can be done without sterile conditions | It is a slow way to produce plants | Large numbers of plants can be made fast.
+MC | 2 | Why must tissue culture be done in sterile conditions? | To prevent infection | To increase temperature | To make plants bigger | To save water | Contamination can kill tissue.
+MC | 3 | Why is tissue culture used to save rare plants? | Many clones can be produced from few plants | It increases the variation within the species | It needs a lot of seeds to be collected | It makes new plants with different characteristics | Rare species can be preserved.
+MC | 2 | What do tissue culture plants lack? | Genetic variation | Roots | Leaves | Chlorophyll | They are clones.
+SA | 1 | What name is given to genetically identical copies of an organism? (one word) | clones | Cuttings and tissue culture produce clones.
+SA | 2 | What type of growth medium is used in tissue culture? (one word) | agar | Plant tissue grows on agar with nutrients and hormones.
+
+lesson: 6.20 - Fossils & Extinction
+MC | 1 | What are fossils? | The remains of organisms from millions of years ago | The first stage in the formation of new organisms | Rocks that form around a new seed | Seeds that have been stored in the soil | Fossils are preserved remains in rock.
+MC | 2 | How can fossils be formed? | Hard parts replaced by minerals | Soft parts replaced by new cells | Hard parts dissolved by acid rain | Bones becoming magnetic over time | Minerals replace parts that decay.
+MC | 2 | Why are there few early life fossils? | Early organisms were soft-bodied and have decayed | Early organisms were large and easily destroyed | Early organisms were too hard to be fossilised | Early organisms were too numerous to be preserved | Soft tissue decays.
+MC | 2 | What can cause extinction? | Changes in the environment and new predators | Better adaptation and an increased food supply | A larger gene pool and new mates | New habitats with no competitors | Extinction occurs when a species cannot adapt.
+MC | 3 | What can fossils tell us about evolution? | How organisms changed over time | How many species will exist in the future | How old a person alive today is | How tall plants will grow in the future | The fossil record shows changes.
+MC | 2 | Which of these is a possible cause of the extinction of a species? | A new, more successful predator or competitor | An increase in the species' food supply | A decrease in the number of predators | A slight rise in the species' birth rate | Extinction can follow a new predator, new disease, new competitor or a change in the environment.
+SA | 1 | What name is given to the remains of organisms preserved in rock? (one word) | fossils | Fossils give evidence for evolution.
+SA | 2 | What name is given to a species that no longer exists? (one word) | extinct | Extinction can be caused by environmental change.
+
+lesson: 6.21 - Speciation
+MC | 1 | What is speciation? | The formation of a new species | The death of a species | The movement of a species | A type of cell division | Speciation happens when populations become unable to interbreed.
+MC | 2 | What is isolation? | Separating populations so they cannot interbreed | Joining populations together so they interbreed | A mutation that makes an organism infertile | A change in the number of chromosomes | Geographic isolation can lead to speciation.
+MC | 2 | What defines a species? | A group that can breed to produce fertile offspring | A group of organisms that look identical | A group of organisms living in the same place | A group of organisms that eat the same food | Species can interbreed.
+MC | 2 | Who worked on speciation in isolated islands? | Alfred Russel Wallace | Gregor Mendel | Louis Pasteur | Rosalind Franklin | Wallace studied island species.
+MC | 3 | How does natural selection lead to a new species? | Different environments select different features until populations cannot interbreed | Individuals in both populations become identical and keep interbreeding | Populations merge back together as the environments become the same | The populations stay the same as there is no variation to select | Over generations the populations diverge.
+MC | 2 | What is the result of two populations becoming too different to interbreed? | Two new species | One species | No change | Extinction | They are now separate species.
+SA | 1 | What name is given to the formation of new species? (one word) | speciation | Speciation can happen after isolation.
+SA | 2 | What type of isolation separates populations by a barrier such as a river? (one word) | geographical | Geographical isolation can lead to speciation.
+
+lesson: 6.22 - Antibiotic Resistance
+MC | 1 | How do bacteria become resistant to antibiotics? | Mutations make some bacteria resistant and they survive | Each bacterium slowly gets used to the drug | The bacteria are vaccinated against the antibiotic | The bacteria eat the antibiotic as a food source | Resistant bacteria survive and reproduce.
+MC | 2 | What is MRSA? | A bacterium resistant to antibiotics | A virus that infects the lungs | A vaccine against several bacteria | A drug used to kill bacteria | MRSA is resistant to many antibiotics.
+MC | 2 | How can antibiotic resistance be slowed? | By not overusing antibiotics and completing courses | By taking antibiotics for every infection | By using antibiotics to treat viral infections | By stopping a course as soon as symptoms improve | Responsible use reduces selection.
+MC | 2 | Why must patients finish a course of antibiotics? | To kill all the bacteria | To make them stronger | To save money | To create resistance | Stopping early can leave resistant bacteria.
+MC | 3 | Why is it hard to develop new antibiotics? | It is expensive and bacteria evolve quickly | It is cheap and easy to do | Bacteria have no way of becoming resistant | There are no bacteria left to test them on | Resistance develops rapidly.
+MC | 2 | What is natural selection in antibiotic resistance? | Resistant bacteria survive and pass on the gene | All of the bacteria are killed by the antibiotic | All of the bacteria survive because they are the same | Resistance disappears once the antibiotic is used | Resistant strains become common.
+SA | 1 | What name is given to a bacterium that antibiotics cannot kill? (one word) | resistant | Resistant bacteria survive treatment.
+SA | 2 | Which type of drug do resistant bacteria such as MRSA survive? (one word) | antibiotics | MRSA is resistant to many antibiotics.
+
+lesson: 6.23 - Classification
+MC | 1 | Who developed the system of naming organisms using genus and species? | Carl Linnaeus | Charles Darwin | Gregor Mendel | Alexander Fleming | Linnaeus classified organisms.
+MC | 2 | What is the binomial system? | Naming an organism by genus and species | Naming an organism by its colour and size | Naming an organism by where it lives | Naming an organism by what it eats | The binomial system uses two names.
+MC | 2 | Which is the correct order of the groups used to classify organisms, from largest to smallest? | Kingdom, phylum, class, order, family, genus, species | Kingdom, class, phylum, order, family, genus, species | Kingdom, phylum, class, family, order, genus, species | Kingdom, phylum, order, class, family, species, genus | Each group is divided into smaller and more specific groups.
+MC | 2 | What are the three domains of life? | Archaea, bacteria and eukaryota | Plants, animals and fungi | Mammals, birds and fish | Kingdom, phylum and class | Carl Woese proposed three domains.
+MC | 3 | Why are evolutionary trees used? | To show how organisms are related | To show where each organism lives | To show how big each organism is | To show what colour each organism is | Trees show common ancestors.
+MC | 2 | What can DNA analysis do for classification? | Show how closely related organisms are | Show how long an organism lives | Show what an organism eats | Show where an organism lives | DNA comparisons have changed classification.
+SA | 1 | What is the largest group in the classification system? (one word) | kingdom | Kingdom is the largest group.
+SA | 2 | What is the smallest group in the classification system? (one word) | species | The species is the smallest group.
