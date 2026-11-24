@@ -247,7 +247,7 @@ def home(request):
     for slug, s in PUBLIC_SUBJECTS.items():
         stats = subject_stats(s["db_name"])
         subjects.append({**s, "slug": slug, **stats})
-    return render(request, "public/landing.html", _base_context(
+    return render(request, "site/landing.html", _base_context(
         request, "/",
         "GCSE Revision App: Maths, Biology, Chemistry, Physics | 285IQ",
         "Free GCSE revision for Maths, Biology, Chemistry and Physics. Practice questions with explained "
@@ -270,7 +270,7 @@ def subject_page(request, slug):
         from django.http import Http404
         raise Http404
     stats = subject_stats(subject["db_name"])
-    return render(request, "public/subject.html", _base_context(
+    return render(request, "site/subject.html", _base_context(
         request, f"/{slug}/",
         f"{subject['title']} Revision: Questions, Flashcards, Topics | 285IQ",
         subject["description"],

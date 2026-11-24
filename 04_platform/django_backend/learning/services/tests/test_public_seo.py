@@ -287,3 +287,11 @@ def test_share_image_exists_and_is_1200_by_630():
     assert header[:8] == b"\x89PNG\r\n\x1a\n"
     assert struct.unpack(">II", header[16:24]) == (1200, 630)
     assert path.stat().st_size < 150_000
+
+
+def test_no_template_folder_is_named_public():
+    """Vercel treats a folder called "public" as static output and leaves it out of the Python
+    function, so templates in it deploy fine but raise TemplateDoesNotExist in production
+    (this took the homepage down on 2026-11-24)."""
+    templates = Path(settings.BASE_DIR) / "templates"
+    assert not [p for p in templates.rglob("*") if p.is_dir() and p.name == "public"]
