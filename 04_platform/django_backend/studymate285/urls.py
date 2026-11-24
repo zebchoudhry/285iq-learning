@@ -23,6 +23,7 @@ def health_check(request):
         {'status': 'ok' if db_ok else 'degraded', 'database': db_ok, 'detail': db_error},
         status=status_code,
     )
+from learning import seo_views
 from learning.boss_views import boss_page
 from learning.game_views import game_play_page, games_hub_page
 from learning.views import frontend_view, lessons_page, quiz_page, parent_dashboard_page, revision_planner_page, mock_tests_page, subjects_page, flashcards_page, mistakes_page, mistake_retry_page, exam_readiness_page, subject_detail_page
@@ -67,7 +68,14 @@ urlpatterns = [
     path('mistakes/', mistakes_page, name='mistakes_page'),
     path('mistakes/retry/<int:item_id>/', mistake_retry_page, name='mistake_retry_page'),
     path('parent/<uuid:parent_access_token>/', parent_dashboard_page, name='parent_dashboard_page'),
-    path('', frontend_view, name='frontend'),  # This serves your homepage
+    path('gcse-maths/', seo_views.subject_page, {'slug': 'gcse-maths'}, name='public_gcse_maths'),
+    path('gcse-biology/', seo_views.subject_page, {'slug': 'gcse-biology'}, name='public_gcse_biology'),
+    path('gcse-chemistry/', seo_views.subject_page, {'slug': 'gcse-chemistry'}, name='public_gcse_chemistry'),
+    path('gcse-physics/', seo_views.subject_page, {'slug': 'gcse-physics'}, name='public_gcse_physics'),
+    path('robots.txt', seo_views.robots_txt, name='robots_txt'),
+    path('sitemap.xml', seo_views.sitemap_xml, name='sitemap_xml'),
+    path('llms.txt', seo_views.llms_txt, name='llms_txt'),
+    path('', seo_views.home, name='frontend'),  # landing page for visitors, dashboard for students
 ]
 
 # Local dev only — on Vercel, static files are served from the CDN after collectstatic.
