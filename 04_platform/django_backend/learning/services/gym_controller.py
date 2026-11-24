@@ -33,9 +33,9 @@ def decide_gym_mode(student_id: int, topic_id: int, use_llm: bool = False) -> di
         correct = attempts.filter(is_correct=True).count()
         accuracy = correct / total_attempts
 
-        recent = attempts[:5]
-        recent_correct = recent.filter(is_correct=True).count()
-        recent_accuracy = recent_correct / max(recent.count(), 1)
+        # a sliced queryset cannot be filtered, so read the five newest results directly
+        recent_results = list(attempts.values_list("is_correct", flat=True)[:5])
+        recent_accuracy = sum(1 for ok in recent_results if ok) / max(len(recent_results), 1)
 
         agg = (
             attempts.exclude(error_type="none")

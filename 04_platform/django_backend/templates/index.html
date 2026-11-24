@@ -623,6 +623,21 @@
                 <a href="/quiz/?mode=quick_fire">⚡ QUICK QUIZ (5Q)</a>
             </div>
 
+            <div class="panel anim-in" id="ten-min-card" style="animation-delay:0.03s;margin-bottom:14px;">
+                <div class="panel-label">⏱ START YOUR 10 MINUTES</div>
+                <div id="ten-min-text" style="font-size:13px;color:var(--text-muted);line-height:1.55;margin-bottom:10px;">Picking today's session...</div>
+                <a href="/today/" id="ten-min-btn" class="quick-link-row" style="display:inline-block;padding:10px 16px;font-weight:700;text-decoration:none;">START ▶</a>
+            </div>
+            <script>
+            (function () {
+                fetch('/api/today/', { credentials: 'include' }).then(function (r) { return r.json(); }).then(function (d) {
+                    var t = document.getElementById('ten-min-text');
+                    if (!d || !d.count) { t.textContent = 'Nothing is due. Pick any topic below to keep going.'; document.getElementById('ten-min-btn').style.display = 'none'; return; }
+                    t.textContent = 'About ' + d.minutes + ' min: ' + d.summary + '.';
+                }).catch(function () { document.getElementById('ten-min-card').style.display = 'none'; });
+            })();
+            </script>
+
             <div class="panel anim-in" id="mission-card" style="animation-delay:0.04s;margin-bottom:14px;">
                 <div class="panel-label">◎ TODAY'S MISSION</div>
                 <div id="mission-content" style="font-size:13px;color:var(--text-muted);line-height:1.55;">

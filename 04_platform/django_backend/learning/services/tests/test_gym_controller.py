@@ -47,3 +47,21 @@ class GymControllerTests(TestCase):
         self.assertEqual(result["reason"], "insufficient_data")
         self.assertIn("content", result)
         self.assertEqual(result["content"]["content_type"], "lessons")
+
+
+class GymControllerWithHistoryTests(TestCase):
+    """Regression: the controller crashed ("Cannot filter a query once a slice has been taken")
+    for any student who had already answered a question in the topic."""
+
+    def test_decide_gym_mode_with_attempts_does_not_crash(self):
+        from learning.models import Question, QuizAttempt
+
+        user = User.objects.create_user(username="veteran", password="testpass")
+        topic = Topic.objects.create(subject=Subject.objects.create(name="biology", display_name="Biology"), name="Cells")
+        lesson = Lesson.objects.create(topic=topic, title="1.1 - Cells", content="x")
+        q = Question.objects.create(lesson=lesson, question_text="Q?", correct_answer="a", question_type="short_answer")
+        for ok in [True, True, False, True, False, False, True]:
+            QuizAttempt.objects.create(student=user, question=q, is_correct=ok)
+        result = decide_gym_mode(user.id, topic.id)
+        assert result["mode"] in {"guided_practice", "drill", "mixed_practice", "instruction", "exam_sim", "mastery_maintenance"}
+        assert 0 <= result["metrics_snapshot"]["recent_accuracy"] <= 1
