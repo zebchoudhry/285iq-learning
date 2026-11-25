@@ -217,14 +217,18 @@ def sample_questions(db_name=None, count=3, seed=None):
             qs = qs.filter(lesson__topic__subject__name=db_name)
         ids = list(qs.values_list("id", flat=True))
         random.Random(seed).shuffle(ids)
-        picked = []
+        picked, seen_texts = [], set()
         for qid in ids[: count * 8]:
             q = Question.objects.select_related("lesson__topic").get(id=qid)
+            key = " ".join(q.question_text.lower().split())
+            if key in seen_texts:  # the same question can exist in more than one topic
+                continue
             options = list(MultipleChoiceOption.objects.filter(question=q).order_by("order"))
             if len(options) != 4 or sum(o.is_correct for o in options) != 1:
                 continue
             if len(q.question_text) > 220 or any(len(o.option_text) > 110 for o in options):
                 continue
+            seen_texts.add(key)
             picked.append({
                 "text": q.question_text,
                 "options": [o.option_text for o in options],

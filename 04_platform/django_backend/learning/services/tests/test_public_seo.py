@@ -305,3 +305,20 @@ def test_landing_lists_every_real_game(client, content):
     for g in GAMES:
         assert g.title in html and g.blurb in html
     assert len(client.get("/").context["games"]) == len(GAMES)
+
+
+def test_samples_never_repeat_the_same_wording(db):
+    """Production has the same question copied into several topics; a page must not show it twice."""
+    subject = Subject.objects.create(name="chemistry", display_name="GCSE Chemistry")
+    for n in range(3):
+        topic = Topic.objects.create(subject=subject, name=f"Topic {n}", order=n)
+        lesson = Lesson.objects.create(topic=topic, title=f"{n}.1 - L", content="x")
+        make_mcq(lesson, "What products form when an acid reacts with a base?", ["Salt and water", "A", "B", "C"])
+    texts = [s["text"] for s in seo_views.sample_questions("chemistry", 3)]
+    assert texts == ["What products form when an acid reacts with a base?"]
+
+
+def test_landing_speaks_to_parents(client, content):
+    html = client.get("/").content.decode()
+    assert 'id="parents"' in html and 'href="/#parents"' in html and 'href="#parents"' in html
+    assert "Parent actions this week" in html and "Example data" in html

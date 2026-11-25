@@ -38,6 +38,16 @@
     .xpstrip b { display: block; color: var(--gold); font-size: 18px; margin-bottom: 2px; }
     .xpstrip span { color: var(--muted); font-size: 15px; }
 
+    .pv-row { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .pv-row:last-of-type { border-bottom: 0; }
+    .pv-row span { color: var(--muted); } .pv-row b { text-align: right; }
+    .pill { display: inline-block; padding: 2px 10px; border-radius: 99px; font-size: 13px; font-weight: 700; }
+    .pill.ok { background: rgba(52,211,153,.16); color: #6ee7b7; }
+    .pv-act { margin-top: 14px; padding: 12px 14px; border-radius: 12px; background: rgba(251,191,36,.1); border: 1px solid rgba(251,191,36,.3); }
+    .pv-act b { color: var(--gold); display: block; margin-bottom: 2px; font-size: 14px; }
+    ul.ticks { list-style: none; } ul.ticks li { padding: 9px 0 9px 30px; position: relative; }
+    ul.ticks li::before { content: "✓"; position: absolute; left: 0; top: 8px; color: var(--green); font-weight: 800; }
+
     .step-ic { font-size: 30px; margin-bottom: 8px; }
     .subj { border-top: 3px solid var(--accent, var(--cyan)); }
     .subj .icon { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 24px;
@@ -62,6 +72,7 @@
                 <a class="btn btn-ghost" href="#how">See how it works</a>
             </div>
             <p class="note">Free to start. No card needed. Works on phone, tablet or computer.</p>
+            <p class="note">Parent? <a href="#parents">See what you get</a>: a private view of how revision is going, with no nagging.</p>
             <div class="stats" aria-label="What is inside">
                 <div><strong>{{ counts.questions }}+</strong><span>practice questions</span></div>
                 <div><strong>{{ counts.lessons }}</strong><span>lessons across 4 subjects</span></div>
@@ -116,6 +127,37 @@
                     <li><span class="dot" aria-hidden="true">📈</span><div><b>3 on Genetics</b><span>Your weakest topic, so it gets the most time</span></div></li>
                 </ul>
                 <a class="btn btn-primary" href="/register/">Start your 10 minutes</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="parents">
+    <div class="wrap">
+        <p class="eyebrow">For parents</p>
+        <h2>Know how revision is really going, without nagging</h2>
+        <p class="muted" style="max-width:700px;margin-bottom:28px">Your child revises in the app. You get a private progress link: no extra login, nothing to install, and you only ever see your own child's progress.</p>
+        <div class="grid g2" style="align-items:start">
+            <div class="mock reveal" aria-label="Example parent view">
+                <div class="mock-label">Parent view <small>Example data</small></div>
+                <div class="pv-row"><span>GCSE Biology exam</span><b>in 182 days</b></div>
+                <div class="pv-row"><span>Current grade / target</span><b>5 / 7</b></div>
+                <div class="pv-row"><span>Overall status</span><b><span class="pill ok">On track</span></b></div>
+                <div class="pv-row"><span>This week</span><b>5 sessions (2 more than last week)</b></div>
+                <div class="pv-row"><span>Course covered</span><b>58%</b></div>
+                <div class="pv-act"><b>Parent actions this week</b>Ask them to explain ratio to you. It is their weakest topic right now.</div>
+            </div>
+            <div class="reveal">
+                <h3 style="margin-bottom:10px">What you see</h3>
+                <ul class="ticks">
+                    <li>A countdown to each exam, and the grade they are aiming for</li>
+                    <li>Their current grade against that target, and whether they are on track</li>
+                    <li>How much they practised this week, compared with last week</li>
+                    <li>How much of the course they have covered</li>
+                    <li>One or two simple things you can do this week to help</li>
+                </ul>
+                <p class="muted" style="margin-top:14px">Built around retrieval practice and spacing, two of the best-evidenced ways to learn: your child is tested on what they know, and mistakes come back until they are fixed.</p>
+                <div class="cta-row"><a class="btn btn-primary" href="/register/">Start free for your child</a></div>
             </div>
         </div>
     </div>
@@ -183,23 +225,6 @@
                 <p class="note">{{ s.topic_count }} topics · {{ s.lesson_count }} lessons</p>
             </a>
             {% endfor %}
-        </div>
-    </div>
-</section>
-
-<section>
-    <div class="wrap">
-        <div class="grid g2" style="align-items:center">
-            <div class="reveal">
-                <p class="eyebrow">For parents</p>
-                <h2>See how revision is really going</h2>
-                <p class="muted">Each student gets a private progress link for a parent. It shows how they are doing in each topic, how often they have practised this week, and where the gaps are, with no extra login to remember.</p>
-                <p class="note">You only ever see your own child's progress.</p>
-            </div>
-            <div class="card reveal">
-                <h3>Why practice works</h3>
-                <p class="muted">Two of the best-evidenced ways to learn are pulling information out of your memory and spacing it out over time. 285IQ is built around both: questions after every lesson, and mistakes and flashcards that return at the right moment.</p>
-            </div>
         </div>
     </div>
 </section>
