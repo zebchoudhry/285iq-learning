@@ -295,3 +295,13 @@ def test_no_template_folder_is_named_public():
     (this took the homepage down on 2026-11-24)."""
     templates = Path(settings.BASE_DIR) / "templates"
     assert not [p for p in templates.rglob("*") if p.is_dir() and p.name == "public"]
+
+
+def test_landing_lists_every_real_game(client, content):
+    from learning.services.games import GAMES
+
+    html = client.get("/").content.decode()
+    assert 'id="games"' in html and "Revision that feels like a game" in html
+    for g in GAMES:
+        assert g.title in html and g.blurb in html
+    assert len(client.get("/").context["games"]) == len(GAMES)

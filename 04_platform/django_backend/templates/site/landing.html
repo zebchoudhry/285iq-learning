@@ -30,6 +30,14 @@
     .sess b { display: block; } .sess span { color: var(--muted); font-size: 14px; }
     .mock .btn { width: 100%; margin-top: 16px; }
 
+    .gcard { display: flex; flex-direction: column; gap: 6px; }
+    .gcard .gi { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 24px; background: var(--surface2); margin-bottom: 6px; }
+    .gcard .tag { align-self: flex-start; margin-top: auto; }
+    .xpstrip { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-top: 22px; }
+    .xpstrip div { background: #0b1324; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; }
+    .xpstrip b { display: block; color: var(--gold); font-size: 18px; margin-bottom: 2px; }
+    .xpstrip span { color: var(--muted); font-size: 15px; }
+
     .step-ic { font-size: 30px; margin-bottom: 8px; }
     .subj { border-top: 3px solid var(--accent, var(--cyan)); }
     .subj .icon { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 24px;
@@ -132,9 +140,34 @@
             <div class="card reveal"><div class="icon" aria-hidden="true">🔢</div><h3>Fresh numbers every time</h3><p class="muted">Calculation questions in maths, physics and chemistry change their numbers, so you learn the method, not the answer.</p></div>
             <div class="card reveal"><div class="icon" aria-hidden="true">🃏</div><h3>Flashcards on a schedule</h3><p class="muted">Spaced-repetition flashcards show you each card just before you would forget it.</p></div>
             <div class="card reveal"><div class="icon" aria-hidden="true">🎯</div><h3>A mistake bank</h3><p class="muted">Every question you miss is saved, with the mistake type, so you can see what to fix first.</p></div>
-            <div class="card reveal"><div class="icon" aria-hidden="true">⚔️</div><h3>Boss battles and games</h3><p class="muted">Take on a topic boss, or play quick games like balancing equations and spotting the mistake. XP, levels and streaks keep you going.</p></div>
+            <div class="card reveal"><div class="icon" aria-hidden="true">⚔️</div><h3>Boss battles and games</h3><p class="muted">Six quick games and a boss battle for every topic, with XP, levels and combos to keep you going.</p></div>
             <div class="card reveal"><div class="icon" aria-hidden="true">📝</div><h3>Mock tests</h3><p class="muted">Practise under timed conditions once you are getting close, and see what to fix before the real thing.</p></div>
         </div>
+    </div>
+</section>
+
+<section id="games">
+    <div class="wrap">
+        <p class="eyebrow">Games</p>
+        <h2>Revision that feels like a game</h2>
+        <p class="muted" style="max-width:680px;margin-bottom:26px">Quick games that make you practise the parts of GCSE that need fast, accurate recall, plus a boss battle at the end of each topic. Each round is marked on our side, so the score is real.</p>
+        <div class="grid g3">
+            {% for g in games %}
+            <div class="card gcard reveal">
+                <div class="gi" aria-hidden="true">{{ g.icon }}</div>
+                <h3>{{ g.title }}</h3>
+                <p class="muted">{{ g.blurb }}</p>
+                <span class="tag">{{ g.area }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="xpstrip">
+            <div class="reveal"><b>XP and levels</b><span>Earn XP for every answer and climb from Rookie to Legend.</span></div>
+            <div class="reveal"><b>Combos</b><span>Answer correctly in a row and your XP multiplier builds.</span></div>
+            <div class="reveal"><b>Boss battles</b><span>Take on a topic boss. The questions you find hardest hit hardest.</span></div>
+            <div class="reveal"><b>Fair play</b><span>A daily XP cap on games, so playing never replaces revising.</span></div>
+        </div>
+        <div class="cta-row"><a class="btn btn-primary" href="/register/">Play free</a></div>
     </div>
 </section>
 

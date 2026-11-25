@@ -242,6 +242,13 @@ def sample_questions(db_name=None, count=3, seed=None):
 # ---------------------------------------------------------------------------
 # Pages
 # ---------------------------------------------------------------------------
+def public_games():
+    """The real games in the app (title, one-line description, topic area, icon) for the landing page."""
+    from .services.games import GAMES
+
+    return [{"title": g.title, "blurb": g.blurb, "area": g.area, "icon": g.icon} for g in GAMES]
+
+
 def home(request):
     """Landing page for visitors; the dashboard for signed-in students."""
     if request.user.is_authenticated:
@@ -265,6 +272,7 @@ def home(request):
         },
         subjects=subjects,
         samples=sample_questions(None, 1),
+        games=public_games(),
         faqs=[{"q": q, "a": a} for q, a in FAQS],
     ))
 
