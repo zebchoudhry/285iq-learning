@@ -1,0 +1,102 @@
+// AQA GCSE Chemistry 8462, topic 4: Chemical changes. Written for 285IQ.
+topic: Chemical Changes
+
+lesson: 4.1 - Acids & Bases
+MC | 1 | A solution is neutral. What is its pH? | 7 | 0 | 1 | 14 | Pure water and other neutral solutions have a pH of 7.
+MC | 1 | Which ion makes a solution acidic? | H⁺ | OH⁻ | Cl⁻ | Na⁺ | Acids produce hydrogen ions, H⁺, in water.
+MC | 2 | Which ion makes a solution alkaline? | OH⁻ | H⁺ | SO4²⁻ | NO3⁻ | Alkalis produce hydroxide ions, OH⁻, in water.
+MC | 2 | What is an alkali? | A base that dissolves in water | Any acid with a pH below 7 | A metal that reacts with water | A salt made in neutralisation | Bases neutralise acids. Soluble bases are called alkalis.
+MC | 2 | What colour does universal indicator turn in a strong acid? | Red | Green | Purple | Blue | Strong acids (pH 0 to 2) turn universal indicator red.
+MC | 3 | A solution has a pH of 12. What does this show? | It is a strong alkali | It is a weak acid | It is neutral | It is a strong acid | pH above 7 is alkaline, and 12 is strongly alkaline.
+SA | 1 | What colour is universal indicator in a neutral solution? | green | At pH 7 universal indicator is green.
+SA | 2 | What is the name of the acid with the formula HCl? | hydrochloric acid | HCl in water is hydrochloric acid.
+
+lesson: 4.2 - Titration Practical
+MC | 1 | What is a titration used for? | To find the volume of one solution that reacts with another | To separate a mixture of two coloured inks | To measure the temperature change of a reaction | To make crystals of a pure salt from a solution | A titration finds the exact volume needed for neutralisation.
+MC | 2 | Which piece of equipment adds the acid drop by drop in a titration? | Burette | Pipette | Measuring cylinder | Conical flask | The burette lets you add acid slowly and read the volume used.
+MC | 2 | Which piece of equipment measures exactly 25 cm³ of alkali into the flask? | Pipette | Burette | Beaker | Test tube | A pipette accurately measures a fixed volume.
+MC | 2 | Why is an indicator added to the flask in a titration? | To show when the end point is reached | To speed up the reaction | To make the solution neutral | To measure the temperature | The indicator changes colour when the acid has exactly neutralised the alkali.
+MC | 3 | Why is the flask swirled during a titration? | To mix the solutions so they react fully | To warm the solution up | To stop the indicator working | To make the end point arrive faster | Swirling mixes the acid in so the colour change is sharp and accurate.
+MC | 3 | What are concordant titration results? | Results within 0.10 cm³ of each other | Results that are all exactly the same | The first rough result only | Results that differ by over 1 cm³ | Repeat until results agree within 0.10 cm³, then take the mean.
+SA | 2 | What word describes the point at which an indicator changes colour in a titration? (two words) | end point | The end point is when the reaction is just complete.
+SA | 2 | Which piece of glassware holds the alkali and indicator during a titration? (two words) | conical flask | The conical flask can be swirled without spilling.
+
+lesson: 4.3 - Strong Acids & Weak Acids
+MC | 1 | Which of these is a strong acid? | Hydrochloric acid | Ethanoic acid | Citric acid | Carbonic acid | Hydrochloric, nitric and sulfuric acids are strong acids.
+MC | 2 | What is a strong acid? | One that is completely ionised in water | One that is very concentrated | One with a high pH | One that only partly ionises | A strong acid fully splits into ions in water.
+MC | 2 | What is a weak acid? | One that is only partly ionised in water | One that is very dilute | One that does not dissolve in water | One that fully ionises in water | Weak acids, such as ethanoic acid, only partly ionise.
+MC | 3 | What is the difference between a concentrated and a strong acid? | Concentration is the amount of acid, strength is how much it ionises | They are two different words for exactly the same idea | Strong acids always have more water added to them | Concentrated acids always have a pH of exactly 7 | A dilute solution of a strong acid is still a strong acid.
+MC | 3 | The pH of an acid falls by 1. How does the concentration of H⁺ ions change? | It increases by 10 times | It decreases by 10 times | It doubles | It halves | Each pH unit is a factor of 10 in hydrogen ion concentration.
+MC | 2 | Which of these is a weak acid? | Ethanoic acid | Nitric acid | Sulfuric acid | Hydrochloric acid | Ethanoic acid (in vinegar) only partly ionises.
+SA | 2 | Which acid is found in vinegar? | ethanoic acid | Vinegar is a dilute solution of ethanoic acid.
+SA | 3 | By what factor does H⁺ concentration change when pH goes from 3 to 1? | 100 | Two pH units: 10 × 10 = 100 times more H⁺.
+
+lesson: 4.4 - Neutralisation Reactions
+MC | 1 | What is made when an acid reacts with an alkali? | A salt and water | A salt and hydrogen | Carbon dioxide only | An acid and a base | Acid + alkali → salt + water.
+MC | 2 | What is made when an acid reacts with a metal carbonate? | A salt, water and carbon dioxide | A salt and hydrogen gas only | Only a salt, with no gas at all | Water, oxygen and a metal oxide | Acid + carbonate → salt + water + carbon dioxide.
+MC | 2 | What is made when an acid reacts with a reactive metal? | A salt and hydrogen | A salt and water | A salt and oxygen | Water and carbon dioxide | Acid + metal → salt + hydrogen.
+MC | 2 | Which salt is made from sulfuric acid and sodium hydroxide? | Sodium sulfate | Sodium chloride | Sodium nitrate | Sodium sulfide | Sulfuric acid makes sulfates.
+MC | 3 | What is the ionic equation for neutralisation? | H⁺ + OH⁻ → H2O | Na⁺ + Cl⁻ → NaCl | H2 + O2 → H2O | H⁺ + Cl⁻ → HCl | Hydrogen ions from the acid react with hydroxide ions to form water.
+MC | 3 | How can you make a pure dry salt from an insoluble base and an acid? | Add excess base, filter, then crystallise | Add excess acid, then filter the mixture | Mix them, then distil the solution | Heat the base strongly, then add water | Excess base makes sure all the acid reacts. Filter off the extra, then crystallise.
+SA | 2 | Which gas is made when an acid reacts with calcium carbonate? | carbon dioxide | Carbonates give off carbon dioxide with acids.
+SA | 2 | What type of salt does nitric acid make? | nitrates | Nitric acid makes nitrates, such as potassium nitrate.
+
+lesson: 4.5 - The Reactivity Series & Displacement Reactions
+MC | 1 | Which metal is the most reactive? | Potassium | Copper | Iron | Gold | Potassium is near the top of the reactivity series.
+MC | 2 | What happens when iron is added to copper sulfate solution? | Iron displaces the copper | Copper displaces the iron | Nothing happens | Hydrogen gas is given off | Iron is more reactive than copper, so it takes its place: Fe + CuSO4 → FeSO4 + Cu.
+MC | 2 | Copper is added to magnesium sulfate solution. What happens? | No reaction | Copper displaces magnesium | Magnesium coats the copper | A gas is given off | Copper is less reactive than magnesium, so it cannot displace it.
+MC | 2 | What decides how reactive a metal is? | How easily it loses electrons to form ions | How heavy its atoms are | How shiny the metal is | How many neutrons its atoms have | More reactive metals lose their outer electrons more easily.
+MC | 3 | A metal fizzes slowly in dilute acid but not in water. Where might it be in the reactivity series? | Between hydrogen and calcium, like zinc or iron | Above potassium, at the very top of the series | Below gold, at the very bottom of the series | Next to copper and silver, below hydrogen | Metals such as zinc and iron react with acids but barely with cold water.
+MC | 3 | Why is carbon included in the reactivity series even though it is not a metal? | To show which metals it can extract from their oxides | Because it is the most reactive element | Because it forms positive ions | Because it conducts electricity | Metals below carbon can be extracted by reduction with carbon.
+SA | 1 | Name a metal that is less reactive than hydrogen and does not react with acids. | copper | Copper, silver and gold do not react with dilute acids.
+SA | 2 | What is the name of a reaction where a more reactive metal pushes a less reactive metal out of its compound? | displacement | This is a displacement reaction.
+
+lesson: 4.6 - Separating Metals from Metal Oxides
+MC | 1 | Why is gold found as the pure metal in the Earth? | It is very unreactive | It is very reactive | It is a liquid | It is magnetic | Unreactive metals do not form compounds easily, so they are found native.
+MC | 2 | How is iron extracted from iron oxide? | By reduction with carbon | By electrolysis | By dissolving it in water | By heating it in oxygen | Iron is below carbon in the reactivity series, so carbon removes the oxygen.
+MC | 2 | What does reduction mean in terms of oxygen? | Loss of oxygen | Gain of oxygen | Gain of hydrogen | Loss of mass | The iron oxide loses oxygen, so it is reduced.
+MC | 2 | What is an ore? | A rock containing enough metal to make extraction worthwhile | Any type of rock that is found deep underground | A sample of a metal that is already completely pure | A metal that has been mixed with a little carbon to harden it | Ores are worth mining because the metal can be extracted profitably.
+MC | 3 | Why is aluminium not extracted by heating with carbon? | Aluminium is more reactive than carbon | Aluminium oxide melts too easily | Carbon is too expensive to use | Aluminium reacts with the furnace | Carbon cannot remove oxygen from a more reactive metal, so electrolysis is used.
+MC | 3 | 2Fe2O3 + 3C → 4Fe + 3CO2. What is oxidised in this reaction? | Carbon | Iron oxide | Iron | Carbon dioxide | Carbon gains oxygen, so it is oxidised. Iron oxide loses oxygen, so it is reduced.
+SA | 1 | What is the name for gaining oxygen? | oxidation | Gaining oxygen is oxidation.
+SA | 2 | Which element is used to reduce iron oxide in a blast furnace? | carbon | Carbon (as coke) removes oxygen from iron oxide.
+
+lesson: 4.7 - Redox Reactions
+MC | 1 | What is oxidation in terms of electrons? | Loss of electrons | Gain of electrons | Loss of protons | Gain of neutrons | OIL RIG: oxidation is loss, reduction is gain of electrons.
+MC | 2 | What is reduction in terms of electrons? | Gain of electrons | Loss of electrons | Gain of protons | Loss of oxygen only | Reduction is gain of electrons.
+MC | 2 | In Zn + CuSO4 → ZnSO4 + Cu, which species is oxidised? | Zinc | Copper ions | Sulfate ions | Copper | Zn → Zn²⁺ + 2e⁻: zinc loses electrons.
+MC | 3 | In Zn + Cu²⁺ → Zn²⁺ + Cu, what happens to the copper ions? | They gain electrons and are reduced | They lose electrons and are oxidised | They lose protons and are reduced | They do not change at all | Cu²⁺ + 2e⁻ → Cu: copper ions gain electrons.
+MC | 3 | Which half equation shows oxidation? | Mg → Mg²⁺ + 2e⁻ | Cu²⁺ + 2e⁻ → Cu | Cl2 + 2e⁻ → 2Cl⁻ | 2H⁺ + 2e⁻ → H2 | Electrons are lost, so magnesium is oxidised.
+MC | 2 | What is a redox reaction? | One where oxidation and reduction happen together | One that only gives out heat to the surroundings | One that can only happen in aqueous solution | One where only oxidation takes place, never reduction | Electrons lost by one substance are gained by another.
+SA | 2 | What memory aid helps you remember that oxidation is loss and reduction is gain? | OIL RIG | Oxidation Is Loss, Reduction Is Gain (of electrons).
+SA | 3 | In Mg + CuSO4 → MgSO4 + Cu, which element is oxidised? | magnesium | Mg → Mg²⁺ + 2e⁻: magnesium loses electrons, so it is oxidised.
+
+lesson: 4.8 - Electrolysis 1 - Introduction
+MC | 1 | What is electrolysis? | Breaking down a compound using electricity | Joining elements using electricity | Separating a mixture by filtering | Heating a compound to split it | Electrolysis uses a current to decompose an ionic compound.
+MC | 2 | Why must an ionic compound be molten or dissolved for electrolysis? | So its ions are free to move | So it has a lower mass | So its electrons can be shared | So it does not react with air | Ions must move to the electrodes to carry the current.
+MC | 2 | Which electrode do positive ions move to? | The cathode, the negative electrode | The anode, the positive electrode | Both electrodes equally | Neither electrode | Opposite charges attract, so positive ions go to the negative cathode.
+MC | 2 | What is formed at the cathode when molten lead bromide is electrolysed? | Lead | Bromine | Hydrogen | Oxygen | Pb²⁺ ions gain electrons at the cathode to form lead.
+MC | 3 | What happens to bromide ions at the anode? | They lose electrons and form bromine | They gain electrons and form bromine | They form lead | They stay as ions | 2Br⁻ → Br2 + 2e⁻: bromide ions are oxidised.
+MC | 2 | What is the liquid or solution used in electrolysis called? | The electrolyte | The electrode | The anode | The cathode | The electrolyte contains the moving ions.
+SA | 1 | What is the name of the positive electrode? | anode | The anode is positive, the cathode is negative.
+SA | 2 | Which electrode do negative ions move towards? | anode | Negative ions are attracted to the positive anode.
+
+lesson: 4.9 - Electrolysis 2 - Aluminium Oxide
+MC | 2 | Why is aluminium oxide mixed with cryolite before electrolysis? | To lower its melting point and save energy | To make it react with the carbon | To stop it conducting electricity | To make the aluminium purer | Cryolite lowers the melting point, so less energy is needed.
+MC | 2 | What is formed at the cathode in the electrolysis of aluminium oxide? | Aluminium | Oxygen | Carbon dioxide | Hydrogen | Al³⁺ + 3e⁻ → Al.
+MC | 2 | What is formed at the anode in the electrolysis of aluminium oxide? | Oxygen | Aluminium | Hydrogen | Sodium | Oxide ions lose electrons to form oxygen gas.
+MC | 3 | Why do the anodes in aluminium extraction need replacing regularly? | Oxygen reacts with the carbon anodes to make carbon dioxide | The molten aluminium slowly dissolves the anodes away | The anodes melt at the very high working temperature | The cryolite slowly builds up and coats the anodes | The hot oxygen burns the carbon anodes away.
+MC | 3 | Why is extracting aluminium expensive? | Lots of electricity and heat are needed | Aluminium ore is very rare in the ground | Cryolite is hard to find and very costly | Aluminium must be cooled for a long time | Melting the ore and passing the current use huge amounts of energy.
+MC | 2 | What are the electrodes made of in aluminium extraction? | Carbon (graphite) | Copper | Iron | Platinum | Graphite electrodes conduct and can withstand high temperatures.
+SA | 2 | What compound is added to aluminium oxide to lower its melting point? | cryolite | Molten cryolite dissolves the aluminium oxide at a lower temperature.
+SA | 2 | What gas forms when oxygen reacts with the carbon anodes? | carbon dioxide | C + O2 → CO2, so the anodes wear away.
+
+lesson: 4.10 - Electrolysis 3 - Aqueous Solutions
+MC | 2 | In the electrolysis of sodium chloride solution, what is made at the cathode? | Hydrogen | Sodium | Chlorine | Oxygen | Sodium is more reactive than hydrogen, so hydrogen is produced.
+MC | 2 | In the electrolysis of sodium chloride solution, what is made at the anode? | Chlorine | Oxygen | Hydrogen | Sodium | Halide ions are discharged as the halogen: chlorine.
+MC | 2 | In the electrolysis of copper sulfate solution, what is made at the cathode? | Copper | Hydrogen | Oxygen | Sulfur | Copper is less reactive than hydrogen, so copper is deposited.
+MC | 3 | In the electrolysis of copper sulfate solution with inert electrodes, what is made at the anode? | Oxygen | Sulfur dioxide | Copper | Hydrogen | Sulfate ions are not discharged, so hydroxide ions form oxygen.
+MC | 3 | Why are hydrogen ions present in aqueous solutions? | Water breaks into a few H⁺ and OH⁻ ions | Hydrogen dissolves in the solution | The electrodes release hydrogen ions | All salts contain hydrogen ions | Water slightly ionises into H⁺ and OH⁻.
+MC | 3 | What is left in solution after electrolysis of sodium chloride solution? | Sodium hydroxide | Sodium chloride | Pure water | Hydrochloric acid | Na⁺ and OH⁻ ions stay behind, forming sodium hydroxide.
+SA | 2 | What does chlorine gas do to damp blue litmus paper? (one word) | bleaches | Chlorine turns damp litmus red and then bleaches it white.
+SA | 3 | Which gas is made at the cathode when potassium chloride solution is electrolysed? | hydrogen | Potassium is more reactive than hydrogen, so hydrogen is made.

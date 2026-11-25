@@ -213,3 +213,15 @@ def test_retire_filler_switches_off_repeated_generic_questions_only(tmp_path, le
     unique.refresh_from_db()
     assert unique.is_active
     assert Question.objects.filter(source__startswith="Written for 285IQ", is_active=True).count() == 2
+
+
+def test_min_lessons_lowers_the_filler_threshold(tmp_path, lessons):
+    topic = lessons["topic"]
+    for i in range(3):  # copied into only 3 lessons: not filler by default, filler with --min-lessons 2
+        lesson = Lesson.objects.create(topic=topic, title=f"8.{i} - Copy lesson", content="x", order=40 + i)
+        Question.objects.create(lesson=lesson, question_text="Calculate moles in 18 g of water.", correct_answer="1")
+    write(tmp_path, GOOD)
+    run(tmp_path, "--retire-filler")
+    assert Question.objects.filter(question_text__startswith="Calculate moles", is_active=True).count() == 3
+    run(tmp_path, "--retire-filler", "--min-lessons", "2")
+    assert not Question.objects.filter(question_text__startswith="Calculate moles", is_active=True).exists()

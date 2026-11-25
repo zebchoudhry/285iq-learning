@@ -1,0 +1,122 @@
+// AQA GCSE Chemistry 8462, topic 1: Atomic structure and the periodic table. Written for 285IQ.
+topic: Atomic Structure
+
+lesson: 1.1 - Atoms
+MC | 1 | Which particles are found in the nucleus of an atom? | Protons and neutrons | Protons and electrons | Electrons and neutrons | Electrons only | The nucleus contains protons and neutrons. Electrons are in shells around the nucleus.
+MC | 1 | What is the relative charge of an electron? | -1 | +1 | 0 | +2 | Electrons have a relative charge of -1, protons +1 and neutrons 0.
+MC | 1 | What is the relative mass of a proton? | 1 | 0 | Very small | 2 | Protons and neutrons both have a relative mass of 1. Electrons have a very small mass.
+MC | 2 | Why does an atom have no overall charge? | It has equal numbers of protons and electrons | It has equal numbers of protons and neutrons | Its neutrons cancel out the charge of its protons | Its nucleus has no charge at all | The positive charge of the protons is balanced by the same number of negative electrons.
+MC | 2 | Roughly how big is the radius of an atom? | 0.1 nm | 1 mm | 1 cm | 100 m | Atoms have a radius of about 0.1 nm (1 × 10⁻¹⁰ m). The nucleus is about 10 000 times smaller still.
+MC | 3 | Where is almost all of the mass of an atom found? | In the nucleus | In the electron shells | Spread evenly through the atom | In the space between the shells | Protons and neutrons are much heavier than electrons, so nearly all the mass is in the tiny nucleus.
+SA | 1 | What is the name of the particle in the nucleus that has no charge? | neutron | Neutrons have a relative charge of 0.
+SA | 2 | An atom has 11 protons. How many electrons does it have? | 11 | An atom has the same number of electrons as protons, so it is neutral.
+
+lesson: 1.2 - Elements, Isotopes & Relative Atomic Mass
+MC | 1 | What does the atomic number of an element tell you? | The number of protons in an atom | The number of neutrons in an atom | The total of protons and neutrons | The number of electron shells | The atomic number is the number of protons. Every atom of an element has the same atomic number.
+MC | 1 | What does the mass number of an atom tell you? | The total number of protons and neutrons | The number of protons in the nucleus | The number of electrons in the atom | The number of neutrons in the nucleus | Mass number = protons + neutrons.
+MC | 2 | What are isotopes? | Atoms of the same element with different numbers of neutrons | Atoms of different elements with the same mass number | Atoms of the same element with different numbers of protons | Atoms that have gained or lost electrons | Isotopes have the same number of protons but a different number of neutrons.
+MC | 2 | An atom of sodium has atomic number 11 and mass number 23. How many neutrons does it have? | 12 | 11 | 23 | 34 | Neutrons = mass number - atomic number = 23 - 11 = 12.
+MC | 3 | Chlorine is 75% chlorine-35 and 25% chlorine-37. What is its relative atomic mass? | 35.5 | 36.0 | 35.0 | 37.0 | (75 × 35 + 25 × 37) ÷ 100 = (2625 + 925) ÷ 100 = 35.5.
+MC | 2 | What is an element? | A substance made of only one type of atom | A substance made of two or more atoms bonded | A mixture of two or more substances | A substance that conducts electricity | An element contains only one type of atom, with the same number of protons.
+SA | 2 | An atom has atomic number 6 and mass number 14. How many neutrons does it have? | 8 | Neutrons = 14 - 6 = 8.
+SA | 2 | How many protons are in an atom with atomic number 17? | 17 | The atomic number is the number of protons.
+
+lesson: 1.3 - Compounds, Molecules & Mixtures
+MC | 1 | What is a compound? | Two or more elements chemically combined | Two or more elements mixed but not joined | A single type of atom | Any substance that dissolves in water | In a compound, atoms of different elements are chemically bonded in fixed proportions.
+MC | 1 | Which of these is a mixture? | Air | Water | Carbon dioxide | Sodium chloride | Air is a mixture of gases such as nitrogen and oxygen that are not chemically joined.
+MC | 2 | How can the parts of a mixture be separated? | By physical methods such as filtration | Only by chemical reactions with acid | Only by passing a current through it | They cannot be separated at all | The substances in a mixture are not chemically bonded, so physical methods can separate them.
+MC | 2 | Which formula shows a compound? | CO2 | O2 | N2 | Cl2 | CO2 contains two different elements (carbon and oxygen) bonded together. The others are elements.
+MC | 2 | How many atoms are in one molecule of H2SO4? | 7 | 3 | 4 | 6 | 2 hydrogen + 1 sulfur + 4 oxygen = 7 atoms.
+MC | 3 | Why can a compound not be separated by filtration? | Its elements are held together by chemical bonds | Its particles are too large to pass through a filter | It always dissolves completely in water | It is always a gas at room temperature | Breaking a compound needs a chemical reaction because the atoms are bonded.
+SA | 2 | How many different elements are in the compound CaCO3? | 3 | Calcium, carbon and oxygen: three elements.
+SA | 1 | What word describes two or more substances that are not chemically joined? | mixture | In a mixture the substances keep their own properties and can be separated physically.
+
+lesson: 1.4 - Balancing Chemical Equations
+MC | 1 | Why must chemical equations be balanced? | Atoms are not created or destroyed in a reaction | So that the products have more mass | To show the reaction is fast | Because every reaction needs heat | Mass is conserved, so there must be the same number of each atom on both sides.
+MC | 2 | Which equation is balanced? | 2H2 + O2 → 2H2O | H2 + O2 → H2O | H2 + O2 → 2H2O | 2H2 + 2O2 → H2O | 2H2 + O2 → 2H2O has 4 H and 2 O on each side.
+MC | 2 | Balance: Mg + O2 → MgO. What number goes in front of Mg? | 2 | 1 | 3 | 4 | 2Mg + O2 → 2MgO has 2 Mg and 2 O on each side.
+MC | 2 | What does the state symbol (aq) mean? | Dissolved in water | Liquid | Gas | Solid | (aq) means aqueous: dissolved in water. (l) is liquid, (g) gas and (s) solid.
+MC | 3 | Balance: N2 + H2 → NH3. What number goes in front of H2? | 3 | 2 | 1 | 6 | N2 + 3H2 → 2NH3 has 2 N and 6 H on each side.
+MC | 3 | What is wrong with changing H2O to H2O2 to balance an equation? | It changes the substance into a different one | It makes the equation too long | It adds extra mass to the products | State symbols then become wrong | You can only change the numbers in front. Changing small numbers changes the formula, so the substance.
+SA | 2 | Balance: Na + Cl2 → NaCl. What number goes in front of NaCl? | 2 | 2Na + Cl2 → 2NaCl: two chlorine atoms make two NaCl.
+SA | 1 | Which two-letter state symbol shows that a substance is dissolved in water? | aq | (aq) means aqueous: dissolved in water.
+
+lesson: 1.5 - Filtration & Crystallisation
+MC | 1 | Which method separates an insoluble solid from a liquid? | Filtration | Crystallisation | Distillation | Chromatography | Filtration lets the liquid through the filter paper and keeps the insoluble solid.
+MC | 1 | What is the liquid that passes through the filter paper called? | Filtrate | Residue | Solvent front | Precipitate | The liquid that goes through is the filtrate. The solid left behind is the residue.
+MC | 2 | How can you get salt crystals from salt solution? | Heat to evaporate some water, then leave it to cool | Filter the solution through filter paper | Add more salt and stir until it stops dissolving | Cool the solution in an ice bath straight away | Crystallisation: warm to remove some water, then let crystals form as it cools.
+MC | 2 | Why is a solution not heated until it is completely dry when crystallising? | Some salts break down if heated too strongly | It would take far too long to finish | The crystals would dissolve back in | Filter paper cannot be heated | Heating to dryness can decompose the salt and gives small, poor crystals.
+MC | 2 | Sand and salt are mixed. Which order of steps separates them? | Dissolve in water, filter, then evaporate | Filter, then dissolve in water, then heat | Heat strongly, then filter the mixture | Evaporate, then dissolve, then filter | Salt dissolves and passes through the filter. Sand stays behind. Evaporating the filtrate gives salt.
+MC | 3 | Why are separating funnels or filtration not used to get salt from salt water? | The salt is dissolved, so it passes through | The salt would block the filter paper | The water evaporates in the funnel | Salt is denser than water | Dissolved particles are tiny and pass through filter paper with the water.
+SA | 1 | What is the solid left on the filter paper called? | residue | The insoluble solid that stays on the paper is the residue.
+SA | 2 | Which separation method is used to get a solid from its solution by forming crystals? | crystallisation | Crystallisation forms crystals as the solution cools.
+
+lesson: 1.6 - Distillation
+MC | 1 | Which method gets pure water from salt water? | Simple distillation | Filtration | Crystallisation | Chromatography | Simple distillation boils the water off and condenses it, leaving the salt behind.
+MC | 2 | What does the condenser do in distillation? | Cools the vapour so it turns back into a liquid | Heats the mixture until the liquid boils | Separates the solid from the liquid part | Measures the boiling point of the vapour | Cold water around the condenser turns the vapour back into liquid.
+MC | 2 | Which method separates two liquids with different boiling points, such as ethanol and water? | Fractional distillation | Simple distillation | Filtration | Crystallisation | Fractional distillation uses a fractionating column to separate liquids with close boiling points.
+MC | 2 | In fractional distillation, which liquid is collected first? | The one with the lowest boiling point | The one with the highest boiling point | The one that is most dense | The one present in the largest amount | The liquid that boils at the lowest temperature reaches the top of the column first.
+MC | 3 | Why is a thermometer placed at the top of the fractionating column? | To show which liquid is distilling over | To heat the vapour as it rises | To stop the vapour escaping | To measure the temperature of the flask | The temperature at the top tells you the boiling point of what is being collected.
+MC | 3 | Why is simple distillation not suitable for separating ethanol from water? | Their boiling points are too close together | Ethanol does not boil when heated | Water would evaporate first | Ethanol dissolves the thermometer bulb | Both liquids boil off together. Fractional distillation is needed when boiling points are close.
+SA | 2 | What is the name of the liquid collected after distillation? | distillate | The condensed liquid collected is called the distillate.
+SA | 1 | What change of state happens in the condenser? | condensing | Gas cools and turns into liquid: condensation.
+
+lesson: 1.7 - The History of the Atom
+MC | 1 | What did scientists think atoms were before electrons were discovered? | Tiny spheres that could not be divided | Positive balls with electrons in them | A nucleus orbited by electrons | Clouds of protons and neutrons | Early models pictured atoms as tiny solid spheres that could not be split.
+MC | 2 | What was the plum pudding model? | A ball of positive charge with electrons in it | A nucleus with electrons in fixed shells | A tiny solid sphere that cannot be divided | A nucleus of protons and neutrons only | J.J. Thomson suggested a positive ball with negative electrons scattered through it.
+MC | 2 | In the alpha scattering experiment, most alpha particles went straight through the gold foil. What did this show? | Most of the atom is empty space | The atom is a solid ball | Electrons are in shells | The nucleus is negative | If most particles pass straight through, most of the atom must be empty.
+MC | 3 | Some alpha particles bounced back from the gold foil. What did this suggest? | The mass is concentrated in a small positive nucleus | The atom is mostly empty space with no nucleus | Electrons are heavier than alpha particles | The foil was too thick for the particles | A small, dense, positive nucleus repels the positive alpha particles back.
+MC | 2 | Who suggested that electrons orbit the nucleus at fixed distances? | Niels Bohr | John Dalton | J.J. Thomson | James Chadwick | Bohr's calculations agreed with experiments when electrons were placed in fixed shells.
+MC | 2 | What did James Chadwick discover? | The neutron | The electron | The proton | The nucleus | Chadwick's work about 20 years after the nuclear model showed that neutrons exist.
+SA | 2 | Which scientist's alpha scattering experiment led to the nuclear model of the atom? | Rutherford | Ernest Rutherford's experiment showed a small, dense nucleus.
+SA | 1 | Which particle did J.J. Thomson discover? | electron | Thomson's discovery of the electron led to the plum pudding model.
+
+lesson: 1.8 - Electronic Structure
+MC | 1 | How many electrons can the first shell hold? | 2 | 8 | 4 | 18 | The first shell holds up to 2 electrons. The second and third hold up to 8 at GCSE.
+MC | 2 | What is the electronic structure of sodium (atomic number 11)? | 2,8,1 | 2,9 | 2,8,2 | 8,2,1 | 11 electrons: 2 in the first shell, 8 in the second and 1 in the third.
+MC | 2 | What is the electronic structure of oxygen (atomic number 8)? | 2,6 | 2,8 | 6,2 | 2,4,2 | 8 electrons: 2 in the first shell and 6 in the second.
+MC | 2 | Which element has the electronic structure 2,8,7? | Chlorine | Fluorine | Argon | Sulfur | 2 + 8 + 7 = 17 electrons, so atomic number 17: chlorine.
+MC | 3 | Why do elements in the same group have similar reactions? | They have the same number of electrons in their outer shell | They have the same number of electron shells | They have the same mass number | They have the same number of neutrons | Reactions involve the outer electrons, so the same number of outer electrons gives similar reactions.
+MC | 3 | What does the number of occupied shells tell you about an element? | Its period in the periodic table | Its group in the periodic table | Its number of neutrons | Its relative atomic mass | The period number equals the number of shells containing electrons.
+SA | 2 | How many electrons are in the outer shell of magnesium, structure 2,8,2? | 2 | The last number in the electronic structure is the outer shell.
+SA | 2 | Write the electronic structure of aluminium, atomic number 13, using commas only. | 2,8,3 | 13 electrons: 2, then 8, then 3.
+
+lesson: 1.9 - Development of the Periodic Table
+MC | 1 | How are elements arranged in the modern periodic table? | By atomic number | By mass number | By date of discovery | Alphabetically | Elements are in order of atomic number (number of protons).
+MC | 2 | How did early scientists first order the elements? | By atomic weight | By atomic number | By number of electrons | By number of neutrons | Before protons were known, elements were ordered by atomic weight.
+MC | 2 | Why did Mendeleev leave gaps in his periodic table? | For elements not yet discovered | Because some elements were radioactive | To separate metals and non-metals | Because he ran out of space | He left gaps for undiscovered elements and predicted their properties.
+MC | 3 | Why did Mendeleev swap the order of some elements, such as iodine and tellurium? | So they lined up with elements with similar properties | Because their atomic weights were measured wrongly | Because they were discovered at the same time | So that metals stayed on the left | He grouped elements by properties even if it broke the atomic weight order. Isotopes later explained this.
+MC | 3 | What later discovery explained why ordering by atomic weight was not always correct? | Isotopes | Electrons | The nucleus | Noble gases | Isotopes mean atomic weight does not always follow atomic number.
+MC | 2 | What helped scientists accept Mendeleev's table? | Elements he predicted were later found | It was arranged in alphabetical order | It put all the gases in one group | It had no gaps in it at all | When elements such as gallium and germanium were found with the properties he predicted, his table was accepted.
+SA | 1 | What name is given to a column in the periodic table? | group | Columns are groups. Rows are periods.
+SA | 1 | What name is given to a horizontal row of elements in the table of elements? | period | Rows are periods. Columns are groups.
+
+lesson: 1.10 - Metals & Non-metals
+MC | 1 | Where are the metals found in the periodic table? | On the left and in the centre | On the right-hand side only | In the top two rows only | In Group 0 at the far right | Most elements are metals, found to the left and centre.
+MC | 2 | What type of ion do metals form? | Positive ions | Negative ions | No ions | Both types of ion equally | Metals lose electrons to form positive ions.
+MC | 2 | Which property is typical of a non-metal? | It is a poor conductor of electricity | It is shiny and can be hammered into shape | It has a high density and melting point | It forms positive ions when it reacts | Most non-metals do not conduct electricity (graphite is an exception).
+MC | 2 | Which property is typical of a metal? | It conducts heat and electricity well | It is brittle and shatters when hit | It has a low melting and boiling point | It forms acidic oxides with oxygen | Metals are good conductors because of their delocalised electrons.
+MC | 3 | Why do metals tend to lose electrons when they react? | They have few electrons in their outer shell | They have a full outer shell already | They have more neutrons than protons | Their nucleus has no charge | Losing a small number of outer electrons gives a full outer shell.
+MC | 2 | What type of oxide do non-metals usually form? | Acidic oxides | Basic oxides | Neutral metals | Alloys | Non-metal oxides such as carbon dioxide and sulfur dioxide are acidic.
+SA | 1 | Which non-metal is a good conductor of electricity? | graphite | Graphite has delocalised electrons, so it conducts.
+SA | 2 | What sign of charge do non-metal ions usually have? | negative | Non-metals gain electrons, so their ions are negative.
+
+lesson: 1.11 - Group 1 (Alkali Metals)
+MC | 1 | How many electrons do Group 1 elements have in their outer shell? | 1 | 2 | 7 | 8 | All alkali metals have one outer electron.
+MC | 2 | What is made when sodium reacts with water? | Sodium hydroxide and hydrogen | Sodium oxide and oxygen | Sodium chloride and water | Sodium hydroxide and oxygen | 2Na + 2H2O → 2NaOH + H2.
+MC | 2 | How does reactivity change going down Group 1? | It increases | It decreases | It stays the same | It increases then decreases | Going down, the outer electron is further from the nucleus and more easily lost.
+MC | 3 | Why is potassium more reactive than sodium? | Its outer electron is further from the nucleus | It has more protons in its nucleus | It has fewer electron shells | Its outer shell is full | The outer electron is less strongly attracted, so it is lost more easily.
+MC | 2 | Why are alkali metals stored under oil? | To stop them reacting with air and water | To keep them from melting | To make them easier to cut | To stop them conducting electricity | Oil keeps oxygen and water vapour away.
+MC | 2 | What is the charge on an alkali metal ion? | +1 | +2 | -1 | 0 | They lose one electron to form 1+ ions.
+SA | 2 | What gas is given off when lithium reacts with water? | hydrogen | Alkali metals react with water to give a hydroxide and hydrogen gas.
+SA | 1 | What colour does universal indicator turn in the solution made when potassium reacts with water? | purple | The hydroxide made is strongly alkaline, so the indicator turns purple.
+
+lesson: 1.12 - Group 7 & Group 0 (Halogens & Noble Gases)
+MC | 1 | Why are the noble gases unreactive? | They have a full outer shell of electrons | They have one electron in their outer shell | They have no electrons at all | They are all very dense | A full outer shell is stable, so they do not easily gain, lose or share electrons.
+MC | 2 | How does the boiling point change going down Group 0? | It increases | It decreases | It stays the same | It decreases then increases | Larger atoms have stronger forces between them, so boiling points rise.
+MC | 2 | How does reactivity change going down Group 7? | It decreases | It increases | It stays the same | It increases then decreases | Going down, it is harder for the atom to gain an electron.
+MC | 3 | Chlorine water is added to potassium bromide solution. What happens? | Chlorine displaces bromine | Bromine displaces chlorine | Nothing happens | Potassium is displaced | Chlorine is more reactive than bromine, so it takes its place: Cl2 + 2KBr → 2KCl + Br2.
+MC | 2 | What is the state of iodine at room temperature? | Solid | Liquid | Gas | Plasma | Fluorine and chlorine are gases, bromine is a liquid and iodine is a solid.
+MC | 2 | Halogens exist as molecules. Which formula is correct for chlorine gas? | Cl2 | Cl | Cl3 | 2Cl | Halogen atoms pair up by sharing electrons to form diatomic molecules.
+SA | 2 | What is the charge on a halide ion such as chloride? | -1 | Halogens gain one electron to form 1- ions.
+SA | 1 | Which noble gas is used in balloons because it is less dense than air? | helium | Helium is light and unreactive.

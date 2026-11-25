@@ -35,6 +35,9 @@ class Command(BaseCommand):
         parser.add_argument("--inactive", action="store_true", help="Load the questions switched off")
         parser.add_argument("--retire-filler", action="store_true",
                             help="Switch off questions repeated across many lessons (generic filler)")
+        parser.add_argument("--min-lessons", type=int, default=FILLER_MIN_LESSONS,
+                            help=f"With --retire-filler: wording in at least this many lessons counts as filler "
+                                 f"(default {FILLER_MIN_LESSONS})")
 
     def handle(self, *args, **opts):
         subject = opts["subject"].strip().lower()
@@ -72,7 +75,7 @@ class Command(BaseCommand):
         if opts["dry_run"]:
             self.stdout.write(self.style.SUCCESS(f"[dry run] would load {total} questions"))
             if opts["retire_filler"]:
-                self.stdout.write(f"[dry run] would switch off {self._filler(subject).count()} filler questions")
+                self.stdout.write(f"[dry run] would switch off {self._filler(subject, opts['min_lessons']).count()} filler questions")
             return
 
         created = skipped = 0
@@ -89,19 +92,19 @@ class Command(BaseCommand):
                         skipped += 1
             retired = 0
             if opts["retire_filler"]:
-                retired = self._filler(subject).update(is_active=False)
+                retired = self._filler(subject, opts["min_lessons"]).update(is_active=False)
         self.stdout.write(self.style.SUCCESS(
             f"Loaded {created} questions ({skipped} already there)"
             + (f"; switched off {retired} filler questions" if opts["retire_filler"] else "") + "."))
 
-    def _filler(self, subject):
+    def _filler(self, subject, min_lessons=FILLER_MIN_LESSONS):
         """Active, non-written questions in this subject whose wording appears in many lessons."""
         subject_lessons = Question.objects.filter(is_active=True, lesson__topic__subject__name__iexact=subject)
         repeated = (
             subject_lessons.exclude(source__startswith=question_bank.SOURCE_PREFIX)
             .values("question_text")
             .annotate(n=Count("lesson_id", distinct=True))
-            .filter(n__gte=FILLER_MIN_LESSONS)
+            .filter(n__gte=max(int(min_lessons), 2))
             .values_list("question_text", flat=True)
         )
         return subject_lessons.filter(question_text__in=list(repeated)).exclude(

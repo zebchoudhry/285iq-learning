@@ -1,0 +1,42 @@
+// AQA GCSE Chemistry 8462, topic 5: Energy changes. Written for 285IQ.
+topic: Energy Changes
+
+lesson: 5.1 - Exothermic & Endothermic Reactions
+MC | 1 | What happens to the temperature of the surroundings in an exothermic reaction? | It goes up | It goes down | It stays the same | It drops to zero | Exothermic reactions transfer energy to the surroundings, so they warm up.
+MC | 1 | Which of these is an exothermic reaction? | Combustion of a fuel | Thermal decomposition | Photosynthesis | Dissolving ammonium nitrate | Burning fuels release energy to the surroundings.
+MC | 2 | What is an endothermic reaction? | One that takes in energy from the surroundings | One that gives out energy to the surroundings | One that has no energy change at all | One that only happens at high pressure | Endothermic reactions absorb energy, so the surroundings cool down.
+MC | 2 | What is one use of an exothermic reaction? | Self-heating cans and hand warmers | Sports injury cold packs | Making ice cubes in freezers | Keeping food fresh in fridges | Hand warmers and self-heating cans use exothermic reactions.
+MC | 2 | What is one use of an endothermic reaction? | Instant cold packs for sports injuries | Hand warmers for cold days | Self-heating cans of food | Burning fuel in a car engine | Cold packs take in heat from the injury.
+MC | 3 | On a reaction profile, what shows that a reaction is endothermic? | The products are higher in energy than the reactants | The products are lower in energy than the reactants | There is no activation energy hump | The curve goes straight down | The products have more energy, because energy was taken in.
+SA | 2 | What name is given to the minimum energy particles need to react? | activation energy | Particles must collide with at least the activation energy.
+SA | 2 | Neutralisation releases energy to the surroundings. What word describes this type of reaction? | exothermic | Reactions that release energy to the surroundings are exothermic, so the temperature rises.
+
+lesson: 5.2 - Bond Energies
+MC | 2 | Is energy taken in or given out when bonds are broken? | Taken in | Given out | Neither | Both at once | Breaking bonds is endothermic: it needs energy.
+MC | 2 | Is energy taken in or given out when bonds are made? | Given out | Taken in | Neither | Both at once | Making bonds is exothermic: energy is released.
+MC | 2 | When is a reaction exothermic, in terms of bonds? | More energy is released making bonds than is used breaking them | More energy is used breaking bonds than is released making them | The same number of bonds are broken and made | No bonds are broken at all during it | If bond making releases more energy than bond breaking uses, there is a net release.
+MC | 3 | H2 + Cl2 → 2HCl. Bond energies: H-H 436, Cl-Cl 242, H-Cl 431 kJ/mol. What is the overall energy change? | -184 kJ/mol | +184 kJ/mol | -862 kJ/mol | +678 kJ/mol | Broken: 436 + 242 = 678. Made: 2 × 431 = 862. 678 - 862 = -184 kJ/mol.
+MC | 3 | A reaction uses 1000 kJ to break bonds and releases 800 kJ making bonds. What type of reaction is it? | Endothermic | Exothermic | Neutral | Reversible only | Overall 1000 - 800 = +200 kJ taken in, so it is endothermic.
+MC | 3 | What does a negative overall energy change show? | The reaction is exothermic | The reaction is endothermic | No bonds were broken | The reaction did not happen | A negative value means energy was released to the surroundings.
+SA | 3 | Breaking bonds takes in 500 kJ and making bonds gives out 700 kJ. What is the overall energy change in kJ? | -200 | 500 - 700 = -200 kJ: an exothermic reaction.
+SA | 2 | Bond breaking is endothermic. What is bond making? | exothermic | Forming bonds releases energy.
+
+lesson: 5.3 - Cells & Batteries
+MC | 1 | What is a battery? | Two or more cells connected together | A single metal electrode in acid | A liquid fuel that is burned | A solution of a salt in water | A battery is made of two or more cells joined in series.
+MC | 2 | What does a simple cell need? | Two different metals in an electrolyte | Two identical metals in pure water | One metal in a dry container | A plastic rod and a wire | Two different metals dipped in an electrolyte produce a voltage.
+MC | 2 | How can you make the voltage of a simple cell bigger? | Use metals further apart in reactivity | Use two pieces of the same metal | Use pure water as the electrolyte | Make the wires much longer | The bigger the difference in reactivity, the bigger the voltage.
+MC | 3 | Why do non-rechargeable cells stop working? | One of the reactants is used up | The electrolyte freezes solid | The metals become more reactive | The wires stop conducting | The chemical reaction stops when a reactant runs out.
+MC | 3 | How can a rechargeable cell be recharged? | By applying an external current to reverse the reactions | By adding more water to the electrolyte inside | By cooling the cell down in a freezer overnight | By replacing both of the metal electrodes inside | A current reverses the chemical reactions in rechargeable cells.
+MC | 2 | Which metals give the highest voltage in a simple cell? | Magnesium and copper | Copper and copper | Zinc and zinc | Iron and iron | Magnesium and copper are far apart in reactivity.
+SA | 1 | What is the name of the solution between the electrodes in a cell? | electrolyte | The electrolyte lets ions move between the electrodes.
+SA | 2 | What type of cell can be recharged by passing a current through it? | rechargeable | Rechargeable cells have reactions that can be reversed.
+
+lesson: 5.4 - Fuel Cells
+MC | 1 | Which fuel is used in a hydrogen fuel cell? | Hydrogen | Petrol | Coal | Methane | Hydrogen is oxidised to produce a voltage.
+MC | 2 | What is the only product of a hydrogen fuel cell? | Water | Carbon dioxide | Hydrogen | Oxygen | 2H2 + O2 → 2H2O.
+MC | 2 | What is one advantage of hydrogen fuel cells over rechargeable batteries? | They do not need recharging, only refuelling | They are much cheaper to build | Hydrogen is easy to store safely | They work without any fuel | Fuel cells keep working while fuel is supplied.
+MC | 3 | What is one disadvantage of hydrogen fuel cells? | Hydrogen is hard to store and is flammable | They produce lots of carbon dioxide | They only work at very low temperatures | They contain toxic heavy metals | Hydrogen gas needs high pressure tanks and is explosive.
+MC | 3 | In a hydrogen fuel cell, what happens to the hydrogen? | It is oxidised | It is reduced | It is melted | It is electrolysed | Hydrogen loses electrons at the anode: H2 → 2H⁺ + 2e⁻.
+MC | 2 | Which gas reacts with hydrogen in a fuel cell? | Oxygen | Nitrogen | Carbon dioxide | Chlorine | Hydrogen and oxygen react to form water.
+SA | 2 | What is the waste product of a hydrogen fuel cell? | water | Water is the only product.
+SA | 2 | Which gas is the fuel in a hydrogen fuel cell oxidised by? | oxygen | Oxygen from the air reacts with the hydrogen.

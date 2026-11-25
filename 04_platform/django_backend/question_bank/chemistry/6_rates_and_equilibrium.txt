@@ -1,0 +1,52 @@
+// AQA GCSE Chemistry 8462, topic 6: The rate and extent of chemical change. Written for 285IQ.
+topic: Rates & Equilibrium
+
+lesson: 6.1 - Rates of Reaction
+MC | 1 | What does the rate of a reaction tell you? | How fast reactants turn into products | How much product is made overall | How much energy is given out | How pure the products are | Rate is how quickly a reactant is used up or a product forms.
+MC | 2 | Which equation gives the mean rate of a reaction? | Quantity of product formed ÷ time taken | Time taken ÷ quantity of product | Mass of reactant × time taken | Volume of gas + time taken | Mean rate = amount of reactant used or product made ÷ time.
+MC | 2 | 60 cm³ of gas is made in 30 s. What is the mean rate? | 2 cm³/s | 0.5 cm³/s | 90 cm³/s | 1800 cm³/s | 60 ÷ 30 = 2 cm³/s.
+MC | 2 | Which method could measure the rate of a reaction that gives off a gas? | Collect the gas in a gas syringe | Measure the pH every minute | Weigh the beaker before starting | Filter the products at the end | Recording gas volume against time shows the rate.
+MC | 3 | Why does the mass of a flask go down when marble chips react with acid? | Carbon dioxide gas escapes from the flask | The marble chips evaporate away | The acid turns into a gas | Mass is destroyed in the reaction | Carbon dioxide leaves the open flask, so the mass falls.
+MC | 3 | In the sodium thiosulfate and acid reaction, how is the rate measured? | Time for a cross under the flask to disappear | Volume of gas collected in a syringe | Change in mass of the flask | Change in pH using a meter | A cloudy precipitate of sulfur forms and hides the cross.
+SA | 2 | 4 g of reactant is used up in 20 s. What is the mean rate in g/s? | 0.2 | 4 ÷ 20 = 0.2 g/s.
+SA | 3 | 120 cm³ of gas forms in 2 minutes. What is the mean rate in cm³/s? | 1 | 2 minutes = 120 s. 120 ÷ 120 = 1 cm³/s.
+
+lesson: 6.2 - Factors Affecting Rates of Reaction & Collision Theory
+MC | 1 | What does collision theory say is needed for a reaction? | Particles must collide with enough energy | Particles must be the same size | Particles must stay still | Particles must be gases | Particles react when they collide with at least the activation energy.
+MC | 2 | Why does increasing temperature increase the rate? | Particles move faster, colliding more often and with more energy | Particles get bigger, so they collide much more often | It lowers the activation energy needed for the reaction | It adds more reactant particles into the mixture | Faster particles collide more often, and more collisions have enough energy.
+MC | 2 | Why does increasing concentration increase the rate? | There are more particles in the same volume, so more collisions | The particles move much faster around the container | Each particle has more energy when it collides | The activation energy of the reaction gets smaller | More crowded particles collide more frequently.
+MC | 2 | Why does powder react faster than a lump of the same mass? | It has a bigger surface area | It has a smaller surface area | It has more mass | It is more concentrated | More surface means more particles are exposed to collisions.
+MC | 3 | How does a catalyst increase the rate of a reaction? | It provides a route with a lower activation energy | It gives the particles more kinetic energy | It increases the concentration of reactants | It is used up as the reaction happens | A catalyst offers an alternative pathway needing less energy.
+MC | 3 | Why does increasing the pressure of a gas reaction increase the rate? | The particles are closer together and collide more | The particles move much faster than before | The activation energy of the reaction goes down | The gas particles each become heavier | Higher pressure packs more gas particles into the same space.
+SA | 1 | What name is given to a substance that speeds up a reaction without being used up? | catalyst | Catalysts are not used up in the reaction.
+SA | 2 | What name is given to the biological catalysts in living things? | enzymes | Enzymes are protein catalysts.
+
+lesson: 6.3 - Measuring Rates of Reaction from a Graph
+MC | 1 | On a graph of product made against time, what does a steeper line show? | A faster rate | A slower rate | The reaction has stopped | Less product overall | The steeper the gradient, the faster the reaction.
+MC | 2 | What does it mean when the line on a graph of gas volume against time goes flat? | The reaction has stopped | The reaction is at its fastest | More gas is being made | The catalyst has been added | No more product is forming because a reactant has run out.
+MC | 2 | Why is a reaction fastest at the start? | The concentration of reactants is highest | The products have not been made | The temperature is lowest | The catalyst has not started | There are the most reactant particles at the start, so most collisions.
+MC | 3 | How do you find the rate at a particular time from a curved graph? | Draw a tangent and find its gradient | Read the value on the y-axis | Divide the final volume by the total time | Find the area under the curve | The gradient of the tangent at that point gives the rate.
+MC | 3 | Two experiments use the same amounts of reactants, but one is at a higher temperature. How do the final volumes of gas compare? | They are the same | Higher temperature gives more gas | Lower temperature gives more gas | The hot one gives no gas | The same amounts of reactant give the same amount of product. Only the rate changes.
+MC | 2 | On a rate graph, which axis usually shows time? | The x-axis | The y-axis | Both axes | Neither axis | Time is the independent variable, so it goes on the x-axis.
+SA | 3 | A tangent rises 30 cm³ over 15 s. What is the rate in cm³/s? | 2 | Gradient = 30 ÷ 15 = 2 cm³/s.
+SA | 2 | What is the name of a straight line drawn to touch a curve at one point? | tangent | Its gradient gives the rate at that moment.
+
+lesson: 6.4 - Reversible Reactions & Dynamic Equilibrium
+MC | 1 | What symbol shows a reversible reaction? | ⇌ | → | + | = | The double half arrow shows the reaction can go both ways.
+MC | 2 | What is dynamic equilibrium? | Forward and backward reactions happen at the same rate | All the reactants have turned into products | The reaction has stopped completely | Only the forward reaction is happening | Both reactions continue, but the amounts of each substance stay constant.
+MC | 2 | When can a reversible reaction reach equilibrium? | When it happens in a closed system | When it is left open to the air | Only when a catalyst is added | Only at very low temperatures | Nothing can escape or enter in a closed system.
+MC | 2 | Heating blue hydrated copper sulfate makes it white. What happens when water is added back? | It turns blue and gives out heat | It stays white and takes in heat | It turns green and gives off gas | It melts and turns colourless | The reverse reaction is exothermic and turns the anhydrous solid blue again.
+MC | 3 | If the forward reaction is exothermic, what is the reverse reaction? | Endothermic | Exothermic | Neutral | Impossible | The same amount of energy is transferred, but in the opposite direction.
+MC | 3 | Which statement about a system at dynamic equilibrium is correct? | The concentrations of reactants and products stay constant | The concentrations of reactants and products are always equal | The forward reaction has stopped completely | The backward reaction has stopped completely | Constant does not mean equal. Both reactions carry on at the same rate.
+SA | 2 | What type of system is needed for equilibrium to be reached? | closed | Nothing can enter or leave a closed system.
+SA | 2 | What colour is anhydrous copper sulfate? | white | It turns blue when water is added.
+
+lesson: 6.5 - Le Chatelier's Principle
+MC | 2 | What does Le Chatelier's principle say? | A system at equilibrium shifts to counteract a change | Equilibrium always lies to the right | Catalysts move equilibrium to the products | Equilibrium cannot be changed | If conditions change, the position of equilibrium shifts to oppose the change.
+MC | 2 | N2 + 3H2 ⇌ 2NH3. What happens if more nitrogen is added? | More ammonia is made | Less ammonia is made | Nothing changes | The reaction stops | Equilibrium shifts right to use up the extra nitrogen.
+MC | 3 | N2 + 3H2 ⇌ 2NH3. Why does increasing pressure increase the yield of ammonia? | The right side has fewer gas molecules | The right side has more gas molecules | Pressure lowers the activation energy | Pressure makes the reaction exothermic | 4 molecules on the left become 2 on the right, so higher pressure favours the right.
+MC | 3 | The forward reaction is exothermic. What happens to the yield of products if the temperature is raised? | It decreases | It increases | It stays the same | It doubles | Raising temperature favours the endothermic direction, which is the reverse here.
+MC | 2 | What effect does a catalyst have on the position of equilibrium? | No effect | Shifts it to the products | Shifts it to the reactants | Stops the reaction | A catalyst speeds up both directions equally, so equilibrium is reached faster but does not move.
+MC | 3 | H2 + I2 ⇌ 2HI (all gases). What happens to the equilibrium if pressure is increased? | It does not shift | It shifts to the right | It shifts to the left | The reaction stops | There are 2 gas molecules on each side, so pressure has no effect.
+SA | 3 | Raising the temperature of a reversible reaction always favours one direction. What one word describes that direction? | endothermic | Equilibrium shifts to take in the extra heat, so the endothermic direction is favoured.
+SA | 2 | What is the formula of ammonia? | NH3 | Ammonia is made from nitrogen and hydrogen in the Haber process.
