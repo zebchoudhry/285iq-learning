@@ -8,10 +8,10 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #020817;
             min-height: 100vh;
             padding: 24px;
-            color: #1e293b;
+            color: #f1f5f9;
         }
         .container { max-width: 700px; margin: 0 auto; }
         .back-link {
@@ -30,7 +30,7 @@
             gap: 16px;
         }
         .deck-card {
-            background: white;
+            background: #0f172a;
             border-radius: 12px;
             padding: 20px;
             cursor: pointer;
@@ -41,14 +41,14 @@
             transform: translateY(-4px);
             box-shadow: 0 4px 16px rgba(0,0,0,0.15);
         }
-        .deck-name { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
-        .deck-meta { font-size: 13px; color: #64748b; }
+        .deck-name { font-size: 16px; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
+        .deck-meta { font-size: 13px; color: #94a3b8; }
         .empty-state {
-            background: white;
+            background: #0f172a;
             border-radius: 12px;
             padding: 48px 24px;
             text-align: center;
-            color: #64748b;
+            color: #94a3b8;
         }
         .empty-state-icon { font-size: 48px; margin-bottom: 16px; }
         .flashcard-view { display: none; }
@@ -94,7 +94,7 @@
             inset: 0;
             padding: 32px;
             border-radius: 16px;
-            background: white;
+            background: #0f172a;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
@@ -110,14 +110,27 @@
         .flashcard-label {
             font-size: 11px;
             text-transform: uppercase;
-            color: #64748b;
+            color: #94a3b8;
             margin-bottom: 8px;
         }
-        .flashcard-text { font-size: 18px; line-height: 1.6; color: #1e293b; }
+        .flashcard-text { font-size: 18px; line-height: 1.6; color: #f1f5f9; }
         .flip-hint { color: rgba(255,255,255,0.7); font-size: 13px; margin-top: 12px; }
     </style>
+    <link rel="stylesheet" href="/static/learning/app_theme.css">
+    <style>
+        /* shared dark form controls for pages migrated from the old light theme */
+        body.iq-app input, body.iq-app select, body.iq-app textarea {
+            background: #111827 !important; color: #f1f5f9 !important; border: 1px solid #334155 !important;
+        }
+        body.iq-app input::placeholder, body.iq-app textarea::placeholder { color: #64748b !important; }
+        body.iq-app input:focus, body.iq-app select:focus, body.iq-app textarea:focus {
+            outline: none; border-color: #06b6d4 !important; box-shadow: 0 0 0 3px rgba(6,182,212,0.2) !important;
+        }
+        body.iq-app a { color: #7dd3fc; }
+        body.iq-app label { color: #cbd5e1; }
+    </style>
 </head>
-<body>
+<body class="iq-app">
     <div class="container">
         <a href="/" class="back-link">&larr; Dashboard</a>
         <h1>Flashcards</h1>
@@ -127,7 +140,7 @@
             <div id="decksList" class="decks-grid"></div>
             <div id="decksEmpty" class="empty-state" style="display:none;">
                 <div class="empty-state-icon">🃏</div>
-                <p style="font-size:16px;font-weight:600;color:#1e293b;margin-bottom:8px;">No flashcard decks yet</p>
+                <p style="font-size:16px;font-weight:600;color: #f1f5f9;margin-bottom:8px;">No flashcard decks yet</p>
                 <p>Run the generate_flashcards management command to create flashcards from your content.</p>
             </div>
         </div>

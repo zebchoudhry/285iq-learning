@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #020817;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -16,28 +16,41 @@
             margin: 0;
         }
         .card {
-            background: white;
+            background: #0f172a;
             border-radius: 16px;
             padding: 40px;
             max-width: 480px;
             text-align: center;
             box-shadow: 0 20px 60px rgba(0,0,0,0.2);
         }
-        h1 { color: #1e293b; font-size: 24px; margin-bottom: 16px; }
-        p { color: #64748b; margin-bottom: 24px; line-height: 1.6; }
+        h1 { color: #f1f5f9; font-size: 24px; margin-bottom: 16px; }
+        p { color: #94a3b8; margin-bottom: 24px; line-height: 1.6; }
         a {
             display: inline-block;
             padding: 12px 24px;
-            background: #e2e8f0;
-            color: #475569;
+            background: #334155;
+            color: #cbd5e1;
             text-decoration: none;
             border-radius: 10px;
             font-weight: 600;
         }
-        a:hover { background: #cbd5e1; }
+        a:hover { background: #475569; }
+    </style>
+    <link rel="stylesheet" href="/static/learning/app_theme.css">
+    <style>
+        /* shared dark form controls for pages migrated from the old light theme */
+        body.iq-app input, body.iq-app select, body.iq-app textarea {
+            background: #111827 !important; color: #f1f5f9 !important; border: 1px solid #334155 !important;
+        }
+        body.iq-app input::placeholder, body.iq-app textarea::placeholder { color: #64748b !important; }
+        body.iq-app input:focus, body.iq-app select:focus, body.iq-app textarea:focus {
+            outline: none; border-color: #06b6d4 !important; box-shadow: 0 0 0 3px rgba(6,182,212,0.2) !important;
+        }
+        body.iq-app a { color: #7dd3fc; }
+        body.iq-app label { color: #cbd5e1; }
     </style>
 </head>
-<body>
+<body class="iq-app">
     <div class="card">
         <h1>Payment cancelled</h1>
         <p>No charge was made.</p>
