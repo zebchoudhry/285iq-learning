@@ -58,6 +58,10 @@ PUBLIC_SUBJECTS = {
     },
 }
 
+ACCENTS = {"gcse-maths": "#60a5fa", "gcse-biology": "#34d399", "gcse-chemistry": "#fbbf24", "gcse-physics": "#a78bfa"}
+for _slug, _color in ACCENTS.items():
+    PUBLIC_SUBJECTS[_slug]["accent"] = _color
+
 FAQS = [
     ("Is 285IQ free?", "Yes, you can start free. Free accounts get a daily allowance of practice questions, so you can try every subject before deciding anything else."),
     ("Which exam board is it for?", "The topics follow the AQA GCSE specifications for Maths, Biology, Chemistry and Physics. Much of the science is the same across boards, but the lessons and questions are organised by the AQA topics. 285IQ is independent and is not affiliated with AQA."),
@@ -65,6 +69,7 @@ FAQS = [
     ("How is it different from video and notes sites?", "Videos and notes tell you what to learn. 285IQ makes you practise it, keeps track of what you get wrong, and brings it back at the right time so it sticks."),
     ("What happens when I get a question wrong?", "You see why the right answer is right, with a hint for your next try. The question is saved in your mistake bank and comes back later, so one slip does not turn into a gap."),
     ("Can my parent see how I am doing?", "Yes. Each student has a private progress link a parent can open, showing topic-by-topic progress and weekly practice. No separate parent login is needed."),
+    ("How does the exam readiness bar work?", "Tell 285IQ your exam month and it shows how close you are to exam ready, on a scale up to 100. It looks at how much of the course you have covered, how well you have answered recently, whether your past mistakes are fixed, and your mock results. The bar and the sessions-a-week figure are estimates, and they get more accurate the more you practise."),
     ("What do I need to use it?", "Just a web browser on a phone, tablet or computer. There is nothing to install."),
 ]
 
