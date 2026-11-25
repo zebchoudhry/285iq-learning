@@ -322,3 +322,11 @@ def test_landing_speaks_to_parents(client, content):
     html = client.get("/").content.decode()
     assert 'id="parents"' in html and 'href="/#parents"' in html and 'href="#parents"' in html
     assert "Parent actions this week" in html and "Example data" in html
+
+
+def test_landing_explains_the_gym_analogy_to_parents(client, content):
+    html = client.get("/").content.decode()
+    parents = html[html.index('id="parents"'):html.index('id="how"')]
+    assert "personal trainer" in parents and "Progressive overload" in parents
+    for rung in ("Basics", "Guided practice", "Drills", "Mixed practice", "Exam-level"):
+        assert rung in parents
