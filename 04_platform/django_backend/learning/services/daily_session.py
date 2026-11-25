@@ -265,6 +265,17 @@ def build_daily_session(student, size: int = DEFAULT_SIZE) -> Dict[str, Any]:
         if focus_topics:
             focus_name = focus_topics[0]["topic"]
 
+    # The same wording can exist in several topics; never show it twice in one session.
+    seen_texts, unique = set(), []
+    for it in items:
+        if it["kind"] == "question":
+            key = " ".join(it["question"]["question_text"].lower().split())
+            if key in seen_texts:
+                continue
+            seen_texts.add(key)
+        unique.append(it)
+    items = unique
+
     # questions first-in-first-out, but spread flashcards through the session so it is not two blocks
     questions = [i for i in items if i["kind"] == "question"]
     cards = [i for i in items if i["kind"] == "flashcard"]

@@ -30,6 +30,42 @@
     .sess b { display: block; } .sess span { color: var(--muted); font-size: 14px; }
     .mock .btn { width: 100%; margin-top: 16px; }
 
+    .gcard { display: flex; flex-direction: column; gap: 6px; }
+    .gcard .gi { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 24px; background: var(--surface2); margin-bottom: 6px; }
+    .gcard .tag { align-self: flex-start; margin-top: auto; }
+    .xpstrip { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-top: 22px; }
+    .xpstrip div { background: #0b1324; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; }
+    .xpstrip b { display: block; color: var(--gold); font-size: 18px; margin-bottom: 2px; }
+    .xpstrip span { color: var(--muted); font-size: 15px; }
+
+    .pv-row { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .pv-row:last-of-type { border-bottom: 0; }
+    .pv-row span { color: var(--muted); } .pv-row b { text-align: right; }
+    .pill { display: inline-block; padding: 2px 10px; border-radius: 99px; font-size: 13px; font-weight: 700; }
+    .pill.ok { background: rgba(52,211,153,.16); color: #6ee7b7; }
+    .pv-act { margin-top: 14px; padding: 12px 14px; border-radius: 12px; background: rgba(251,191,36,.1); border: 1px solid rgba(251,191,36,.3); }
+    .pv-act b { color: var(--gold); display: block; margin-bottom: 2px; font-size: 14px; }
+    ul.ticks { list-style: none; } ul.ticks li { padding: 9px 0 9px 30px; position: relative; }
+    ul.ticks li::before { content: "✓"; position: absolute; left: 0; top: 8px; color: var(--green); font-weight: 800; }
+
+    .gym { margin-top: 44px; }
+    .gym-map { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin-top: 18px; }
+    .gym-row { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; }
+    .gym-row b { display: block; color: var(--gold); margin-bottom: 3px; }
+    .gym-row span { color: var(--muted); font-size: 15px; }
+    .ladder { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 30px; align-items: end; }
+    .rung { position: relative; display: flex; align-items: center; justify-content: center; text-align: center; padding: 6px;
+            border-radius: 12px 12px 4px 4px; font-size: 14px; font-weight: 700;
+            background: var(--surface2); border: 1px solid var(--border); color: var(--muted); }
+    .rung:nth-child(1) { height: 48px; } .rung:nth-child(2) { height: 64px; } .rung:nth-child(3) { height: 80px; }
+    .rung:nth-child(4) { height: 96px; } .rung:nth-child(5) { height: 112px; }
+    .rung.done { color: var(--text); border-color: #3b4a63; }
+    .rung.here { color: #02121a; background: var(--cyan); border-color: var(--cyan); }
+    .rung.here::after { content: "Ratio is here"; position: absolute; left: 50%; bottom: calc(100% + 6px); transform: translateX(-50%);
+            white-space: nowrap; font-size: 12px; color: var(--cyan); }
+    @media (max-width: 560px) { .ladder { grid-template-columns: 1fr; } .rung { height: auto !important; min-height: 44px; justify-content: flex-start; padding-left: 14px; border-radius: 12px; }
+        .rung.here::after { position: static; transform: none; margin-left: 8px; color: #02121a; } }
+
     .step-ic { font-size: 30px; margin-bottom: 8px; }
     .subj { border-top: 3px solid var(--accent, var(--cyan)); }
     .subj .icon { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 24px;
@@ -54,6 +90,7 @@
                 <a class="btn btn-ghost" href="#how">See how it works</a>
             </div>
             <p class="note">Free to start. No card needed. Works on phone, tablet or computer.</p>
+            <p class="note">Parent? <a href="#parents">See what you get</a>: a private view of how revision is going, with no nagging.</p>
             <div class="stats" aria-label="What is inside">
                 <div><strong>{{ counts.questions }}+</strong><span>practice questions</span></div>
                 <div><strong>{{ counts.lessons }}</strong><span>lessons across 4 subjects</span></div>
@@ -113,6 +150,57 @@
     </div>
 </section>
 
+<section id="parents">
+    <div class="wrap">
+        <p class="eyebrow">For parents</p>
+        <h2>Know how revision is really going, without nagging</h2>
+        <p class="muted" style="max-width:700px;margin-bottom:28px">Your child revises in the app. You get a private progress link: no extra login, nothing to install, and you only ever see your own child's progress.</p>
+        <div class="grid g2" style="align-items:start">
+            <div class="mock reveal" aria-label="Example parent view">
+                <div class="mock-label">Parent view <small>Example data</small></div>
+                <div class="pv-row"><span>GCSE Biology exam</span><b>in 182 days</b></div>
+                <div class="pv-row"><span>Current grade / target</span><b>5 / 7</b></div>
+                <div class="pv-row"><span>Overall status</span><b><span class="pill ok">On track</span></b></div>
+                <div class="pv-row"><span>This week</span><b>5 sessions (2 more than last week)</b></div>
+                <div class="pv-row"><span>Course covered</span><b>58%</b></div>
+                <div class="pv-act"><b>Parent actions this week</b>Ask them to explain ratio to you. It is their weakest topic right now.</div>
+            </div>
+            <div class="reveal">
+                <h3 style="margin-bottom:10px">What you see</h3>
+                <ul class="ticks">
+                    <li>A countdown to each exam, and the grade they are aiming for</li>
+                    <li>Their current grade against that target, and whether they are on track</li>
+                    <li>How much they practised this week, compared with last week</li>
+                    <li>How much of the course they have covered</li>
+                    <li>One or two simple things you can do this week to help</li>
+                </ul>
+                <p class="muted" style="margin-top:14px">Built around retrieval practice and spacing, two of the best-evidenced ways to learn: your child is tested on what they know, and mistakes come back until they are fixed.</p>
+                <div class="cta-row"><a class="btn btn-primary" href="/register/">Start free for your child</a></div>
+            </div>
+        </div>
+        <div class="gym reveal">
+            <h3 style="font-size:24px">Revision that works like a personal trainer</h3>
+            <p class="muted" style="max-width:720px;margin-top:6px">Nobody gets fit by reading about exercise, or by one huge session the night before. 285IQ trains your child's memory the way a good coach trains a body.</p>
+            <div class="gym-map">
+                <div class="gym-row"><b>Short, regular workouts</b><span>About 10 minutes a day. Little and often beats cramming.</span></div>
+                <div class="gym-row"><b>A trainer who plans the session</b><span>One button picks today's session, so there is no deciding what to revise.</span></div>
+                <div class="gym-row"><b>Work the weak muscles</b><span>Weak topics get the most time until they are strong, then drop to a quick refresher.</span></div>
+                <div class="gym-row"><b>Progressive overload</b><span>Each topic steps up as your child gets stronger, and eases off if they struggle. It moves on a steady trend, not one lucky answer.</span></div>
+                <div class="gym-row"><b>Rest days and repetition</b><span>Mistakes and flashcards come back after a gap, just before they would be forgotten. That spacing is what makes it stick.</span></div>
+                <div class="gym-row"><b>No overtraining</b><span>A daily cap on game XP, so playing never replaces real practice.</span></div>
+            </div>
+            <p class="muted" style="margin-top:22px"><strong style="color:var(--text)">Every topic climbs the same ladder.</strong> Example data:</p>
+            <div class="ladder" role="img" aria-label="Example: the topic Ratio has passed basics and guided practice and is now at drills, with mixed practice and exam-level questions still to come">
+                <div class="rung done">Basics</div>
+                <div class="rung done">Guided practice</div>
+                <div class="rung here">Drills</div>
+                <div class="rung">Mixed practice</div>
+                <div class="rung">Exam-level</div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section id="how">
     <div class="wrap">
         <h2>How it works</h2>
@@ -132,9 +220,34 @@
             <div class="card reveal"><div class="icon" aria-hidden="true">🔢</div><h3>Fresh numbers every time</h3><p class="muted">Calculation questions in maths, physics and chemistry change their numbers, so you learn the method, not the answer.</p></div>
             <div class="card reveal"><div class="icon" aria-hidden="true">🃏</div><h3>Flashcards on a schedule</h3><p class="muted">Spaced-repetition flashcards show you each card just before you would forget it.</p></div>
             <div class="card reveal"><div class="icon" aria-hidden="true">🎯</div><h3>A mistake bank</h3><p class="muted">Every question you miss is saved, with the mistake type, so you can see what to fix first.</p></div>
-            <div class="card reveal"><div class="icon" aria-hidden="true">⚔️</div><h3>Boss battles and games</h3><p class="muted">Take on a topic boss, or play quick games like balancing equations and spotting the mistake. XP, levels and streaks keep you going.</p></div>
+            <div class="card reveal"><div class="icon" aria-hidden="true">⚔️</div><h3>Boss battles and games</h3><p class="muted">Six quick games and a boss battle for every topic, with XP, levels and combos to keep you going.</p></div>
             <div class="card reveal"><div class="icon" aria-hidden="true">📝</div><h3>Mock tests</h3><p class="muted">Practise under timed conditions once you are getting close, and see what to fix before the real thing.</p></div>
         </div>
+    </div>
+</section>
+
+<section id="games">
+    <div class="wrap">
+        <p class="eyebrow">Games</p>
+        <h2>Revision that feels like a game</h2>
+        <p class="muted" style="max-width:680px;margin-bottom:26px">Quick games that make you practise the parts of GCSE that need fast, accurate recall, plus a boss battle at the end of each topic. Each round is marked on our side, so the score is real.</p>
+        <div class="grid g3">
+            {% for g in games %}
+            <div class="card gcard reveal">
+                <div class="gi" aria-hidden="true">{{ g.icon }}</div>
+                <h3>{{ g.title }}</h3>
+                <p class="muted">{{ g.blurb }}</p>
+                <span class="tag">{{ g.area }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="xpstrip">
+            <div class="reveal"><b>XP and levels</b><span>Earn XP for every answer and climb from Rookie to Legend.</span></div>
+            <div class="reveal"><b>Combos</b><span>Answer correctly in a row and your XP multiplier builds.</span></div>
+            <div class="reveal"><b>Boss battles</b><span>Take on a topic boss. The questions you find hardest hit hardest.</span></div>
+            <div class="reveal"><b>Fair play</b><span>A daily XP cap on games, so playing never replaces revising.</span></div>
+        </div>
+        <div class="cta-row"><a class="btn btn-primary" href="/register/">Play free</a></div>
     </div>
 </section>
 
@@ -150,23 +263,6 @@
                 <p class="note">{{ s.topic_count }} topics · {{ s.lesson_count }} lessons</p>
             </a>
             {% endfor %}
-        </div>
-    </div>
-</section>
-
-<section>
-    <div class="wrap">
-        <div class="grid g2" style="align-items:center">
-            <div class="reveal">
-                <p class="eyebrow">For parents</p>
-                <h2>See how revision is really going</h2>
-                <p class="muted">Each student gets a private progress link for a parent. It shows how they are doing in each topic, how often they have practised this week, and where the gaps are, with no extra login to remember.</p>
-                <p class="note">You only ever see your own child's progress.</p>
-            </div>
-            <div class="card reveal">
-                <h3>Why practice works</h3>
-                <p class="muted">Two of the best-evidenced ways to learn are pulling information out of your memory and spacing it out over time. 285IQ is built around both: questions after every lesson, and mistakes and flashcards that return at the right moment.</p>
-            </div>
         </div>
     </div>
 </section>

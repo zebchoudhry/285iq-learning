@@ -217,14 +217,18 @@ def sample_questions(db_name=None, count=3, seed=None):
             qs = qs.filter(lesson__topic__subject__name=db_name)
         ids = list(qs.values_list("id", flat=True))
         random.Random(seed).shuffle(ids)
-        picked = []
+        picked, seen_texts = [], set()
         for qid in ids[: count * 8]:
             q = Question.objects.select_related("lesson__topic").get(id=qid)
+            key = " ".join(q.question_text.lower().split())
+            if key in seen_texts:  # the same question can exist in more than one topic
+                continue
             options = list(MultipleChoiceOption.objects.filter(question=q).order_by("order"))
             if len(options) != 4 or sum(o.is_correct for o in options) != 1:
                 continue
             if len(q.question_text) > 220 or any(len(o.option_text) > 110 for o in options):
                 continue
+            seen_texts.add(key)
             picked.append({
                 "text": q.question_text,
                 "options": [o.option_text for o in options],
@@ -242,6 +246,13 @@ def sample_questions(db_name=None, count=3, seed=None):
 # ---------------------------------------------------------------------------
 # Pages
 # ---------------------------------------------------------------------------
+def public_games():
+    """The real games in the app (title, one-line description, topic area, icon) for the landing page."""
+    from .services.games import GAMES
+
+    return [{"title": g.title, "blurb": g.blurb, "area": g.area, "icon": g.icon} for g in GAMES]
+
+
 def home(request):
     """Landing page for visitors; the dashboard for signed-in students."""
     if request.user.is_authenticated:
@@ -265,6 +276,7 @@ def home(request):
         },
         subjects=subjects,
         samples=sample_questions(None, 1),
+        games=public_games(),
         faqs=[{"q": q, "a": a} for q, a in FAQS],
     ))
 

@@ -204,3 +204,15 @@ def test_flashcard_rating_reschedules_a_session_card(world):
     assert build_daily_session(world["user"])["count"] and not [
         i for i in build_daily_session(world["user"])["items"] if i["kind"] == "flashcard"
     ]
+
+
+def test_same_wording_in_two_topics_is_shown_once(world):
+    other = Topic.objects.create(subject=world["subject"], name="Copies", order=2)
+    lesson = Lesson.objects.create(topic=other, title="2.1 - Copies", content="x")
+    for q in world["questions"]:
+        copy = Question.objects.create(lesson=lesson, question_text=q.question_text, correct_answer="Right",
+                                       question_type="multiple_choice", explanation="x")
+        for n, text in enumerate(["Right", "A", "B", "C"]):
+            MultipleChoiceOption.objects.create(question=copy, option_text=text, is_correct=n == 0, order=n)
+    texts = [i["question"]["question_text"] for i in build_daily_session(world["user"])["items"] if i["kind"] == "question"]
+    assert len(texts) == len(set(texts))

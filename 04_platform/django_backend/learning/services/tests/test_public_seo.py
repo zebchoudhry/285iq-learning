@@ -295,3 +295,38 @@ def test_no_template_folder_is_named_public():
     (this took the homepage down on 2026-11-24)."""
     templates = Path(settings.BASE_DIR) / "templates"
     assert not [p for p in templates.rglob("*") if p.is_dir() and p.name == "public"]
+
+
+def test_landing_lists_every_real_game(client, content):
+    from learning.services.games import GAMES
+
+    html = client.get("/").content.decode()
+    assert 'id="games"' in html and "Revision that feels like a game" in html
+    for g in GAMES:
+        assert g.title in html and g.blurb in html
+    assert len(client.get("/").context["games"]) == len(GAMES)
+
+
+def test_samples_never_repeat_the_same_wording(db):
+    """Production has the same question copied into several topics; a page must not show it twice."""
+    subject = Subject.objects.create(name="chemistry", display_name="GCSE Chemistry")
+    for n in range(3):
+        topic = Topic.objects.create(subject=subject, name=f"Topic {n}", order=n)
+        lesson = Lesson.objects.create(topic=topic, title=f"{n}.1 - L", content="x")
+        make_mcq(lesson, "What products form when an acid reacts with a base?", ["Salt and water", "A", "B", "C"])
+    texts = [s["text"] for s in seo_views.sample_questions("chemistry", 3)]
+    assert texts == ["What products form when an acid reacts with a base?"]
+
+
+def test_landing_speaks_to_parents(client, content):
+    html = client.get("/").content.decode()
+    assert 'id="parents"' in html and 'href="/#parents"' in html and 'href="#parents"' in html
+    assert "Parent actions this week" in html and "Example data" in html
+
+
+def test_landing_explains_the_gym_analogy_to_parents(client, content):
+    html = client.get("/").content.decode()
+    parents = html[html.index('id="parents"'):html.index('id="how"')]
+    assert "personal trainer" in parents and "Progressive overload" in parents
+    for rung in ("Basics", "Guided practice", "Drills", "Mixed practice", "Exam-level"):
+        assert rung in parents
