@@ -1,50 +1,125 @@
 {% extends "site/base_public.html" %}
 {% block content %}
-<section style="padding-top:72px">
-    <div class="wrap">
-        <p class="eyebrow">GCSE Maths · Biology · Chemistry · Physics</p>
-        <h1>Revise GCSE by practising it, and fix what you get wrong.</h1>
-        <p class="lead">Short practice sessions on every topic, with the right answer explained. The questions you miss keep coming back until you can do them, and parents can see how it is going.</p>
-        <div class="cta-row">
-            <a class="btn btn-primary" href="/register/">Start free</a>
-            <a class="btn btn-ghost" href="#try">Try a question first</a>
-        </div>
-        <p class="note">Free to start. No card needed.</p>
-        <div class="stats" aria-label="What is inside">
-            <div><strong>{{ counts.questions }}+</strong><span>practice questions</span></div>
-            <div><strong>{{ counts.lessons }}</strong><span>lessons across 4 subjects</span></div>
-            <div><strong>{{ counts.flashcards }}+</strong><span>flashcards</span></div>
-        </div>
-    </div>
-</section>
+<style>
+    .hero { position: relative; padding: 56px 0 40px; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; inset: -20% -10% auto -10%; height: 520px; pointer-events: none;
+        background: radial-gradient(600px 300px at 20% 10%, rgba(34,211,238,.16), transparent 70%), radial-gradient(500px 280px at 85% 30%, rgba(109,93,252,.18), transparent 70%); }
+    .hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 40px; align-items: center; }
+    .hero h1 em { font-style: normal; color: var(--cyan); }
+    .hero .try { max-width: none; box-shadow: 0 20px 60px rgba(0,0,0,.45); border-color: #3b4a63; }
+    .try-label { color: var(--cyan); font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+    @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; gap: 28px; } .hero { padding-top: 36px; } }
 
-{% if samples %}
-{% with q=samples.0 %}
-<section id="try" style="padding-top:20px">
+    .showcase { background: linear-gradient(180deg, transparent, rgba(15,23,42,.6) 20%, rgba(15,23,42,.6) 80%, transparent); }
+    .mock { background: #0b1324; border: 1px solid var(--border); border-radius: 18px; padding: 22px; box-shadow: 0 18px 50px rgba(0,0,0,.4); }
+    .mock-label { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; display: flex; justify-content: space-between; gap: 8px; }
+    .mock-label small { color: var(--muted); font-weight: 600; letter-spacing: .4px; text-transform: none; }
+    .rbar { margin-bottom: 18px; }
+    .rbar .head { display: flex; justify-content: space-between; gap: 8px; font-weight: 700; margin-bottom: 6px; }
+    .rbar .state { font-size: 14px; }
+    .track { position: relative; height: 14px; background: rgba(255,255,255,.1); border-radius: 99px; overflow: hidden; }
+    .fill { height: 100%; width: var(--w); border-radius: 99px; background: var(--c); }
+    .js .fill { width: 0; transition: width 1.3s cubic-bezier(.22,.8,.3,1); }
+    .js .in .fill { width: var(--w); }
+    .goal { position: absolute; top: 0; bottom: 0; left: 85%; width: 2px; background: #fff; }
+    .rbar p { color: var(--muted); font-size: 14px; margin-top: 6px; }
+    .sess { list-style: none; }
+    .sess li { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .sess li:last-child { border-bottom: 0; }
+    .sess .dot { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-size: 17px; background: var(--surface2); flex: none; }
+    .sess b { display: block; } .sess span { color: var(--muted); font-size: 14px; }
+    .mock .btn { width: 100%; margin-top: 16px; }
+
+    .step-ic { font-size: 30px; margin-bottom: 8px; }
+    .subj { border-top: 3px solid var(--accent, var(--cyan)); }
+    .subj .icon { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 24px;
+                  background: color-mix(in srgb, var(--accent, #22d3ee) 18%, transparent); color: var(--accent, #22d3ee); }
+
+    .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .js .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+        .js .reveal { opacity: 1; transform: none; transition: none; }
+        .js .fill { width: var(--w); transition: none; }
+    }
+</style>
+
+<section class="hero">
     <div class="wrap">
-        <h2>Try one now</h2>
-        <p class="muted" style="margin-bottom:20px">This is how every question works: answer it, see why, move on.</p>
-        <div class="try" data-correct="{{ q.correct }}">
-            <span class="tag">{{ q.topic }}</span>
-            <p class="q">{{ q.text }}</p>
-            <div role="group" aria-label="Answer options">
-                {% for o in q.options %}<button type="button" class="opt" data-i="{{ forloop.counter0 }}">{{ o }}</button>{% endfor %}
+        <div>
+            <p class="eyebrow">GCSE Maths · Biology · Chemistry · Physics</p>
+            <h1>Know exactly how <em>ready you are</em> for your GCSE exams.</h1>
+            <p class="lead">Short daily practice that finds your weak topics, fixes them, and shows your exam-readiness bar filling up as you improve.</p>
+            <div class="cta-row">
+                <a class="btn btn-primary" href="/register/">Start free</a>
+                <a class="btn btn-ghost" href="#how">See how it works</a>
             </div>
-            <div class="why" id="why" role="status"><strong id="verdict"></strong> {{ q.explanation }}</div>
-            <noscript><p class="why show">The correct option is number {{ q.correct|add:1 }}. {{ q.explanation }}</p></noscript>
+            <p class="note">Free to start. No card needed. Works on phone, tablet or computer.</p>
+            <div class="stats" aria-label="What is inside">
+                <div><strong>{{ counts.questions }}+</strong><span>practice questions</span></div>
+                <div><strong>{{ counts.lessons }}</strong><span>lessons across 4 subjects</span></div>
+                <div><strong>{{ counts.flashcards }}+</strong><span>flashcards</span></div>
+            </div>
+        </div>
+
+        {% if samples %}
+        {% with q=samples.0 %}
+        <div id="try">
+            <div class="try" data-correct="{{ q.correct }}">
+                <p class="try-label">Try one now · no sign-up</p>
+                <span class="tag">{{ q.topic }}</span>
+                <p class="q">{{ q.text }}</p>
+                <div role="group" aria-label="Answer options">
+                    {% for o in q.options %}<button type="button" class="opt" data-i="{{ forloop.counter0 }}">{{ o }}</button>{% endfor %}
+                </div>
+                <div class="why" id="why" role="status"><strong id="verdict"></strong> {{ q.explanation }}</div>
+                <noscript><p class="why show">The correct option is number {{ q.correct|add:1 }}. {{ q.explanation }}</p></noscript>
+            </div>
+        </div>
+        {% endwith %}
+        {% endif %}
+    </div>
+</section>
+
+<section class="showcase">
+    <div class="wrap">
+        <p class="eyebrow">What you get</p>
+        <h2>See your progress, not just your notes</h2>
+        <p class="muted" style="max-width:680px;margin-bottom:28px">Tell 285IQ your exam month and it shows how close you are to exam ready, and what to do each week to get there. The examples below use made-up data.</p>
+        <div class="grid g2">
+            <div class="mock reveal" aria-label="Example exam readiness">
+                <div class="mock-label">Exam readiness <small>Example data</small></div>
+                <div class="rbar">
+                    <div class="head"><span>GCSE Biology · June 2027</span><span class="state" style="color:#22d3ee">On track</span></div>
+                    <div class="track" role="img" aria-label="62 percent ready, exam ready at 85 percent"><div class="fill" style="--w:62%;--c:#22d3ee"></div><div class="goal"></div></div>
+                    <p>62% ready (exam ready at 85%). About 3 sessions a week to get there.</p>
+                </div>
+                <div class="rbar">
+                    <div class="head"><span>GCSE Maths · June 2027</span><span class="state" style="color:#f59e0b">Behind pace</span></div>
+                    <div class="track" role="img" aria-label="41 percent ready, exam ready at 85 percent"><div class="fill" style="--w:41%;--c:#f59e0b"></div><div class="goal"></div></div>
+                    <p>41% ready. About 5 sessions a week to catch up.</p>
+                </div>
+                <p class="note" style="margin-top:4px">Estimates from your practice. They get more accurate the more you use it.</p>
+            </div>
+            <div class="mock reveal" aria-label="Example daily session">
+                <div class="mock-label">Your 10 minutes <small>Example data</small></div>
+                <ul class="sess">
+                    <li><span class="dot" aria-hidden="true">🎯</span><div><b>3 questions you missed before</b><span>They come back until you can do them</span></div></li>
+                    <li><span class="dot" aria-hidden="true">🃏</span><div><b>2 flashcards due today</b><span>Shown just before you would forget</span></div></li>
+                    <li><span class="dot" aria-hidden="true">📈</span><div><b>3 on Genetics</b><span>Your weakest topic, so it gets the most time</span></div></li>
+                </ul>
+                <a class="btn btn-primary" href="/register/">Start your 10 minutes</a>
+            </div>
         </div>
     </div>
 </section>
-{% endwith %}
-{% endif %}
 
-<section>
+<section id="how">
     <div class="wrap">
         <h2>How it works</h2>
-        <div class="grid g3 steps">
-            <div class="card"><h3>Pick a topic</h3><p class="muted">Every GCSE topic is split into short lessons, ordered like the AQA specification, so you can revise exactly what is coming up.</p></div>
-            <div class="card"><h3>Practise it</h3><p class="muted">Questions after every lesson. Get one wrong and you see why, not just the answer, with a hint for the next try.</p></div>
-            <div class="card"><h3>Come back to mistakes</h3><p class="muted">Missed questions and tricky flashcards return on a schedule, so you remember them in the exam, not just tonight.</p></div>
+        <div class="grid g3">
+            <div class="card reveal"><div class="step-ic" aria-hidden="true">📅</div><h3>1. Tell us your exam month</h3><p class="muted">Pick your subjects and when your exams are. That sets your readiness target and how much time you have.</p></div>
+            <div class="card reveal"><div class="step-ic" aria-hidden="true">⚡</div><h3>2. Do your 10 minutes</h3><p class="muted">One button picks today's session for you. No deciding what to revise. You see why each answer is right, with a hint for the next try.</p></div>
+            <div class="card reveal"><div class="step-ic" aria-hidden="true">🔁</div><h3>3. Watch weak spots shrink</h3><p class="muted">Topics you struggle with get more of your time until you answer them well. Then they drop to a quick refresher.</p></div>
         </div>
     </div>
 </section>
@@ -53,12 +128,12 @@
     <div class="wrap">
         <h2>Everything for revision, in one place</h2>
         <div class="grid g3">
-            <div class="card"><div class="icon" aria-hidden="true">🧠</div><h3>Practice that sticks</h3><p class="muted">Testing yourself beats rereading notes. Every lesson ends in questions, and wrong answers are asked again.</p></div>
-            <div class="card"><div class="icon" aria-hidden="true">🔁</div><h3>Fresh numbers every time</h3><p class="muted">Calculation questions in maths, physics and chemistry change their numbers, so you learn the method, not the answer.</p></div>
-            <div class="card"><div class="icon" aria-hidden="true">🃏</div><h3>Flashcards on a schedule</h3><p class="muted">Spaced-repetition flashcards show you each card just before you would forget it.</p></div>
-            <div class="card"><div class="icon" aria-hidden="true">🎯</div><h3>A mistake bank</h3><p class="muted">Every question you miss is saved, with the mistake type, so you can see what to fix first.</p></div>
-            <div class="card"><div class="icon" aria-hidden="true">⚔️</div><h3>Boss battles and games</h3><p class="muted">Take on a topic boss, or play quick games like balancing equations and spotting the mistake. XP, levels and streaks keep you going.</p></div>
-            <div class="card"><div class="icon" aria-hidden="true">📅</div><h3>Planner and mock tests</h3><p class="muted">Set your exam dates, see how ready you are for each subject, and practise under timed conditions.</p></div>
+            <div class="card reveal"><div class="icon" aria-hidden="true">🧠</div><h3>Practice that sticks</h3><p class="muted">Testing yourself beats rereading notes. Every lesson ends in questions, and wrong answers are asked again.</p></div>
+            <div class="card reveal"><div class="icon" aria-hidden="true">🔢</div><h3>Fresh numbers every time</h3><p class="muted">Calculation questions in maths, physics and chemistry change their numbers, so you learn the method, not the answer.</p></div>
+            <div class="card reveal"><div class="icon" aria-hidden="true">🃏</div><h3>Flashcards on a schedule</h3><p class="muted">Spaced-repetition flashcards show you each card just before you would forget it.</p></div>
+            <div class="card reveal"><div class="icon" aria-hidden="true">🎯</div><h3>A mistake bank</h3><p class="muted">Every question you miss is saved, with the mistake type, so you can see what to fix first.</p></div>
+            <div class="card reveal"><div class="icon" aria-hidden="true">⚔️</div><h3>Boss battles and games</h3><p class="muted">Take on a topic boss, or play quick games like balancing equations and spotting the mistake. XP, levels and streaks keep you going.</p></div>
+            <div class="card reveal"><div class="icon" aria-hidden="true">📝</div><h3>Mock tests</h3><p class="muted">Practise under timed conditions once you are getting close, and see what to fix before the real thing.</p></div>
         </div>
     </div>
 </section>
@@ -68,9 +143,9 @@
         <h2>Choose your subject</h2>
         <div class="grid g4">
             {% for s in subjects %}
-            <a class="card" href="/{{ s.slug }}/">
+            <a class="card subj reveal" href="/{{ s.slug }}/" style="--accent:{{ s.accent }}">
                 <div class="icon" aria-hidden="true">{{ s.icon }}</div>
-                <h3>{{ s.title }}</h3>
+                <h3 style="margin-top:12px">{{ s.title }}</h3>
                 <p class="muted">{{ s.blurb }}</p>
                 <p class="note">{{ s.topic_count }} topics · {{ s.lesson_count }} lessons</p>
             </a>
@@ -82,13 +157,13 @@
 <section>
     <div class="wrap">
         <div class="grid g2" style="align-items:center">
-            <div>
+            <div class="reveal">
                 <p class="eyebrow">For parents</p>
                 <h2>See how revision is really going</h2>
                 <p class="muted">Each student gets a private progress link for a parent. It shows how they are doing in each topic, how often they have practised this week, and where the gaps are, with no extra login to remember.</p>
                 <p class="note">You only ever see your own child's progress.</p>
             </div>
-            <div class="card">
+            <div class="card reveal">
                 <h3>Why practice works</h3>
                 <p class="muted">Two of the best-evidenced ways to learn are pulling information out of your memory and spacing it out over time. 285IQ is built around both: questions after every lesson, and mistakes and flashcards that return at the right moment.</p>
             </div>
@@ -110,19 +185,31 @@
 {% block scripts %}
 <script>
 (function () {
-    var box = document.querySelector('.try'); if (!box) return;
-    var correct = parseInt(box.getAttribute('data-correct'), 10);
-    var buttons = box.querySelectorAll('.opt');
-    buttons.forEach(function (b) {
-        b.addEventListener('click', function () {
-            var picked = parseInt(b.getAttribute('data-i'), 10);
-            buttons.forEach(function (x) { x.disabled = true; });
-            buttons[correct].classList.add('good');
-            if (picked !== correct) b.classList.add('bad');
-            document.getElementById('verdict').textContent = picked === correct ? 'Correct.' : 'Not quite.';
-            document.getElementById('why').classList.add('show');
+    var box = document.querySelector('.try');
+    if (box) {
+        var correct = parseInt(box.getAttribute('data-correct'), 10);
+        var buttons = box.querySelectorAll('.opt');
+        buttons.forEach(function (b) {
+            b.addEventListener('click', function () {
+                var picked = parseInt(b.getAttribute('data-i'), 10);
+                buttons.forEach(function (x) { x.disabled = true; });
+                buttons[correct].classList.add('good');
+                if (picked !== correct) b.classList.add('bad');
+                document.getElementById('verdict').textContent = picked === correct ? 'Correct.' : 'Not quite.';
+                document.getElementById('why').classList.add('show');
+            });
         });
-    });
+    }
+    // Reveal-on-scroll and bar fill. Content is fully visible without JS (the "js" class is what hides it).
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var targets = document.querySelectorAll('.reveal');
+    if (!reduced && 'IntersectionObserver' in window) {
+        document.documentElement.classList.add('js');
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { threshold: 0.15 });
+        targets.forEach(function (t) { io.observe(t); });
+    }
 })();
 </script>
 {% endblock %}
