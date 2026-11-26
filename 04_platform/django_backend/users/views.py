@@ -1,6 +1,8 @@
 """
 Views for users app - Authentication and User Management
 """
+import logging
+
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
@@ -26,6 +28,8 @@ from .serializers import (
     OnboardingExamDatesSerializer,
 )
 from .models import UserProfile
+
+logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
@@ -99,17 +103,31 @@ def password_reset_request(request):
     if user:
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
-        reset_link = f"{request.scheme}://{request.get_host()}/reset-password/?uid={uid}&token={token}"
+        # Build the link from the configured site address, never from the request's Host header,
+        # so a forged Host cannot make the email point at someone else's site.
+        reset_link = f"{settings.SITE_URL.rstrip('/')}/reset-password/?uid={uid}&token={token}"
+        name = user.first_name or user.username
+        message = (
+            f"Hi {name},\n\n"
+            "Someone asked to reset the password for your 285IQ account. "
+            "If it was you, open this link to choose a new password:\n\n"
+            f"{reset_link}\n\n"
+            "The link works for 24 hours and can only be used once.\n\n"
+            "If you did not ask for this, you can ignore this email. Your password has not changed.\n\n"
+            "285IQ"
+        )
         try:
             send_mail(
-                subject='285IQ Password Reset',
-                message=f'Use this link to reset your password: {reset_link}\n\nLink expires in 24 hours.',
+                subject='Reset your 285IQ password',
+                message=message,
                 from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[email],
-                fail_silently=True,
+                recipient_list=[user.email],
+                fail_silently=False,
             )
         except Exception:
-            pass  # In dev without email backend, fail silently
+            # Logged so a broken mail setup shows up in the server logs. The response stays the
+            # same either way, so the page never reveals whether an account exists.
+            logger.exception("Password reset email to user %s could not be sent", user.pk)
     # Always return same message for anonymity
     return Response({'message': 'If an account exists with this email, you will receive reset instructions.'})
 

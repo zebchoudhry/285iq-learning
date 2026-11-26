@@ -248,9 +248,22 @@ if _vercel_url:
     if _vercel_origin not in CORS_ALLOWED_ORIGINS:
         CORS_ALLOWED_ORIGINS.append(_vercel_origin)
 
-# Email (for password reset). In development, use console backend.
-EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@285iq.com')
+# Email (password reset, parent emails). Sent through an SMTP relay such as Brevo
+# (smtp-relay.brevo.com, port 587, TLS) when EMAIL_HOST is set; otherwise printed to the console.
+EMAIL_HOST = config('EMAIL_HOST', default='')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+EMAIL_TIMEOUT = config('EMAIL_TIMEOUT', default=10, cast=int)  # never hang a request on a slow mail server
+EMAIL_BACKEND = config(
+    'EMAIL_BACKEND',
+    default='django.core.mail.backends.smtp.EmailBackend' if EMAIL_HOST else 'django.core.mail.backends.console.EmailBackend',
+)
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='285IQ <noreply@285iq.com>')
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+# Reset links work for 24 hours, which is what the email tells the user.
+PASSWORD_RESET_TIMEOUT = 60 * 60 * 24
 
 # LLM configuration (Phase 4)
 # LLM_BACKEND: disabled | mock | openai_compatible | huggingface
