@@ -1,0 +1,93 @@
+// AQA GCSE Chemistry 8462, topic 3: Quantitative chemistry. Written for 285IQ.
+// Relative atomic masses used: H 1, C 12, N 14, O 16, Na 23, Mg 24, S 32, Cl 35.5, Ca 40.
+topic: Quantitative Chemistry
+
+lesson: 3.1 - Relative Formula Mass
+MC | 1 | What is the relative formula mass (Mr) of a compound? | The sum of the relative atomic masses of its atoms | The number of atoms in one formula unit | The mass of one mole of electrons | The atomic number of the heaviest atom | Add up the Ar of every atom in the formula.
+MC | 2 | What is the Mr of carbon dioxide, CO2? (C = 12, O = 16) | 44 | 28 | 40 | 32 | 12 + (2 × 16) = 44.
+MC | 2 | What is the Mr of water, H2O? (H = 1, O = 16) | 18 | 17 | 34 | 16 | (2 × 1) + 16 = 18.
+MC | 2 | What is the Mr of calcium carbonate, CaCO3? (Ca = 40, C = 12, O = 16) | 100 | 68 | 84 | 116 | 40 + 12 + (3 × 16) = 100.
+MC | 3 | What is the Mr of sulfuric acid, H2SO4? (H = 1, S = 32, O = 16) | 98 | 49 | 96 | 82 | (2 × 1) + 32 + (4 × 16) = 98.
+MC | 3 | What is the Mr of calcium hydroxide, Ca(OH)2? (Ca = 40, O = 16, H = 1) | 74 | 57 | 58 | 114 | 40 + 2 × (16 + 1) = 74.
+SA | 2 | What is the Mr of sodium chloride, NaCl? (Na = 23, Cl = 35.5) | 58.5 | 23 + 35.5 = 58.5.
+SA | 2 | What is the Mr of ammonia, NH3? (N = 14, H = 1) | 17 | 14 + (3 × 1) = 17.
+
+lesson: 3.2 - Moles & Mass
+MC | 1 | What is the Avogadro constant? | 6.02 × 10²³ | 6.02 × 10³² | 1.00 × 10²³ | 24 | One mole of any substance contains 6.02 × 10²³ particles.
+MC | 2 | How many moles are in 88 g of carbon dioxide? (Mr = 44) | 2 | 0.5 | 44 | 88 | Moles = mass ÷ Mr = 88 ÷ 44 = 2.
+MC | 2 | What is the mass of 3 moles of water? (Mr = 18) | 54 g | 6 g | 18 g | 21 g | Mass = moles × Mr = 3 × 18 = 54 g.
+MC | 2 | Which equation links moles, mass and Mr? | Moles = mass ÷ Mr | Moles = Mr ÷ mass | Moles = mass × Mr | Moles = mass + Mr | Number of moles = mass in grams ÷ relative formula mass.
+MC | 3 | How many moles are in 4 g of sodium hydroxide, NaOH? (Mr = 40) | 0.1 | 10 | 0.4 | 4 | 4 ÷ 40 = 0.1 mol.
+MC | 3 | Which contains more particles: 1 mole of hydrogen gas or 1 mole of oxygen gas? | They contain the same number | Oxygen, as its molecules are heavier | Hydrogen, as its molecules are smaller | It depends on the temperature | One mole of anything contains 6.02 × 10²³ particles.
+SA | 2 | How many moles are in 32 g of methane, CH4? (Mr = 16) | 2 | 32 ÷ 16 = 2 mol.
+SA | 3 | What is the mass in grams of 0.5 moles of calcium carbonate? (Mr = 100) | 50 | 0.5 × 100 = 50 g.
+
+lesson: 3.3 - Calculating Mass in Reactions
+MC | 2 | 2Mg + O2 → 2MgO. What mass of magnesium oxide forms from 48 g of magnesium? (Mg = 24, O = 16) | 80 g | 40 g | 64 g | 96 g | 48 g Mg = 2 mol, giving 2 mol MgO. 2 × 40 = 80 g.
+MC | 2 | CaCO3 → CaO + CO2. What mass of calcium oxide forms from 100 g of calcium carbonate? (CaO = 56) | 56 g | 44 g | 100 g | 28 g | 1 mol CaCO3 gives 1 mol CaO, which is 56 g.
+MC | 3 | CaCO3 → CaO + CO2. What mass of carbon dioxide forms from 50 g of calcium carbonate? (CaCO3 = 100, CO2 = 44) | 22 g | 44 g | 50 g | 28 g | 50 g is 0.5 mol, giving 0.5 mol CO2 = 0.5 × 44 = 22 g.
+MC | 2 | What do the big numbers in front of formulas in an equation tell you? | The ratio of moles that react | The mass of each substance in grams | The number of atoms in each molecule | How fast each substance reacts | The balancing numbers give the mole ratio.
+MC | 3 | 2H2 + O2 → 2H2O. How many moles of water form from 3 moles of hydrogen? | 3 | 6 | 1.5 | 2 | The ratio of H2 to H2O is 2:2, so 3 mol H2 gives 3 mol H2O.
+MC | 3 | N2 + 3H2 → 2NH3. How many moles of hydrogen are needed to make 4 moles of ammonia? | 6 | 4 | 3 | 12 | 3 mol H2 make 2 mol NH3, so 6 mol H2 make 4 mol NH3.
+SA | 3 | 2Mg + O2 → 2MgO. What mass in grams of magnesium oxide forms from 12 g of magnesium? (Mg = 24, MgO = 40) | 20 | 12 g Mg = 0.5 mol, giving 0.5 mol MgO = 20 g.
+SA | 3 | 2Na + Cl2 → 2NaCl. How many moles of sodium chloride form from 4 moles of sodium? | 4 | The ratio of Na to NaCl is 2:2, so 4 mol gives 4 mol.
+
+lesson: 3.4 - Conservation of Mass
+MC | 1 | What does the law of conservation of mass say? | No atoms are lost or made in a reaction | The products are always heavier | Mass is lost as heat in reactions | Only gases have mass | The total mass of the products equals the total mass of the reactants.
+MC | 2 | 10 g of reactants react completely in a sealed flask. What is the mass of the products? | 10 g | More than 10 g | Less than 10 g | It cannot be known | In a closed system mass is conserved.
+MC | 2 | Why does the mass go down when calcium carbonate is heated in an open tube? | Carbon dioxide gas escapes | Atoms are destroyed by the heat | The calcium oxide evaporates | Oxygen from the air is used up | A gas product leaves the container, so the mass you measure drops.
+MC | 2 | Why does the mass go up when magnesium is burned in air? | It gains oxygen atoms from the air | Magnesium atoms get heavier when hot | The heat adds mass to the metal | Carbon from the flame joins on | The oxygen that combines with the magnesium adds mass.
+MC | 3 | 12 g of magnesium burns to make 20 g of magnesium oxide. What mass of oxygen reacted? | 8 g | 32 g | 12 g | 20 g | 20 - 12 = 8 g of oxygen.
+MC | 3 | Why might a measured mass change be different from what you calculate? | Some product may be lost or not react fully | The law of conservation of mass is wrong | Balances always read too high | Atoms change mass when they react | Spilling, gases escaping or incomplete reactions all affect results.
+SA | 2 | 5.6 g of iron reacts with 3.2 g of sulfur with nothing left over. What mass in grams of iron sulfide forms? | 8.8 | 5.6 + 3.2 = 8.8 g.
+SA | 1 | 15 g of reactants react completely in a sealed container. What is the mass in grams of the products? | 15 | Nothing can enter or leave a sealed container, so the mass is conserved.
+
+lesson: 3.5 - Limiting Reactants
+MC | 1 | What is the limiting reactant? | The reactant that is used up first | The reactant that is in excess | The product that forms first | The catalyst in the reaction | The limiting reactant runs out and stops the reaction.
+MC | 2 | What does it mean if a reactant is in excess? | Some of it is left over at the end | It is used up first in the reaction | It slows the reaction down | It is a catalyst | More of it is present than is needed to react with the other reactant.
+MC | 2 | How does the amount of product depend on the limiting reactant? | It is directly proportional to it | It does not depend on it at all | It depends only on the excess reactant | It is always double the limiting reactant | Doubling the limiting reactant doubles the product.
+MC | 3 | 2H2 + O2 → 2H2O. You have 4 mol of H2 and 3 mol of O2. Which is limiting? | Hydrogen | Oxygen | Neither | Water | 4 mol H2 needs only 2 mol O2. O2 is in excess, so H2 runs out first.
+MC | 3 | Mg + 2HCl → MgCl2 + H2. 1 mol of Mg is added to 1 mol of HCl. Which is limiting? | Hydrochloric acid | Magnesium | Hydrogen | Neither | 1 mol Mg needs 2 mol HCl. Only 1 mol is there, so the acid runs out first.
+MC | 2 | Why do chemists often add one reactant in excess? | To make sure the other reactant fully reacts | To slow the whole reaction right down | To make less of the product overall | To save money on the cost of chemicals | Using excess makes sure all of the more valuable reactant is used.
+SA | 3 | Mg + 2HCl → MgCl2 + H2. With 1 mol Mg and 1 mol HCl, how many moles of hydrogen form? | 0.5 | HCl is limiting: 1 mol HCl gives 0.5 mol H2.
+SA | 2 | What two-word term describes the reactant that runs out first and stops the reaction? | limiting reactant | The limiting reactant is used up first. The other reactant is in excess.
+
+lesson: 3.6 - Concentration Calculations (grams/dm³)
+MC | 1 | How many cm³ are in 1 dm³? | 1000 | 100 | 10 | 10 000 | 1 dm³ = 1000 cm³ (one litre).
+MC | 2 | 10 g of salt is dissolved to make 0.5 dm³ of solution. What is the concentration? | 20 g/dm³ | 5 g/dm³ | 10 g/dm³ | 50 g/dm³ | Concentration = mass ÷ volume = 10 ÷ 0.5 = 20 g/dm³.
+MC | 2 | What is 250 cm³ in dm³? | 0.25 dm³ | 2.5 dm³ | 25 dm³ | 0.025 dm³ | Divide by 1000: 250 ÷ 1000 = 0.25 dm³.
+MC | 3 | 5 g of solute is dissolved in 250 cm³ of solution. What is the concentration? | 20 g/dm³ | 1.25 g/dm³ | 50 g/dm³ | 0.02 g/dm³ | 250 cm³ = 0.25 dm³. 5 ÷ 0.25 = 20 g/dm³.
+MC | 3 | What mass of solute is in 200 cm³ of a 40 g/dm³ solution? | 8 g | 80 g | 200 g | 5 g | 200 cm³ = 0.2 dm³. Mass = 40 × 0.2 = 8 g.
+MC | 2 | How can you make a solution more concentrated? | Dissolve more solute in the same volume | Add more water to the solution | Pour away half of the solution | Cool the solution in a fridge | More solute in the same volume raises the concentration.
+SA | 2 | What is the concentration in g/dm³ of 30 g of solute in 2 dm³ of solution? | 15 | 30 ÷ 2 = 15 g/dm³.
+SA | 3 | What is the concentration in g/dm³ of 4 g of solute in 500 cm³ of solution? | 8 | 500 cm³ = 0.5 dm³. 4 ÷ 0.5 = 8 g/dm³.
+
+lesson: 3.7 - Gas Calculations
+MC | 2 | What volume does one mole of any gas take up at room temperature and pressure? | 24 dm³ | 22.4 cm³ | 1 dm³ | 100 dm³ | At RTP one mole of any gas occupies 24 dm³.
+MC | 2 | What volume does 2 moles of oxygen take up at room temperature and pressure? | 48 dm³ | 24 dm³ | 12 dm³ | 32 dm³ | 2 × 24 = 48 dm³.
+MC | 3 | How many moles are in 12 dm³ of carbon dioxide at room temperature and pressure? | 0.5 | 2 | 12 | 0.24 | 12 ÷ 24 = 0.5 mol.
+MC | 3 | 2H2 + O2 → 2H2O (all gases). What volume of oxygen reacts with 48 dm³ of hydrogen? | 24 dm³ | 48 dm³ | 96 dm³ | 12 dm³ | Equal moles of gases have equal volumes. 2 volumes of H2 react with 1 volume of O2.
+MC | 2 | Which gas has the larger volume at room temperature and pressure: 1 mol of hydrogen or 1 mol of chlorine? | They have the same volume | Chlorine, as it is heavier | Hydrogen, as it is lighter | It depends on the colour | One mole of any gas takes up 24 dm³ at RTP.
+MC | 3 | What is the volume of 6 g of hydrogen gas, H2, at room temperature and pressure? (H = 1) | 72 dm³ | 6 dm³ | 24 dm³ | 144 dm³ | 6 g ÷ 2 = 3 mol. 3 × 24 = 72 dm³.
+SA | 3 | What volume in dm³ do 0.25 moles of a gas take up at room temperature and pressure? | 6 | 0.25 × 24 = 6 dm³.
+SA | 3 | How many moles are in 96 dm³ of a gas at room temperature and pressure? | 4 | 96 ÷ 24 = 4 mol.
+
+lesson: 3.8 - Atom Economy
+MC | 1 | What does atom economy measure? | How much of the reactants ends up in the useful product | How fast the reaction makes its product overall | How much energy the reaction gives out as heat | How pure the final product is after it is dried | Atom economy is the percentage of reactant mass turned into the desired product.
+MC | 2 | Which equation gives atom economy? | Mr of useful product ÷ total Mr of reactants × 100 | Mass of product made ÷ mass expected × 100 | Moles of product ÷ moles of reactant × 100 | Total Mr of reactants ÷ Mr of product × 100 | Atom economy = (Mr of desired product ÷ sum of Mr of all reactants) × 100.
+MC | 2 | What is the atom economy of a reaction with only one product? | 100% | 50% | 0% | It depends on the yield | All the reactant atoms end up in the one product.
+MC | 3 | CaCO3 → CaO + CO2. Calcium oxide is the useful product. What is the atom economy? (CaCO3 = 100, CaO = 56) | 56% | 44% | 100% | 78% | 56 ÷ 100 × 100 = 56%.
+MC | 2 | Why is a high atom economy good for industry? | Less waste and fewer raw materials are needed | The reaction always happens faster | The product is always purer | The reaction gives out more heat | Fewer atoms are wasted, which is more sustainable and cheaper.
+MC | 3 | How can a company make use of a low atom economy reaction? | Find a use or a buyer for the by-products | Run the reaction at a lower temperature | Add more catalyst to the mixture | Use smaller amounts of reactants | Selling or using the by-products reduces waste.
+SA | 3 | A reaction has reactants with a total Mr of 200 and a useful product with Mr 150. What is the atom economy as a percentage? | 75 | 150 ÷ 200 × 100 = 75%.
+SA | 2 | Reactions that make a useful product and nothing else have an atom economy of what percentage? | 100 | With one product, every atom ends up in it.
+
+lesson: 3.9 - Percentage Yield
+MC | 1 | What is the percentage yield? | The amount of product made compared with the maximum possible | The proportion of reactant atoms in the product | The rate at which product is made | The purity of a sample of product | Percentage yield = actual mass ÷ theoretical mass × 100.
+MC | 2 | A reaction could make 10 g of product but makes 8 g. What is the percentage yield? | 80% | 8% | 125% | 20% | 8 ÷ 10 × 100 = 80%.
+MC | 2 | Why is the yield of a reaction often less than 100%? | Some product is lost when it is separated | Atoms are destroyed during the reaction | The reactants gain mass from the air | The catalyst uses up some product | Losses in transfer and filtering, side reactions and reversible reactions all lower the yield.
+MC | 3 | A reaction could make 40 g of product. The yield is 75%. What mass is made? | 30 g | 75 g | 10 g | 53 g | 75% of 40 g = 0.75 × 40 = 30 g.
+MC | 3 | How is percentage yield different from atom economy? | Yield is measured from experiments, atom economy from the equation | Yield is worked out from the balanced equation only | Atom economy changes each time you do the experiment | They are two names for exactly the same thing | Atom economy is fixed by the equation. Yield depends on how well the reaction went.
+MC | 2 | Why does a reversible reaction lower the yield? | Some products turn back into reactants | It makes the reaction much faster | It uses up the catalyst | It always gives out heat | The reaction may not go to completion.
+SA | 2 | 6 g of product is made when 8 g was possible. What is the percentage yield? | 75 | 6 ÷ 8 × 100 = 75%.
+SA | 3 | A reaction could make 50 g of product and makes 45 g. What is the percentage yield? | 90 | 45 ÷ 50 × 100 = 90%.

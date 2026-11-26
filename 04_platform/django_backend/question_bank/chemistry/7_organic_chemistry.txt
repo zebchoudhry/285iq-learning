@@ -1,0 +1,122 @@
+// AQA GCSE Chemistry 8462, topic 7: Organic chemistry. Written for 285IQ.
+topic: Organic Chemistry
+
+lesson: 7.1 - Hydrocarbons
+MC | 1 | What is a hydrocarbon? | A compound of hydrogen and carbon only | A compound of hydrogen, carbon and oxygen | Any compound containing carbon | A mixture of hydrogen and carbon gases | Hydrocarbons contain only hydrogen and carbon atoms.
+MC | 1 | What is crude oil? | A mixture of many hydrocarbons | A single pure compound | A type of alcohol | A mixture of metals | Crude oil is a mixture of mostly alkane hydrocarbons.
+MC | 2 | How was crude oil formed? | From the remains of plankton buried in mud | From volcanic rock deep underground | From the remains of large trees only | From chemical reactions in seawater | Ancient plankton was buried and compressed over millions of years.
+MC | 2 | Why is crude oil called a finite resource? | It is being used far faster than it forms | It is found in only one country | It can be made in a laboratory | It never runs out | It took millions of years to form, so it will run out.
+MC | 2 | Which of these is a hydrocarbon? | C3H8 | C2H5OH | CH3COOH | CO2 | Propane, C3H8, contains only carbon and hydrogen.
+MC | 3 | Which compounds make up most of crude oil? | Alkanes | Alkenes | Alcohols | Esters | Crude oil is mostly alkanes of different chain lengths.
+SA | 1 | Propane is C3H8. Apart from hydrogen, which element does it contain? (full name) | carbon | Hydrocarbons such as propane contain hydrogen and carbon only.
+SA | 2 | What type of resource is crude oil, because it will run out? | finite | Finite resources are used faster than they can be replaced.
+
+lesson: 7.2 - Alkanes - Properties & Combustion
+MC | 1 | What is the general formula of the alkanes? | CnH2n+2 | CnH2n | CnH2n-2 | CnHn | Alkanes have the general formula CnH2n+2.
+MC | 2 | What is the formula of propane? | C3H8 | C3H6 | C2H6 | C4H10 | Propane has 3 carbons: C3H(2×3+2) = C3H8.
+MC | 2 | What is made when an alkane burns completely in plenty of oxygen? | Carbon dioxide and water | Carbon monoxide and water | Carbon and hydrogen | Hydrogen and oxygen | Complete combustion oxidises the carbon and hydrogen fully.
+MC | 2 | How does the viscosity of alkanes change as the chain gets longer? | It increases | It decreases | It stays the same | It drops to zero | Longer molecules are thicker and flow less easily.
+MC | 3 | Why are alkanes described as saturated? | They contain only single carbon-carbon bonds | They have a double carbon-carbon bond | They are soaked in water | They contain oxygen atoms | Saturated means no C=C double bonds.
+MC | 3 | How does the flammability of alkanes change as the chain gets longer? | It decreases | It increases | It stays the same | It doubles | Longer chains are less flammable and harder to ignite.
+SA | 2 | What is the formula of the alkane with 2 carbon atoms? | C2H6 | Ethane: C2H(2×2+2) = C2H6.
+SA | 2 | What is the name of the alkane with the formula CH4? | methane | Methane is the simplest alkane.
+
+lesson: 7.3 - Fractional Distillation
+MC | 1 | What is fractional distillation of crude oil used for? | To separate it into fractions with similar boiling points | To break long chains into much shorter ones | To join small alkenes into polymer chains | To remove sulfur impurities from the fuels | Each fraction contains hydrocarbons with similar chain lengths and boiling points.
+MC | 2 | Where in the column are the fractions with the lowest boiling points collected? | At the top | At the bottom | In the middle | They are not collected | The column is cooler at the top, so small molecules condense there.
+MC | 2 | Which fraction has the longest hydrocarbon chains? | Bitumen | Petrol | Refinery gases | Kerosene | Bitumen collects at the bottom and has very long chains.
+MC | 2 | What happens to crude oil before it enters the fractionating column? | It is heated until most of it evaporates | It is cooled until it freezes | It is mixed with water | It is filtered through sand | The vapour rises up the column and condenses at different heights.
+MC | 3 | Why do short-chain hydrocarbons have low boiling points? | The forces between their molecules are weak | Their covalent bonds are very weak | They contain no carbon atoms at all | They are held together in a lattice | Small molecules have weak intermolecular forces.
+MC | 2 | Which fraction is used as a fuel for aeroplanes? | Kerosene | Bitumen | Heavy fuel oil | Refinery gases | Kerosene is jet fuel.
+SA | 2 | Which fraction is used to surface roads? | bitumen | Bitumen is thick and sticky.
+SA | 2 | Which fraction is used as fuel in most cars? | petrol | Petrol is a short-chain fraction used in car engines.
+
+lesson: 7.4 - Cracking & Alkenes
+MC | 1 | What is cracking? | Breaking long hydrocarbons into shorter, more useful ones | Joining short hydrocarbons into longer ones | Separating crude oil into fractions | Burning fuel to release energy | Cracking makes smaller, more useful molecules such as petrol and alkenes.
+MC | 2 | Which two methods are used to crack hydrocarbons? | Catalytic cracking and steam cracking | Distillation and filtration | Combustion and oxidation | Electrolysis and crystallisation | Both use heat. Catalytic cracking uses a catalyst and steam cracking uses steam.
+MC | 2 | Why is cracking needed? | There is more demand for short chains than crude oil supplies | Long chains are more useful than short chains are | It removes the impurities from the crude oil | It turns the hydrocarbons into useful alcohols | Cracking matches supply to demand for petrol and other short-chain fuels.
+MC | 2 | What is the test for an alkene? | It turns bromine water from orange to colourless | It turns limewater cloudy when it is bubbled in | It relights a glowing splint held in the gas | It bleaches damp blue litmus paper white | Alkenes decolourise bromine water. Alkanes do not.
+MC | 3 | C10H22 → C8H18 + ? What is the missing product? | C2H4 | C2H6 | CH4 | C3H6 | Carbon: 10 - 8 = 2. Hydrogen: 22 - 18 = 4. So C2H4, ethene.
+MC | 3 | What is the general formula of the alkenes? | CnH2n | CnH2n+2 | CnH2n-2 | CnHn | Alkenes have a C=C double bond and the formula CnH2n.
+SA | 2 | What is the name of the alkene with the formula C2H4? | ethene | Ethene is the simplest alkene.
+SA | 2 | What colour does bromine water turn when shaken with an alkene? | colourless | The orange bromine water is decolourised.
+
+lesson: 7.5 - Reaction of Alkenes
+MC | 2 | What is made when ethene reacts with hydrogen? | Ethane | Ethanol | Poly(ethene) | Ethanoic acid | Adding hydrogen across the double bond makes the alkane.
+MC | 2 | What is made when ethene reacts with steam? | Ethanol | Ethane | Ethanoic acid | Ethyl ethanoate | Adding water across the double bond makes an alcohol.
+MC | 2 | What is made when ethene reacts with bromine? | Dibromoethane | Bromoethene | Ethane | Hydrogen bromide | The two bromine atoms add across the double bond.
+MC | 3 | What type of reaction happens when alkenes react with halogens? | Addition | Substitution | Combustion | Neutralisation | Atoms add across the C=C double bond.
+MC | 3 | Why are alkenes more reactive than alkanes? | They have a carbon-carbon double bond | They have more hydrogen atoms | They have no carbon-carbon bonds | They are always gases | The double bond can open up and other atoms can add on.
+MC | 2 | Why do alkenes burn with a smoky flame? | They often burn incompletely | They contain oxygen atoms | They are very long molecules | They produce only water | Incomplete combustion produces soot (carbon).
+SA | 2 | What is the functional group of the alkenes? | C=C | The carbon-carbon double bond is the functional group.
+SA | 3 | What is made when propene reacts with hydrogen? | propane | Hydrogen adds across the double bond to make the alkane.
+
+lesson: 7.6 - Addition Polymers
+MC | 1 | What is a polymer? | A very long molecule made from many small units | A small molecule with a double bond | A mixture of different alkanes | A compound of a metal and carbon | Polymers are made by joining many monomers together.
+MC | 2 | What are the small molecules that join to make a polymer called? | Monomers | Isomers | Fractions | Catalysts | Monomers are the repeating units.
+MC | 2 | Which monomer is used to make poly(ethene)? | Ethene | Ethane | Ethanol | Propene | Many ethene molecules join together to make poly(ethene).
+MC | 3 | What happens to the double bond when alkenes form addition polymers? | It opens up so the monomers can join | It stays as it is in the polymer | It becomes a triple bond | It breaks into two single molecules | The C=C opens and each carbon bonds to the next monomer.
+MC | 3 | Which polymer is made from propene? | Poly(propene) | Poly(ethene) | PVC | Nylon | Propene monomers join to make poly(propene).
+MC | 2 | In addition polymerisation, what else is made besides the polymer? | Nothing else | Water | Hydrogen chloride | Carbon dioxide | Addition polymerisation forms only the polymer.
+SA | 2 | What name is given to the small molecules that join together to make a polymer? | monomers | Monomers link up to form polymers.
+SA | 3 | PVC is an addition polymer. What is the chemical name of its monomer? | chloroethene | PVC, poly(chloroethene), is made from chloroethene monomers.
+
+lesson: 7.7 - Alcohols
+MC | 1 | What is the functional group of the alcohols? | -OH | C=C | -COOH | -COO- | Alcohols contain the hydroxyl group, -OH.
+MC | 2 | What is the formula of ethanol? | C2H5OH | CH3OH | C3H7OH | C2H4 | Ethanol has two carbons and an -OH group.
+MC | 2 | What is made when an alcohol burns completely in air? | Carbon dioxide and water | Carbon monoxide only | Hydrogen and oxygen | Carbon and water | Alcohols burn to form carbon dioxide and water.
+MC | 2 | What is made when sodium reacts with ethanol? | Hydrogen gas and a salt solution | Carbon dioxide and water | Oxygen gas and an alkali | Ethene and water | Sodium fizzes in ethanol, releasing hydrogen.
+MC | 3 | What is made when ethanol is oxidised? | Ethanoic acid | Ethene | Ethane | Ethyl ethanoate | Oxidation turns an alcohol into a carboxylic acid.
+MC | 2 | What is one use of ethanol? | As a fuel and a solvent | As a food preservative only | As a polymer for bags | As a fertiliser | Ethanol is used in fuels, solvents and alcoholic drinks.
+SA | 2 | What is the name of the alcohol with one carbon atom? | methanol | Methanol is CH3OH.
+SA | 3 | What is the name of the alcohol with the formula C3H7OH? | propanol | Propanol has three carbons.
+
+lesson: 7.8 - Production of Ethanol
+MC | 1 | What process uses yeast to make ethanol from sugar? | Fermentation | Distillation | Cracking | Polymerisation | Yeast enzymes turn sugar into ethanol and carbon dioxide.
+MC | 2 | What gas is given off during fermentation? | Carbon dioxide | Oxygen | Hydrogen | Nitrogen | Glucose → ethanol + carbon dioxide.
+MC | 2 | Why is fermentation done at about 30 °C? | It is warm enough for yeast enzymes to work well | It is hot enough to kill any yeast present | It stops the ethanol from evaporating away | It makes the sugar dissolve much faster | Too cold is too slow. Too hot denatures the enzymes.
+MC | 3 | Why must air be kept out during fermentation? | Oxygen would turn the ethanol into ethanoic acid | Oxygen would kill the yeast straight away | Air makes the sugar crystallise out | Air contains too much carbon dioxide | With oxygen, microbes oxidise ethanol to ethanoic acid (vinegar).
+MC | 3 | How else can ethanol be made industrially? | By reacting ethene with steam | By heating methane with oxygen | By cracking long-chain alkanes | By electrolysis of sugar solution | Ethene + steam → ethanol, using a catalyst.
+MC | 2 | How can ethanol be separated from the fermentation mixture? | Fractional distillation | Filtration | Crystallisation | Chromatography | Ethanol boils at a lower temperature than water.
+SA | 1 | What living organism is used to ferment sugar? | yeast | Yeast cells contain enzymes that ferment sugar.
+SA | 2 | What sugar is fermented to make ethanol? | glucose | Glucose → ethanol + carbon dioxide.
+
+lesson: 7.9 - Carboxylic Acids
+MC | 1 | What is the functional group of the carboxylic acids? | -COOH | -OH | C=C | -COO- | Carboxylic acids contain the -COOH group.
+MC | 2 | What is the formula of ethanoic acid? | CH3COOH | C2H5OH | HCOOH | C2H4 | Ethanoic acid has two carbons and a -COOH group.
+MC | 2 | What is made when a carboxylic acid reacts with a carbonate? | A salt, water and carbon dioxide | A salt and hydrogen gas only | An ester and a molecule of water | An alcohol and some oxygen gas | Like other acids, they fizz with carbonates.
+MC | 2 | Why are carboxylic acids weak acids? | They only partly ionise in water | They do not dissolve in water | They have a high pH above 7 | They fully ionise in water | Only a small proportion of the molecules release H⁺ ions.
+MC | 3 | What is made when a carboxylic acid reacts with an alcohol? | An ester | A polymer | A hydrocarbon | A salt | Carboxylic acid + alcohol → ester + water, with an acid catalyst.
+MC | 3 | Which carboxylic acid has one carbon atom? | Methanoic acid | Ethanoic acid | Propanoic acid | Butanoic acid | Methanoic acid is HCOOH.
+SA | 2 | Which carboxylic acid is found in vinegar? | ethanoic acid | Vinegar is dilute ethanoic acid.
+SA | 3 | What is the name of the carboxylic acid with three carbon atoms? | propanoic acid | Propanoic acid has three carbons including the -COOH carbon.
+
+lesson: 7.10 - Esters
+MC | 1 | What is the functional group of the esters? | -COO- | -OH | -COOH | C=C | Esters contain the -COO- group.
+MC | 2 | Which two substances react to make an ester? | A carboxylic acid and an alcohol | An alkene and a molecule of water | An alkane and oxygen from the air | Two different alcohol molecules | Acid + alcohol → ester + water.
+MC | 2 | What is made when ethanoic acid reacts with ethanol? | Ethyl ethanoate | Ethene | Ethane | Ethyl alcohol | The ester formed is ethyl ethanoate.
+MC | 2 | What are esters often used in? | Perfumes and food flavourings | Fuels for cars | Fertilisers for crops | Building materials | Esters are volatile and have fruity smells.
+MC | 3 | What catalyst is used when making an ester? | An acid | An enzyme | Iron | Nickel | A little concentrated sulfuric acid catalyses the reaction.
+MC | 2 | What does a volatile substance do? | It evaporates easily | It burns very slowly | It dissolves in water | It conducts electricity | Volatile esters evaporate easily, so they can be smelled.
+SA | 2 | What small molecule is made alongside an ester? | water | Acid + alcohol → ester + water.
+SA | 3 | Name the ester made from ethanol and ethanoic acid. | ethyl ethanoate | The alcohol gives 'ethyl' and the acid gives 'ethanoate'.
+
+lesson: 7.11 - Condensation Polymers
+MC | 2 | What is made alongside the polymer in condensation polymerisation? | A small molecule such as water | Nothing else at all | A large alkene molecule | Pure hydrogen gas | Each link between monomers releases a small molecule.
+MC | 2 | How many functional groups does each monomer need for condensation polymerisation? | Two | One | Three | None | Each monomer needs a functional group at each end to link to two others.
+MC | 2 | Which pair of monomers can make a polyester? | A diol and a dicarboxylic acid | Two alkenes | An alkane and an alkene | Two hydrocarbons | The -OH and -COOH groups link with ester bonds.
+MC | 3 | How is condensation polymerisation different from addition polymerisation? | A small molecule is also made | Only one product is ever made | It uses alkenes as monomers | It does not make a polymer | Addition gives only the polymer. Condensation also releases a small molecule.
+MC | 3 | What type of monomers join to make a polyamide? | A diamine and a dicarboxylic acid | A diol and a molecule with two C=C bonds | Two different short-chain alkanes | An ester and an alcohol molecule | Amine and carboxylic acid groups link with amide bonds.
+MC | 2 | Which of these is a condensation polymer? | Polyester | Poly(ethene) | Poly(propene) | PVC | Polyesters are made by condensation polymerisation.
+SA | 2 | What small molecule is usually released when a polyester forms? | water | Each ester link releases a water molecule.
+SA | 3 | What type of monomer has two -OH groups? | diol | 'Di' means two and '-ol' means alcohol groups.
+
+lesson: 7.12 - Naturally Occurring Polymers
+MC | 1 | Which of these is a naturally occurring polymer? | DNA | Poly(ethene) | Nylon | PVC | DNA is a natural polymer made from nucleotides.
+MC | 2 | What are the monomers in proteins? | Amino acids | Nucleotides | Glucose molecules | Fatty acids | Amino acids join to make proteins.
+MC | 2 | What are the monomers in starch and cellulose? | Sugars such as glucose | Amino acids | Nucleotides | Alkenes | Starch and cellulose are polymers of glucose.
+MC | 3 | What are the monomers in DNA called? | Nucleotides | Amino acids | Glucose units | Esters | DNA is made of four different nucleotides.
+MC | 3 | What type of polymerisation joins amino acids together? | Condensation | Addition | Cracking | Fermentation | Water is released each time two amino acids join.
+MC | 2 | How many strands does DNA have? | Two | One | Three | Four | DNA is two polymer strands twisted into a double helix.
+SA | 2 | What shape is the DNA molecule? | double helix | Two strands twist around each other.
+SA | 2 | What sugar is the monomer of starch? | glucose | Starch is a polymer of glucose.
