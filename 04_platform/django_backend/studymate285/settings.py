@@ -31,6 +31,14 @@ if not SECRET_KEY:
 # The public address, used for canonical links, the sitemap and social previews.
 SITE_URL = config('SITE_URL', default='https://285iq.com')
 
+# Legal. PRIVACY_EMAIL is where data requests go; OPERATOR_NAME is the person or company that runs
+# 285IQ (shown on the privacy notice and terms when set). TERMS_VERSION changes whenever the
+# privacy notice or terms change in a way users should re-accept.
+PRIVACY_EMAIL = config('PRIVACY_EMAIL', default='privacy@285iq.com')
+OPERATOR_NAME = config('OPERATOR_NAME', default='')
+TERMS_VERSION = '2026-11-26'
+MINIMUM_AGE = 13
+
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
     default='localhost,127.0.0.1,.vercel.app,285iq.com,www.285iq.com',

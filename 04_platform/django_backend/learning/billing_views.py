@@ -109,8 +109,10 @@ def create_checkout_session(request):
         customer = stripe.Customer.create(email=parent_email)
 
     student = request.user
+    if (student.parent_email or "").lower() != parent_email.lower():
+        student.parent_email_verified_at = None  # a different address must be confirmed again
     student.parent_email = parent_email
-    student.save(update_fields=["parent_email"])
+    student.save(update_fields=["parent_email", "parent_email_verified_at"])
 
     success_url = request.build_absolute_uri("/billing/success/?session_id={CHECKOUT_SESSION_ID}")
     cancel_url = request.build_absolute_uri("/billing/cancel/")

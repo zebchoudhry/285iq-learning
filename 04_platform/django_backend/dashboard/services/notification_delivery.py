@@ -90,11 +90,16 @@ def send_parent_notification(
     # Only ever send to this student's own parent. Never fall back to a shared
     # or sender address: that would deliver a child's name and performance data
     # to someone who is not their parent.
-    parent_email = (
+    row = (
         get_user_model().objects.filter(pk=student_id)
-        .values_list('parent_email', flat=True)
+        .values_list('parent_email', 'parent_email_verified_at')
         .first()
-    )
+    ) or (None, None)
+    parent_email, verified_at = row
+    if parent_email and not verified_at:
+        # The address was typed by the student. Nothing goes to it until its owner confirms.
+        logger.info("Parent notification for student %s not sent: parent email not confirmed yet.", student_id)
+        return False
     if not parent_email:
         logger.warning(
             "Parent notification for student %s not sent: no parent_email set.",

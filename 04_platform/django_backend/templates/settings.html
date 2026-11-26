@@ -81,6 +81,40 @@
                 <button type="submit" class="btn btn-primary" id="pwSubmit">Change password</button>
             </form>
         </section>
+        <section class="section" aria-labelledby="parentTitle">
+            <h2 id="parentTitle">Parent or carer</h2>
+            <p class="subtitle">A parent gets progress updates only after they confirm their email from a message we send them.</p>
+            <form class="pw-form" id="parentForm" novalidate>
+                <div class="form-group">
+                    <label for="parentEmail">Parent or carer's email</label>
+                    <input type="text" id="parentEmail" name="parent_email" autocomplete="off" inputmode="email">
+                    <div class="field-error" id="err-parent_email" role="alert"></div>
+                </div>
+                <p class="hint" id="parentStatus" role="status"></p>
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" id="parentResend" hidden style="margin-top:0;margin-left:8px">Send the email again</button>
+            </form>
+        </section>
+        <section class="section" aria-labelledby="dataTitle">
+            <h2 id="dataTitle">Your data</h2>
+            <p class="subtitle">See what we hold about you, or remove it. Read our <a href="/privacy/">privacy notice</a> and <a href="/terms/">terms</a>.</p>
+            <p><a class="btn btn-secondary" href="/api/users/me/export/" style="display:inline-block;text-decoration:none;margin-top:8px">Download my data</a></p>
+            <form class="pw-form" id="deleteForm" novalidate style="margin-top:24px">
+                <h3 style="font-size:16px;margin-bottom:6px;color:#fca5a5">Delete my account</h3>
+                <p class="hint" style="margin:0 0 12px">This permanently deletes your account, progress and everything linked to it. It cannot be undone.</p>
+                <div class="form-group">
+                    <label for="delPw">Your password</label>
+                    <input type="password" id="delPw" autocomplete="current-password">
+                    <div class="field-error" id="err-password" role="alert"></div>
+                </div>
+                <div class="form-group">
+                    <label for="delConfirm">Type DELETE to confirm</label>
+                    <input type="text" id="delConfirm" autocomplete="off">
+                    <div class="field-error" id="err-confirm" role="alert"></div>
+                </div>
+                <button type="submit" class="btn btn-logout" style="margin-top:0">Delete my account</button>
+            </form>
+        </section>
         <button type="button" class="btn btn-logout" id="logoutBtn">Log out</button>
     </div>
     <script>
@@ -137,6 +171,41 @@
                 } finally {
                     btn.disabled = false;
                 }
+            });
+        })();
+        (function () {
+            const postJson = (url, body) => fetch(url, { method: 'POST', credentials: 'include',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrf }, body: JSON.stringify(body) });
+            const status = document.getElementById('parentStatus');
+            const resend = document.getElementById('parentResend');
+            function showParent(d) {
+                document.getElementById('parentEmail').value = d.parent_email || '';
+                if (!d.parent_email) { status.textContent = 'No parent email saved.'; resend.hidden = true; }
+                else if (d.confirmed) { status.textContent = 'Confirmed by your parent. They will get progress updates.'; resend.hidden = true; }
+                else { status.textContent = 'Waiting for your parent to confirm. Nothing is sent to them until they do.'; resend.hidden = false; }
+            }
+            fetch('/api/users/me/parent-email/', { credentials: 'include' }).then(r => r.json()).then(showParent).catch(() => {});
+            document.getElementById('parentForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                document.getElementById('err-parent_email').textContent = '';
+                const r = await postJson('/api/users/me/parent-email/', { parent_email: document.getElementById('parentEmail').value.trim() });
+                const d = await r.json().catch(() => ({}));
+                if (r.ok) { showParent(d); showMsg(d.parent_email ? 'Saved. We have emailed your parent to confirm.' : 'Parent email removed.'); }
+                else document.getElementById('err-parent_email').textContent = [].concat(d.parent_email || 'Could not save.').join(' ');
+            });
+            resend.addEventListener('click', async () => {
+                const r = await fetch('/api/users/me/parent-email/?resend=1', { credentials: 'include' });
+                if (r.ok) showMsg('We have sent the email again.');
+            });
+            document.getElementById('deleteForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                ['password', 'confirm'].forEach(f => { document.getElementById('err-' + f).textContent = ''; });
+                if (!confirm('Delete your account for good? This cannot be undone.')) return;
+                const r = await postJson('/api/users/auth/delete-account/', { password: document.getElementById('delPw').value, confirm: document.getElementById('delConfirm').value });
+                const d = await r.json().catch(() => ({}));
+                if (r.ok) { window.location.href = '/'; return; }
+                ['password', 'confirm'].forEach(f => { if (d[f]) document.getElementById('err-' + f).textContent = [].concat(d[f]).join(' '); });
+                if (r.status === 429) showMsg('Too many attempts. Please wait a while and try again.', true);
             });
         })();
         async function loadSettings() {

@@ -1,0 +1,39 @@
+{% extends "site/base_public.html" %}
+{% block content %}
+<section style="padding:56px 0 80px">
+    <div class="wrap" style="max-width:620px">
+        <h1 style="font-size:clamp(28px,5vw,38px)">Confirm you are a parent</h1>
+        {% if valid %}
+        <p class="lead" style="font-size:18px">The student <strong>{{ student }}</strong> gave this email address as their parent or carer on 285IQ, a GCSE revision service.</p>
+        <p class="muted" style="margin-top:12px">If that is your child, confirm below to receive progress updates about their revision. Nothing is sent to you until you do.</p>
+        <p class="muted" style="margin-top:8px">If you do not know who this is, do not press the button. Nothing will be sent, and you can ask us to remove your address at <a href="mailto:{{ privacy_email }}">{{ privacy_email }}</a>.</p>
+        <div class="cta-row">
+            <button type="button" class="btn btn-primary" id="confirmBtn">Yes, I am their parent or carer</button>
+        </div>
+        <p id="result" role="status" class="note" style="min-height:24px"></p>
+        {% else %}
+        <p class="lead" style="font-size:18px">This link is not valid any more. It may have expired, or the parent email may have been changed.</p>
+        <p class="muted" style="margin-top:12px">Ask your child to send a new confirmation email from their Settings page.</p>
+        {% endif %}
+        <p class="note">Read our <a href="/privacy/">privacy notice</a>.</p>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+{% if valid %}
+<script>
+(function () {
+    var token = {{ token|escapejs|default:"''" }};
+    function cookie(n) { var m = document.cookie.match('(^|;)\s*' + n + '=([^;]+)'); return m ? decodeURIComponent(m[2]) : ''; }
+    var btn = document.getElementById('confirmBtn'), out = document.getElementById('result');
+    btn.addEventListener('click', function () {
+        btn.disabled = true;
+        fetch('/api/users/parent-confirm/', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRFToken': cookie('csrftoken') }, body: JSON.stringify({ token: token }) })
+            .then(function (r) { return r.json().then(function (d) { return [r.ok, d]; }); })
+            .then(function (x) { out.textContent = x[0] ? x[1].message : (x[1].error || 'Something went wrong.'); out.style.color = x[0] ? '#6ee7b7' : '#fca5a5'; if (x[0]) btn.hidden = true; else btn.disabled = false; })
+            .catch(function () { out.textContent = 'Could not reach the server. Please try again.'; btn.disabled = false; });
+    });
+})();
+</script>
+{% endif %}
+{% endblock %}

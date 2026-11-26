@@ -27,6 +27,8 @@ class AuthAPITestCase(TestCase):
                 'email': 'test@example.com',
                 'password': 'SecurePass123!',
                 'password_confirm': 'SecurePass123!',
+                'accept_terms': True,
+                'age_confirmed': True,
             },
             content_type='application/json',
         )
