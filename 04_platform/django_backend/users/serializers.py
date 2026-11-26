@@ -143,3 +143,24 @@ class OnboardingExamDatesSerializer(serializers.Serializer):
         if not value:
             raise serializers.ValidationError('At least one subject with exam dates is required.')
         return value
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    """A signed-in user changing their own password."""
+    current_password = serializers.CharField(required=True, write_only=True, trim_whitespace=False)
+    new_password = serializers.CharField(required=True, write_only=True, trim_whitespace=False)
+    new_password_confirm = serializers.CharField(required=True, write_only=True, trim_whitespace=False)
+
+    def validate(self, attrs):
+        user = self.context["request"].user
+        if not user.check_password(attrs["current_password"]):
+            raise serializers.ValidationError({"current_password": "That is not your current password."})
+        if attrs["new_password"] != attrs["new_password_confirm"]:
+            raise serializers.ValidationError({"new_password_confirm": "The two new passwords do not match."})
+        if attrs["new_password"] == attrs["current_password"]:
+            raise serializers.ValidationError({"new_password": "Choose a password you have not used just now."})
+        try:
+            validate_password(attrs["new_password"], user)
+        except Exception as exc:  # django.core.exceptions.ValidationError
+            raise serializers.ValidationError({"new_password": list(getattr(exc, "messages", [str(exc)]))})
+        return attrs

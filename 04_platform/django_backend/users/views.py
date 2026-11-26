@@ -5,7 +5,10 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.views.decorators.csrf import ensure_csrf_cookie
+from rest_framework.decorators import throttle_classes
+from rest_framework.throttling import UserRateThrottle
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from django.conf import settings
@@ -19,6 +22,7 @@ from .serializers import (
     LoginSerializer,
     PasswordResetRequestSerializer,
     PasswordResetConfirmSerializer,
+    ChangePasswordSerializer,
     OnboardingExamDatesSerializer,
 )
 from .models import UserProfile
@@ -129,6 +133,27 @@ def password_reset_confirm(request):
     return Response({'message': 'Password has been reset. You can now log in.'})
 
 
+class ChangePasswordThrottle(UserRateThrottle):
+    """Slow down guessing of the current password from a signed-in session."""
+    scope = "change_password"
+    rate = "10/hour"
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@throttle_classes([ChangePasswordThrottle])
+def change_password(request):
+    """Change the signed-in user's password. They stay signed in on this device."""
+    serializer = ChangePasswordSerializer(data=request.data, context={'request': request})
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    user = request.user
+    user.set_password(serializer.validated_data['new_password'])
+    user.save(update_fields=['password'])
+    update_session_auth_hash(request, user)  # keep this session; other sessions are signed out
+    return Response({'message': 'Your password has been changed.'})
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def placeholder_view(request):
@@ -170,6 +195,7 @@ def forgot_password_page(request):
     return render(request, 'forgot_password.html')
 
 
+@ensure_csrf_cookie
 def settings_page(request):
     """Render settings page (exam settings, logout)."""
     if not request.user.is_authenticated:
