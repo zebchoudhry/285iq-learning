@@ -12,6 +12,7 @@ urlpatterns = [
     path('auth/login/', views.login_view, name='login'),
     path('auth/logout/', views.logout_view, name='logout'),
     path('auth/current-user/', views.current_user, name='current_user'),
+    path('auth/change-password/', views.change_password, name='change_password'),
     path('auth/password-reset/', views.password_reset_request, name='password_reset'),
     path('auth/password-reset/confirm/', views.password_reset_confirm, name='password_reset_confirm'),
     path('onboarding/exam-dates/', views.onboarding_exam_dates_submit, name='onboarding_exam_dates_submit'),

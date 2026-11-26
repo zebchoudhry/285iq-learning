@@ -26,6 +26,15 @@
         #message.success { background: rgba(16,185,129,0.16); color: #6ee7b7; display: block; }
         #message.error { background: rgba(239,68,68,0.16); color: #fca5a5; display: block; }
         .empty { color: #94a3b8; padding: 24px; text-align: center; }
+        .section { margin-top: 32px; padding-top: 24px; border-top: 1px solid #334155; }
+        .section h2 { font-size: 18px; margin-bottom: 4px; }
+        .pw-form .form-group { margin-bottom: 14px; display: block; }
+        .pw-form label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+        .pw-form input[type=password], .pw-form input[type=text] { width: 100%; padding: 10px 12px; border-radius: 8px; font-size: 15px; }
+        .pw-form .hint { color: #94a3b8; font-size: 13px; margin: -4px 0 14px; }
+        .pw-form .field-error { color: #fca5a5; font-size: 13px; margin-top: 6px; }
+        .pw-form .show { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #cbd5e1; margin-bottom: 14px; }
+        .pw-form .show input { width: auto; }
     </style>
     <link rel="stylesheet" href="/static/learning/app_theme.css">
     <style>
@@ -48,6 +57,30 @@
         <p class="subtitle">Manage your exam dates and target grades</p>
         <div id="message"></div>
         <div id="settingsList"><div class="empty">Loading...</div></div>
+        <section class="section" aria-labelledby="pwTitle">
+            <h2 id="pwTitle">Change password</h2>
+            <p class="subtitle">You will stay signed in on this device. Other devices will need the new password.</p>
+            <form class="pw-form" id="pwForm" novalidate>
+                <div class="form-group">
+                    <label for="currentPw">Current password</label>
+                    <input type="password" id="currentPw" name="current_password" autocomplete="current-password" required>
+                    <div class="field-error" id="err-current_password" role="alert"></div>
+                </div>
+                <div class="form-group">
+                    <label for="newPw">New password</label>
+                    <input type="password" id="newPw" name="new_password" autocomplete="new-password" required aria-describedby="pwHint">
+                    <div class="field-error" id="err-new_password" role="alert"></div>
+                </div>
+                <p class="hint" id="pwHint">At least 8 characters. Not only numbers, not a common password, and not too like your username.</p>
+                <div class="form-group">
+                    <label for="newPw2">Type the new password again</label>
+                    <input type="password" id="newPw2" name="new_password_confirm" autocomplete="new-password" required>
+                    <div class="field-error" id="err-new_password_confirm" role="alert"></div>
+                </div>
+                <label class="show"><input type="checkbox" id="showPw"> Show passwords</label>
+                <button type="submit" class="btn btn-primary" id="pwSubmit">Change password</button>
+            </form>
+        </section>
         <button type="button" class="btn btn-logout" id="logoutBtn">Log out</button>
     </div>
     <script>
@@ -59,6 +92,53 @@
             el.style.display = 'block';
             setTimeout(() => { el.style.display = 'none'; }, 3000);
         }
+        (function () {
+            const form = document.getElementById('pwForm');
+            const fields = ['current_password', 'new_password', 'new_password_confirm'];
+            document.getElementById('showPw').addEventListener('change', (e) => {
+                ['currentPw', 'newPw', 'newPw2'].forEach(id => { document.getElementById(id).type = e.target.checked ? 'text' : 'password'; });
+            });
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                fields.forEach(f => { document.getElementById('err-' + f).textContent = ''; });
+                const body = {};
+                fields.forEach(f => { body[f] = form.elements[f].value; });
+                if (!body.current_password || !body.new_password || !body.new_password_confirm) {
+                    fields.forEach(f => { if (!body[f]) document.getElementById('err-' + f).textContent = 'This is needed.'; });
+                    return;
+                }
+                if (body.new_password !== body.new_password_confirm) {
+                    document.getElementById('err-new_password_confirm').textContent = 'The two new passwords do not match.';
+                    return;
+                }
+                const btn = document.getElementById('pwSubmit');
+                btn.disabled = true;
+                try {
+                    const r = await fetch('/api/users/auth/change-password/', {
+                        method: 'POST', credentials: 'include',
+                        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrf },
+                        body: JSON.stringify(body),
+                    });
+                    const data = await r.json().catch(() => ({}));
+                    if (r.ok) {
+                        form.reset();
+                        showMsg(data.message || 'Your password has been changed.');
+                    } else if (r.status === 429) {
+                        showMsg('Too many attempts. Please wait a while and try again.', true);
+                    } else {
+                        let shown = false;
+                        fields.forEach(f => {
+                            if (data[f]) { document.getElementById('err-' + f).textContent = [].concat(data[f]).join(' '); shown = true; }
+                        });
+                        if (!shown) showMsg(data.detail || 'Could not change your password. Please try again.', true);
+                    }
+                } catch (err) {
+                    showMsg('Could not reach the server. Check your connection.', true);
+                } finally {
+                    btn.disabled = false;
+                }
+            });
+        })();
         async function loadSettings() {
             try {
                 const r = await fetch('/api/users/me/settings/', { credentials: 'include' });
