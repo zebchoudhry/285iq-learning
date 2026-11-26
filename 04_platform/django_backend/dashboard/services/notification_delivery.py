@@ -109,10 +109,11 @@ def send_parent_notification(
             message=body,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=recipient_list,
-            fail_silently=True,
+            fail_silently=False,
         )
     except Exception:
-        pass
+        # Keep going (the notification is still logged for rate limiting), but make the failure visible.
+        logger.exception("Parent notification email for student %s could not be sent", student_id)
 
     NotificationLog.objects.create(
         student_id=student_id,
