@@ -1,0 +1,67 @@
+{% extends "site/base_public.html" %}
+{% block content %}
+<style>
+    .legal { padding: 40px 0 72px; }
+    .legal .wrap { max-width: 760px; }
+    .legal h1 { font-size: clamp(30px, 5vw, 42px); margin-bottom: 6px; }
+    .legal h2 { font-size: 22px; margin: 36px 0 10px; }
+    .legal p, .legal li { color: var(--muted); margin-bottom: 10px; }
+    .legal li { margin-left: 22px; }
+    .legal strong { color: var(--text); }
+    .legal .box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin: 18px 0; }
+</style>
+<section class="legal">
+    <div class="wrap">
+        <p class="crumbs" style="padding:0 0 12px"><a href="/">285IQ</a> / Terms of use</p>
+        <h1>Terms of use</h1>
+        <p>Last updated {{ updated }}. These are the rules for using 285IQ. We have tried to keep them short and clear. By creating an account you agree to them and to our <a href="/privacy/">privacy notice</a>.</p>
+
+        <div class="box"><strong>In short:</strong> use 285IQ to revise, keep your password safe, be fair to others, and remember it is a revision tool and not a promise of grades.</div>
+
+        <h2>Who can use 285IQ</h2>
+        <ul>
+            <li>You must be {{ minimum_age }} or over to create an account.</li>
+            <li>If you are under 18, please make sure a parent or carer is happy for you to use 285IQ. Any paid plan must be bought by an adult.</li>
+            <li>Give us true information when you sign up, and keep one account for yourself.</li>
+        </ul>
+
+        <h2>Your account</h2>
+        <ul>
+            <li>Keep your password private. You are responsible for what happens on your account.</li>
+            <li>Keep your parent progress link private. Anyone with it can see your progress.</li>
+            <li>Tell us straight away if you think someone else has got into your account.</li>
+        </ul>
+
+        <h2>Using it fairly</h2>
+        <p>Please do not:</p>
+        <ul>
+            <li>try to cheat the scoring, XP, levels or leaderboards, for example with scripts or by sharing answers in a way that defeats the point of the game;</li>
+            <li>copy, scrape or resell our questions, lessons or other content;</li>
+            <li>use 285IQ to harass or upset anyone, or for anything illegal;</li>
+            <li>try to break, overload or get around the security of the service.</li>
+        </ul>
+        <p>If someone breaks these rules we may limit or close their account.</p>
+
+        <h2>Our content</h2>
+        <p>The questions, lessons and design are ours, or used with permission, and are protected by copyright. You may use them for your own revision. 285IQ is independent and is not affiliated with, or endorsed by, AQA or any other exam board. We follow the published topics so you know what to revise, but you should always check your own exam board's specification.</p>
+
+        <h2>Revision, not guarantees</h2>
+        <p>285IQ is a revision tool. We work hard to make the content accurate, but we cannot promise it is free of mistakes, and we cannot promise any particular grade. Estimates such as the exam readiness bar are only estimates from your practice so far. Please use 285IQ alongside your lessons and ask your teacher when something does not make sense.</p>
+
+        <h2>Paid plans</h2>
+        <p>Where paid plans are offered, they are bought by a parent or adult. The price is shown before you pay, and the plan details are shown when you buy. Nothing is charged unless you complete a purchase.</p>
+
+        <h2>Availability and changes</h2>
+        <p>We aim to keep 285IQ running, but we cannot promise it will always be available or error-free. We may change or improve features, and we may update these terms. If a change matters, we will tell you and, where needed, ask you to accept the new version.</p>
+
+        <h2>Closing your account</h2>
+        <p>You can delete your account at any time from Settings. What happens to your information is explained in the <a href="/privacy/">privacy notice</a>.</p>
+
+        <h2>Our responsibility</h2>
+        <p>Nothing in these terms limits any right you have under the law that cannot be limited. Subject to that, we are not responsible for losses that were not a foreseeable result of our breaking these terms, or for any business, profit or exam-result losses. These terms are governed by the law of England and Wales.</p>
+
+        <h2>Contact</h2>
+        <p>Questions about these terms: <a href="mailto:{{ privacy_email }}">{{ privacy_email }}</a>.{% if operator %} 285IQ is run by {{ operator }}.{% endif %}</p>
+    </div>
+</section>
+{% endblock %}

@@ -26,17 +26,30 @@ class ParentNotificationRecipientTests(TestCase):
         )
 
     def test_sends_only_to_the_students_own_parent(self):
+        from django.utils import timezone
+
         student = get_user_model().objects.create_user(
-            username='kid1', password='x-test-pass', parent_email='parent1@example.com'
+            username='kid1', password='x-test-pass', parent_email='parent1@example.com',
+            parent_email_verified_at=timezone.now(),
         )
         get_user_model().objects.create_user(
-            username='kid2', password='x-test-pass', parent_email='parent2@example.com'
+            username='kid2', password='x-test-pass', parent_email='parent2@example.com',
+            parent_email_verified_at=timezone.now(),
         )
 
         self.assertTrue(self._send(student))
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, ['parent1@example.com'])
         self.assertEqual(NotificationLog.objects.count(), 1)
+
+    def test_an_unconfirmed_parent_email_gets_nothing(self):
+        """The student typed the address; its owner has not confirmed it, so no child data goes to it."""
+        student = get_user_model().objects.create_user(
+            username='kid4', password='x-test-pass', parent_email='stranger@example.com'
+        )
+        self.assertFalse(self._send(student))
+        self.assertEqual(mail.outbox, [])
+        self.assertEqual(NotificationLog.objects.count(), 0)
 
     def test_no_parent_email_sends_nothing(self):
         student = get_user_model().objects.create_user(username='kid3', password='x-test-pass')

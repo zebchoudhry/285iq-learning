@@ -24,6 +24,11 @@ class Student(AbstractUser):
     stripe_subscription_id = models.CharField(max_length=100, blank=True, null=True)
     subscription_expires_at = models.DateTimeField(null=True, blank=True)
     parent_email = models.EmailField(blank=True, null=True)
+    # Consent recorded at signup: when the user accepted the terms and privacy notice, and which version.
+    terms_accepted_at = models.DateTimeField(null=True, blank=True)
+    terms_version = models.CharField(max_length=20, blank=True)
+    # A parent's email only receives progress emails after the parent confirms it from a link we send them.
+    parent_email_verified_at = models.DateTimeField(null=True, blank=True)
     
     # Fix reverse accessor conflicts
     groups = models.ManyToManyField(

@@ -23,7 +23,7 @@ def health_check(request):
         {'status': 'ok' if db_ok else 'degraded', 'database': db_ok, 'detail': db_error},
         status=status_code,
     )
-from learning import seo_views
+from learning import legal_views, seo_views
 from learning.boss_views import boss_page
 from learning.session_views import today_page
 from learning.game_views import game_play_page, games_hub_page
@@ -74,6 +74,9 @@ urlpatterns = [
     path('gcse-biology/', seo_views.subject_page, {'slug': 'gcse-biology'}, name='public_gcse_biology'),
     path('gcse-chemistry/', seo_views.subject_page, {'slug': 'gcse-chemistry'}, name='public_gcse_chemistry'),
     path('gcse-physics/', seo_views.subject_page, {'slug': 'gcse-physics'}, name='public_gcse_physics'),
+    path('privacy/', legal_views.privacy_page, name='privacy'),
+    path('terms/', legal_views.terms_page, name='terms'),
+    path('parent-confirm/', user_views.parent_confirm_page, name='parent_confirm_page'),
     path('robots.txt', seo_views.robots_txt, name='robots_txt'),
     path('sitemap.xml', seo_views.sitemap_xml, name='sitemap_xml'),
     path('llms.txt', seo_views.llms_txt, name='llms_txt'),

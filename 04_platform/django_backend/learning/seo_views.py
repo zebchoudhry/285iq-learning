@@ -74,7 +74,7 @@ FAQS = [
 ]
 
 PRIVATE_PREFIXES = (
-    "/api/", "/admin/", "/parent/", "/billing/", "/settings/", "/onboarding/", "/quiz/", "/practice/",
+    "/api/", "/parent-confirm/", "/admin/", "/parent/", "/billing/", "/settings/", "/onboarding/", "/quiz/", "/practice/",
     "/lessons/", "/flashcards/", "/mistakes/", "/revision/", "/subject/", "/subjects/", "/exam-readiness/",
     "/mock-tests/", "/boss/", "/games/", "/static/admin/",
 )
@@ -313,7 +313,7 @@ def robots_txt(request):
 
 
 def sitemap_xml(request):
-    paths = ["/"] + [f"/{slug}/" for slug in PUBLIC_SUBJECTS] + ["/register/"]
+    paths = ["/"] + [f"/{slug}/" for slug in PUBLIC_SUBJECTS] + ["/register/", "/privacy/", "/terms/"]
     urls = "\n".join(f"  <url><loc>{site_url()}{p}</loc></url>" for p in paths)
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'

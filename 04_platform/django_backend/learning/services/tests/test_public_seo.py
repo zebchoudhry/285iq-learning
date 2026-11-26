@@ -246,7 +246,7 @@ def test_sitemap_is_valid_xml_with_canonical_urls(client, db):
     assert r["Content-Type"].startswith("application/xml")
     root = ET.fromstring(r.content)
     locs = [e.text for e in root.iter("{http://www.sitemaps.org/schemas/sitemap/0.9}loc")]
-    assert locs == [f"{SITE}/", *[f"{SITE}/{s}/" for s in seo_views.PUBLIC_SUBJECTS], f"{SITE}/register/"]
+    assert locs == [f"{SITE}/", *[f"{SITE}/{s}/" for s in seo_views.PUBLIC_SUBJECTS], f"{SITE}/register/", f"{SITE}/privacy/", f"{SITE}/terms/"]
     assert all(l.startswith("https://") for l in locs)
 
 

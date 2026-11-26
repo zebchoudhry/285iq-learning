@@ -4,6 +4,8 @@ Serializers for user authentication and profile
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
+from django.conf import settings
+from django.utils import timezone
 from .models import UserProfile
 
 User = get_user_model()
@@ -17,10 +19,16 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         validators=[validate_password]
     )
     password_confirm = serializers.CharField(write_only=True, required=True)
-    
+    # Consent. Both must be true to register, and the time and version are stored.
+    accept_terms = serializers.BooleanField(write_only=True, required=True)
+    age_confirmed = serializers.BooleanField(write_only=True, required=True)
+    # Optional: a parent's email, so they can be told about the progress link.
+    parent_email = serializers.EmailField(required=False, allow_blank=True, allow_null=True)
+
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'password_confirm', 'first_name', 'last_name', 'grade_level')
+        fields = ('username', 'email', 'password', 'password_confirm', 'first_name', 'last_name', 'grade_level',
+                  'accept_terms', 'age_confirmed', 'parent_email')
         extra_kwargs = {
             'email': {'required': True},
             'first_name': {'required': False},
@@ -30,10 +38,24 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         if attrs['password'] != attrs['password_confirm']:
             raise serializers.ValidationError({"password": "Password fields didn't match."})
+        if not attrs.get('accept_terms'):
+            raise serializers.ValidationError({"accept_terms": "Please accept the terms and the privacy notice to register."})
+        if not attrs.get('age_confirmed'):
+            raise serializers.ValidationError(
+                {"age_confirmed": f"You need to be {settings.MINIMUM_AGE} or over to register."})
+        parent = (attrs.get('parent_email') or '').strip().lower()
+        if parent and parent == (attrs.get('email') or '').strip().lower():
+            raise serializers.ValidationError({"parent_email": "Use your parent's own email address, not yours."})
         return attrs
     
     def create(self, validated_data):
         validated_data.pop('password_confirm')
+        validated_data.pop('accept_terms', None)
+        validated_data.pop('age_confirmed', None)
+        parent_email = (validated_data.pop('parent_email', None) or '').strip().lower() or None
+        validated_data['parent_email'] = parent_email
+        validated_data['terms_accepted_at'] = timezone.now()
+        validated_data['terms_version'] = settings.TERMS_VERSION
         password = validated_data.pop('password')
         user = User.objects.create_user(**validated_data)
         user.set_password(password)

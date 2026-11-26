@@ -28,6 +28,7 @@ from .serializers import (
     OnboardingExamDatesSerializer,
 )
 from .models import UserProfile
+from . import parent_consent
 
 logger = logging.getLogger(__name__)
 
@@ -41,6 +42,8 @@ def register(request):
     serializer = UserRegistrationSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
+        if user.parent_email:
+            parent_consent.send_confirmation(user)
         # Auto-login after registration
         login(request, user)
         user_serializer = UserSerializer(user)
@@ -170,6 +173,86 @@ def change_password(request):
     user.save(update_fields=['password'])
     update_session_auth_hash(request, user)  # keep this session; other sessions are signed out
     return Response({'message': 'Your password has been changed.'})
+
+
+@ensure_csrf_cookie
+def parent_confirm_page(request):
+    """A parent opens the emailed link. A button (not the link itself) confirms, so email scanners
+    that open links cannot confirm on the parent's behalf."""
+    user, ok = parent_consent.read_token(request.GET.get('t', ''))
+    return render(request, 'site/parent_confirm.html', {
+        'valid': bool(user and ok),
+        'student': user.username if user and ok else '',
+        'token': request.GET.get('t', '') if user and ok else '',
+        'privacy_email': settings.PRIVACY_EMAIL,
+        'page_title': 'Confirm you are a parent | 285IQ',
+        'page_description': 'Confirm a parent email address for a 285IQ student.',
+        'path': '/parent-confirm/', 'site_url': settings.SITE_URL.rstrip('/'), 'noindex': True, 'jsonld': '',
+        'subjects_nav': [],
+    })
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def parent_confirm(request):
+    user, ok = parent_consent.read_token(request.data.get('token', ''))
+    if not (user and ok):
+        return Response({'error': 'This link is not valid any more. Ask your child to send a new one.'},
+                        status=status.HTTP_400_BAD_REQUEST)
+    parent_consent.confirm(user)
+    return Response({'message': 'Thank you. You will now get progress updates.'})
+
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def my_parent_email(request):
+    """Read or change the parent's email. A new address must be confirmed by its owner before it is used."""
+    user = request.user
+    if request.method == 'POST':
+        email = (request.data.get('parent_email') or '').strip()
+        if email:
+            from django.core.exceptions import ValidationError
+            from django.core.validators import validate_email
+            try:
+                validate_email(email)
+            except ValidationError:
+                return Response({'parent_email': 'Enter a valid email address.'}, status=status.HTTP_400_BAD_REQUEST)
+            if email.lower() == (user.email or '').lower():
+                return Response({'parent_email': "Use your parent's own email address, not yours."},
+                                status=status.HTTP_400_BAD_REQUEST)
+        parent_consent.set_parent_email(user, email)
+    elif request.query_params.get('resend') and user.parent_email and not user.parent_email_verified_at:
+        parent_consent.send_confirmation(user)
+    return Response({
+        'parent_email': user.parent_email or '',
+        'confirmed': bool(user.parent_email_verified_at),
+    })
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@throttle_classes([ChangePasswordThrottle])
+def delete_account(request):
+    """Permanently delete the signed-in user's account and everything linked to it."""
+    if not request.user.check_password(request.data.get('password', '')):
+        return Response({'password': 'That is not your password.'}, status=status.HTTP_400_BAD_REQUEST)
+    if (request.data.get('confirm') or '').strip().lower() != 'delete':
+        return Response({'confirm': 'Type DELETE to confirm.'}, status=status.HTTP_400_BAD_REQUEST)
+    user = request.user
+    logout(request)
+    user.delete()
+    return Response({'message': 'Your account has been deleted.'})
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def export_my_data(request):
+    """Everything we hold about the signed-in user, as a JSON download."""
+    from .data_export import build_export
+
+    response = Response(build_export(request.user))
+    response['Content-Disposition'] = 'attachment; filename="285iq-my-data.json"'
+    return response
 
 
 @api_view(['GET'])

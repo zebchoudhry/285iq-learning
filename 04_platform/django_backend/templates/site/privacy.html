@@ -1,0 +1,92 @@
+{% extends "site/base_public.html" %}
+{% block content %}
+<style>
+    .legal { padding: 40px 0 72px; }
+    .legal .wrap { max-width: 760px; }
+    .legal h1 { font-size: clamp(30px, 5vw, 42px); margin-bottom: 6px; }
+    .legal h2 { font-size: 22px; margin: 36px 0 10px; }
+    .legal p, .legal li { color: var(--muted); margin-bottom: 10px; }
+    .legal li { margin-left: 22px; }
+    .legal strong { color: var(--text); }
+    .legal .box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin: 18px 0; }
+    .legal table { width: 100%; border-collapse: collapse; margin: 12px 0 18px; font-size: 15px; }
+    .legal th, .legal td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--muted); }
+    .legal th { color: var(--text); }
+    @media (max-width: 640px) { .legal table, .legal thead, .legal tbody, .legal tr, .legal th, .legal td { display: block; } .legal thead { display: none; } .legal td { border: 0; padding: 4px 0; } .legal tr { border-bottom: 1px solid var(--border); padding: 10px 0; } }
+</style>
+<section class="legal">
+    <div class="wrap">
+        <p class="crumbs" style="padding:0 0 12px"><a href="/">285IQ</a> / Privacy notice</p>
+        <h1>Privacy notice</h1>
+        <p>Last updated {{ updated }}. This explains, in plain English, what 285IQ does with your information. It is written for students aged {{ minimum_age }} and over, and for their parents.</p>
+
+        <div class="box">
+            <strong>The short version.</strong> We collect what we need to run your revision account and show your progress. We do not sell your data and we do not show adverts. You can download everything we hold about you, or delete your account, from your Settings page at any time.
+        </div>
+
+        <h2>Who we are</h2>
+        <p>285IQ is a GCSE revision service for Maths, Biology, Chemistry and Physics.{% if operator %} It is run by <strong>{{ operator }}</strong>, who is responsible for your information (the "data controller").{% else %} The team behind 285IQ is responsible for your information (the "data controller").{% endif %} To ask a question or make a request about your data, email <a href="mailto:{{ privacy_email }}">{{ privacy_email }}</a>.</p>
+
+        <h2>What we collect</h2>
+        <table>
+            <thead><tr><th>What</th><th>Why we need it</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Account details:</strong> username, email address, and your password (stored scrambled, so we cannot read it). Your name, school and city only if you choose to add them.</td><td>To create and secure your account, and to send emails such as password resets.</td></tr>
+                <tr><td><strong>A parent's email address</strong>, if you or a parent gives one.</td><td>So a parent can be told about the private progress link and receive progress updates.</td></tr>
+                <tr><td><strong>Your revision activity:</strong> answers and scores, mistakes, flashcard progress, games and boss battles, study sessions, XP and levels, exam dates and target grades, and your exam readiness over time.</td><td>To run the service: to choose your questions, track progress, show the readiness bar and fill the parent view.</td></tr>
+                <tr><td><strong>Technical information:</strong> your IP address and browser details, held briefly in server logs.</td><td>To keep the service secure and fix faults.</td></tr>
+                <tr><td><strong>Payment details,</strong> only if a parent subscribes. Card details go to our payment provider (Stripe) and never reach us. We keep a customer and subscription reference.</td><td>To take payment and manage the subscription.</td></tr>
+            </tbody>
+        </table>
+        <p>We do not collect your date of birth, your address, or any special-category information such as health data.</p>
+
+        <h2>Our legal reasons for using it</h2>
+        <ul>
+            <li><strong>To provide the service you signed up for</strong> (contract): your account, revision activity, progress and parent view.</li>
+            <li><strong>Our legitimate interests:</strong> keeping the service secure, preventing misuse, and improving the questions and features. We use revision activity this way only to improve 285IQ, never to advertise to you.</li>
+            <li><strong>Legal obligation:</strong> keeping payment records as the law requires.</li>
+            <li><strong>Your consent,</strong> where we ask for it, for example when you accept these terms at signup. You can withdraw it by deleting your account.</li>
+        </ul>
+
+        <h2>Who we share it with</h2>
+        <p>We only share information with companies that help us run 285IQ. They may only use it for that purpose.</p>
+        <table>
+            <thead><tr><th>Who</th><th>What they do</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Vercel</strong></td><td>Hosts the website and app.</td></tr>
+                <tr><td><strong>Neon</strong></td><td>Stores our database (hosted in London).</td></tr>
+                <tr><td><strong>Brevo</strong></td><td>Sends our emails, such as password resets and parent updates.</td></tr>
+                <tr><td><strong>Stripe</strong></td><td>Takes payments, if a parent subscribes.</td></tr>
+                <tr><td><strong>Google Fonts</strong></td><td>Some pages load fonts from Google, which means your browser contacts Google and shares your IP address with it.</td></tr>
+                <tr><td><strong>YouTube and Vimeo</strong></td><td>Some lessons include embedded videos. If you press play, those companies may set their own cookies and collect information under their own policies.</td></tr>
+            </tbody>
+        </table>
+        <p>We do not sell personal information and we do not share it for advertising. We may have to disclose information if the law requires it. Some of these companies handle data outside the UK; where they do, we rely on the safeguards they provide, such as approved standard contract terms.</p>
+        <p>If we ever switch on features that send what you type to an AI service, we will update this notice before we do.</p>
+
+        <h2>Cookies</h2>
+        <p>285IQ uses only the cookies it needs to work: one that keeps you signed in, and one that protects forms against forgery. We do not use advertising or analytics cookies, so there is no cookie banner to click. Embedded videos, as above, may set their own cookies if you play them.</p>
+
+        <h2>Children and parents</h2>
+        <p>You must be {{ minimum_age }} or over to create an account. If you are under 18, please make sure a parent or carer is happy for you to use 285IQ.</p>
+        <p>Each student has a private <strong>parent progress link</strong>. Anyone who has the link can see that student's progress (exam countdown, grade against target, practice, and topic coverage), so keep it private. It never shows a student's password, email address or other accounts.</p>
+        <p>A parent or carer can contact us at <a href="mailto:{{ privacy_email }}">{{ privacy_email }}</a> to ask about, correct or delete their child's data.</p>
+
+        <h2>How long we keep it</h2>
+        <p>We keep your information while your account exists. When you delete your account, your account and revision activity are removed from the live service straight away. Copies in our provider's backups are overwritten on its normal schedule. Payment records are kept for as long as the law requires.</p>
+
+        <h2>Your rights</h2>
+        <p>You can:</p>
+        <ul>
+            <li><strong>See and download your data:</strong> Settings, then "Download my data".</li>
+            <li><strong>Delete your account and data:</strong> Settings, then "Delete my account".</li>
+            <li><strong>Correct your details,</strong> such as your exam dates, in Settings, or ask us to.</li>
+            <li><strong>Object to, or ask us to limit,</strong> how we use your information.</li>
+        </ul>
+        <p>Email <a href="mailto:{{ privacy_email }}">{{ privacy_email }}</a> for any of these and we will reply within one month. If you are not happy with how we have handled your information, you can complain to the Information Commissioner's Office at <a href="https://ico.org.uk/make-a-complaint/">ico.org.uk</a> or on 0303 123 1113.</p>
+
+        <h2>Changes</h2>
+        <p>If we change this notice in a way that matters, we will update the date above and, where it affects what you agreed to, ask you to accept it again. See also our <a href="/terms/">terms of use</a>.</p>
+    </div>
+</section>
+{% endblock %}
